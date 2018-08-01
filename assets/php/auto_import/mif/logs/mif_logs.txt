@@ -1,0 +1,861 @@
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-05-05 TIME: 9:57:00
+3 Row data inserted successfully.
+1516 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-05-05 TIME: 19:20:00
+2 Row data inserted successfully.
+1519 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-05-06 TIME: 19:20:00
+0 Row data inserted successfully.
+1521 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-05-07 TIME: 19:20:00
+7 Row data inserted successfully.
+1520 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-05-08 TIME: 19:20:00
+10 Row data inserted successfully.
+1527 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-05-09 TIME: 19:20:00
+0 Row data inserted successfully.
+1537 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-05-10 TIME: 14:57:00
+3 Row data inserted successfully.
+3076 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-05-10 TIME: 14:58:00
+0 Row data inserted successfully.
+3079 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-05-10 TIME: 19:20:00
+0 Row data inserted successfully.
+3079 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-05-11 TIME: 19:20:00
+3 Row data inserted successfully.
+1539 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-05-12 TIME: 19:20:00
+1 Row data inserted successfully.
+1542 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-05-13 TIME: 19:20:00
+1 Row data inserted successfully.
+1543 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-05-14 TIME: 19:20:00
+0 Row data inserted successfully.
+1544 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-05-15 TIME: 19:20:00
+0 Row data inserted successfully.
+1544 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-05-16 TIME: 19:20:00
+0 Row data inserted successfully.
+1544 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-05-17 TIME: 19:20:00
+2 Row data inserted successfully.
+1544 Row data updated successfully.
+
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-05-19 TIME: 9:45:00
+1 Row data inserted successfully.
+1546 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-05-19 TIME: 9:46:00
+0 Row data inserted successfully.
+1547 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-05-19 TIME: 19:20:00
+0 Row data inserted successfully.
+1547 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-05-20 TIME: 19:20:00
+0 Row data inserted successfully.
+1547 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-05-21 TIME: 22:20:00
+1 Row data inserted successfully.
+1548 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-05-22 TIME: 22:20:00
+0 Row data inserted successfully.
+1549 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-05-23 TIME: 22:20:00
+5 Row data inserted successfully.
+1549 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-05-24 TIME: 22:20:00
+4 Row data inserted successfully.
+1554 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-05-25 TIME: 22:20:00
+4 Row data inserted successfully.
+1557 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-05-26 TIME: 22:20:00
+1 Row data inserted successfully.
+1561 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-05-27 TIME: 22:20:00
+0 Row data inserted successfully.
+1562 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-05-28 TIME: 22:20:00
+1 Row data inserted successfully.
+1562 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-05-29 TIME: 9:43:00
+0 Row data inserted successfully.
+1563 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-05-29 TIME: 22:20:00
+4 Row data inserted successfully.
+1562 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-05-30 TIME: 22:20:00
+2 Row data inserted successfully.
+1566 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-05-31 TIME: 22:20:00
+1 Row data inserted successfully.
+1566 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-01 TIME: 22:20:00
+0 Row data inserted successfully.
+1567 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-02 TIME: 22:20:00
+0 Row data inserted successfully.
+1567 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-03 TIME: 22:20:00
+0 Row data inserted successfully.
+1567 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-04 TIME: 22:20:00
+0 Row data inserted successfully.
+1567 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-05 TIME: 9:36:00
+0 Row data inserted successfully.
+1567 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-05 TIME: 9:40:00
+0 Row data inserted successfully.
+1567 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-05 TIME: 11:7:00
+3 Row data inserted successfully.
+6276 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-05 TIME: 16:40:00
+0 Row data inserted successfully.
+6279 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-05 TIME: 19:40:00
+1 Row data inserted successfully.
+1570 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-06 TIME: 2:40:00
+0 Row data inserted successfully.
+1571 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-06 TIME: 9:40:00
+0 Row data inserted successfully.
+1571 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-06 TIME: 16:40:00
+1 Row data inserted successfully.
+1571 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-06 TIME: 19:40:00
+0 Row data inserted successfully.
+1572 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-07 TIME: 2:40:00
+0 Row data inserted successfully.
+1572 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-07 TIME: 9:40:00
+0 Row data inserted successfully.
+1572 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-07 TIME: 16:40:00
+0 Row data inserted successfully.
+1572 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-07 TIME: 19:40:00
+0 Row data inserted successfully.
+1572 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-08 TIME: 2:40:00
+0 Row data inserted successfully.
+1572 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-08 TIME: 8:59:00
+0 Row data inserted successfully.
+1572 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-08 TIME: 9:0:00
+0 Row data inserted successfully.
+1572 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-08 TIME: 9:40:00
+0 Row data inserted successfully.
+1572 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-08 TIME: 11:26:00
+2 Row data inserted successfully.
+1572 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-08 TIME: 16:40:00
+0 Row data inserted successfully.
+1574 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-08 TIME: 19:40:00
+0 Row data inserted successfully.
+1574 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-09 TIME: 2:40:00
+0 Row data inserted successfully.
+1574 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-09 TIME: 9:40:00
+0 Row data inserted successfully.
+1574 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-09 TIME: 16:40:00
+1 Row data inserted successfully.
+1574 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-09 TIME: 19:40:00
+0 Row data inserted successfully.
+1575 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-10 TIME: 2:40:00
+0 Row data inserted successfully.
+1575 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-10 TIME: 9:40:00
+0 Row data inserted successfully.
+1575 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-10 TIME: 16:40:00
+0 Row data inserted successfully.
+1575 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-10 TIME: 19:40:00
+0 Row data inserted successfully.
+1575 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-11 TIME: 2:40:00
+0 Row data inserted successfully.
+1575 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-11 TIME: 9:40:00
+0 Row data inserted successfully.
+1575 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-11 TIME: 16:40:00
+1 Row data inserted successfully.
+1575 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-11 TIME: 19:40:00
+0 Row data inserted successfully.
+1576 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-12 TIME: 2:40:00
+0 Row data inserted successfully.
+1576 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-12 TIME: 9:40:00
+0 Row data inserted successfully.
+1576 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-12 TIME: 16:40:00
+0 Row data inserted successfully.
+1576 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-12 TIME: 19:40:00
+0 Row data inserted successfully.
+1576 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-13 TIME: 2:40:00
+0 Row data inserted successfully.
+1576 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-13 TIME: 9:40:00
+0 Row data inserted successfully.
+1576 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-13 TIME: 16:40:00
+0 Row data inserted successfully.
+1576 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-13 TIME: 19:40:00
+0 Row data inserted successfully.
+1576 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-14 TIME: 2:40:00
+0 Row data inserted successfully.
+1576 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-14 TIME: 9:40:00
+0 Row data inserted successfully.
+1576 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-14 TIME: 16:40:00
+6 Row data inserted successfully.
+1573 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-14 TIME: 19:40:00
+0 Row data inserted successfully.
+1579 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-15 TIME: 2:40:00
+0 Row data inserted successfully.
+1579 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-15 TIME: 9:40:00
+0 Row data inserted successfully.
+1579 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-15 TIME: 16:40:00
+1 Row data inserted successfully.
+1579 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-15 TIME: 19:40:00
+0 Row data inserted successfully.
+1580 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-16 TIME: 2:40:00
+0 Row data inserted successfully.
+1580 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-16 TIME: 9:40:00
+0 Row data inserted successfully.
+1580 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-16 TIME: 16:40:00
+0 Row data inserted successfully.
+1580 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-16 TIME: 19:40:00
+0 Row data inserted successfully.
+1580 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-17 TIME: 2:40:00
+0 Row data inserted successfully.
+1580 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-17 TIME: 9:40:00
+0 Row data inserted successfully.
+1580 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-17 TIME: 16:40:00
+0 Row data inserted successfully.
+1580 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-17 TIME: 19:40:00
+0 Row data inserted successfully.
+1580 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-18 TIME: 2:40:00
+0 Row data inserted successfully.
+1580 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-18 TIME: 9:40:00
+0 Row data inserted successfully.
+1580 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-18 TIME: 16:40:00
+2 Row data inserted successfully.
+1580 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-21 TIME: 13:40:00
+6 Row data inserted successfully.
+1583 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-21 TIME: 19:20:00
+0 Row data inserted successfully.
+1589 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-22 TIME: 2:20:00
+0 Row data inserted successfully.
+1589 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-22 TIME: 9:20:00
+0 Row data inserted successfully.
+1589 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-22 TIME: 12:20:00
+1 Row data inserted successfully.
+1589 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-22 TIME: 19:20:00
+0 Row data inserted successfully.
+1590 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-23 TIME: 2:20:00
+0 Row data inserted successfully.
+1590 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-23 TIME: 9:20:00
+0 Row data inserted successfully.
+1590 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-23 TIME: 12:20:00
+3 Row data inserted successfully.
+1590 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-23 TIME: 19:20:00
+0 Row data inserted successfully.
+1593 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-24 TIME: 2:20:00
+0 Row data inserted successfully.
+1593 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-24 TIME: 9:20:00
+0 Row data inserted successfully.
+1593 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-24 TIME: 12:20:00
+0 Row data inserted successfully.
+1593 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-24 TIME: 19:20:00
+0 Row data inserted successfully.
+1593 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-25 TIME: 2:20:00
+0 Row data inserted successfully.
+1593 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-25 TIME: 9:20:00
+0 Row data inserted successfully.
+1593 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-25 TIME: 12:20:00
+1 Row data inserted successfully.
+1593 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-25 TIME: 19:20:00
+0 Row data inserted successfully.
+1594 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-26 TIME: 2:20:00
+0 Row data inserted successfully.
+1594 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-26 TIME: 9:20:00
+0 Row data inserted successfully.
+1594 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-26 TIME: 12:20:00
+0 Row data inserted successfully.
+1594 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-26 TIME: 19:20:00
+0 Row data inserted successfully.
+1594 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-27 TIME: 2:20:00
+0 Row data inserted successfully.
+1594 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-27 TIME: 9:20:00
+0 Row data inserted successfully.
+1594 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-27 TIME: 12:20:00
+1 Row data inserted successfully.
+1594 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-27 TIME: 19:20:00
+0 Row data inserted successfully.
+1595 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-28 TIME: 2:20:00
+0 Row data inserted successfully.
+1595 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-28 TIME: 9:20:00
+0 Row data inserted successfully.
+1595 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-28 TIME: 12:20:00
+3 Row data inserted successfully.
+1595 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-28 TIME: 19:20:00
+0 Row data inserted successfully.
+1598 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-29 TIME: 2:20:00
+0 Row data inserted successfully.
+1598 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-29 TIME: 9:20:00
+0 Row data inserted successfully.
+1598 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-29 TIME: 9:58:00
+3 Row data inserted successfully.
+6404 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-29 TIME: 12:20:00
+2 Row data inserted successfully.
+1601 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-29 TIME: 19:20:00
+0 Row data inserted successfully.
+1603 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-30 TIME: 2:20:00
+0 Row data inserted successfully.
+1603 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-30 TIME: 9:20:00
+0 Row data inserted successfully.
+1603 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-30 TIME: 12:20:00
+1 Row data inserted successfully.
+1603 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-06-30 TIME: 19:20:00
+0 Row data inserted successfully.
+1604 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-01 TIME: 2:20:00
+0 Row data inserted successfully.
+1604 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-01 TIME: 9:20:00
+0 Row data inserted successfully.
+1604 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-01 TIME: 12:20:00
+0 Row data inserted successfully.
+1604 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-01 TIME: 19:20:00
+0 Row data inserted successfully.
+1604 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-02 TIME: 2:20:00
+0 Row data inserted successfully.
+1604 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-02 TIME: 9:20:00
+0 Row data inserted successfully.
+1604 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-02 TIME: 12:20:00
+0 Row data inserted successfully.
+1604 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-02 TIME: 19:20:00
+0 Row data inserted successfully.
+1604 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-03 TIME: 2:20:00
+0 Row data inserted successfully.
+1604 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-03 TIME: 9:20:00
+0 Row data inserted successfully.
+1604 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-03 TIME: 12:20:00
+4 Row data inserted successfully.
+1603 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-03 TIME: 19:20:00
+0 Row data inserted successfully.
+1607 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-04 TIME: 2:20:00
+0 Row data inserted successfully.
+1607 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-04 TIME: 9:20:00
+0 Row data inserted successfully.
+1607 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-04 TIME: 12:20:00
+1 Row data inserted successfully.
+1607 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-04 TIME: 19:20:00
+0 Row data inserted successfully.
+1608 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-05 TIME: 2:20:00
+0 Row data inserted successfully.
+1608 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-05 TIME: 9:20:00
+0 Row data inserted successfully.
+1608 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-05 TIME: 12:20:00
+0 Row data inserted successfully.
+1608 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-05 TIME: 19:20:00
+0 Row data inserted successfully.
+1608 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+
+Warning: mysqli_connect(): [2002] A connection attempt failed because the connected party did not  (trying to connect via tcp://localhost:3306) in C:\wamp\www\machine\assets\php\auto_import\mif\auto_import_mif.php on line 184
+
+Warning: mysqli_connect(): (HY000/2002): A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+ in C:\wamp\www\machine\assets\php\auto_import\mif\auto_import_mif.php on line 184
+Could not connect: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-06 TIME: 9:20:00
+0 Row data inserted successfully.
+1608 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-06 TIME: 12:30:00
+0 Row data inserted successfully.
+8044 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-06 TIME: 19:30:00
+0 Row data inserted successfully.
+8044 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-07 TIME: 2:30:00
+0 Row data inserted successfully.
+8044 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-07 TIME: 9:30:00
+0 Row data inserted successfully.
+8044 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-07 TIME: 12:30:00
+1 Row data inserted successfully.
+1608 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-07 TIME: 19:30:00
+0 Row data inserted successfully.
+1609 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-08 TIME: 2:30:00
+0 Row data inserted successfully.
+1609 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-08 TIME: 9:30:00
+0 Row data inserted successfully.
+1609 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-08 TIME: 12:30:00
+0 Row data inserted successfully.
+1609 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-08 TIME: 19:30:00
+0 Row data inserted successfully.
+1609 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-09 TIME: 2:30:00
+0 Row data inserted successfully.
+1609 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-09 TIME: 9:30:00
+0 Row data inserted successfully.
+1609 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-09 TIME: 12:30:00
+0 Row data inserted successfully.
+1609 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-09 TIME: 19:30:00
+0 Row data inserted successfully.
+1609 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-10 TIME: 2:30:00
+0 Row data inserted successfully.
+1609 Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT MIF ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-10 TIME: 9:30:00
+0 Row data inserted successfully.
+1609 Row data updated successfully.
+*********************** END OF EXECUTION ***********************

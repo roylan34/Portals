@@ -1,0 +1,155 @@
+<!-- Modal -->
+<div class="modal fade" id="modalFormAccClient" data-backdrop="static" data-keyboard="true" tabindex="-1" role="dialog" aria-labelledby="Form Account Client">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="modal-header"></h4>
+      </div>
+    <form id="frmAccountClient" class="form-horizontal" >
+      <div class="modal-body">
+          
+      <div class="account-content">
+              <input type="hidden" name="hdnClientId" id='hdnClientId'>
+              <!-- <input type="hidden" name="hdnClientOldUsername" id="hdnClientOldUsername"> -->
+              <input type="hidden" name="hdnOldSlctAcctMngrName" id="hdnOldSlctAcctMngrName">
+              <input type="hidden" name="hdnClientOldCompany" id="hdnClientOldCompany">
+
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="slctAcctMngrName">Name:</label>
+                <div class="col-sm-6">
+                  <select  data-placeholder="Account Manager/Relation" id="slctAcctMngrName" class="validate-hidden-text"></select>
+                </div>
+              </div> 
+
+             <!-- <div class="form-group">
+                <label class="col-sm-4 control-label" for="txtClientUsername">Username:</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control" id="txtClientUsername" name="txtClientUsername" placeholder="Username" val=""/>
+                </div>
+              </div>
+
+            <div class="form-group">
+                <label class="col-sm-4 control-label" for="txtClientPassword">Password:</label>
+                <div class="col-sm-6">
+                  <input type="password" class="form-control" id="txtClientPassword" name="txtClientPassword" placeholder="Password" val=""/>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="txtIDemp">ID emp:</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control" id="txtIDemp" name="txtIDemp" placeholder="Ex: 0001" value=""/>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="txtClientFname">First name:</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control" id="txtClientFname" name="txtClientFname" placeholder="Full Name" val=""/>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="txtClientMname">Middle name:</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control" id="txtClientMname" name="txtClientMname" placeholder="Middle name" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="txtClientLname">Last name:</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control" id="txtClientLname" name="txtClientLname" placeholder="Last name" />
+                </div>
+              </div>        
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="txtClientPosition">Position:</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control" id="txtClientPosition" name="txtClientPosition" placeholder="Position" />
+                </div>
+              </div> -->
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="slctClientCompany">Company:</label>
+                <div class="col-sm-6">
+                  <select  data-placeholder="Select some Company" id="slctClientCompany" multiple="true"></select>
+                </div>
+              </div>  
+
+<!--               <div class="form-group">
+                <label class="col-sm-4 control-label" for="slctClientStatus">Status:</label>
+                <div class="col-sm-6">
+                  <select id="slctClientStatus" class="form-control">
+                    <option value="1">Active</option>
+                    <option value="0">Inactive</option>
+                  </select>
+                </div>
+              </div>
+ -->
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="txtClientDateCreated">Date Created:</label>
+                <div class="col-sm-6">
+                  <span id="txtClientDateCreated" style="line-height: 2.2;"></span>
+                </select>
+                </div>
+              </div>
+
+      </div><!--end of content-->
+
+      </div><!--end of modal-body-->
+        <div class="modal-footer">
+          <div class="">
+            <div class="col-sm-6 col-sm-offset-6">
+              <button type="button" class="btn btn-flat btn-danger" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-flat btn-info" name="savecompany" id="btnSaveCompany">Save</button>
+            </div>
+          </div>
+        </div> <!--end of modal footer-->
+        </form>
+  </div>
+</div>
+<script type="text/javascript">
+ // Client-side edit form validation.
+  $( document ).ready( function () {
+      $( "#frmAccountClient" ).validate( {
+        submitHandler: function (form) {
+            var id = $("#hdnClientId").val();
+            if(id == '' || id == null){
+                dtAccClient.add();
+            }
+            else{
+                dtAccClient.update();               
+            }
+          },
+        rules: {
+          slctAcctMngrName: { required: true }
+        },
+        messages: {
+          slctAcctMngrName: { required: "This field is required." },
+        },
+        errorElement: "em",
+        errorPlacement: function ( error, element ) {
+          // Add the `help-block` class to the error element
+          error.addClass( "help-block" );
+          error.css({'font-size':'11px','margin-bottom':'0px'});
+
+          if ( element.prop( "type" ) === "checkbox" ) {
+            error.insertAfter( element.parent( "label" ) );
+          } else {
+            error.insertAfter( element );
+          }
+        },
+        highlight: function ( element, errorClass, validClass ) {
+          $( element ).parents( ".col-sm-6" ).addClass( "has-error" ).removeClass( "has-success" );
+        },
+        unhighlight: function (element, errorClass, validClass) {
+          $( element ).parents( ".col-sm-6" ).addClass( "has-success" ).removeClass( "has-error" );
+        }
+      } );
+  } );
+
+</script>
+

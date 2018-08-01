@@ -1,0 +1,37 @@
+<!-- Modal -->
+<div class="modal fade" id="modalMachineList"  data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="modalMachineList">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">
+            <span id='machine-company' class="col-md-6"></span>
+            <span id="machine-branch" class="cold-md-4"></span>
+          </h4>
+      </div>
+      <div class="modal-body">
+            
+      <div class="printer-content">
+           <table class="display compact" cellspacing="0" id="dtMachine">
+            </table>
+      </div><!--end of content-->
+      
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-flat btn-danger" data-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $('#modalMachineList').on('shown.bs.modal', function() {
+           //Get the datatable which has previously been initialized
+            var dataTable= $('#dtMachine').DataTable();
+            //recalculate the dimensions
+            dataTable.columns.adjust().responsive.recalc();
+            // console.log(dataTable);
+        });
+</script>
+

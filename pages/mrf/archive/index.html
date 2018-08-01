@@ -1,0 +1,80 @@
+<div id="archiveMrfList">
+<div class="box box-success">
+        <div class="box-header with-border">
+          <h3 class="box-title">Machine Request <small>(Approved, Disapproved and Cancelled)</small></h3>
+          <div class="archive-mrf-branches pull-right"><label>Branch: <select id="archive-mrf-branchlist" style="padding:2px 4px"></select></label></div>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+            
+            <table id="dtArchiveMrf" class="display compact" cellspacing="0">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Form No.</th>
+                  <th>Company Name</th>
+                  <th>Date Requested</th>
+                  <th>Delivery Date</th>
+                  <th>Requested By</th>
+                  <th>Branch</th>
+                  <th>Status</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <thead id="dthead-search-archivemrf" style="display:none;">
+                    <tr >
+                       <th class="text-center" colspan="9">
+                          <div class="row">
+                             <div class="col-xs-12">
+                                 <div class="col-xs-12 dt-searchfield" ><input type="text" class="form-control" id="search-mrf-formno" placeholder="Form No" ></div>
+                                 <div class="col-xs-12 dt-searchfield" ><input type="text" class="form-control" id="search-mrf-company" placeholder="Company" ></div>
+                                 <div class="col-xs-12 dt-searchfield" ><input type="text" class="form-control" id="search-mrf-dateRequest" placeholder="Date Requested"></div>
+                                 <div class="col-xs-12 dt-searchfield" ><input type="text" class="form-control" id="search-mrf-dateDelivery" placeholder="Delivery Date"></div>
+                                 <!-- <div class="col-xs-12 dt-searchfield" ><input type="text" class="form-control" id="search-mrf-status" placeholder="Status"></div> -->
+                                 <div class="col-xs-12 dt-searchfield" >
+                                    <select id="search-mrf-status" class="form-control">
+                                      <option value="">---STATUS---</option>
+                                      <option value="2">APPROVED</option>
+                                      <option value="3">DISAPPORVED</option>
+                                      <option value="4">CANCELLED</option>
+                                    </select></div>
+                                 <div class="col-xs-12 col-md-6" style="width: 70px; padding-top: 3px; box-sizing: border-box;" id="btn-mrfsearch"><button type="button" class="btn btn-primary btn-flat btn-sm">Search</button></div>
+                                 <div class="col-xs-12 col-md-6" style="width: 70px; padding-top: 3px; box-sizing: border-box;" id="btn-mrfreset"><button type="button" class="btn btn-warning btn-flat btn-sm">Reset</button></div>
+                             </div>
+                          </div>
+                       </th>
+                    </tr>
+              </thead>
+            </table>
+
+          </div><!--end of box body --> 
+         <div class="box-footer"></div><!-- box-footer -->
+    </div>
+</div>
+
+<!-- Modal Comments-->
+<div class="modal fade" id="modalArchiveComments" data-backdrop="static" data-keyboard="true" tabindex="-1" role="dialog" aria-labelledby="modalArchiveComments">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title"><i class="fa fa-comments-o" aria-hidden="true"></i>  Comments</h4>
+      </div>
+      <div class="modal-body">
+         <div id="wrapper-comment">
+             <div class="comment-box" class="col-md-12 col-sm-12">
+             </div>
+         </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-flat btn-sm btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script type="text/javascript">
+  $("#search-mrf-dateRequest, #search-mrf-dateDelivery").datepicker({dateFormat: 'yy-mm-dd' });
+</script>

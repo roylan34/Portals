@@ -1,0 +1,108 @@
+<!-- Modal -->
+<div class="modal fade" id="modalFormInvntBranch" data-backdrop="static" data-keyboard="true" tabindex="-1" role="dialog" aria-labelledby="modalFormInvntBranch">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="modal-header"></h4>
+      </div>
+      <form id="frmSettingInvntBranch" class="form-horizontal">
+          <div class="modal-body">
+
+            <div class="inventory-status-content">
+                    <input type="hidden" name="hdnIdInvntBranch" id='hdnIdInvntBranch'>
+                    <input type="hidden" name="hdnOldInvntBranchName" id="hdnOldInvntBranchName">
+
+                    <div class="form-group">
+                      <label class="col-sm-4 col-md-4 control-label" for="txtInvntSettingBranch">Branch Name:</label>
+                      <div class="col-sm-5 col-md-7">
+                        <input type="text" class="form-control" id="txtInvntSettingBranch" name="txtInvntSettingBranch" placeholder="Branch Name"/>
+                      </div>
+                    </div>
+            </div><!--end of content-->
+
+          </div><!--end of modal-body-->
+      <div class="modal-footer">
+        <div class="">
+          <div class="col-sm-6 col-sm-offset-6">
+            <button type="button" class="btn btn-flat btn-danger" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-flat btn-info" name="btnSettingsInvntBranch" id="btnSettingsInvntBranch">Save</button>
+          </div>
+        </div>
+      </div> <!--end of modal footer-->
+      </form>
+
+  </div>
+</div>
+<script type="text/javascript">
+ $('#modalFormInvntBranch').on('hidden.bs.modal', function () {
+    $(this).find("#frmSettingInvntBranch input:hidden").val('');
+    $(this).find("#frmSettingInvntBranch").trigger('reset');//Reset form when modal hidden
+    $(this).find("input").parent('.col-sm-5').removeClass('has-error has-success')
+    $(this).find("input").next().remove('em');
+ });
+   // Client-side edit form validation.
+  $( document ).ready( function () {
+      $( "#frmSettingInvntBranch" ).validate( {
+        submitHandler: function (form) {
+          var id = $("#hdnIdInvntBranch").val() || null;
+          if( id == null){
+              dtInventoryBranch.add();
+              $("#txtInvntSettingBranch").removeData("previousValue");//Clear cache of previous value in the 2nd time input of the remote call.
+          }
+          else {
+             dtInventoryBranch.update();
+              var updated_branch = $("#txtInvntSettingBranch").val();
+              $("#hdnOldInvntBranchName").val(updated_branch);//Replicate the value with the updated.
+          }
+        },
+        rules: {
+          txtInvntSettingBranch: {
+            required: true,
+            maxlength: 100,
+            remote: {
+              url: assets+'php/inventory/settings/branch.php',
+              type: 'POST',
+              data: { 
+                  action_validate: function(id){ 
+                       var ids = $("#hdnIdInvntBranch").val() || null;
+                       return (ids == null ? 'add' : 'update');
+                  }, 
+                  old_branch: function(){ return $("#hdnOldInvntBranchName").val(); },
+                  action: 'check_exist'
+                }
+            }
+          }
+        },
+        messages: {
+          txtInvntSettingBranch: {
+            required: "This field is required.",
+            maxlength: "Please enter no more than {0} characters"
+          }
+        },
+        errorElement: "em",
+        errorPlacement: function ( error, element ) {
+          // Add the `help-block` class to the error element
+          error.addClass( "help-block" ).css('margin-top','0px');
+          error.css({'font-size':'12px','margin-bottom':'0px'});
+
+          if ( element.prop( "type" ) === "checkbox" ) {
+            error.insertAfter( element.parent( "label" ) );
+          } else {
+            error.insertAfter( element );
+          }
+        },
+        highlight: function ( element, errorClass, validClass ) {
+          $( element ).parents( ".col-sm-5" ).addClass( "has-error" ).removeClass( "has-success" );
+        },
+        unhighlight: function (element, errorClass, validClass) {
+          $( element ).parents( ".col-sm-5" ).addClass( "has-success" ).removeClass( "has-error" );
+        }
+      } );
+  } );
+          
+
+                 
+</script>
+
+

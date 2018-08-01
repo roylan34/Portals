@@ -1,0 +1,220 @@
+<!-- Modal -->
+<div class="modal fade" id="modalFormCurrentPM" class="modalFormCurrentPM" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="modalFormCurrentPM">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="modalFormCurrentPM">Update PM</h4>
+      </div>
+        <form id="frmCurrentPM" class="form-horizontal">
+        <div class="modal-body">
+              <input type="hidden" name="hdnCurPMId" id='hdnCurPMId' value=''>
+              <input type="hidden" name="hdnCurSchedPmNum2" id='hdnCurSchedPmNum2' value=''>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="pm-serialnum">S/N</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control" id="pm-serialnum" disabled="disabled"/>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="pm-brand">Brand</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control" id="pm-brand" disabled="disabled"/>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="pm-model">Model</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control" id="pm-model" disabled="disabled" />
+                </div>
+              </div>
+
+               <div class="form-group">
+                <label class="col-sm-4 control-label" for="pm-manufacture">Manufacture date</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control" id="pm-manufacture" name="pm-manufacture" autocomplete="off" />
+                </div>
+              </div>
+
+               <div class="form-group">
+                <label class="col-sm-4 control-label" for="pm-remarks">Remarks</label>
+                <div class="col-sm-6">
+                  <textarea class="form-control" id="pm-remarks" name="pm-remarks"></textarea>
+                </div>
+              </div>
+
+               <div class="form-group">
+                <label class="col-sm-4 control-label" for="pm-page">Page count</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control" id="pm-page" name="pm-page"/>
+                </div>
+              </div>
+
+               <div class="form-group">
+                <label class="col-sm-4 control-label" for="pm-toner">Toner use:</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control" id="pm-toner" name="pm-toner"/>
+                </div>
+              </div>
+
+               <div class="form-group">
+                <label class="col-sm-4 control-label" for="pm-date-in">Time in</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control" id="pm-date-in" name="pm-date-in" autocomplete="off"/>
+                  <!-- <input type="text" class="form-control" id="pm-time-in" name="pm-time-in" autocomplete="off" /> -->
+                </div>
+              </div>
+
+               <div class="form-group">
+                <label class="col-sm-4 control-label" for="pm-date-out">Time out</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control" id="pm-date-out" name="pm-date-out" autocomplete="off"/>
+                  <!-- <input type="text" class="form-control" id="pm-time-out" name="pm-time-out" autocomplete="off" /> -->
+                </div>
+              </div>
+
+          </div><!--end of modal body -->
+              <div class="modal-footer">
+                <div class="col-sm-6 col-xs-12 col-sm-offset-6">
+                  <button type="button" class="btn btn-md btn-flat btn-danger" data-dismiss="modal" >Close</button>
+                  <button type="submit" class="btn btn-md btn-flat btn-info">Save</button>
+                </div>
+              </div>
+          </form>
+    </div>
+  </div>
+</div>
+<style type="text/css">
+   .form-control[readonly]{
+      background: transparent;
+   }
+</style>
+<script type="text/javascript">
+//When Hidden PM Form modal.
+$('#modalFormCurrentPM').on('hidden.bs.modal', function() {  
+    $("body").addClass("modal-open");        
+});
+
+$("#pm-manufacture").datepicker({dateFormat: 'yy-mm-dd' }); //Date schedule picker
+// $('#pm-date-in, #pm-date-out').datetimepicker({  controlType: 'select', timeFormat: 'hh:mm tt' }); //DateTime picker
+
+//DateTimepicker and restrict a dateIn and dateOut.
+var startDateIn = $('#pm-date-in');
+var endDateOut = $('#pm-date-out');
+
+startDateIn.datetimepicker({ 
+  controlType: 'select',
+  timeFormat: 'hh:mm tt',
+  onClose: function(dateText, inst) {
+    if (endDateOut.val() != '') {
+      var testStartDate = startDateIn.datetimepicker('getDate');
+      var testEndDate = endDateOut.datetimepicker('getDate');
+      if (testStartDate > testEndDate)
+        endDateOut.datetimepicker('setDate', testStartDate);       
+    }
+    else {
+      endDateOut.val(dateText);
+    }
+  },
+  onSelect: function (selectedDateTime){
+    endDateOut.datetimepicker('option', 'minDate', startDateIn.datetimepicker('getDate') );
+  }
+});
+endDateOut.datetimepicker({ 
+  controlType: 'select',
+  timeFormat: 'hh:mm tt',
+  onClose: function(dateText, inst) {
+    if (startDateIn.val() != '') {
+      var testStartDate = startDateIn.datetimepicker('getDate');
+      var testEndDate = endDateOut.datetimepicker('getDate');
+      if (testStartDate > testEndDate)
+        startDateIn.datetimepicker('setDate', testEndDate);
+    }
+    else {
+      startDateIn.val(dateText);
+    }
+  },
+  onSelect: function (selectedDateTime){
+    startDateIn.datetimepicker('option', 'maxDate', endDateOut.datetimepicker('getDate') );
+  }
+})
+
+$( document ).ready( function () {
+// Client-side edit form validation.
+    $( "#frmCurrentPM" ).validate( {
+        onkeyup: false,
+        submitHandler: function (form) {
+          var id = $("#hdnCurPMId").val() || null;
+            if(id == '' || id == null){
+               dtCurrentPM.add();
+            }
+            else {
+              dtCurrentPM.update(id);              
+            }
+        },
+       rules: {
+            "pm-manufacture": {
+              required: true
+            },
+            "pm-remarks": {
+              required: true
+            },
+            "pm-page": {
+              required: true
+            },
+            "pm-toner": {
+              required: true
+            },
+            "pm-time-in": {
+              required: true
+            },
+             "pm-time-out": {
+              required: true
+            }
+          },
+          messages: {
+            "pm-manufacture": {
+              required: "This field is required.",
+            },
+            "pm-remarks": {
+              required: "This field is required.",
+            },
+            "pm-page": {
+              required: "This field is required.",
+            },
+            "pm-toner": {
+              required: "This field is required.",
+            } ,
+            "pm-time-in": {
+              required: "This field is required.",
+            } ,
+            "pm-time-out": {
+              required: "This field is required.",
+            } 
+        
+          },
+          errorElement: "em",
+          errorPlacement: function ( error, element ) {
+            // Add the `help-block` class to the error element
+            error.addClass( "help-block" ).css('margin-top','0px');
+            error.css({'font-size':'11px','margin-bottom':'0px'});
+
+            if ( element.prop( "type" ) === "checkbox" ) {
+              error.insertAfter( element.parent( "label" ) );
+            } 
+            else {
+              error.insertAfter( element );
+            }
+          },
+          highlight: function ( element, errorClass, validClass ) {
+            $( element ).parents( ".col-sm-6" ).addClass( "has-error" ).removeClass( "has-success" );
+          },
+          unhighlight: function (element, errorClass, validClass) {
+            $( element ).parents( ".col-sm-6" ).addClass( "has-success" ).removeClass( "has-error" );
+        }
+      } );
+  } );     
+</script>

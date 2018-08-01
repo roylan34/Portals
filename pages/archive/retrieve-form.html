@@ -1,0 +1,222 @@
+<!-- Modal -->
+<div class="modal fade" id="modalFormArchiveMachine"  class="modalFormArchiveMachine" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="modalFormArchiveMachine">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="modalFormArchiveMachine">Retrieve Machine</h4>
+      </div>
+        <form id="frmMachine" class="form-horizontal">
+        <div class="modal-body">
+              <input type="hidden" name="hdnId" id='hdnId'>
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="slctArchiveCompany">Company</label>
+                <div class="col-sm-5">
+                  <select id="slctArchiveCompany" class="chosen-select" data-placeholder="Company"></select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="txtArchiveSerialNum">S/N</label>
+                <div class="col-sm-5">
+                  <input type="text" class="form-control" id="txtArchiveSerialNum" name="txtArchiveSerialNum" placeholder="S/N" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="slctArchiveBrand">Brand</label>
+                <div class="col-sm-5">
+                   <select id="slctArchiveBrand" class="form-control required"></select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="txtArchiveModel">Model</label>
+                <div class="col-sm-5">
+                  <input type="text" class="form-control" id="txtArchiveModel" name="txtArchiveModel" placeholder="Model" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="slctArchiveCategory">Category</label>
+                <div class="col-sm-5">
+                  <select id='slctArchiveCategory' class='form-control'>
+                    <option value=""></option>
+                    <option value="MFP">MFP</option>
+                    <option value="SFP">SFP</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="slctArchiveType">Type</label>
+                <div class="col-sm-5">
+                  <select id='slctArchiveType' class='form-control'>
+                    <option value=""></option>
+                    <option value="MONOCHROME">MONOCHROME</option>
+                    <option value="COLOR">COLOR</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="txtArchivePageCount">Page Count</label>
+                <div class="col-sm-5">
+                  <input type="text" class="form-control" id="txtArchivePageCount" name="txtArchivePageCount" placeholder="Page Count" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="txArchiveLocation">Location Area</label>
+                <div class="col-sm-5">
+                  <textarea class="form-control" id="txArchiveLocation" name="txArchiveLocation" placeholder="Location Area"></textarea>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="txtArchiveDepartment">Department</label>
+                <div class="col-sm-5">
+                  <input type="text" class="form-control" id="txtArchiveDepartment" name="txtArchiveDepartment" placeholder="Department" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="txtArchiveNoUser">No. of User</label>
+                <div class="col-sm-5">
+                  <input type="text" class="form-control" id="txtArchiveNoUser" name="txtArchiveNoUser" placeholder="No. of User" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="txtArchiveRemarks">Remarks</label>
+                <div class="col-sm-5">
+                  <input type="text" class="form-control" id="txtArchiveRemarks" name="txtArchiveRemarks" placeholder="Remarks" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="txtArchiveDateInstall">Date Installed</label>
+                <div class="col-sm-5">
+                  <input type="text" class="form-control" id="txtArchiveDateInstall" name="txtArchiveDateInstall" placeholder="Date Installed" />
+                </div>
+              </div>
+
+                <div class="form-group">
+                <label class="col-sm-4 control-label" for="txtArchiveUnitOwn">Unit Owned</label>
+                <div class="col-sm-5">
+                  <input type="text" class="form-control" id="txtArchiveUnitOwn" name="txtArchiveUnitOwn" placeholder="Unit Owned"/>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="slctArchiveBilling">Billing Type</label>
+                <div class="col-sm-5">
+                  <select id='slctArchiveBilling' class='form-control'>
+                    <option value=""></option>
+                    <option value="FSMA">FSMA</option>
+                    <option value="METER READING">METER READING</option>
+                    <option value="PER CARTRIDGE">PER CARTRIDGE</option>
+                    <option value="FIXED MONTHLY">FIXED MONTHLY</option>
+                    <option value="OUTRIGHT">OUTRIGHT</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="txtArchiveBranch">Location</label>
+                <div class="col-sm-5">
+                  <select class="chosen-select" id="txtArchiveBranch" name="txtArchiveBranch" data-placeholder="Location"> </select>
+                </div>
+              </div>
+
+      </div><!--end of modal body -->
+              <div class="modal-footer">
+               <div class="col-sm-6 col-xs-12 col-sm-offset-6">
+                <button type="button" class="btn btn-sm btn-flat btn-danger" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-sm btn-flat btn-info" id="btnSubmit">Retrieve</button>
+              </div>
+              </div>
+          </form>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+$("#modalFormArchiveMachine").on('click','button',function(){
+   $('#modalFormArchiveMachine').on('hidden.bs.modal', function () {
+      $(this).find("#frmMachine").trigger('reset');//Reset form when modal hidden
+      $(this).find("input, select").parent('.col-sm-5').removeClass('has-error has-success')
+      $(this).find("input, select").next().remove('em');
+   });
+
+   // Client-side edit form validation.
+  $( document ).ready( function () {
+      $( "#frmMachine" ).validate( {
+        submitHandler: function (form) {
+            dtArchiveMachine.retrieve();
+        },
+        rules: {
+          slctArchiveCompany: {
+            required: true
+          },
+          txtArchiveSerialNum: {
+            required: true,
+            maxlength: 50
+          },
+          slctArchiveBrand: {
+            required: true,
+            maxlength: 50
+          },
+          txtArchivePageCount: {
+            numbersonly: true
+          },
+          txtArchiveBranch:{
+            required: true
+          }
+        },
+        messages: {
+          slctArchiveCompany: {
+            required: "This field is required."            
+          },
+          txtArchiveSerialNum: {
+            required: "This field is required.",
+            maxlength: "Please enter no more than {0} characters"
+          },
+          slctArchiveBrand: {
+            required: "This field is required.",
+            maxlength: "Please enter no more than {0} characters"
+          },
+          txtArchivePageCount: {
+            numbersonly: "Please enter only numbers"
+          },
+          txtArchiveBranch:{
+             required: "This field is required.",
+          }
+    
+        },
+        errorElement: "em",
+        errorPlacement: function ( error, element ) {
+          // Add the `help-block` class to the error element
+          error.addClass( "help-block" ).css('margin-top','0px');
+          error.css({'font-size':'11px','margin-bottom':'0px'});
+
+          if ( element.prop( "type" ) === "checkbox" ) {
+            error.insertAfter( element.parent( "label" ) );
+          } else {
+            error.insertAfter( element );
+          }
+        },
+        highlight: function ( element, errorClass, validClass ) {
+          $( element ).parents( ".col-sm-5" ).addClass( "has-error" ).removeClass( "has-success" );
+        },
+        unhighlight: function (element, errorClass, validClass) {
+          $( element ).parents( ".col-sm-5" ).addClass( "has-success" ).removeClass( "has-error" );
+        }
+      } );
+  } );
+
+      // var id = $("#listcompany option[value='" + $('#txtCompany').val() + "']").attr('id'); 
+      // alert(id);             
+});
+                 
+</script>

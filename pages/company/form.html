@@ -1,0 +1,303 @@
+<!-- Modal -->
+<div class="modal fade" id="modalEditCompanyList" data-backdrop="static" data-keyboard="true" tabindex="-1" role="dialog" aria-labelledby="modalEditCompanyList">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="modal-header"></h4>
+      </div>
+      <form id="frmCompany" class="form-horizontal">
+          <div class="modal-body">
+
+            <div class="printer-content">
+                    <input type="hidden" name="hdnIdCompany" id='hdnIdCompany' >
+                    <input type="hidden" name="OldhdnClientMngr" id='OldhdnClientMngr'>
+                    <input type="hidden" name="OldIdBranches" id='OldIdBranches'>
+                    <input type="hidden" name="OldhdnEditCompany" id='OldhdnEditCompany'>
+
+                    <div class="form-group">
+                      <label class="col-sm-4 col-md-4 control-label">Delsan Company:</label>
+                      <div class="col-sm-4 col-md-4">
+                        <div class="radio">
+                          <label><input type="radio" name="delsanCompany" value="dosc">DOSC</label>
+                        </div>
+                      </div>
+                      <div class="col-sm-4 col-md-4">
+                        <div class="radio">
+                          <label><input type="radio" name="delsanCompany" value="dbic">DBIC</label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-4 col-md-4 control-label" for="txtSapCompany" style="padding-top: 0px;">SAP Company Name:</label>
+                      <div class="col-sm-5 col-md-7">
+                         <select class="form-control chosen-select" id="txtSapCompany" name="txtSapCompany" data-placeholder="SAP Company Name">
+                         </select>                      
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-4 col-md-4 control-label" for="txtSapCode">SAP code:</label>
+                      <div class="col-sm-5 col-md-7">
+                        <input type="text" class="form-control" id="txtSapCode" name="txtSapCode"/>
+                      </div>
+                    </div>
+
+                    <hr style="margin-top: 0; margin-bottom: 10px;">
+
+                    <div class="form-group">
+                      <label class="col-sm-4 col-md-4 control-label" for="txtEditCompany">Company Name:</label>
+                      <div class="col-sm-5 col-md-7">
+                        <input type="text" class="form-control" id="txtEditCompany" name="txtEditCompany" placeholder="Company Name"/>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-4 control-label" for="txtEditCategory">Category:</label>
+                      <div class="col-sm-5 col-md-7">
+                        <input type="text" class="form-control" id="txtEditCategory" name="txtEditCategory" placeholder="Category" />
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-4 control-label" for="txtEditAddress">Address:</label>
+                      <div class="col-sm-5 col-md-7">
+                        <textarea class="form-control" id="txtEditAddress" name="txtEditAddress" placeholder="Address" style="resize: vertical;"></textarea>
+                      </div>
+                    </div>
+
+                   <div class="form-group">
+                    <label class="col-sm-4 control-label" for="slctCompanyLocation">Location:</label>
+                    <div class="col-sm-5 col-md-7">
+                      <select id="slctCompanyLocation" data-placeholder="Location" name="slctCompanyLocation" class="chosen-select">
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label" for="slctCompanyBranch">Branches:</label>
+                    <div class="col-sm-5 col-md-7">
+                      <select id="slctCompanyBranch" data-placeholder="Branches" multiple="true" name="slctCompanyBranch" class="chosen-select">
+                      </select>
+                    </div>
+                  </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-4 col-md-4 control-label" for="txtContactNo">Contact #:</label>
+                      <div class="col-sm-5 col-md-7">
+                        <input type="text" class="form-control" id="txtContactNo" name="txtContactNo" placeholder="Contact #" />
+                      </div>
+                    </div>
+
+                  <!-- <div class="form-group">
+                      <label class="col-sm-4 col-md-4 control-label" for="slctClientTypeService">Client Service:</label>
+                      <div class="col-sm-5 col-md-7">
+                          <select id="slctClientTypeService" class="form-control">
+                           <option value=""></option>
+                          <option value="1">FOR PRINTER</option>
+                          <option value="2">FOR TONER</option>
+                        </select>
+                      </div>
+                    </div> -->
+
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label" for="slctClientMngr">Account Mngr:</label>
+                    <div class="col-sm-5 col-md-7">
+                      <select id="slctClientMngr" data-placeholder="Select Account Manager">
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label" for="slctStatus">Status:</label>
+                    <div class="col-sm-5 col-md-7">
+                      <select id="slctStatus" class="form-control">
+                        <option value="1">ACTIVE</option>
+                        <option value="0">BLOCKED</option>
+                      </select>
+                    </div>
+                    <small class="col-sm-7 col-md-offset-4 block-msg" style="color:#dd4b39; display: none;"><em>Note: If Blocked, all machines to this company will move to Archive Machine page.</em></small>
+                  </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-4 col-md-4 control-label" for="txtLastVisit">Date last of visit:</label>
+                      <div class="col-sm-5 col-md-7">
+                        <div class="input-group">
+                          <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                          </div>
+                          <input type="text" class="form-control" data-inputmask="'alias': 'mm-dd-yyyy'" data-mask2 id="txtLastVisit" name="txtLastVisit">
+                        </div>
+                      </div>
+                    </div>
+
+                  
+          </div><!--end of content-->
+
+        </div><!--end of modal-body-->
+      <div class="modal-footer">
+        <div class="">
+          <div class="col-sm-6 col-sm-offset-6">
+            <button type="button" class="btn btn-flat btn-danger" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-flat btn-info" name="savecompany" id="btnSaveCompany">Save</button>
+          </div>
+        </div>
+      </div> <!--end of modal footer-->
+      </form>
+
+
+  </div>
+</div>
+
+<script type="text/javascript">
+$( document ).ready( function () {
+
+//Status Field prompt message.
+$("#slctStatus").on('change',function(){
+   var opt_val = $(this).val();
+   if(opt_val == 0){
+     $(".block-msg").show();
+   }
+   else{
+     $(".block-msg").hide();
+   }
+});
+
+  $(":input").inputmask();//Datemask2 mm/dd/yyyy
+  $("#txtSapCompany").change(function(){ //Get selected value and set to input sap_code
+      $("#txtSapCode").val($(this).val());
+  });
+  $("#txtSapCode").prop('disabled',true); //Disabled Sap code input.
+
+   // Client-side edit form validation.
+      $( "#frmCompany" ).validate( {
+        onkeyup: false,
+        submitHandler: function (form) {
+             var id = $("#hdnIdCompany").val();
+            if(id == '' || id == null){
+              dtCompany.add();
+              $("#txtEditCompany").removeData("previousValue");//Clear cache of previous value in the 2nd time input of the remote call.
+            }
+            else
+            {
+              dtCompany.edit();
+              var old_id_branch   = ($("#slctCompanyBranch").chosen().val() ? $("#slctCompanyBranch").chosen().val().toString() : null);
+              var updated_client = ($("#slctClientMngr").chosen().val() != 'null' ? $("#slctClientMngr").chosen().val() : 0);
+              var updated_company = $("#txtEditCompany").val() || '';
+              $("#OldhdnEditCompany").val(updated_company);//Replicate the value company name.
+              $("#OldhdnClientMngr").val(updated_client);//Replicate the value id_client.
+              $("#OldIdBranches").val(old_id_branch);//Replicate the value branch.
+            }
+          },
+        rules: {
+          txtEditCompany: {
+            required: true,
+            maxlength: 200,
+            remote: {
+              url: assets+'php/company/checkCompanyName.php',
+              type: 'POST',
+              data: { 
+                  action_validate: function(){ 
+                        var id = $("#hdnIdCompany").val();
+                        return (id == '' || id == null ? 'add' : 'update');
+                  }, 
+                  old_client: function(){ return $("#OldhdnEditCompany").val(); },
+                }
+            }
+          },
+          txtSapCompany: {
+            required: function(){  //required SAP Company if DBIC selected.
+              var rdBtn = $("input[name='delsanCompany']:checked").val() || '';
+                  return (rdBtn == 'dosc' || rdBtn == '' ? true : false);
+            }
+          },
+          delsanCompany: {
+            required: true,
+          },
+          txtContactNo: {
+            required: false,
+            maxlength: 20,
+            numbersonly: true
+          },
+          txtEmailAdd: {
+            required: false,
+            email: true
+          },
+          txtEditCategory: {
+            required: true,
+            maxlength: 50
+          },
+          txtEditAddress: {
+            required: false,
+            maxlength: 200
+          },
+          slctCompanyBranch: {
+            required: true
+          },
+          txtLastVisit: {
+            isdate2: true
+          }
+        },
+        messages: {
+          txtEditCompany: {
+            required: "This field is required.",
+            maxlength: "Please enter no more than {0} characters",
+            remote: jQuery.validator.format("{0} is already exist.")
+
+          },
+           txtSapCompany: {           
+            required: "This field is required."
+          },
+          txtContactNo: {
+            maxlength: "Please enter no more than {0} characters",
+            numbersonly: "Please enter only numbers"
+          },
+          txtEmailAdd: {
+            email: "Please enter valid email"
+          },
+          txtEditCategory: {
+            required: "This field is required.",
+            maxlength: "Please enter no more than {0} characters"
+          },
+          txtEditAddress: {
+            required: "This field is required.",
+            maxlength: "Please enter no more than {0} characters"
+          },
+          slctCompanyBranch: {
+            required: "This field is required."
+          },
+          txtLastVisit: {
+            isdate2: "Incomplete date format."
+          }
+        },
+        errorElement: "em",
+        errorPlacement: function ( error, element ) {
+          // Add the `help-block` class to the error element
+          error.addClass( "help-block" );
+          error.css({'font-size':'11px','margin-bottom':'0px'});
+
+          if ( element.prop( "type" ) === "checkbox" ) {
+              error.insertAfter( element.parent( "label" ) );
+          }
+          else if ( element.prop( "type" ) === "select-one" || element.prop( "type" ) === "select-multiple") {
+              error.insertAfter( element.next('.chosen-container') );
+          } 
+          else if ( element.prop( "type" ) === "radio" ) {
+              error.insertAfter( element.closest( "div" ) );
+          }
+          else {
+            error.insertAfter( element );
+          }
+        },
+        highlight: function ( element, errorClass, validClass ) {
+          $( element ).parents( ".col-sm-5" ).addClass( "has-error" ).removeClass( "has-success" );
+        },
+        unhighlight: function (element, errorClass, validClass) {
+          $( element ).parents( ".col-sm-5" ).addClass( "has-success" ).removeClass( "has-error" );
+        }
+      } );
+  } );
+
+</script>
+

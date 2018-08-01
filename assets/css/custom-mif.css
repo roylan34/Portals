@@ -1,0 +1,1007 @@
+body.waiting * {
+	cursor: wait !important;
+}
+
+.capitalizeText{
+  text-transform: capitalize;
+}
+.main-footer {
+	padding: 10px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+.main-header .logo{
+	padding: 0;
+	line-height: 0;
+}
+/** Data Table Button **/
+.dt-buttons{
+	float:right !important;
+}
+.floatLeft{
+	float: left;
+}
+.clear{ clear: both; }
+
+div.scrollToTop{
+	display: none;
+	position: fixed;
+	bottom:0;
+	right: 0;
+	width: 40px;
+	height: 40px;
+	background-image: url('../img/arrow-up.png');
+	background-repeat: no-repeat;
+	background-size: 40px;
+	cursor:pointer;
+}
+
+/* Component: Info Box Small */
+.small-box>.inner{
+	padding: 0px 5px;
+}
+.small-box .icon{ top:-20px; }
+.small-box .icon, .small-box:hover .icon{
+	font-size: 70px;
+}
+
+/** Boostrap Override **/
+.form-group{
+	margin-bottom: 10px;
+}
+
+/** MODAL **/
+/*Auto Resize the modal based on content.*/
+#modalMachineList .modal-dialog{
+    overflow: auto;    
+    width: auto;
+    min-width: 250px;   
+}
+.modal .modal-header{
+	background-color: #00a65a;
+	color: #f2f2f2;
+}
+
+.modal-header-warning{
+	background-color: #f39c12 !important;
+}
+
+.mif-modalPromptMSG .modal-dialog{ 
+	position: absolute; 
+	top: 25%; 
+	bottom: 0; 
+	left: 0; 
+	right: 0; 
+	max-width: 350px;
+}
+
+.mif-modalPromptMSG .modal-header  { font-size: 22px; text-align: center; }
+.mif-modalPromptMSG .modal-content { border-radius: 7px; }
+.mif-modalPromptMSG .modal-footer  { text-align:center; padding: 10px; }
+.bg-red-active, .mif-modal-danger .modal-header { background-color: #db5646 !important; }
+.bg-yellow-active, .mif-modal-warning .modal-header {background-color: #dca040 !important;}
+
+/** LOGIN PAGE **/
+.submitted .ng-invalid{
+    border: 1px solid red;
+}
+
+h2 { font-weight:500 }
+
+#frmLogin .input-group input:after{
+  content: '';
+}
+
+#frmLogin .input-group {
+  position: relative;
+  display: table;
+  border-collapse: separate;
+  margin-bottom: 15px;
+}
+
+.glyphicon-user{color:#666}
+
+.btn-info{background-color: #037cb6}
+
+/** Chosen DropDown **/
+.chosen-container-single .chosen-single{
+	padding:10px;
+	height: 32px;
+	line-height: 12px;
+	border-radius: 2px;
+}
+.chosen-disabled{
+	opacity: 0.7 !important;
+}
+
+
+/** DataTable Current Company, Inventory **/
+table#dtCompany thead .dt-searchfield, table#dtCurrentInventory thead .dt-searchfield, table#dtArchiveInventory thead .dt-searchfield,  table#dtArchiveCompany thead .dt-searchfield, 
+table#dtCurrentPM thead .dt-searchfield, table#dtArchiveSched thead .dt-searchfield, table#dtArchivePM thead .dt-searchfield{
+	width:150px;
+	padding:2px 5px;
+}
+/** DataTable Current MRF **/
+table#dtCurrentMrf thead .dt-searchfield, table#dtArchiveMrf thead .dt-searchfield, table#dtCurrentSched thead .dt-searchfield{
+	width:220px;
+	padding:2px 5px;
+}
+/* Set column branch a max-height*/
+table#dtCompany tr .dt-column-branches, table#dtAccount tr .dt-column-branches, table#dtClientCompany tr .dt-column-branches{
+	height:auto; 
+	max-height:80px; 
+	overflow:auto;
+}
+table#dtCompany th,td { font-size: 13px; }
+
+/** DataTable Archive Machine **/
+table#dtArchiveMachine tr.dt-head-machinesearch th select {
+	height: 23px;
+}
+
+table#dtMachine tr.dt-head-machinesearch th select {
+	height: 26px;
+}
+
+/**Charts TOTAL MIF Location**/
+table#chartlocation .badge{
+	background-color: #e15f4f;
+}
+
+/**Data Tables Logs Color. Green = UPDATE, Blue = CREATE **/
+.badge-green{ 
+	background-color: #058e4f;
+}
+
+.badge-blue{
+	background-color: #3c8dbc;
+}
+
+.badge-red{
+	background-color:#c34838;
+}
+
+.badge-orange{
+	background-color:#f39c12;
+}
+
+.btn-default-logs {
+    background-color: #757472;
+    color: #fff;
+    border-color: #6b6a69;
+}
+
+/* Popover Body */
+.popover-content {
+    font-size: 11px;
+}
+
+/**Fixed the long list entry of JQuery Chosen Plugin**/
+ .chosen-container-multi .chosen-choices{ 
+      max-height: 200px;
+      overflow-y: scroll;
+  }
+/** All Datatable **/
+  table.dataTable.compact thead th, table.dataTable.compact thead td{
+  	padding: 4px;
+  }
+
+  table tbody tr td.borderLeft{ border-left:4px solid #ddd;  }
+
+  /* Table Reports */
+
+  .thead-inverse thead th{
+  	color: #fff;
+  	background-color: #00a65a; 
+  }
+
+  .table-custom-bordered{
+  	border: 1px solid #ddd !important;
+  }
+/** Container **/
+/*.view-content{
+	box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2), 0 4px 20px 0 rgba(0,0,0,0.19)
+}*/
+
+  /** Override Default style of Boostrap for this Theme**/
+.btn{
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.02),0 1px 5px 0 rgba(0,0,0,.12)  !important;
+    -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.02),0 1px 5px 0 rgba(0,0,0,.12)  !important; 
+    -moz-box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.02),0 1px 5px 0 rgba(0,0,0,.12)  !important;
+}
+
+/** RESPONSIVE **/
+@media(max-width: 320px){
+	table#dtCompany thead .dt-searchfield, table#dtCurrentInventory thead .dt-searchfield, table#dtArchiveCompany thead .dt-searchfield {
+		width:100%;
+	}
+	table#dtCompany thead div#btn-companysearch, table#dtCompany thead div#btn-companyreset, table#dtCurrentInventory thead div#btn-invnt-refresh, table#dtArchiveCompany thead div#btn-companysearch, {
+		width:100% !important;
+	}
+     /** login **/
+	.login-logo{
+	    margin:0px;
+	 }
+	.company-logo{
+	    width: 70% !important;
+	}
+	table#dtmachine thead tr.dt-head-machinesearch th input{
+		display:block !important;
+	}
+
+}
+
+@media (max-width: 425px){
+  .company-logo{
+    width: 70% !important;
+  }
+  #fltr_slctcompany_chosen{
+	width:100% !important;
+  }
+  .total-mif-cointainer{
+     margin-left: 0px !important;
+  }
+
+  	/* MRF table */
+	.mrf-table-responsive {
+   		overflow-x: auto;
+  }
+}
+
+@media (min-width: 425px) and (max-width: 768px){
+  .counter-container-two{
+    float: none !important;
+  }
+  .total-mif-cointainer{
+    margin-left: 0px !important;
+  }
+}
+
+
+@media (min-width: 768px){
+	.sidebar-mini.sidebar-collapse .main-header .logo>.logo-mini{
+		line-height: 50px;
+	}
+	/*Modals Form*/
+	#modalEditCompanyList .modal-dialog, #modalFormBranch .modal-dialog, #modalFormAccount .modal-dialog, #modalFormToner .modal-dialog, 
+	#modalFormAccClient .modal-dialog, #modalFormStatus .modal-dialog, #modalFormBrand .modal-dialog, #modalChartModel .modal-dialog,  
+	#modalFormCurrentInvnt .modal-dialog, #modalFormOutMachine .modal-dialog, #modalFormInMachine .modal-dialog, #modalFormModel .modal-dialog,
+	#modalFormInvntStatus .modal-dialog, #modalFormInvntBranch .modal-dialog, #modalFormMrfSettingsApprover .modal-dialog,
+  #modalChangePass .modal-dialog, #modalSapDetails .modal-dialog, #modalFormCurrentSched .modal-dialog, #modalFormCurrentPM .modal-dialog{ width:30%; }
+
+	/* MRF table */
+	.mrf-table-responsive {
+    	width: 100%;
+    	height: auto;
+    	overflow-x: auto;
+    	-ms-overflow-style: -ms-autohiding-scrollbar;
+    	border: 1px solid #ddd;
+  }
+    .mrf-table-responsive-non-border {
+      width: 100%;
+      height: auto;
+      overflow-x: auto;
+      -ms-overflow-style: -ms-autohiding-scrollbar;
+  }
+  /** MIF In Out Machines counter **/
+  #modalInOut .modal-dialog{
+    width: 900px;
+  }
+}
+
+@media (max-width: 1024px){
+	table.dtCompany thead tr:nth-child(2){
+		display: none;
+	}
+}
+
+/** Fixed DataTable print, avoid blank pages **/
+@media print {
+	html, body { height: auto; }
+}
+
+
+/*** Inventory ***/
+
+input[type=checkbox] {
+	--moz-transform: scale(1.2);
+	--webkit-transform:scale(1.2);
+	transform: scale(1.2);
+}
+
+.chkboxes-background{
+	background-color: #fda924;
+	transition: all ease 0.3s;
+}
+
+
+
+/**** MRF *****/
+
+/* Material Design */
+ input.mrf-material, select.mrf-material{
+  border: none;
+  border-bottom: solid 1px #717171;
+
+/*  padding: 3px 0;
+  -webkit-transition: all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
+          transition: all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
+  background: -webkit-linear-gradient(top, rgba(26,188,156,0.82) 98%, #717171 2%);
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 98%, #717171 2%);
+  background-position: -200px 0;
+  background-size: 200px 100%;
+  background-repeat: no-repeat;
+  color: #0e6252;*/
+}
+input[name='s1_quantity']{
+   border: none;
+}
+
+input.mrf-material:disabled{
+	background: transparent;
+}
+
+input.mrf-material:focus, select.mrf-material:focus {
+  outline: none;
+  /*font-family: 'roboto', sans-serif;
+  
+   box-shadow: none;
+ 	background-position: 0 0;
+  	-webkit-transition: all 0.3s ease-in-out;
+          transition: all 0.3s ease-in-out;*/
+}
+
+/*
+.remove-row-margin{
+	margin: 0px !important;
+}
+
+#frmCurrentMrf label{
+	line-height: 2em;
+}*/
+
+
+#modalFormCurrentMrf form input[type=text]:not(.not-full-width) {
+    width: 100% !important;
+}
+
+/** Comments **/
+  .clearFix{
+     clear: both;
+  }
+  .comment-box {
+    height: 200px;
+    max-height: 650px;
+    overflow: auto;
+    border: 1px solid #428a69;
+    margin-bottom: 20px
+  }
+  .comment-msg{
+    margin: 5px 10px;
+  }
+  .comment-date {
+    color: #999;
+    font-size: 12px;
+  }
+  .comment-name{
+    font-weight: 700;
+  }
+  .comment-box .left{
+     float: left;
+   }
+  .comment-box .left::after{
+     clear: both;
+   }
+  .comment-box .left .comments-text-box{
+    display: inline-block;
+    padding: 5px 8px;
+    background: #d2d6de;
+    border: 1px solid #cbced4;
+    color:#444;
+    line-height: 12px;
+    border-radius: 2px;
+  }
+  .comment-box .left .comment-date{
+    text-align: right;
+  }
+  .comment-box .right{
+     float: right;
+   }
+  .comment-box .right .comments-text-box{
+    display: inline-block;
+    padding: 5px 8px;
+    background: #f39c12;
+    border: 1px solid #ea9c1f;
+    color:#f1f1f1;
+    line-height: 12px;
+    border-radius: 2px;
+  }
+  .comment-box .right .comment-date{
+    text-align: left;
+  }
+
+.status-gray{
+  background-color: #98949e;
+}
+.status-green{
+  background-color: #a6ce42;
+}
+.status-yellow{
+  background-color: #a8a91c;
+}
+.status-red{
+  background-color: #eb6342;
+}
+.status-blue{
+  background-color: #3dadee;
+}
+
+/** View Request Form **/
+#tab-form-request, #tab-form-approve, #tab-form-request > table>thead>tr>th, #tab-form-request > table>tbody>tr>td{
+    font-family: Helvetica, Arial, Tahoma;
+    font-size: 13px;
+}
+
+.view-form-section{
+  margin-bottom: 20px;
+}
+
+#tab-form-approve input[type="text"]{
+  width: 80%;
+  height: 30px;
+}
+.view-step-1 table td.first{
+  text-align: center;
+  vertical-align: middle;
+  min-width: 25px;
+  /*background: #96eed7;*/
+}
+.tbl_view_frm_component_1_style{
+  border: 1px solid #ddd;
+  margin-bottom: 0px;
+}
+.tbl_view_frm_component_1_style>tbody>tr.parentRow>td{
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+}
+.tbl_view_frm_component_1_style>thead>tr>th{
+  border-bottom: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+}
+.tbl_view_frm_component_1_style>tbody>tr.parentRow>td.first{ /** Counter **/
+  border-right: 1px solid #ddd;
+}
+.tbl_view_frm_component_1_style>tbody>tr>td:nth-child(2),  .tbl_view_frm_component_1_style>thead>tr>th:nth-child(2){ /** Quantity **/
+  text-align: center;
+}
+
+table.subTableStyle {
+    font-size:12px;
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+}
+
+.subTableStyle td, .subTableStyle th {
+    /*border: 1px solid #ddd;*/
+    text-align: left;
+    padding: 5px;
+}
+
+.subRowSerial table.subTableStyle td:not(:first-child){
+  border-left: 1px solid #ddd;
+}
+
+tr.subRow:not(:last-child) {
+    border-bottom: 2.5px solid #d2d2d2;
+}
+.subRow table.subTableStyle{
+  margin-bottom: 15px;
+}
+
+.subTableStyle tr:nth-child(even){background-color: #f2f2f2}
+
+.subTableStyle th {
+    padding-top: 4px;
+    padding-bottom: 4px;
+    background-color: #4CAF50;
+    color: #f2f2f2;
+}
+
+/** Modal Font Family **/
+
+#modalFormCurrentMrf .modal-content, #modalS1Toner .modal-content, #modalS1Serial .modal-content{
+  font-family: Helvetica, Arial, Tahoma;
+  font-size: 13px;
+}
+
+
+/** File upload **/
+.post-list-attachment div a.view-file {
+  width: 75%;
+  max-width: 100%;
+  display: inline-block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.pre-list-attachment:not(:empty):before {
+  content: "Selected file: ";
+  font-style: normal;
+  font-weight: 600;
+}
+.pre-list-attachment:not(:empty):before {
+  border-bottom: 1px solid #000;
+}
+/*.pre-list-attachment:empty:before {
+  content: "No Selected file";
+  font-style: normal;
+  font-weight: 600;
+}*/
+input#attachment-view, #attachment{
+  display: none;
+}
+#attachment-view-trigger, #btn_save_view_mrf, #current-attachment-trigger{
+  cursor: pointer;
+  background: #39D2B4;
+  color: #fff;
+  border: #39D2B4;
+  padding: 4px 8px;
+}
+#attachment-view-trigger:hover, #btn_save_view_mrf:hover, #current-attachment-trigger:hover{
+  background: #30a78f;
+  transition: all .4s;
+  /*color: #fff;*/
+}
+#btn_save_view_mrf{
+  -webkit-appearance:none;
+ -moz-appearance:none;
+  appearance:none;
+}
+.remove-attachment{
+  display: inline-block;
+  color:red;
+  cursor: pointer;
+  width: 10%;
+  margin-left: 5%;
+  text-align: center;
+}
+
+.box.box-solid.box-success{
+  border: 1px solid #4caf50;
+}
+.box.box-solid.box-success>.box-header {
+    background: #4caf50;
+    background-color: #4caf50;
+}
+
+/** Multi-step indicator **/
+ 
+/* -------------------------------- 
+Credit: @CodyWebHouse;
+Basic Style
+
+-------------------------------- */
+.cd-breadcrumb, .cd-multi-steps {
+  width: 90%;
+  max-width: 768px;
+  padding: 0.5em 1em;
+  margin: 0.1em auto;
+  background-color: #edeff0;
+  border-radius: .25em;
+}
+.cd-breadcrumb:after, .cd-multi-steps:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.cd-breadcrumb li, .cd-multi-steps li {
+  display: inline-block;
+  /* float: left; */
+  margin: 0.5em 0;
+}
+.cd-breadcrumb li::after, .cd-multi-steps li::after {
+  /* this is the separator between items */
+  display: inline-block;
+  content: '\00bb';
+  margin: 0 .6em;
+  color: #959fa5;
+}
+.cd-breadcrumb li:last-of-type::after, .cd-multi-steps li:last-of-type::after {
+  /* hide separator after the last item */
+  display: none;
+}
+.cd-breadcrumb li > *, .cd-multi-steps li > * {
+  /* single step */
+  display: inline-block;
+  font-size: 0.8rem;
+  color: #2c3f4c;
+}
+.cd-breadcrumb li.current > *, .cd-multi-steps li.current > * {
+  /* selected step */
+  color: #96c03d;
+}
+.no-touch .cd-breadcrumb a:hover, .no-touch .cd-multi-steps a:hover {
+  /* steps already visited */
+  color: #96c03d;
+}
+.cd-breadcrumb.custom-separator li::after, .cd-multi-steps.custom-separator li::after {
+  /* replace the default arrow separator with a custom icon */
+  content: '';
+  height: 16px;
+  width: 16px;
+  background: url(../img/cd-custom-separator.svg) no-repeat center center;
+  vertical-align: middle;
+}
+.cd-breadcrumb.custom-icons li > *::before, .cd-multi-steps.custom-icons li > *::before {
+  /* add a custom icon before each item */
+  content: '';
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  margin-right: .4em;
+  margin-top: -2px;
+  background: url(../img/cd-custom-icons-01.svg) no-repeat 0 0;
+  vertical-align: middle;
+}
+.cd-breadcrumb.custom-icons li:not(.current):nth-of-type(2) > *::before, .cd-multi-steps.custom-icons li:not(.current):nth-of-type(2) > *::before {
+  /* change custom icon using image sprites */
+  background-position: -20px 0;
+}
+.cd-breadcrumb.custom-icons li:not(.current):nth-of-type(3) > *::before, .cd-multi-steps.custom-icons li:not(.current):nth-of-type(3) > *::before {
+  background-position: -40px 0;
+}
+.cd-breadcrumb.custom-icons li:not(.current):nth-of-type(4) > *::before, .cd-multi-steps.custom-icons li:not(.current):nth-of-type(4) > *::before {
+  background-position: -60px 0;
+}
+.cd-breadcrumb.custom-icons li.current:first-of-type > *::before, .cd-multi-steps.custom-icons li.current:first-of-type > *::before {
+  /* change custom icon for the current item */
+  background-position: 0 -20px;
+}
+.cd-breadcrumb.custom-icons li.current:nth-of-type(2) > *::before, .cd-multi-steps.custom-icons li.current:nth-of-type(2) > *::before {
+  background-position: -20px -20px;
+}
+.cd-breadcrumb.custom-icons li.current:nth-of-type(3) > *::before, .cd-multi-steps.custom-icons li.current:nth-of-type(3) > *::before {
+  background-position: -40px -20px;
+}
+.cd-breadcrumb.custom-icons li.current:nth-of-type(4) > *::before, .cd-multi-steps.custom-icons li.current:nth-of-type(4) > *::before {
+  background-position: -60px -20px;
+}
+@media only screen and (min-width: 768px) {
+  .cd-breadcrumb, .cd-multi-steps {
+    padding: 0 1.2em;
+  }
+  .cd-breadcrumb li, .cd-multi-steps li {
+    margin: 1.2em 0;
+  }
+  .cd-breadcrumb li::after, .cd-multi-steps li::after {
+    margin: 0 1em;
+  }
+  .cd-breadcrumb li > *, .cd-multi-steps li > * {
+    font-size: 1.3rem;
+  }
+}
+
+/* -------------------------------- 
+
+Triangle breadcrumb
+
+-------------------------------- */
+@media only screen and (min-width: 768px) {
+  .cd-breadcrumb.triangle {
+    /* reset basic style */
+    background-color: transparent;
+    padding: 0;
+  }
+  .cd-breadcrumb.triangle li {
+    position: relative;
+    padding: 0;
+    margin: 4px 4px 4px 0;
+  }
+  .cd-breadcrumb.triangle li:last-of-type {
+    margin-right: 0;
+  }
+  .cd-breadcrumb.triangle li > * {
+    position: relative;
+    padding: 1em .8em 1em 2.5em;
+    color: #2c3f4c;
+    background-color: #edeff0;
+    /* the border color is used to style its ::after pseudo-element */
+    border-color: #edeff0;
+  }
+  .cd-breadcrumb.triangle li.current > * {
+    /* selected step */
+    color: #ffffff;
+    background-color: #96c03d;
+    border-color: #96c03d;
+  }
+  .cd-breadcrumb.triangle li:first-of-type > * {
+    padding-left: 1.6em;
+    border-radius: .25em 0 0 .25em;
+  }
+  .cd-breadcrumb.triangle li:last-of-type > * {
+    padding-right: 1.6em;
+    border-radius: 0 .25em .25em 0;
+  }
+  .no-touch .cd-breadcrumb.triangle a:hover {
+    /* steps already visited */
+    color: #ffffff;
+    background-color: #2c3f4c;
+    border-color: #2c3f4c;
+  }
+  .cd-breadcrumb.triangle li::after, .cd-breadcrumb.triangle li > *::after {
+    /* 
+      li > *::after is the colored triangle after each item
+      li::after is the white separator between two items
+    */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 100%;
+    content: '';
+    height: 0;
+    width: 0;
+    /* 48px is the height of the <a> element */
+    border: 24px solid transparent;
+    border-right-width: 0;
+    border-left-width: 20px;
+  }
+  .cd-breadcrumb.triangle li::after {
+    /* this is the white separator between two items */
+    z-index: 1;
+    -webkit-transform: translateX(4px);
+    -moz-transform: translateX(4px);
+    -ms-transform: translateX(4px);
+    -o-transform: translateX(4px);
+    transform: translateX(4px);
+    border-left-color: #ffffff;
+    /* reset style */
+    margin: 0;
+  }
+  .cd-breadcrumb.triangle li > *::after {
+    /* this is the colored triangle after each element */
+    z-index: 2;
+    border-left-color: inherit;
+  }
+  .cd-breadcrumb.triangle li:last-of-type::after, .cd-breadcrumb.triangle li:last-of-type > *::after {
+    /* hide the triangle after the last step */
+    display: none;
+  }
+  .cd-breadcrumb.triangle.custom-separator li::after {
+    /* reset style */
+    background-image: none;
+  }
+  .cd-breadcrumb.triangle.custom-icons li::after, .cd-breadcrumb.triangle.custom-icons li > *::after {
+    /* 50px is the height of the <a> element */
+    border-top-width: 25px;
+    border-bottom-width: 25px;
+  }
+
+  @-moz-document url-prefix() {
+    .cd-breadcrumb.triangle li::after,
+    .cd-breadcrumb.triangle li > *::after {
+      /* fix a bug on Firefix - tooth edge on css triangle */
+      border-left-style: dashed;
+    }
+  }
+}
+/* -------------------------------- 
+
+Custom icons hover effects - breadcrumb and multi-steps
+
+-------------------------------- */
+@media only screen and (min-width: 768px) {
+  .no-touch .cd-breadcrumb.triangle.custom-icons li:first-of-type a:hover::before, .cd-breadcrumb.triangle.custom-icons li.current:first-of-type em::before, .no-touch .cd-multi-steps.text-center.custom-icons li:first-of-type a:hover::before, .cd-multi-steps.text-center.custom-icons li.current:first-of-type em::before {
+    /* change custom icon using image sprites - hover effect or current item */
+    background-position: 0 -40px;
+  }
+  .no-touch .cd-breadcrumb.triangle.custom-icons li:nth-of-type(2) a:hover::before, .cd-breadcrumb.triangle.custom-icons li.current:nth-of-type(2) em::before, .no-touch .cd-multi-steps.text-center.custom-icons li:nth-of-type(2) a:hover::before, .cd-multi-steps.text-center.custom-icons li.current:nth-of-type(2) em::before {
+    background-position: -20px -40px;
+  }
+  .no-touch .cd-breadcrumb.triangle.custom-icons li:nth-of-type(3) a:hover::before, .cd-breadcrumb.triangle.custom-icons li.current:nth-of-type(3) em::before, .no-touch .cd-multi-steps.text-center.custom-icons li:nth-of-type(3) a:hover::before, .cd-multi-steps.text-center.custom-icons li.current:nth-of-type(3) em::before {
+    background-position: -40px -40px;
+  }
+  .no-touch .cd-breadcrumb.triangle.custom-icons li:nth-of-type(4) a:hover::before, .cd-breadcrumb.triangle.custom-icons li.current:nth-of-type(4) em::before, .no-touch .cd-multi-steps.text-center.custom-icons li:nth-of-type(4) a:hover::before, .cd-multi-steps.text-center.custom-icons li.current:nth-of-type(4) em::before {
+    background-position: -60px -40px;
+  }
+}
+/* -------------------------------- 
+
+Multi steps indicator 
+
+-------------------------------- */
+@media only screen and (min-width: 768px) {
+  .cd-multi-steps {
+    /* reset style */
+    background-color: transparent;
+    padding: 0;
+    text-align: center;
+  }
+
+  .cd-multi-steps li {
+    position: relative;
+    float: none;
+    margin: 0.4em 40px 0.4em 0;
+  }
+  .cd-multi-steps li:last-of-type {
+    margin-right: 0;
+  }
+  .cd-multi-steps li::after {
+    /* this is the line connecting 2 adjacent items */
+    position: absolute;
+    content: '';
+    height: 4px;
+    background: #edeff0;
+    /* reset style */
+    margin: 0;
+  }
+  .cd-multi-steps li.visited::after {
+    background-color: #00a65a;
+  }
+  .cd-multi-steps li > *, .cd-multi-steps li.current > * {
+    position: relative;
+    color: #2c3f4c;
+  }
+
+  .cd-multi-steps.custom-separator li::after {
+    /* reset style */
+    height: 4px;
+    background: #edeff0;
+  }
+
+  .cd-multi-steps.text-center li::after {
+    width: 100%;
+    top: 50%;
+    left: 100%;
+    -webkit-transform: translateY(-50%) translateX(-1px);
+    -moz-transform: translateY(-50%) translateX(-1px);
+    -ms-transform: translateY(-50%) translateX(-1px);
+    -o-transform: translateY(-50%) translateX(-1px);
+    transform: translateY(-50%) translateX(-1px);
+  }
+  .cd-multi-steps.text-center li > * {
+    z-index: 1;
+    padding: .6em 1em;
+    border-radius: .25em;
+    background-color: #edeff0;
+  }
+  .no-touch .cd-multi-steps.text-center a:hover {
+    background-color: #2c3f4c;
+  }
+  .cd-multi-steps.text-center li.current > *, .cd-multi-steps.text-center li.visited > * {
+    color: #ffffff;
+    background-color: #96c03d;
+  }
+  .cd-multi-steps.text-center.custom-icons li.visited a::before {
+    /* change the custom icon for the visited item - check icon */
+    background-position: 0 -60px;
+  }
+
+  .cd-multi-steps.text-top li, .cd-multi-steps.text-bottom li {
+    /*width: 80px;*/
+     width: auto;
+    text-align: center;
+  }
+  .cd-multi-steps.text-top li::after, .cd-multi-steps.text-bottom li::after {
+    /* this is the line connecting 2 adjacent items */
+    position: absolute;
+    left: 50%;
+    /* 40px is the <li> right margin value */
+    width: calc(100% + 40px);
+  }
+  .cd-multi-steps.text-top li > *::before, .cd-multi-steps.text-bottom li > *::before {
+    /* this is the spot indicator */
+    content: '';
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    right: auto;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    transform: translateX(-50%);
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    background-color: #edeff0;
+  }
+  .cd-multi-steps.text-top li.visited > *::before,
+  .cd-multi-steps.text-top li.current > *::before, .cd-multi-steps.text-bottom li.visited > *::before,
+  .cd-multi-steps.text-bottom li.current > *::before {
+    background-color: #00a65a;
+  }
+  .no-touch .cd-multi-steps.text-top a:hover, .no-touch .cd-multi-steps.text-bottom a:hover {
+    color: #96c03d;
+  }
+  .no-touch .cd-multi-steps.text-top a:hover::before, .no-touch .cd-multi-steps.text-bottom a:hover::before {
+    box-shadow: 0 0 0 3px rgba(150, 192, 61, 0.3);
+  }
+
+  .cd-multi-steps.text-top li::after {
+    /* this is the line connecting 2 adjacent items */
+    bottom: 4px;
+  }
+  .cd-multi-steps.text-top li > * {
+    padding-bottom: 20px;
+  }
+  .cd-multi-steps.text-top li > *::before {
+    /* this is the spot indicator */
+    bottom: 0;
+  }
+
+  .cd-multi-steps.text-bottom li::after {
+    /* this is the line connecting 2 adjacent items */
+    top: 3px;
+  }
+  .cd-multi-steps.text-bottom li > * {
+    padding-top: 20px;
+  }
+  .cd-multi-steps.text-bottom li > *::before {
+    /* this is the spot indicator */
+    top: 0;
+  }
+}
+/* -------------------------------- 
+
+Add a counter to the multi-steps indicator 
+
+-------------------------------- */
+.cd-multi-steps.count li {
+  counter-increment: steps;
+}
+
+.cd-multi-steps.count li > *::before {
+  content: counter(steps) " - ";
+}
+
+@media only screen and (min-width: 768px) {
+  .cd-multi-steps.text-top.count li > *::before,
+  .cd-multi-steps.text-bottom.count li > *::before {
+    /* this is the spot indicator */
+    content: counter(steps);
+    height: 26px;
+    width: 26px;
+    line-height: 26px;
+    font-size: 1.1rem;
+    color: #ffffff;
+  }
+
+  .cd-multi-steps.text-top.count li:not(.visited) a::before,
+  .cd-multi-steps.text-bottom.count li:not(.visited) a::before {
+    /* steps not visited yet - counter color */
+    color: #2c3f4c;
+  }
+
+  .cd-multi-steps.text-top.count li::after {
+    bottom: 11px;
+  }
+
+  .cd-multi-steps.text-top.count li > * {
+    padding-bottom: 34px;
+  }
+
+  .cd-multi-steps.text-bottom.count li::after {
+    top: 11px;
+  }
+
+  .cd-multi-steps.text-bottom.count li > * {
+    padding-top: 34px;
+  }
+}
+
+/*** PM ***/
+.border-left {
+  border-left: 3px solid #d8d6d6;
+}
+
+#btn_cancel_sched, #btn_done_sched{
+  width: 60%;
+}
+
+#btn_cancel_sched{
+  margin-bottom: 5px;
+}

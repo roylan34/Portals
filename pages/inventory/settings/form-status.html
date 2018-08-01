@@ -1,0 +1,124 @@
+<!-- Modal -->
+<div class="modal fade" id="modalFormInvntStatus" data-backdrop="static" data-keyboard="true" tabindex="-1" role="dialog" aria-labelledby="modalFormInvntStatus">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="modal-header"></h4>
+      </div>
+      <form id="frmSettingInvntStatus" class="form-horizontal">
+          <div class="modal-body">
+
+            <div class="inventory-status-content">
+                    <input type="hidden" name="hdnIdInvntStatus" id='hdnIdInvntStatus'>
+                    <input type="hidden" name="hdnOldInvntStatus" id="hdnOldInvntStatus">
+                    <div class="form-group">
+                      <label class="col-sm-4 col-md-4 control-label" for="txtInvntSettingStatus">Status Name:</label>
+                      <div class="col-sm-5 col-md-7">
+                        <input type="text" class="form-control" id="txtInvntSettingStatus" name="txtInvntSettingStatus" placeholder="Status Name"/>
+                      </div>
+                    </div>
+                     <div class="form-group">
+                      <label class="col-sm-4 col-md-4 control-label">Type:</label>
+                      <div class="col-sm-5 col-md-7">
+                          <div class="radio">
+                            <label><input type="radio" name="optradioInvntStatus" value="IN">IN <small>(Move Machine to Current)</small></label>
+                          </div>
+                          <div class="radio">
+                            <label><input type="radio" name="optradioInvntStatus" value="OUT">OUT <small>(Move Machine to Archive)</small></label>
+                          </div>
+                      </div>
+                    </div>
+            </div><!--end of content-->
+
+          </div><!--end of modal-body-->
+      <div class="modal-footer">
+        <div class="">
+          <div class="col-sm-6 col-sm-offset-6">
+            <button type="button" class="btn btn-flat btn-danger" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-flat btn-info" name="btnSettingsInvntStatus" id="btnSettingsInvntStatus">Save</button>
+          </div>
+        </div>
+      </div> <!--end of modal footer-->
+      </form>
+
+  </div>
+</div>
+<script type="text/javascript">
+ $('#modalFormInvntStatus').on('hidden.bs.modal', function () {
+    $(this).find("input").parent('.col-sm-5').removeClass('has-error has-success')
+    $(this).find("input").next().remove('em');
+    $(this).find("#frmSettingInvntStatus input:hidden").val('');
+    $(this).find("#frmSettingInvntStatus").trigger('reset');
+ });
+   // Client-side edit form validation.
+  $( document ).ready( function () {
+      $( "#frmSettingInvntStatus" ).validate( {
+        submitHandler: function (form) {
+          var id = $("#hdnIdInvntStatus").val() || null;
+          if( id == null){
+              dtStatusInventory.add();
+              $("#txtInvntSettingStatus").removeData("previousValue");//Clear cache of previous value in the 2nd time input of the remote call.
+          }
+          else {
+             dtStatusInventory.update();
+              var updated_status = $("#txtInvntSettingStatus").val();
+              $("#hdnOldInvntStatus").val(updated_status);//Replicate the value with the updated.
+          }
+        },
+        rules: {
+          txtInvntSettingStatus: {
+            required: true,
+            maxlength: 100,
+            remote: {
+              url: assets+'php/inventory/settings/status.php',
+              type: 'POST',
+              data: { 
+                  action_validate: function(id){ 
+                       var ids = $("#hdnIdInvntStatus").val() || null;
+                       return (ids == null ? 'add' : 'update');
+                  }, 
+                  old_status: function(){ return $("#hdnOldInvntStatus").val(); },
+                  action: 'check_exist'
+                }
+            }
+          },
+           optradioInvntStatus: {
+            required: true
+          }
+        },
+        messages: {
+          txtInvntSettingStatus: {
+            required: "This field is required.",
+            maxlength: "Please enter no more than {0} characters"
+          },
+          optradioInvntStatus: {
+            required: "This field is required."
+          }
+        },
+        errorElement: "em",
+        errorPlacement: function ( error, element ) {
+          // Add the `help-block` class to the error element
+          error.addClass( "help-block" ).css('margin-top','0px');
+          error.css({'font-size':'12px','margin-bottom':'0px'});
+
+          if ( element.prop( "type" ) === "checkbox" ) {
+            error.insertAfter( element.parent( "label" ) );
+          } else {
+            error.insertAfter( element );
+          }
+        },
+        highlight: function ( element, errorClass, validClass ) {
+          $( element ).parents( ".col-sm-5" ).addClass( "has-error" ).removeClass( "has-success" );
+        },
+        unhighlight: function (element, errorClass, validClass) {
+          $( element ).parents( ".col-sm-5" ).addClass( "has-success" ).removeClass( "has-error" );
+        }
+      } );
+  } );
+          
+
+                 
+</script>
+
+

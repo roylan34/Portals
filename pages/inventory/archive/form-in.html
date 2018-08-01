@@ -1,0 +1,146 @@
+<!-- Modal -->
+<div class="modal fade" id="modalFormInMachine" data-backdrop="static" data-keyboard="true" tabindex="-1" role="dialog" aria-labelledby="modalFormInMachine">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="modal-header">IN Machine</h4>
+      </div>
+      <form id="frmInMachine" class="form-horizontal">
+          <div class="modal-body">
+
+            <div class="out-machine-content">
+                    <input type="hidden" name="hdnInvntInId" id='hdnInvntInId'/>
+                    <input type="hidden" name="hdnInvntInCompanyId" id='hdnInvntInCompanyId'/>
+                        <div class="form-group">
+                          <label class="col-sm-4 control-label" for="slctArchInvntStatus">Status:</label>
+                          <div class="col-sm-6">
+                            <select class="form-control" id="slctArchInvntStatus" name="slctArchInvntStatus"></select>
+                          </div>
+                        </div>
+
+                      <!--<div class="form-group">
+                          <label class="col-sm-4 control-label" for="slctArchInvntCompany">Company:</label>
+                          <div class="col-sm-6">
+                              <select class="form-control chosen-select" id="slctArchInvntCompany" name="slctArchInvntCompany" data-placeholder="Company"></select>
+                          </div>
+                        </div> -->
+
+                        <div class="form-group">
+                          <label class="col-sm-4 control-label" for="slctArchInvntCompany">Company:</label>
+                          <div class="col-sm-6">
+                              <span id="slctArchInvntCompany"></span>
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <label class="col-sm-4 control-label" for="txtArchInvntDateIn">Date In:</label>
+                          <div class="col-sm-6">
+                              <div class="input-group" style="margin-bottom: 0px">
+                                <div class="input-group-addon">
+                                  <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control" data-inputmask="'alias': 'yyyy-mm-dd'" data-mask2 id="txtArchInvntDateIn" name="txtArchInvntDateIn">
+                              </div>
+                          </div>
+                        </div>
+
+                         <div class="form-group">
+                            <label class="col-sm-4 control-label" for="txtArchInvntRemarks">Remarks:</label>
+                            <div class="col-sm-6">
+                              <textarea id="txtArchInvntRemarks" style="width:100%; resize: vertical;" name="txtArchInvntRemarks"></textarea>
+                          </div>
+                        </div>
+            </div><!--end of content-->
+
+          </div><!--end of modal-body-->
+      <div class="modal-footer">
+        <div class="">
+          <div class="col-sm-6 col-sm-offset-6">
+            <button type="submit" class="btn btn-flat btn-info" name="btnInMachine" id="btnInMachine">OK</button>
+            <button type="button" class="btn btn-flat btn-danger" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div> <!--end of modal footer-->
+      </form>
+
+  </div>
+</div>
+<script type="text/javascript">
+$( document ).ready( function () {
+	$('#modalFormInMachine').on('hidden.bs.modal', function () {
+	  $(this).find("input, select").parents('.col-sm-6').removeClass('has-error has-success');
+    $(this).find("#frmInMachine input:hidden").val('');
+    $(this).find("#slctArchInvntCompany").text(''); //empty text
+	  $(this).find("textarea, select, .chosen-container, .input-group").next('em').remove();
+    $(this).find("#frmInMachine").trigger('reset');
+	});
+   // Client-side edit form validation.
+      $( "#frmInMachine" ).validate( {
+        submitHandler: function (form) {
+             var id = $("#hdnInvntInId").val() || null;
+              if(id != null){
+                 dtArchiveInventory.inMachine();
+              }
+              else{
+                alert("ID is empty.");
+              }
+        },
+        rules: {
+          slctArchInvntStatus: {
+            required: true
+          },          
+          // slctArchInvntCompany: {
+          //   required: true
+          // },         
+          txtArchInvntDateIn: {
+            required: true,
+            isdate: true,
+          },          
+          txtArchInvntRemarks: {
+            required: true
+          }
+        },
+        messages: {
+          slctArchInvntStatus: {
+            required: "This field is required."
+          },          
+          // slctArchInvntCompany: {
+          //   required: "This field is required."
+          // },          
+          txtArchInvntDateIn: {
+            required: "This field is required.",
+            isdate: "Incomplete date format."
+          },          
+          txtArchInvntRemarks: {
+            required: "This field is required."
+          }
+        },
+        errorElement: "em",
+        errorPlacement: function ( error, element ) {
+          // Add the `help-block` class to the error element
+          error.addClass( "help-block" ).css('margin-top','0px');
+          error.css({'font-size':'12px','margin-bottom':'0px'});
+
+          if (element.is("#txtArchInvntDateIn") == true) {
+            error.insertAfter(".input-group");
+          } 
+          // else if (element.is("#slctArchInvntCompany") == true){
+          //    error.insertAfter(".chosen-container");
+          // }
+            else {
+            error.insertAfter( element );
+          }
+
+        },
+        highlight: function ( element, errorClass, validClass ) {
+          $( element ).parents( ".col-sm-6" ).addClass( "has-error" ).removeClass( "has-success" );
+        },
+        unhighlight: function (element, errorClass, validClass) {
+          $( element ).parents( ".col-sm-6" ).addClass( "has-success" ).removeClass( "has-error" );
+        }
+      } );
+  } );                
+</script>
+
+

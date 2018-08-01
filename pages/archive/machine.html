@@ -1,0 +1,113 @@
+<div id="archive-machine">
+  <div class="box box-warning" style="width: auto; max-width: 100%; overflow: auto">
+    <div class="box-header with-border">
+      <h3 class="box-title">Archive</h3>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+      <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+          <li class="active">
+            <a data-toggle="tab" href="#tabMachine">Machine</a>
+          </li>
+          <li>
+            <a data-toggle="tab" href="#tabCompany">Company</a>
+          </li>
+        </ul>
+      </div>
+      <div class="tab-content">
+        <div id="tabMachine" class="tab-pane fade in active">
+          <div id="archive-container">
+            <table class="display compact" cellspacing="0" id="dtArchiveMachine"></table>
+          </div>
+        </div>
+
+        <div id="tabCompany" class="tab-pane fade">
+          <table class="display compact" cellspacing="0" id="dtArchiveCompany">
+            <thead> 
+               <tr > <!-- Column thead -->
+                  <th class="text-left">#</th>
+                  <th class="text-left">Sap Code</th>
+                  <th class="text-left">Company</th>
+                  <th class="text-left">Client Category</th>
+                  <th class="text-left">No. of Machines</th>
+                  <th class="text-left">Address</th>
+                  <th class="text-left">Main </br>Location</th>
+                  <th class="text-left">Branches</th>
+                  <th class="text-left">Contact No.</th>
+                  <th class="text-left">Account Manager</th>  
+                  <th class="text-left">Status</th> 
+                  <th class="text-left" >Date Last Visit</th> 
+                  <th class="text-left"></th>       
+                  <th class="text-left"></th>
+                  <th class="text-left"></th>                     
+               </tr>
+            </thead>
+             <thead id="dt-head-search" style="display:none;">
+               <tr >
+                  <th class="text-center" colspan="13">
+                     <div class="row">
+                        <div class="col-xs-12">
+                            <div class="col-xs-12 dt-searchfield" ><input type="text" class="form-control" id="search-archive-companyname" placeholder="Company" value=""></div>
+                            <div class="col-xs-12 dt-searchfield" ><input type="text" class="form-control" id="search-archive-category" placeholder="Category" value=""></div>
+                            <div class="col-xs-12 dt-searchfield" ><input type="text" class="form-control" id="search-archive-address" placeholder="Address" value=""></div>
+                            <div class="col-xs-12 dt-searchfield" ><select class="form-control" id="search-archive-location" data-placeholder="Location"></select></div>
+                            <div class="col-xs-12 dt-searchfield" ><select class="form-control" id="search-archive-branch" data-placeholder="Branches"></select></div>
+                            <div class="col-xs-12 dt-searchfield"><input type="text" class="form-control" id="search-archive-contactno" placeholder="Contact No" value=""></div>
+                            <div class="col-xs-12 dt-searchfield" ><select id="search-archive-accmngr" data-placeholder="Account Manager"></select></div>
+                            <div class="col-xs-12 col-md-6" style="width: 70px; padding-top: 3px; box-sizing: border-box;" id="btn-companysearch"><button type="button" class="btn btn-primary btn-flat btn-sm">Search</button></div>
+                            <div class="col-xs-12 col-md-6" style="width: 70px; padding-top: 3px; box-sizing: border-box;" id="btn-companyreset"><button type="button" class="btn btn-warning btn-flat btn-sm">Reset</button></div>
+                        </div>
+                     </div>
+                  </th>
+
+               </tr>
+            </thead>                
+             <tfoot> 
+               <tr > <!-- Column tfoot: Note tfoot th must the same number of  thead th, else datatable will not work -->
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th colspan="3"></th>                  
+                  <th></th>
+                  <th></th>  
+                  <th></th> 
+                  <th></th> 
+                  <th></th>   
+                  <th></th>                
+               </tr>
+            </tfoot>
+            <tfoot>
+               <tr>
+                 <!-- <th></th> -->
+               </tr>
+            </tfoot>
+         </table>
+        </div>
+
+      </div>
+
+
+    </div>
+    <!--end of box body -->
+    <div class="box-footer"></div>
+    <!-- box-footer -->
+  </div>
+</div>
+
+<script type="text/javascript">
+    var loc = convertArrStrToInt(Cookies.get('location')) || [1];
+    var reverseDrpdown = (Cookies.get('location') == '1' ? false : true);
+    autoDrpDown.getBranchNameOne("#search-archive-branch","100%",loc,reverseDrpdown); // 1 = ALL exclude from the list. Branches
+    autoDrpDown.getBranchNameOne("#search-archive-location","100%",loc,reverseDrpdown); // 1 = ALL exclude from the list. Location
+    autoDrpDown.getClientName("#search-archive-accmngr","100%");
+    $("#search-archive-branch, #search-archive-accmngr, #search-archive-location").val(0).trigger('chosen:updated'); //reset Branch & Acc Mngr
+</script>
+
+<style type="text/css">
+  #dtArchiveMachine th,
+  td {
+    font-size: 12px;
+  }
+  /*#archive-container { width: auto; max-width: 1200px; overflow:auto; } */
+</style>

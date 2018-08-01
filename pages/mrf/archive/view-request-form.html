@@ -1,0 +1,443 @@
+
+   <!-- Modal -->
+  <div class="modal fade" id="modalFormArchiveViewMrf" data-backdrop="static" data-keyboard="true" tabindex="-1" role="dialog" aria-labelledby="modalFormArchiveViewMrf">
+    <div class="modal-dialog" role="document" style="width:auto; max-width: 800px">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">View Request Form</h4>
+        </div>
+
+        <div class="modal-body">
+
+        <div class="nav-tabs-custom">
+          <ul class="nav nav-tabs" id="tabs-form">
+            <li class="active"><a href="#tab-form-request" data-toggle="tab" id="index-tab-form-approve"><i class="fa fa-info-circle"></i> <span>Details</span></a></li>
+            <li><a href="#tab-form-approve" data-toggle="tab"><i class="fa fa-thumbs-up"></i> <span>Approve</span></a></li>
+          </ul>
+        </div>
+
+          <div class="tab-content">
+
+            <div role="tabpanel" class="tab-pane fade in active" id="tab-form-request">
+
+              <div class="col-md-12 view-form-section">
+                <div id="requestedBy" style="display: inline-block; line-height: 2">Requested By: <span style="font-weight: 700;"></span></div>                 
+                <div class="pull-right form-no" style="border:#000 1px solid; padding: 3px"><strong>FORM NO: </strong><span id="form-code"></span></div>
+              </div>
+                               
+              <div class="col-md-12 view-form-section view-step-1">
+                <!-- <h4>Step 1</h4> -->
+                  <p class="col-sm-12 col-xs-12"><strong>Place indicate the machines for delivery:</strong></p>
+                  <div class="mrf-table-responsive-non-border">
+                     <table id="tbl_view_frm_component_1" class="table tbl_view_frm_component_1_style">
+                        <thead>
+                          <tr>
+                            <th></th>
+                            <th>Quantity</th>
+                            <th>Brand</th>
+                            <th>Model</th> 
+                            <th>BN/RF</th>                                 
+                            <th>Remarks</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="view-loader">
+                                <td colspan="8"><div class="text-center"><i class="fa fa-refresh fa-spin" style="font-size:24px"></i><span class="sr-only">Please wait - loading...</span></div></td>
+                            </tr>
+                        </tbody>
+                     </table>
+                  </div>
+              </div>
+
+              <div class="col-md-12 view-form-section view-step-2">
+                <!-- <h4>Step 2</h4> -->
+                    <div class="form-group"> 
+                        <p class="col-sm-12"><strong>Place indicate the details below of machines for upgrade/replacement:</strong></p>
+
+                        <div class="form-group col-sm-12">                    
+                          <div class="col-md-2">  
+                              <label class="radio-inline">
+                                <input type="radio" id="radioBtn-1" value="1" name="radioBtn-group-c2" class="radioBtn-group-c2">Additional unit
+                              </label>   
+                          </div> 
+
+                          <div class="col-md-2" style="display:none">
+                              <label class="radio-inline">
+                                <input type="radio" id="radioBtn-2"  value="2" name="radioBtn-group-c2" class="radioBtn-group-c2">Upgrade/Replaced unit
+                              </label>      
+                          </div> 
+
+                          <div class="col-md-2">
+                              <label class="radio-inline">
+                                <input type="radio" id="radioBtn-upgrade"  value="5" name="radioBtn-group-c2" class="radioBtn-group-c2">Upgrade unit
+                              </label>      
+                          </div> 
+
+                          <div class="col-md-2">
+                              <label class="radio-inline">
+                                <input type="radio" id="radioBtn-replace"  value="6" name="radioBtn-group-c2" class="radioBtn-group-c2">Replace unit
+                              </label>      
+                          </div> 
+
+                           <div class="col-md-3">
+                              <label class="radio-inline">
+                                <input type="radio" id="radioBtn-3" name="radioBtn-group-c2" class="radioBtn-group-c2" for="txtDemoRental" value="3">Demo / Rental: 
+                                 <em id="no_of_days" style="text-decoration: underline;"></em> <span># of days</span> 
+                              </label>                                 
+                           </div> 
+
+
+                           <div class="col-md-3">
+                              <label class="radio-inline">
+                                <input type="radio" id="radioBtn-4" name="radioBtn-group-c2" class="radioBtn-group-c2" value="4">Others:
+                                 <em id="view_others" style="text-decoration: underline;"></em> <span></span> 
+                              </label>                                 
+                          </div> 
+
+                        </div>
+
+
+                          <div class="col-sm-12">
+                            <div class="mrf-table-responsive">  
+                              <table id="tbl_view_frm_component_2" class="table"> 
+                                  <thead>  
+                                    <tr> 
+                                      <th> Brand </th>
+                                      <th> Model </th>
+                                      <th> Serial Number </th>
+                                      <th> Contact Person </th>
+                                      <th> Department/Branch </th>
+                                    </tr>
+                                  </thead>
+                                  <tbody > 
+                                     <tr class="view-loader">
+                                        <td colspan="8"><div class="text-center"><i class="fa fa-refresh fa-spin" style="font-size:24px"></i><span class="sr-only">Please wait - loading...</span></div></td>
+                                    </tr>
+                                  </tbody>
+                              </table>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+              </div>
+
+                <div class="col-md-12 view-form-section view-step-3">
+                  <!-- <h4>Step 3</h4> -->   
+                    <p class="col-sm-12"><strong>Place a tick on the appropriate box:</strong></p>
+
+                    <div class="col-md-4">   
+                        <label class="radio-inline">
+                          <input type="radio" id="radioBtn-5"  value="1" name="radioBtn-group-c3" class="radioBtn-group-c3">Technician will install
+                        </label>   
+                    </div> 
+
+                    <div class="col-md-4">    
+                        <label class="radio-inline">
+                          <input type="radio" id="radioBtn-6"  value="2" name="radioBtn-group-c3" class="radioBtn-group-c3">Client IT will install
+                        </label>   
+                    </div> 
+
+                    <div class="col-md-4">
+                        <label class="radio-inline">
+                          <input type="radio" id="radioBtn-7"  value="3" name="radioBtn-group-c3" class="radioBtn-group-c3">Technician with client IT
+                        </label>     
+                    </div>                        
+                </div>
+
+                <div class="col-md-12 view-form-section view-step-4">
+                  <!-- <h4>Step 4</h4> -->
+                  <div class="mrf-table-responsive">
+                         <div class="col-md-6">
+                          <div class="form-group">     
+                            <label class="col-sm-5" for="dateRequest" >Date Requested:</label>
+                            <div class="col-md-offset-1 col-sm-6">
+                              <span id="dateRequest"></span>
+                            </div>
+                          </div> 
+                        </div>
+
+                        <div class="col-md-12">
+                          <div class="form-group">     
+                            <label class="col-sm-3" for="txtCompany">Company Name:</label>
+                            <div class="col-sm-9">
+                              <span id="txtCompany"></span>
+                            </div>
+                          </div> 
+                        </div>
+
+                        <div class="col-md-12">
+                          <div class="form-group">     
+                            <label class=" col-sm-3" for="txtShipTo">Ship to address:</label>
+                             <div class="col-sm-9">
+                                <span id="txtShipTo"></span>
+                             </div>
+                          </div> 
+                        </div>
+
+                          <div class="col-md-12">
+                              <div class="form-group">    
+                                  <label class="col-sm-3" for="txtBillTo">Bill to address:</label>
+                                  <div class="col-sm-9"> 
+                                    <span id="txtBillTo"></span>            
+                                  </div>
+                              </div> 
+                          </div>   
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                              <div class="col-md-5">     
+                                <label  for="txtContactPerson">Contact Person:</label>
+                                  <span id="txtContactPerson"></span>
+                              </div> 
+
+                              <div class="col-md-4">     
+                                <label for="txtDepartment">Department:</label>
+                                <span id="txtDepartment"></span>
+                              </div> 
+
+                              <div class="col-md-3">     
+                                <label for="txtTelNo">Tel No:</label>
+                                <span id="txtTelNo"></span>
+                              </div> 
+                            </div>
+                        </div>
+
+                        <div class="col-md-6" style="margin-top: 10px;">
+                           <div class="box box-success box-solid">
+                              <div class="box-header">
+                                  <p class="box-title" style="font-size: 13px">Attachment</p>
+                                  <div class="box-tools pull-right">
+                                      <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                                      </button>
+                                  </div>
+                              </div>
+                              <div class="box-body">
+                                  <form id="frmViewAttachment" enctype="multipart/form-data" class="form-horizontal">
+                                      <div class="col-sm-6 attachment-download-container">
+                                          <!-- <input type="hidden" name="hdnAttachmentName" class="hdnAttachmentName"> -->
+                                         <!--  <button type="button" class="btn btn-xs btn-flat btn-success btn-xs btn-download-attachment" data-toggle="modal" data-target="#modalArchiveAttachment">Download Attachment</button> -->
+                                      </div> 
+                                  </form>
+                                   <div class="col-sm-12 post-list-attachment"></div>
+                              </div>
+                          </div>
+                        </div>  
+
+                      </div>      
+                    </div>
+            </div>
+
+             <div role="tabpanel" class="tab-pane fade" id="tab-form-approve">
+                <form id="frmCurrentViewMrf" class="form-horizontal">
+                  <input type="hidden" name="hdnIdCurrentViewMrf" id="hdnIdCurrentViewMrf">
+                  <input type="hidden" name="hdnIdBranchCurrentViewMrf" id="hdnIdBranchCurrentViewMrf">
+                  <input type="hidden" name="hdnIdRequestor" id="hdnIdRequestor">
+                     <div id="container_approver">
+                       <table id="tbl_approver_1_2" class="table tbl_approver_header_bg">
+                        <thead>
+                           <tr>
+                             <th colspan="2">Executive</th>
+                           </tr>
+                           <tr>
+                             <th>1st Approver</th>
+                             <th>2nd Approver</th>
+                           </tr>
+                         </thead>
+                         <tbody>
+                           <tr>
+                             <td>
+                               <p><label>Name:</label>  <span id="1st_approve_name"></span></p>
+                               <p><label>Date approved:</label>  <span id="1st_approve_date"></span></p>
+                             </td>
+                             <td>
+                               <p><label>Name:</label>  <span id="2nd_approve_name"></span></p>
+                               <p><label>Date approved:</label>  <span id="2nd_approve_date"></span></p>
+                             </td>
+                           </tr>
+                         </tbody>
+                       </table>
+                     </div>
+
+                    <div>
+                        <table id="tbl_approver_3" class="table tbl_approver_header_bg">
+                        <thead>
+                           <tr>
+                             <th>Engineering</th>
+                           </tr>
+                         </thead>
+                         <tbody>
+                           <tr>
+                             <td>
+                                <div class="col-md-4"> 
+                                  <p><label>Machine/s issued by:</label> <span id="3rd_approve_name"></span></p>
+                                  <p><label>Date:</label> <span id="3rd_approve_date"></span></p>
+                                </div>
+                             </td>
+                           </tr>
+                         </tbody>
+                       </table>
+                    </div>
+                    <div>
+                        <table id="tbl_approver_4" class="table tbl_approver_header_bg">
+                        <thead>
+                           <tr>
+                             <th>Accounting</th>
+                           </tr>
+                         </thead>
+                         <tbody>
+                           <tr>
+                             <td>
+                              <div class="row">
+                                <div class="col-sm-4">
+                                  <p><label>DR Prepared by:</label> <span id="4th_approve_name"></span></p>
+                                  <p><label>Date:</label> <span id="4th_approve_date"></span></p>
+                                </div>
+                                <div class="col-sm-4">
+                                  <p><label>DR #: </label><span><input type="text" name="4th_dr_number" id="4th_dr_number" class="form-control" placeholder="DR Number"></span></p>
+                                  <p><label>EDR #: </label><span><input type="text" name="4th_edr_number" id="4th_edr_number" class="form-control" placeholder="EDR Number"></span></p>
+                                </div>
+                                <div class="col-sm-4">
+                                   <p><label>INV #: </label><span><input type="text" name="4th_inv_number" id="4th_inv_number" class="form-control" placeholder="INV Number"></span></p>
+                                </div>
+                              </div>
+                             </td>
+                           </tr>
+                         </tbody>
+                       </table>
+                    </div>
+                    <div>
+                        <table id="tbl_approver_5" class="table tbl_approver_header_bg">
+                        <thead>
+                           <tr>
+                             <th>Logistics</th>
+                           </tr>
+                         </thead>
+                         <tbody>
+                           <tr>
+                             <td>
+                                <div class="col-sm-4">
+                                  <p><label>Name:</label> <span id="5th_approve_name"></span></p>
+                                  <p><label>Date:</label> <span id="5th_approve_date"></span></p>
+                                </div>
+                                <div class="col-md-4">
+                                  <div><label>Delivery Date:</label> <input type="text" name="5th_delivery_date" id="5th_delivery_date" class="form-control" placeholder="Delivery Date"></div>
+                                  <div><label>Received by:</label> <input type="text" name="5th_received_by" id="5th_received_by" class="form-control" placeholder="Received by"></div>                      
+                                </div>
+                                <div class="col-md-4">
+                                  <div><label>Delivered by:</label> <input type="text" name="5th_delivered_by" id="5th_delivered_by" class="form-control" placeholder="Delivered by"></div>                            
+                                </div>
+                             </td>
+                           </tr>
+                         </tbody>
+                       </table>
+                    </div>    
+                </form>
+            </div>
+
+          </div><!--end of tab-content-->
+
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-flat btn-sm btn-danger" data-dismiss="modal">Close</button>
+        </div>
+
+      </div><!-- end Modal content-->
+      
+    </div>
+  </div>
+
+
+<!-- Modal View Toner -->
+<div id="modalArchiveViewToner" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Toner Details</h4>
+      </div>
+      <div class="modal-body">
+         <div class="mrf-table-responsive">
+              <table id="tbl_view_s1_toner" class="table"> 
+                  <thead>  
+                    <tr> 
+                      <th> Initial Qty </th>
+                      <th> Type </th>
+                      <th> Toner Model </th>
+                      <th> Price </th>
+                      <th> Yield </th>
+                    </tr>
+                  </thead>
+                  <tbody ></tbody>
+              </table>
+         </div>      
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger btn-flat" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div> <!-- end Modal Toner -->
+
+<!-- Modal View Toner -->
+<div id="modalArchiveAttachment" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Attachment</h4>
+      </div>
+      <div class="modal-body">
+          <div class="col-md-12 attachment-download-zip">
+              <input type="button" name="download" value="Download all (.zip)"  onClick="fileUpload.downloadZip()" class="btn btn-xs btn-flat btn-success pull-right">
+          </div> 
+          <div class="container-files col-md-12 col-sm-12"></div>  
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-danger btn-flat" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div> <!-- end Modal Attachment -->
+
+<script type="text/javascript">
+//Modal Archive Attachment.
+$('#modalArchiveAttachment').on('show.bs.modal', function() { 
+   var dirname = $(".hdnAttachmentName").val() || '';
+   fileUpload.listFiles(dirname,".container-files");
+   
+});
+//When modal hidden addClass.
+$('#modalArchiveAttachment').on('hidden.bs.modal', function() { 
+    $("body").addClass('modal-open'); 
+});
+</script>
+
+<style type="text/css">
+  .tbl_approver_header_bg > thead > tr:nth-child(1) > th{
+     background: #00a95b;
+     color: #f2f2e9;
+  }
+  .tbl_approver_header_bg > thead > tr > th{
+    text-align: center;
+    padding:4px;
+  }
+  .tbl_approver_header_bg > tfoot > tr > td{
+     padding:4px;
+  }
+  .tbl_approver_header_bg {
+    border: 1px solid #ddd;
+  }
+</style>

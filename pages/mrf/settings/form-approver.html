@@ -1,0 +1,131 @@
+<!-- Modal -->
+<div class="modal fade" id="modalFormMrfSettingsApprover" data-backdrop="static" data-keyboard="true" tabindex="-1" role="dialog" aria-labelledby="modalFormMrfSettingsApprover">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="modal-header">Update approver set-up</h4>
+      </div>
+      <form id="frmSettingMrfApprover" class="form-horizontal">
+          <div class="modal-body">
+                <input type="hidden" name="hdnIdMrfSettingsApprover" id='hdnIdMrfSettingsApprover'>
+                <input type="hidden" name="hdnIdMrfSettingsApproverBranch" id='hdnIdMrfSettingsApproverBranch'>
+
+                <div class="form-group">
+                  <label class="col-sm-4 col-md-4 control-label" for="lblMrfSettingApproverBranch">Branch:</label>
+                  <div class="col-sm-5 col-md-7">
+                    <span id="lblMrfSettingApproverBranch"></span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-sm-4 col-md-4 control-label" for="slct1stApprover">1st Approver:</label>
+                  <div class="col-sm-5 col-md-7">
+                    <select name="slct1stApprover" id="slct1stApprover" class="form-control"></select>
+                  </div>
+                </div>
+
+                 <div class="form-group">
+                  <label class="col-sm-4 col-md-4 control-label" for="slct2ndApprover">2nd Approver:</label>
+                  <div class="col-sm-5 col-md-7">
+                    <select name="slct2ndApprover" id="slct2ndApprover" class="form-control"></select>
+                     <div style="padding: 2px 0px;"></div>
+                    <select name="slct2ndApprover_2" id="slct2ndApprover_2" class="form-control"></select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-sm-4 col-md-4 control-label" for="slct3rdApprover">Engineering:</label>
+                  <div class="col-sm-5 col-md-7">
+                    <select name="slct3rdApprover" id="slct3rdApprover" class="form-control"></select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-sm-4 col-md-4 control-label" for="slct2ndApprover">Accounting:</label>
+                  <div class="col-sm-5 col-md-7">
+                    <select name="slct4thApprover" id="slct4thApprover" class="form-control"></select>
+                      <div style="padding: 2px 0px;"></div>
+                    <select name="slct4thApprover_2" id="slct4thApprover_2" class="form-control"></select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-sm-4 col-md-4 control-label" for="slct2ndApprover">Logistics:</label>
+                  <div class="col-sm-5 col-md-7">
+                    <select name="slct5thApprover" id="slct5thApprover" class="form-control"></select>
+                     <div style="padding: 2px 0px;"></div>
+                    <select name="slct5thApprover_2" id="slct5thApprover_2" class="form-control"></select>
+                  </div>
+                </div>
+
+          </div><!--end of modal-body-->
+      <div class="modal-footer">
+        <div class="">
+          <div class="col-sm-6 col-sm-offset-6">
+            <button type="button" class="btn btn-flat btn-danger" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-flat btn-info" name="btnSettingsMrfApprover" id="btnSettingsMrfApprover">Save</button>
+          </div>
+        </div>
+      </div> <!--end of modal footer-->
+      </form>
+
+  </div>
+</div>
+<script type="text/javascript">
+   // Client-side edit form validation.
+  $( document ).ready( function () {
+      $( "#frmSettingMrfApprover" ).validate( {
+        onkeyup: false,
+        submitHandler: function (form) {
+          var id = $("#hdnIdMrfSettingsApprover").val() || null;
+          if( id != null){
+             dtMrfApprover.update();
+          }else{
+            alert("ID form is empty");
+          }
+        },
+        // rules: {
+        //   slct1stApprover: {
+        //     required: true,
+        //     remote: {
+        //       url: assets+'php/mrf/settings/approver_setup.php',
+        //       type: 'POST',
+        //       data: {  
+        //           id_approver: function(){ return $("#slct1stApprover").chosen().val() },
+        //           action: 'check-is-active'
+        //         }
+        //     }
+        //   }
+        // },
+        // messages: {
+        //   slct1stApprover: {
+        //     required: "This field is required."
+        //   }
+        // },
+        errorElement: "em",
+        errorPlacement: function ( error, element ) {
+          // Add the `help-block` class to the error element
+          error.addClass( "help-block" ).css('margin-top','0px');
+          error.css({'font-size':'12px','margin-bottom':'0px'});
+
+          if ( element.prop( "type" ) === "checkbox" ) {
+            error.insertAfter( element.parent( "label" ) );
+          } else {
+            error.insertAfter( ".chosen-container" );
+          }
+        },
+        highlight: function ( element, errorClass, validClass ) {
+          $( element ).parents( ".col-sm-5" ).addClass( "has-error" ).removeClass( "has-success" );
+        },
+        unhighlight: function (element, errorClass, validClass) {
+          $( element ).parents( ".col-sm-5" ).addClass( "has-success" ).removeClass( "has-error" );
+        }
+      } );
+  } );
+          
+
+                 
+</script>
+
+

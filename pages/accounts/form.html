@@ -1,0 +1,396 @@
+<!-- Modal -->
+<div class="modal fade" id="modalFormAccount" data-backdrop="static" data-keyboard="true" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="modal-header"></h4>
+      </div>
+    <form id="frmAccount" class="form-horizontal" >
+      <div class="modal-body">
+          
+      <div class="account-content">
+              <input type="hidden" name="hdnIdAccount" id='hdnIdAccount'>
+              <input type="hidden" name="hdnOldUsername" id="hdnOldUsername">
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="txtUsername">Username:</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control" id="txtUsername" name="txtUsername" placeholder="Username" val=""/>
+                </div>
+              </div>
+
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="txtPassword">Password:</label>
+                <div class="col-sm-6">
+                  <input type="password" class="form-control" id="txtPassword" name="txtPassword" placeholder="Password" val=""/>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="txtFname">First name:</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control" id="txtFname" name="txtFname" placeholder="Full Name" val=""/>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="txtMname">Middle name:</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control" id="txtMname" name="txtMname" placeholder="Middle name" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="txtLname">Last name:</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control" id="txtLname" name="txtLname" placeholder="Last name" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="txtEmail">Email:</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control" id="txtEmail" name="txtEmail" placeholder="Email" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                  <label class="col-sm-4 control-label" for="slctAccountDept">Department:</label>
+                  <div class="col-sm-6">
+                    <select id="slctAccountDept" class="form-control slctAccountDept" name="slctAccountDept">
+                    </select>
+                  </div>
+              </div>
+
+
+ <!--              <div class="form-group">
+                <label class="col-sm-4 control-label" for="slctAccountLocation">Location:</label>
+                <div class="col-sm-6">
+                  <select id="slctAccountLocation" data-placeholder="Select Locations" multiple="true"></select>
+                </div>
+              </div> -->
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="slctAccountRole"><span>Account Role: </span>
+                    <a href="#" data-toggle="popover" title="Page accessible" data-placement="left" data-html="true" data-content="<em>Admin:</em> can access all pages. <br/>
+                    <em>User:</em> can access Current & Archive page only." data-trigger="focus">
+                      <i class="fa fa-info-circle"></i>
+                    </a>
+                </label>
+                <div class="col-sm-6">
+                  <select id="slctAccountRole" class="form-control">
+                    <option value="Admin">Admin</option>
+                    <option value="User">User</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="slctStatus">Status:</label>
+                <div class="col-sm-6">
+                  <select id="slctStatus" class="form-control">
+                    <option value="1">Active</option>
+                    <option value="0">Inactive</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="txtDateCreated">Date Created:</label>
+                <div class="col-sm-6">
+                  <span id="txtDateCreated" style="line-height: 2.2;"></span>
+                </select>
+                </div>
+              </div>
+
+
+            <div class="form-group"> <!-- //For development -->
+              <label class="col-sm-4 control-label">App module:</label>
+                  <div class="">
+                    <ul class="nav nav-tabs" id="tabs-appmodule">
+                      <li class="active"><a href="#tab-mif" data-toggle="tab" id="index-tab-mif"><i class="fa fa-map-marker"></i> <span>MIF</span></a></li>
+                      <li><a href="#tab-inventory" data-toggle="tab"><i class="fa fa-check-circle"></i> <span>Inventory</span></a></li>
+                      <li><a href="#tab-mrf" data-toggle="tab"><i class="fa fa-bookmark"></i> <span>MRF</span></a></li>
+                    </ul>
+                  </div>
+
+                    <div class="tab-content">
+                      <div role="tabpanel" class="tab-pane fade in active" id="tab-mif">
+                         <div>
+                              <label class="col-sm-4  control-label" for="chkAppMif">Grant access?</label> <!-- MIF -->
+                              <div class="col-sm-6">
+                                 <label><input type="checkbox" name="chkAppMif" value="1" id="chkAppMif"></label>  
+                              </div>
+                         </div>
+                          <div class="form-group">
+                              <label class="col-sm-4  control-label">Actions:</label>
+                              <div class="col-sm-4">
+                                  <div class="radio">
+                                    <label><input type="radio" name="radioMifActions" value="wr"> Write &amp; Read </label>
+                                  </div> 
+                              </div>
+                              <div class="col-sm-4">
+                                 <div class="radio">
+                                    <label><input type="radio" name="radioMifActions" value="r"> Read </label>
+                                  </div>
+                              </div>
+                         </div> 
+                         <div>
+                            <label class="col-sm-4  control-label" for="slctAccountLocation">Location:</label>
+                            <div class="col-sm-6">
+                              <select id="slctAccountLocation" name="slctAccountLocation" class="chosen-select" data-placeholder="Select Locations" multiple="true"></select>
+                            </div>
+                         </div>
+                      </div>
+
+                       <div role="tabpanel" class="tab-pane fade" id="tab-inventory">
+                           <div>
+                              <label class="col-sm-4 control-label" for="chkAppInventory">Grant access?</label> <!-- Inventory -->
+                              <div class="col-sm-6">
+                                 <label><input type="checkbox" name="chkAppInventory" value="1" id="chkAppInventory"></label>
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <label class="col-sm-4  control-label">Actions:</label>
+                              <div class="col-sm-4">
+                                  <div class="radio">
+                                    <label><input type="radio" name="radioInvntActions" value="wr"> Write &amp; Read </label>
+                                  </div> 
+                              </div>
+                              <div class="col-sm-4">
+                                 <div class="radio">
+                                    <label><input type="radio" name="radioInvntActions" value="r"> Read </label>
+                                  </div>
+                              </div>
+                         </div> 
+                          <div>
+                              <label class="col-sm-4 control-label" for="slctAccountBranch">Branch:</label>
+                              <div class="col-sm-6">
+                                <select id="slctAccountBranch" class="form-control slctAccountBranch" name="slctAccountBranch">
+                                </select>
+                              </div>
+                          </div>
+                      </div>
+
+                      <div role="tabpanel" class="tab-pane fade" id="tab-mrf">
+                           <div class="form-group">
+                              <label class="col-sm-4 control-label" for="chkAppMrf">Grant access?</label> <!-- MRF -->
+                              <div class="col-sm-6">
+                                 <label><input type="checkbox" name="chkAppMrf" value="1" id="chkAppMrf"></label>
+                              </div>
+                          </div>
+                         <div class="form-group">
+                              <label class="col-sm-4  control-label">Actions:</label>
+                              <div class="col-sm-4">
+                                  <div class="radio">
+                                    <label><input type="radio" name="radioMrfActions" value="wr"> Write &amp; Read </label>
+                                  </div> 
+                              </div>
+                              <div class="col-sm-4">
+                                 <div class="radio">
+                                    <label><input type="radio" name="radioMrfActions" value="r"> Read </label>
+                                  </div>
+                              </div>
+                         </div> 
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" for="slctAccountBranchMrf">Branch:</label>
+                                <div class="col-sm-6">
+                                  <select id="slctAccountBranchMrf" class="form-control slctAccountBranchMrf" name="slctAccountBranchMrf">
+                                  </select>
+                                  <!-- <select id="slctAccountBranchMrf" data-placeholder="Select Branch" multiple="true" class="chosen-select"></select> -->
+                                </div>
+                            </div>
+                      </div>
+
+
+                    </div>
+              </div>
+
+      </div><!--end of content-->
+
+      </div><!--end of modal-body-->
+        <div class="modal-footer">
+          <div class="">
+            <div class="col-sm-6 col-sm-offset-6">
+              <button type="button" class="btn btn-flat btn-danger" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-flat btn-info" name="savecompany" id="btnSaveCompany">Save</button>
+            </div>
+          </div>
+        </div> <!--end of modal footer-->
+        </form>
+  </div>
+</div>
+<script type="text/javascript">
+
+  $( document ).ready( function () {
+    $('[data-toggle="popover"]').popover(); //Account role popover.
+   
+     $("#chkAppMif, #chkAppInventory, #chkAppMrf").on('click',function(event){ // App module enable/disable dropdown .
+          if($(this).is('#chkAppInventory')){
+               if($(this).is(':checked')){
+                   $("#slctAccountBranch").prop('disabled',false);
+               }else{
+                   $("#slctAccountBranch").prop('disabled',true);
+               }           
+          }
+          else if($(this).is('#chkAppMrf')){
+              if($(this).is(':checked')){
+                  $("#slctAccountBranchMrf").prop('disabled',false);
+                  $("#slctAccountDept").trigger('change');
+               }else{
+                  $("#slctAccountBranchMrf").val(0).prop('disabled',true);
+               }           
+          }
+          else{
+               if($(this).is(':checked')){
+                  $("#slctAccountLocation").prop('disabled',false).trigger('chosen:updated');
+               }else{
+                  $("#slctAccountLocation").prop('disabled',true).trigger('chosen:updated');
+               }
+              
+          }
+      });
+      
+      $( "#frmAccount" ).validate( {  // Client-side edit form validation.
+        submitHandler: function (form) {
+            var modalTitle = $("#modalFormAccount").find(".modal-title").text().toLowerCase();
+            var id = $("#hdnIdAccount").val();
+            if(id == '' || id == null){
+                dtAccounts.add();
+            }
+            else{
+                dtAccounts.update();
+                var updated_user = $("#txtUsername").val();
+                $("#hdnOldUsername").val(updated_user);//Replicate the value with the updated.
+            }
+          },
+        rules: {
+          txtUsername: {
+            required: true,
+            maxlength: 50,
+            remote: {
+              url: assets+'php/accounts/company.php',
+              type: 'POST',
+              data: {
+                  action: 'check_exist', 
+                  actionVali: function(){ //if Update form shown, disable the check username of the current username used.
+                       var id = $("#hdnIdAccount").val();
+                       return (id == '' || id == null ? 'add' : 'update');
+                  }, 
+                  oldUsername: function(){ return $("#hdnOldUsername").val(); }
+                }
+            }
+          },
+          txtPassword: {
+            required: function(element){//Callback fn that not required this field if Update Form.
+               var modalTitle = $("#modalFormAccount").find(".modal-title").text().toLowerCase();
+               return modalTitle == 'add account';
+            },
+            minlength: 4
+          },
+          slctAccountLocation: {
+            required: function(){
+                var dept_execluded = $("#slctAccountDept option:selected").attr('data-group-mif');
+                return ($("#chkAppMif").is(':checked') && dept_execluded == 'editor' ? true : false);
+            }
+          },
+          slctAccountBranch: {
+            required: function(){
+                return ($("#chkAppInventory").is(':checked') ? true : false);
+            }
+          },
+          slctAccountBranchMrf: {
+            required: function(){
+                return ($("#chkAppMrf").is(':checked') ? true : false);
+            }
+          },
+          slctAccountDept: {
+            required: true
+          },
+          txtFname: {
+            required: true,
+            maxlength: 200,
+            lettersonly: true
+          },
+          txtMname: {
+            required: false,
+            maxlength: 50,
+            lettersonly: true
+          },
+          txtLname: {
+            required: true,
+            maxlength: 200,
+            lettersonly: true
+          },
+          txtEmail:{
+            email: true,
+            required: false
+          },
+          slctBranch: {
+            required: true
+          },
+          slctAccountRole: {
+            required: true
+          }
+        },
+        messages: {
+          slctAccountBranch: {
+            required: "This field is required."
+          },
+          slctAccountBranchMrf: {
+            required: "This field is required."
+          },
+          slctAccountDept: {
+            required: "This field is required."
+          },
+          txtUsername: {
+            required: "This field is required.",
+            maxlength: "Please enter no more than {0} characters"
+          },
+          txtPassword: {
+            required: "This field is required.",
+            minlength: "Please enter at least {0} characters"
+          },
+          txtFname: {
+            required: "This field is required.",
+            maxlength: "Please enter no more than {0} characters",
+            lettersonly: "Please enter only characters and spaces"
+          },
+          txtMname: {
+            required: "This field is required.",
+            maxlength: "Please enter no more than {0} characters",
+            lettersonly: "Please enter only characters and spaces"
+          },
+          txtLname: {
+            required: "This field is required.",
+            maxlength: "Please enter no more than {0} characters",
+            lettersonly: "Please enter only characters and spaces"
+          },
+          slctAccountRole: {
+            required: "This field is required."
+          }
+        },
+        errorElement: "em",
+        errorPlacement: function ( error, element ) {
+          // Add the `help-block` class to the error element
+          error.addClass( "help-block" );
+          error.css({'font-size':'11px','margin-bottom':'0px'});
+
+          if ( element.prop( "type" ) === "checkbox" ) {
+            error.insertAfter( element.parent( "label" ) );
+          } else {
+            error.insertAfter( element );
+          }
+        },
+        highlight: function ( element, errorClass, validClass ) {
+          $( element ).parents( ".col-sm-6" ).addClass( "has-error" ).removeClass( "has-success" );
+        },
+        unhighlight: function (element, errorClass, validClass) {
+          $( element ).parents( ".col-sm-6" ).addClass( "has-success" ).removeClass( "has-error" );
+        }
+      } );
+  } );
+
+</script>
+

@@ -1,0 +1,97 @@
+<!-- Modal -->
+<div class="modal fade" id="modalFilterMachine" data-backdrop="static" data-keyboard="true" tabindex="-1" role="dialog" aria-labelledby="modalFilterMachine">
+  <div class="modal-dialog" role="document" style="width: auto; min-width: 250px">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="modal-header">Filter Machine</h4>
+      </div>
+
+          <div class="modal-body">
+              <div class="row" >
+                  <div class="filter-content col-md-10 col-md-offset-1 col-sm-12 col-xs-12" >
+                      <form id="frmFilterMachine" class="form-inline">
+                          <div class="form-group" style="height: 33px;">
+                             <div style="height:0;">
+                                <input type="text" class="form-control" id="fltr-serialnum" placeholder="SN" >
+                              </div>
+                          </div>
+
+                          <div class="form-group">
+                             <select id="fltr-slctbrand" class="form-control"></select>
+                          </div>
+
+                          <div class="form-group">
+                            <input type="text" class="form-control" id="fltr-model" placeholder="Model">
+                          </div>
+
+                          <div class="form-group">
+                             <select id="fltr-slctcategory" class="form-control">
+                               <option value="">---Category---</option>
+                               <option value="SFP">SFP</option>
+                               <option value="MFP">MFP</option>
+                             </select>
+                          </div>
+
+                          <div class="form-group">
+                             <select id="fltr-slcttype" class="form-control">
+                               <option value="">---Type---</option>
+                               <option value="MONOCHROME">MONOCHROME</option>
+                               <option value="COLOR">COLOR</option>
+                             </select>
+                          </div>
+
+                          <div class="form-group">
+                            <select id="fltr-slctcompany" data-placeholder="Company"></select>
+                          </div>
+                           
+                          <div class="form-group">
+                            <select id="fltr-slctlocation" data-placeholder="Location"></select>
+                          </div> 
+
+                           <div class="form-group">
+                               <button type="button" class="btn btn-primary btn-flat btn-sm" id="btnFilterSearch">Search</button>
+                          </div>  
+
+                      </form>
+                  </div><!--end of content-->
+               </div>
+
+               <div class="row">
+                  <div class="col-md-12">
+                      <table class="display compact" cellspacing="0" id="dtFilterMachine"></table>
+                  </div>   
+               </div>
+
+        </div><!--end of modal-body-->
+      <div class="modal-footer">
+        <div class="">
+          <div class="col-sm-6 col-sm-offset-6">
+            <button type="button" class="btn btn-flat btn-danger" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div> <!--end of modal footer-->
+    
+
+
+  </div>
+</div>
+
+<script>
+$( document ).ready( function () {
+ // Rerender the DataTable
+   $( "#btnFilterSearch" ).click(function(e){
+      e.preventDefault();
+
+      if ( $.fn.DataTable.isDataTable('#dtFilterMachine') ) {
+        $('#dtFilterMachine').DataTable().destroy();
+      }
+
+      $('#dtFilterMachine tbody').empty();
+
+         dtFilterMachine.render();
+
+         });
+      });
+
+</script>

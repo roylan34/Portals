@@ -1,0 +1,46 @@
+<div id="currentInventoryIssuances">
+<div class="box box-success">
+        <div class="box-header with-border">
+          <h3 class="box-title">Issuances</h3>          
+        </div><!-- /.box-header -->
+        <div class="box-body">
+            
+            <table id="dtCurrentInvtIssuances" class="display compact" cellspacing="0">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Company</th>
+                  <th>Ref. No</th>
+                  <th>Doc Date</th>  
+                  <th>Item code</th>    
+                  <th>Description</th>           
+                  <th>S/N</th>           
+                  <th>Transfer type</th>           
+                </tr>
+              </thead>
+              <thead id="dthead-search-invnt-issuances" style="display:none;">
+                    <tr >
+                       <th colspan="8">
+                          <div class="row">
+                             <div class="col-xs-12">
+                                 <div class="col-xs-12 col-md-2 dt-head-search" ><input type="text" class="form-control" id="search-hq-company" placeholder="Company" ></div>                              
+                                 <div class="col-xs-12 col-md-2 dt-head-search" ><input type="text" class="form-control" id="search-hq-ref" placeholder="Ref. No" ></div>                               
+                                 <div class="col-xs-12 col-md-2 dt-head-search" ><input type="text" class="form-control" id="search-hq-date" placeholder="Doc Date" ></div>                               
+                                 <div class="col-xs-12 col-md-2 dt-head-search" ><input type="text" class="form-control" id="search-hq-item" placeholder="Item code" ></div>                            
+                                 <div class="col-xs-12 col-md-2 dt-head-search" ><input type="text" class="form-control" id="search-hq-descrip" placeholder="Description" ></div>                               
+                                 <div class="col-xs-12 col-md-2 dt-head-search" ><input type="text" class="form-control" id="search-hq-issue-serial" placeholder="S/N" ></div>                               
+                                 <div class="col-xs-12 col-md-2 dt-head-search" ><input type="text" class="form-control" id="search-hq-transfer" placeholder="Transfer type" ></div>                               
+                                
+                                 <div class="col-xs-12 col-md-6 dt-head-search" style="width: 70px; padding-top: 3px; box-sizing: border-box;" id="btn-invnt-hq-search"><button type="button" class="btn btn-primary btn-flat btn-sm">Search</button></div>
+                                 <div class="col-xs-12 col-md-6" style="width: 70px; padding-top: 3px; box-sizing: border-box;" id="btn-invnt-hq-reset"><button type="button" class="btn btn-warning btn-flat btn-sm">Reset</button></div>
+                             </div>
+                          </div>
+                       </th>
+                    </tr>
+              </thead>
+            </table>
+
+          </div><!--end of box body --> 
+         <div class="box-footer"></div><!-- box-footer -->
+    </div>
+</div>

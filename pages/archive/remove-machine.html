@@ -1,0 +1,115 @@
+<!-- Modal -->
+<div class="modal fade" id="modalRemoveMachine" data-backdrop="static" data-keyboard="true" tabindex="-1" role="dialog" aria-labelledby="modalRemoveMachine">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header modal-header-warning">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="modal-header">Remove Machine</h4>
+      </div>
+      <form id="frmRemoveMachine" class="form-horizontal">
+          <div class="modal-body">
+
+            <div class="remove-machine-content">
+                    <input type="hidden" name="removehdnId" id='removehdnId'>
+                    <div class="form-group">
+                      <label class="col-sm-4 col-md-4 control-label" for="txtReason">Reason:</label>
+                      <div class="col-sm-5 col-md-7">
+                     	 <textarea class="form-control" id="txtReason" name="txtReason" placeholder="Input reason's here."/></textarea>                       
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-4 col-md-4 control-label" for="slctMachineStatus">Status:</label>
+                        <div class="col-sm-5 col-md-7">
+                       	 <select class="form-control required" id="slctMachineStatus" name="slctMachineStatus"/></select>                       
+                        </div>
+                        <div class="col-sm-7 col-sm-offset-4 col-md-7 col-md-offset-4">
+                          <span class="retri-remove-msg" style="color:#dd4b39; display: none; font-style: italic;">Note: Can retrive from archive page.</span>
+                          <span class="remove-msg" style="color:#dd4b39; display: none; font-style: italic;">Note: Can't retrieve from archive page.</span>
+                        </div>
+                    </div>
+            </div><!--end of content-->
+
+          </div><!--end of modal-body-->
+      <div class="modal-footer">
+        <div class="">
+          <div class="col-sm-6 col-sm-offset-6">
+            <button type="submit" class="btn btn-flat btn-info" name="btnRemoveMachine" id="btnRemoveMachine">OK</button>
+            <button type="button" class="btn btn-flat btn-danger" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div> <!--end of modal footer-->
+      </form>
+
+  </div>
+</div>
+<script type="text/javascript">
+$("#slctMachineStatus").on('change',function(){//Dropdown status messages.
+   var opt_val = $(this).find('option:selected').data('action');
+   if(opt_val == 1){
+     $(".retri-remove-msg").show();
+     $(".remove-msg").hide();
+   }
+   else if(opt_val == undefined){
+     $(".retri-remove-msg, .remove-msg").hide();
+   }
+   else{
+     $(".remove-msg").show();
+     $(".retri-remove-msg").hide();
+   }
+  
+});
+
+$( document ).ready( function () {
+	$('#modalRemoveMachine').on('hidden.bs.modal', function () {
+	  $('body').addClass('modal-open');
+	  $(this).find("input, select").parent('.col-sm-5').removeClass('has-error has-success')
+	  $(this).find("textarea,select").next().remove('em');
+    $(this).find("#frmRemoveMachine").trigger('reset');
+	});
+
+   // Client-side edit form validation.
+      $( "#frmRemoveMachine" ).validate( {
+        submitHandler: function (form) {
+              var modalTitle = $('#modalRemoveMachine').find('.modal-title');
+              if(modalTitle.data('remove-opt') == 1){
+                dtMachine.remove();
+              }
+              else
+              {
+                dtFilterMachine.remove();
+              } 
+        },
+        rules: {
+          slctMachineStatus: {
+            required: true
+          }
+        },
+        messages: {
+          slctMachineStatus: {
+            required: "This field is required."
+          }
+        },
+        errorElement: "em",
+        errorPlacement: function ( error, element ) {
+          // Add the `help-block` class to the error element
+          error.addClass( "help-block" ).css('margin-top','0px');
+          error.css({'font-size':'12px','margin-bottom':'0px'});
+
+          if ( element.prop( "type" ) === "checkbox" ) {
+            error.insertAfter( element.parent( "label" ) );
+          } else {
+            error.insertAfter( element );
+          }
+        },
+        highlight: function ( element, errorClass, validClass ) {
+          $( element ).parents( ".col-sm-5" ).addClass( "has-error" ).removeClass( "has-success" );
+        },
+        unhighlight: function (element, errorClass, validClass) {
+          $( element ).parents( ".col-sm-5" ).addClass( "has-success" ).removeClass( "has-error" );
+        }
+      } );
+  } );                
+</script>
+
+

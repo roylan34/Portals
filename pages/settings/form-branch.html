@@ -1,0 +1,109 @@
+<!-- Modal -->
+<div class="modal fade" id="modalFormBranch" data-backdrop="static" data-keyboard="true" tabindex="-1" role="dialog" aria-labelledby="modalFormBranch">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="modal-header"></h4>
+      </div>
+      <form id="frmSettingsBranch" class="form-horizontal">
+          <div class="modal-body">
+
+            <div class="branch-content">
+                    <input type="hidden" name="hdnId" id='hdnId'>
+                    <input type="hidden" name="hdnOldBranch" id="hdnOldBranch">
+                    <div class="form-group">
+                      <label class="col-sm-4 col-md-4 control-label" for="txtSettingsBranch">Branch Name:</label>
+                      <div class="col-sm-5 col-md-7">
+                        <input type="text" class="form-control" id="txtSettingsBranch" name="txtSettingsBranch" placeholder="Branch Name"/>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-4 control-label" for="slctLocationStatus">Status:</label>
+                      <div class="col-sm-6">
+                        <select id="slctLocationStatus" class="form-control">
+                          <option value="1">Active</option>
+                          <option value="0">Inactive</option>
+                        </select>
+                      </div>
+                    </div>
+
+            </div><!--end of content-->
+
+          </div><!--end of modal-body-->
+      <div class="modal-footer">
+        <div class="">
+          <div class="col-sm-6 col-sm-offset-6">
+            <button type="button" class="btn btn-flat btn-danger" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-flat btn-info" name="btnSettingsBranch" id="btnSettingsBranch">Save</button>
+          </div>
+        </div>
+      </div> <!--end of modal footer-->
+      </form>
+
+  </div>
+</div>
+<script type="text/javascript">
+   // Client-side edit form validation.
+  $( document ).ready( function () {
+      $( "#frmSettingsBranch" ).validate( {
+        submitHandler: function (form) {
+          var id = $("#hdnId").val();
+          if(id == '' || id == null){
+              dtBranch.add();
+              $("#txtSettingsBranch").removeData("previousValue");//Clear cache of previous value in the 2nd time input of the remote call.
+          }
+          else {
+              dtBranch.update();
+              var updated_branch = $("#txtSettingsBranch").val();
+              $("#hdnOldBranch").val(updated_branch);//Replicate the value with the updated.
+          }
+        },
+        rules: {
+          txtSettingsBranch: {
+            required: true,
+            maxlength: 100,
+            remote: {
+              url: assets+'php/settings/location.php',
+              type: 'POST',
+              data: { 
+                  action_validate: function(){ 
+                        var id = $("#hdnId").val();
+                        return (id == '' || id == null ? 'add' : 'update');
+                  }, 
+                  old_branch: function(){ return $("#hdnOldBranch").val(); },
+                  action: 'check_exist'
+                }
+            }
+          }
+        },
+        messages: {
+          txtSettingsBranch: {
+            required: "This field is required.",
+            maxlength: "Please enter no more than {0} characters"
+          }
+        },
+        errorElement: "em",
+        errorPlacement: function ( error, element ) {
+          // Add the `help-block` class to the error element
+          error.addClass( "help-block" ).css('margin-top','0px');
+          error.css({'font-size':'12px','margin-bottom':'0px'});
+
+          if ( element.prop( "type" ) === "checkbox" ) {
+            error.insertAfter( element.parent( "label" ) );
+          } else {
+            error.insertAfter( element );
+          }
+        },
+        highlight: function ( element, errorClass, validClass ) {
+          $( element ).parents( ".col-sm-5" ).addClass( "has-error" ).removeClass( "has-success" );
+        },
+        unhighlight: function (element, errorClass, validClass) {
+          $( element ).parents( ".col-sm-5" ).addClass( "has-success" ).removeClass( "has-error" );
+        }
+      } );
+  } );              
+</script>
+
+

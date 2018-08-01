@@ -1,0 +1,112 @@
+*** AUTO IMPORT ACCOUNT MANAGER ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-06 TIME: 12:20:00
+3 tbl_accounts Row data inserted successfully.
+3 tbl_client_accounts Row data inserted successfully.
+0 tbl_accounts Row data updated successfully.
+0 tbl_client_accounts Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT ACCOUNT MANAGER ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-06 TIME: 19:20:00
+6 tbl_accounts Row data inserted successfully.
+6 tbl_client_accounts Row data inserted successfully.
+0 tbl_accounts Row data updated successfully.
+0 tbl_client_accounts Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT ACCOUNT MANAGER ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-07 TIME: 2:20:00
+0 tbl_accounts Row data inserted successfully.
+0 tbl_client_accounts Row data inserted successfully.
+0 tbl_accounts Row data updated successfully.
+0 tbl_client_accounts Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT ACCOUNT MANAGER ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-07 TIME: 9:20:00
+0 tbl_accounts Row data inserted successfully.
+0 tbl_client_accounts Row data inserted successfully.
+0 tbl_accounts Row data updated successfully.
+0 tbl_client_accounts Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT ACCOUNT MANAGER ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-07 TIME: 12:20:00
+0 tbl_accounts Row data inserted successfully.
+0 tbl_client_accounts Row data inserted successfully.
+0 tbl_accounts Row data updated successfully.
+0 tbl_client_accounts Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT ACCOUNT MANAGER ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-07 TIME: 19:20:00
+0 tbl_accounts Row data inserted successfully.
+0 tbl_client_accounts Row data inserted successfully.
+0 tbl_accounts Row data updated successfully.
+0 tbl_client_accounts Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT ACCOUNT MANAGER ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-08 TIME: 2:20:00
+0 tbl_accounts Row data inserted successfully.
+0 tbl_client_accounts Row data inserted successfully.
+0 tbl_accounts Row data updated successfully.
+0 tbl_client_accounts Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT ACCOUNT MANAGER ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-08 TIME: 9:20:00
+0 tbl_accounts Row data inserted successfully.
+0 tbl_client_accounts Row data inserted successfully.
+0 tbl_accounts Row data updated successfully.
+0 tbl_client_accounts Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT ACCOUNT MANAGER ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-08 TIME: 12:20:00
+0 tbl_accounts Row data inserted successfully.
+0 tbl_client_accounts Row data inserted successfully.
+0 tbl_accounts Row data updated successfully.
+0 tbl_client_accounts Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT ACCOUNT MANAGER ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-08 TIME: 19:20:00
+0 tbl_accounts Row data inserted successfully.
+0 tbl_client_accounts Row data inserted successfully.
+0 tbl_accounts Row data updated successfully.
+0 tbl_client_accounts Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT ACCOUNT MANAGER ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-09 TIME: 2:20:00
+0 tbl_accounts Row data inserted successfully.
+0 tbl_client_accounts Row data inserted successfully.
+0 tbl_accounts Row data updated successfully.
+0 tbl_client_accounts Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT ACCOUNT MANAGER ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-09 TIME: 9:20:00
+0 tbl_accounts Row data inserted successfully.
+0 tbl_client_accounts Row data inserted successfully.
+0 tbl_accounts Row data updated successfully.
+0 tbl_client_accounts Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT ACCOUNT MANAGER ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-09 TIME: 12:20:00
+0 tbl_accounts Row data inserted successfully.
+0 tbl_client_accounts Row data inserted successfully.
+0 tbl_accounts Row data updated successfully.
+0 tbl_client_accounts Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT ACCOUNT MANAGER ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-09 TIME: 19:20:00
+0 tbl_accounts Row data inserted successfully.
+0 tbl_client_accounts Row data inserted successfully.
+0 tbl_accounts Row data updated successfully.
+0 tbl_client_accounts Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT ACCOUNT MANAGER ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-10 TIME: 2:20:00
+0 tbl_accounts Row data inserted successfully.
+0 tbl_client_accounts Row data inserted successfully.
+0 tbl_accounts Row data updated successfully.
+0 tbl_client_accounts Row data updated successfully.
+*********************** END OF EXECUTION ***********************
+*** AUTO IMPORT ACCOUNT MANAGER ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-07-10 TIME: 9:20:00
+0 tbl_accounts Row data inserted successfully.
+0 tbl_client_accounts Row data inserted successfully.
+0 tbl_accounts Row data updated successfully.
+0 tbl_client_accounts Row data updated successfully.
+*********************** END OF EXECUTION ***********************

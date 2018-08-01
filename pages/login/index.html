@@ -1,0 +1,66 @@
+ 
+      <!-- #index -->
+        <div id="wrapper">
+            <!-- Navigation -->
+            
+            <div class="container-fluid">
+              <div class="login-box-body col-md-12">
+              <div class="row">
+                    <div class="login-logo" style="padding-top: 20px">
+                      <img src="/machine/assets/img/machine-banner.png" class="img-responsive center-block"/>
+                    </div><!-- /.login-logo -->
+              </div>
+              <div class="row">
+                    <div class="row col-md-6 col-md-offset-3" style="padding-top: 10px">
+                        <div class="col-md-6" style="padding-top:20px">
+                            <p class="text-center">This product is licensed to:</p>
+                            <img src="/machine/assets/img/delsanlogo.png" class="img-responsive center-block company-logo" width="auto"/>
+                        </div>  
+                        <div class="col-md-5">
+                            <h3 class="login-box-msg text-center">Login Page</h3>
+                            <form id="frmLogin">
+                              <div class="input-group has-feedback">
+                                <input class="form-control" placeholder="Username" name="username" id="txtloginuser" type="text" />
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                              </div>
+                              <div class="input-group has-feedback">
+                                <input class="form-control" placeholder="Password" name="password" id="txtloginpass" type="password" autocomplete="off" />
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-7">
+                    
+                                </div><!-- /.col -->
+                                <div class="col-md-5">
+                                  <input type="submit" class="btn btn-info btn-block btn-flat" value="Login" id="Loginsubmit"/>
+                                </div><!-- /.col -->
+                              </div>
+                            </form>
+                        </div>
+                    </div>
+                  </div> 
+                </div>
+                <div class="col-md-12">
+                    <hr align="center" width="60%" style = 'background-color:#999; border-width:0; color:#999; height:2px; lineheight:0;'/>
+                </div>
+                <div class="row">
+                  <div class="col-md-4 col-md-offset-2">
+                         <img src="/machine/assets/img/dbic-logo.jpg" class="img-responsive center-block company-logo" width="auto"/>
+                  </div>
+                  <div class="col-md-5">
+                      <div >
+                          <strong>Copyright &copy; <span id="yearnow"></span> <a href="#">Delsan Business Innovations Corporation</a>.</strong> All rights reserved.
+                      </div>
+                  </div>
+                </div>
+            </div>
+            <!-- /container-fluid -->
+        </div>
+        <!-- /#wrapper -->
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $("#yearnow").text(new Date().getFullYear());
+
+});
+</script>

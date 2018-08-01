@@ -1,0 +1,62 @@
+<div id="accounts">
+  <div class="box box-success">
+      <div class="box-header with-border">
+        <h3 class="box-title">Company</h3>
+      </div>
+      <div class="box-body">
+
+        <div class="nav-tabs-custom">
+          <ul class="nav nav-tabs" id="tabs-account">
+            <li class="active"><a href="#tab-account" data-toggle="tab" id="index-tab-account"><i class="fa fa-users"></i><span>Account</span></a></li>
+            <li><a href="#tab-account-logs" data-toggle="tab"><i class="fa fa-history"></i><span>Login logs</span></a></li>
+          </ul>
+        </div>
+
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade in active" id="tab-account">
+                <table class="display compact" id="dtAccount">
+                   <thead> 
+                      <tr > 
+                         <th class="text-left">#</th>
+                         <th class="text-left">User Name</th>
+                         <th class="text-left">Full Name</th>
+                         <th class="text-left">Location</th>
+                         <th class="text-left">Branch</th>
+                         <th class="text-left">Account Role</th> 
+                         <th class="text-left">Date Created</th>                      
+                         <th class="text-left"></th> 
+                      </tr>
+                   </thead>
+                </table>
+            </div>
+
+             <div role="tabpanel" class="tab-pane fade" id="tab-account-logs">
+                  <table id="dtAccLoginLogs" class="display compact" cellspacing="0" width="100%">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Full Name</th>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>IP Address</th>
+                      </tr>
+                    </thead>
+                  </table>
+            </div>
+          </div>
+
+
+      </div> 
+      <div class="box-footer"></div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $('#tabs-account a[data-toggle="tab"]').on('shown.bs.tab',function(e){ //For development.
+      if($(this).is("a#index-tab-account")){
+         dtAccounts.render();
+      }else{
+         dtAccounts.login_logs();
+      }
+  });
+</script>

@@ -1,0 +1,91 @@
+ <!-- Left side column. contains the logo and sidebar -->
+  <aside class="main-sidebar">
+
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel user">
+        <div class="pull-left image">
+          <img src="assets/img/avatar.png" class="img-circle" alt="User Image">
+        </div>
+        <div class="pull-left info">
+          <p></p>
+          <!-- Status -->
+          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+        </div>
+      </div>
+
+      <!-- Sidebar Menu -->
+      <ul class="sidebar-menu">
+        <li class="header">MAIN NAVIGATION</li>
+        <!-- Optionally, you can add icons to the links -->
+<!--     <li id="home">
+          <a href="#"><i class="fa fa-home"></i><span>Home</span></a>
+        </li> -->
+        <li id="sidebar-home" class="treeview"><a href="#"><i class="fa fa-home"></i> <span>Home</span> <i class="fa fa-angle-left pull-right"></i></a>
+          <ul id="home" class="treeview-menu">
+            <li id='home-mif'><a href="#/dashboard"><i class="fa fa-circle-o"></i>MIF</a></li>
+            <li id='home-inventory'><a href="#/inventory/dashboard"><i class="fa fa-circle-o"></i>Inventory</a></li> 
+          </ul>
+        </li>
+<!--      <li id="sidebar-current" class="treeview"><a href="#/current"><i class="fa fa-map-marker"></i> <span>Current</span> <i class="fa fa-angle-left pull-right"></i></a>
+          <ul id="current" class="treeview-menu">
+            <li id='current-mif'><a href="#/current"><i class="fa fa-circle-o"></i>MIF</a></li>
+            <li id='current-inventory'><a href="#/inventory/current"><i class="fa fa-circle-o"></i>Inventory</a></li>
+            <li id='current-mrf'><a href="#/mrf/current"><i class="fa fa-circle-o"></i>MRF</a></li>                    
+          </ul>
+        </li> -->
+        <li id="sidebar-current" class="treeview"><a href="#/current"><i class="fa fa-map-marker"></i> <span>Current</span> <i class="fa fa-angle-left pull-right"></i></a>
+          <ul id="current" class="treeview-menu">
+            <li id='current-mif'><a href="#/current"><i class="fa fa-circle-o"></i>MIF</a></li>
+            <li id='current-pm'><a href="#/pm/current"><i class="fa fa-circle-o"></i>PM</a></li>
+            <li id='current-inventory' class="treeview menu-open">
+              <a href="#">
+                <i class="fa fa-circle-o"></i>Inventory
+                 <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>   
+                </span>
+              </a>
+
+                <ul class="treeview-menu">
+                  <li><a href="#/inventory/current"><i class="fa fa-circle-o"></i> Stocks</a></li>
+                  <li><a href="#/inventory/current-ho"><i class="fa fa-circle-o"></i> SAP - BN Stocks HO</a></li>
+                  <li><a href="#/inventory/current-issuances"><i class="fa fa-circle-o"></i> SAP - Issuances</a></li>                
+                </ul>
+            </li>
+            <li id='current-mrf'><a href="#/mrf/current"><i class="fa fa-circle-o"></i>MRF</a></li>                    
+          </ul>
+        </li>
+        <li id="sidebar-archive" class="treeview"><a href="#/archive"><i class="fa fa-archive"></i> <span>Archive</span> <i class="fa fa-angle-left pull-right"></i></a>
+          <ul id="archive" class="treeview-menu">
+            <li id='archive-machine'><a href="#/archive"><i class="fa fa-circle-o"></i>MIF</a></li>
+            <li id='archive-pm'><a href="#/pm/archive"><i class="fa fa-circle-o"></i>PM</a></li>
+            <li id='archive-inventory'><a href="#/inventory/archive"><i class="fa fa-circle-o"></i>Inventory</a></li>
+            <li id='archive-mrf'><a href="#/mrf/archive"><i class="fa fa-circle-o"></i>MRF</a></li>
+          </ul>
+        </li>
+        <li id="sidebar-accounts" class="treeview"><a href="#/accounts"><i class="fa fa-address-book"></i> <span>Accounts</span> <i class="fa fa-angle-left pull-right"></i></a>
+          <ul id="accounts" class="treeview-menu">
+            <li id='company'><a href="#/account/company"><i class="fa fa-circle-o"></i>Company</a></li>
+            <li id='client'><a href="#/account/manager"><i class="fa fa-circle-o"></i>Manager</a></li>
+          </ul>
+        </li>
+        <li id="sidebar-reports" class="treeview"><a href="#/reports"><i class="fa fa-area-chart"></i> <span>Reports</span> <i class="fa fa-angle-left pull-right"></i></a>
+          <ul id="reports" class="treeview-menu">
+            <li id='reports-bn-rf'><a href="#/inventory/reports/bn-rf-stock"><i class="fa fa-circle-o"></i>Inventory Stocks</a></li>
+            <li id='reports-status'><a href="#/inventory/reports/in-out-stock"><i class="fa fa-circle-o"></i>IN/OUT Stocks</a></li>
+          </ul>
+        </li>
+        <li id="sidebar-settings" class="treeview"><a href="#/settings"><i class="fa fa-cogs"></i> <span>Settings</span> <i class="fa fa-angle-left pull-right"></i></a>
+          <ul id="settings" class="treeview-menu">
+            <li id='settings-mif'><a href="#/settings"><i class="fa fa-circle-o"></i>MIF</a></li>
+            <li id='settings-inventory'><a href="#/inventory/settings"><i class="fa fa-circle-o"></i>Inventory</a></li>
+            <li id='settings-mrf'><a href="#/mrf/settings"><i class="fa fa-circle-o"></i>MRF</a></li>
+          </ul>
+        </li>
+      </ul>
+      <!-- /.sidebar-menu -->
+    </section>
+    <!-- /.sidebar -->
+  </aside>

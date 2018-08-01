@@ -1,0 +1,88 @@
+<div id="account-manager">
+  <div class="box box-success">
+      <div class="box-header with-border">
+        <h3 class="box-title">Account Manager</h3>
+      </div>
+          <div class="box-body">
+           <table class="display compact" id="dtClient">
+               <thead> 
+                  <tr > 
+                     <th class="text-left">#</th>
+                     <th class="text-left">Full Name</th>
+                     <th class="text-left">Company</th>
+                     <th class="text-left">Status</th>
+                     <th class="text-left">Date Created</th> 
+                     <th></th>                     
+                  </tr>
+               </thead>
+            </table>
+          </div>
+        <div class="box-footer"></div>
+    </div>
+</div>
+
+
+<!-- <div id="account-manager">
+  <div class="box box-success">
+      <div class="box-header with-border">
+        <h3 class="box-title">Account Manager</h3>
+      </div>
+          <div class="box-body">
+
+            <div class="nav-tabs-custom">
+              <ul class="nav nav-tabs" id="tabs-manager">
+                <li class="active"><a href="#tab-manager" data-toggle="tab" id="index-tab-manager"><i class="fa fa-users"></i><span>Manager</span></a></li>
+                <li><a href="#tab-manager-logs" data-toggle="tab"><i class="fa fa-history"></i><span>Login logs</span></a></li>
+              </ul>
+            </div>
+
+            <div class="tab-content">
+              <div role="tabpanel" class="tab-pane fade in active" id="tab-manager">
+                 <table class="display compact" id="dtClient">
+                     <thead> 
+                        <tr > 
+                           <th class="text-left">#</th>
+                           <th class="text-left">User Name</th>
+                           <th class="text-left">Full Name</th>
+                           <th class="text-left">Position</th>
+                           <th class="text-left">Company</th>
+                           <th class="text-left">Status</th>
+                           <th class="text-left">Date Created</th> 
+                           <th></th>                     
+                        </tr>
+                     </thead>
+                  </table>
+              </div>
+
+               <div role="tabpanel" class="tab-pane fade" id="tab-manager-logs">
+                    <table id="dtAccMngrLoginLogs" class="display compact" cellspacing="0" width="100%">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Full Name</th>
+                          <th>Date</th>
+                          <th>Description</th>
+                          <th>IP Address</th>
+                        </tr>
+                      </thead>
+                    </table>
+              </div>
+            </div>
+
+          </div>
+        <div class="box-footer"></div>
+    </div>
+</div>
+ -->
+<script type="text/javascript">
+$(document).ready(function(){
+  // $('#tabs-manager a[data-toggle="tab"]').on('shown.bs.tab',function(e){
+  //     if($(this).is("a#index-tab-manager")){
+         dtAccClient.render();
+      // }else{
+      //    dtAccClient.login_logs();
+      // }
+  // });
+
+});
+</script>

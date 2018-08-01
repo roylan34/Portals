@@ -1,0 +1,59 @@
+<div id="charts">
+	<div class="row">
+		<div class="col-xs-12 col-md-12">
+			<!-- interactive chart -->
+			<div class="box box-success">
+				<div class="box-header with-border">
+					<i class="fa fa-bar-chart-o"></i>
+
+					<h3 class="box-title">Machine Brands Chart</h3>
+
+					<div class="box-tools pull-right">
+						Auto Refresh
+						<div class="btn-group" id="realtime" data-toggle="btn-toggle">
+							<button type="button" class="btn btn-default btn-xs real-on" data-toggle="on">On</button>
+							<button type="button" class="btn btn-default btn-xs real-off active" data-toggle="off">Off</button>
+						</div>
+					</div>
+				</div>
+				<div class="box-body">
+					<div id="chartBrands" style="height: 300px; width: 100%;"></div>
+				</div>
+				<!-- /.box-body-->
+			</div>
+			<!-- /.box -->
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<!-- interactive chart -->
+			<div class="box box-success">
+				<div class="box-header with-border">
+					<i class="fa fa-table"></i>
+					<h3 class="box-title">Total MIF Location</h3>
+				</div>
+				<div class="box-body">
+					<table class="display compact" id="chartlocation">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Location</th>
+								<th>Total Machine</th>
+							</tr>
+						</thead>
+						<tfoot>
+							<tr>
+								<th></th>
+								<th></th>
+								<th></th>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+				<!-- /.box-body-->
+			</div>
+			<!-- /.box -->
+		</div>
+	</div>
+</div>

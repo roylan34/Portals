@@ -1,0 +1,156 @@
+  <!-- Main Header -->
+  <header class="main-header">
+    <!-- Logo -->
+    <div class="logo">
+      <!-- mini logo for sidebar mini 50x50 pixels -->
+      <span class="logo-mini"><b>MIF</b></span>
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg"><img src="assets/img/dbic-logo.jpg" alt="DBIC logo" width="230" height="50"></span>
+    </div>
+
+    <!-- Header Navbar -->
+    <nav class="navbar navbar-static-top" role="navigation">
+      <!-- Sidebar toggle button-->
+      <a href="" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+        <span class="sr-only">Toggle navigation</span>
+      </a>
+      <!-- Navbar Right Menu -->
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+
+          <!-- User Account Menu -->
+          <li class="dropdown user user-menu">
+            <!-- Menu Toggle Button -->
+            <a href="" class="dropdown-toggle" data-toggle="dropdown">
+              <!-- The user image in the navbar-->
+              <img src="assets/img/avatar.png" class="user-image" alt="User Image">
+              <!-- hidden-xs hides the username on small devices so only the image appears. -->
+              <span class="hidden-xs">&nbsp;</span>
+            </a>
+            <ul class="dropdown-menu">
+              <!-- The user image in the menu -->
+              <li class="user-header">
+                <img src="assets/img/avatar.png" class="img-circle" alt="User Image">
+
+                <p class="info">
+<!--                   <small>Member since Nov. 2012</small>
+ -->                </p>
+              </li>
+
+              <!-- Menu Footer-->
+              <li class="user-footer" style="background-color: #333;">
+                <div class="pull-left">
+                  <a href="#" id="change-pass" class="btn btn-warning btn-flat" data-toggle="modal" data-target="#modalChangePass">Change password</a>
+                </div>
+                <div class="pull-right">
+                  <a href="#" id="logout" class="btn btn-sm btn-warning btn-flat" onclick="logout(); return false;"><i class="fa fa-sign-out" aria-hidden="true"></i> Log out</a>
+                </div>
+              </li>
+            </ul>
+          </li>
+          <!-- Control Sidebar Toggle Button -->
+          <li>
+            <div class="col-md-2"></div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+<!-- Modal Change password -->
+<div class="modal fade" id="modalChangePass" data-backdrop="static" data-keyboard="true" tabindex="-1" role="dialog" aria-labelledby="modalChangePass">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="modal-header">Change Password</h4>
+      </div>
+
+     <form id="frmChangePassword">
+        <div class="modal-body">
+
+             <div>
+              <label>Old Password:</label>
+              <input type="password" name="txtOldPassword" id="txtOldPassword" class="form-control">
+            </div>
+
+            <div>
+              <label>New Password:</label>
+              <input type="password" name="txtNewPassword" id="txtNewPassword" class="form-control">
+            </div>
+
+            <div>
+              <label>Confirm New Password:</label>
+              <input type="password" name="txtConfirmPassword" id="txtConfirmPassword" class="form-control">
+            </div>
+        
+        </div><!--end of modal-body-->
+        <div class="modal-footer">
+            <div class="col-sm-6 col-sm-offset-6">
+              <button type="button" class="btn btn-flat btn-danger" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-flat btn-info" name="btnSavePassword" id="btnSavePassword">Save</button>
+            </div>
+        </div> <!--end of modal footer-->
+    </form>
+
+    </div>
+  </div>
+
+<script type="text/javascript">
+
+$( document ).ready( function () {
+  $("#modalChangePass").on('hidden.bs.modal',function(){
+     resetForm('#frmChangePassword');
+     $(this).find("input").parents('div').removeClass('has-error has-success');
+     $(this).find("input").next('em').remove();
+  });
+  // Client-side edit form validation.
+    $( "#frmChangePassword" ).validate( {
+        onkeyup: false, 
+        submitHandler: function (form) {
+          var id = Cookies.get('user_id');
+          if(id > 0){
+              dtAccounts.changePassword(id);            
+          }
+          else {
+              alert('Error, can\'t update due to Empty ID.');
+          }
+        },
+        rules: {
+          txtOldPassword: {
+            required: true,
+             remote: {
+                  url: assets+'php/accounts/company.php',
+                  type: 'POST',
+                  cache: false,
+                  data: { 
+                      idaccount: function(){ return Cookies.get('user_id'); },            
+                      action: 'check_password'
+                    }
+                }
+          },
+          txtNewPassword: {
+            required: true,
+          },
+          txtConfirmPassword: {
+            required: true,
+            equalTo: "#txtNewPassword"
+          }
+        },
+        errorElement: "em",
+        errorPlacement: function ( error, element ) {
+          // Add the `help-block` class to the error element
+          error.addClass( "help-block" ).css('margin-top','0px');
+          error.css({'font-size':'12px','margin-bottom':'0px'});
+            error.insertAfter( element );
+
+        },
+        highlight: function ( element, errorClass, validClass ) {
+          $( element ).parents('div').addClass( "has-error" ).removeClass( "has-success" );
+        },
+        unhighlight: function (element, errorClass, validClass) {
+          $( element ).parents('div').addClass( "has-success" ).removeClass( "has-error" );
+        }
+      } );
+  } );              
+</script>

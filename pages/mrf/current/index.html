@@ -1,0 +1,56 @@
+<div id="currentMrfList">
+<div class="box box-success">
+        <div class="box-header with-border">
+          <h3 class="box-title">Machine Request <small>(Pending)</small></h3>
+           <div class="current-mrf-branches pull-right"><label>Branch: <select id="current-mrf-branchlist" style="padding:2px 4px"></select></label></div>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+            
+            <table id="dtCurrentMrf" class="display compact" cellspacing="0">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Form No.</th>
+                  <th>Company Name</th>
+                  <th>Date Requested</th>
+                 <!--  <th>Delivery Date</th> -->
+                  <th>Requested By</th>
+                  <th>Branch</th>
+                  <th>Age</th>
+                  <th>Status</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <thead id="dthead-search-mrf" style="display:none;">
+                    <tr >
+                       <th class="text-center" colspan="9">
+                          <div class="row">
+                             <div class="col-xs-12">
+                                 <div class="col-xs-12 dt-searchfield" ><input type="text" class="form-control" id="search-mrf-formno" placeholder="Form No" ></div>
+                                 <div class="col-xs-12 dt-searchfield" ><input type="text" class="form-control" id="search-mrf-company" placeholder="Company" ></div>
+                                 <div class="col-xs-12 dt-searchfield" ><input type="text" class="form-control" id="search-mrf-dateRequest" placeholder="Date Requested"></div>
+                                 <div class="col-xs-12 dt-searchfield" ><input type="text" class="form-control" id="search-mrf-requestedBy" placeholder="Requested By"></div>
+                                 <div class="col-xs-12 dt-searchfield" ><select id="search-for-approver" class="form-control">
+                                   <option value="">--Status--</option>
+                                   <option value="1st_approver">APPROVER-1</option>
+                                   <option value="2nd_approver">APPROVER-2</option>
+                                   <option value="3rd_approver">ENGINEERING</option>
+                                   <option value="4th_approver">ACCOUNTING</option>
+                                   <option value="5th_approver">LOGISTICS</option>
+                                 </select></div>  
+                                 <div class="col-xs-12 col-md-6" style="width: 70px; padding-top: 3px; box-sizing: border-box;" id="btn-mrfsearch"><button type="button" class="btn btn-primary btn-flat btn-sm">Search</button></div>
+                                 <div class="col-xs-12 col-md-6" style="width: 70px; padding-top: 3px; box-sizing: border-box;" id="btn-mrfreset"><button type="button" class="btn btn-warning btn-flat btn-sm">Reset</button></div>
+                             </div>
+                          </div>
+                       </th>
+                    </tr>
+              </thead>
+            </table>
+
+          </div><!--end of box body --> 
+         <div class="box-footer"></div><!-- box-footer -->
+    </div>
+</div>
+<script type="text/javascript">
+  $("#search-mrf-dateRequest").datepicker({dateFormat: 'yy-mm-dd' });
+</script>

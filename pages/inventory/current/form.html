@@ -1,0 +1,180 @@
+<!-- Modal -->
+<div class="modal fade" id="modalFormCurrentInvnt" class="modalFormCurrentInvnt" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="modalFormCurrentInvnt">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="modalFormCurrentInvnt"></h4>
+      </div>
+        <form id="frmCurrentInvnt" class="form-horizontal">
+        <div class="modal-body">
+              <input type="hidden" name="hdnCurInvntId" id='hdnCurInvntId' value=''>
+              <input type="hidden" name="hdnOldCurInvntSerial" id="hdnOldCurInvntSerial">
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="txtCurInvntSerial">S/N:</label>
+                <div class="col-sm-6 container-multiple-sn" style="height: 100%; max-height: 150px; overflow: auto;">
+                  <input type="text" class="form-control txtCurInvntSerial" id="txtCurInvntSerial" name="txtCurInvntSerial" placeholder="S/N" />
+                </div>
+                  <div class="col-sm-2 col-xs-2" id="add-multiple-sn"><a href="#" title="Add Multiple S/N"><i class="fa fa-plus-square fa-lg"></i></a></a></div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="slctCurInvntBrands">Brand:</label>
+                <div class="col-sm-6">
+                  <select id="slctCurInvntBrands" class="form-control" name="slctCurInvntBrands"></select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="slctCurInvntModel">Model:</label>
+                <div class="col-sm-6">
+                   <select id="slctCurInvntModel" class="form-control" name="slctCurInvntModel" data-placeholder="Model" disabled></select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="slctCurInvntCategory">Category:</label>
+                <div class="col-sm-6">
+                    <select class="form-control" id="slctCurInvntCategory" disabled></select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="slctCurInvntType">Type:</label>
+                <div class="col-sm-6">
+                    <select class="form-control" id="slctCurInvntType" disabled></select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="slctCurInvntBnRf">BN/RF:</label>
+                <div class="col-sm-6">
+                      <select class="form-control" id="slctCurInvntBnRf" name="slctCurInvntBnRf"></select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="txtCurInvntLocation">Stock location:</label>
+                <div class="col-sm-6">
+                  <input class="form-control" id="txtCurInvntLocation" name="txtCurInvntLocation" placeholder="Location" />
+                </div>
+              </div>
+
+                <div class="form-group">
+                <label class="col-sm-4 control-label" for="slctCurInvntBranch">Branch:</label>
+                <div class="col-sm-6">
+                  <select class="form-control" id="slctCurInvntBranch" name="slctCurInvntBranch"></select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="txtCurInvntDateEntered">Date Entered:</label>
+                <div class="col-sm-6">
+                  <span id="txtCurInvntDateEntered" style="line-height: 2.2;"></span>
+                </div>
+              </div>
+          </div><!--end of modal body -->
+              <div class="modal-footer">
+               <div class="col-sm-6 col-xs-12 col-sm-offset-6">
+                <button type="button" class="btn btn-md btn-flat btn-danger" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-md btn-flat btn-info" id="btnCurInvntSubmit">Save</button>
+              </div>
+              </div>
+          </form>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+$( document ).ready( function () {
+// Client-side edit form validation.
+    $( "#frmCurrentInvnt" ).validate( {
+        onkeyup: false,
+        submitHandler: function (form) {
+          var id = $("#hdnCurInvntId").val();
+            if(id == '' || id == null){
+                 dtCurrentInventory.add();
+                 $("#txtCurInvntSerial").removeData("previousValue");//Clear cache of previous value in the 2nd time input of the remote rules..
+            }
+            else {
+                 dtCurrentInventory.update(id);
+                 var updated_sn = $("#txtCurInvntSerial").val();
+                 $("#hdnOldCurInvntSerial").val(updated_sn);//Replicate the value with the updated.
+            }
+        },
+       rules: {
+            "txtCurInvntSerial": {
+              isSerialNumber: true,
+              required: true,
+              remote: {
+                  url: assets+'php/inventory/inventory.php',
+                  type: 'POST',
+                  cache: false,
+                  data: { 
+                      action_exist: function(){ 
+                           var id = $("#hdnCurInvntId").val();
+                           return (id == '' || id == null ? 'add': 'update');
+                      }, 
+                      old_sn: function(){ return $("#hdnOldCurInvntSerial").val(); },
+                      action: 'check_exist'
+                    }
+                }
+            },
+            "slctCompany": {
+              required: true
+            },
+            "slctCurInvntBrands": {
+              required: true
+            },
+            "txtCurInvntModel": {
+              required: true
+            },
+            "slctCurInvntBnRf": {
+              required: true
+            },
+            "slctCurInvntBranch": {
+              required: true
+            }
+          },
+          messages: {
+            "txtCurInvntSerial": {
+                required: "This field is required.",
+               
+                isSerialNumber: "Please enter only letters and digits."
+            },
+            "slctCurInvntBrands": {
+              required: "This field is required.",
+            },
+            "txtCurInvntModel": {
+              required: "This field is required.",
+            },
+            "slctCurInvntBnRf": {
+              required: "This field is required.",
+            },
+            "slctCurInvntBranch": {
+              required: "This field is required.",
+            }
+        
+          },
+          errorElement: "em",
+          errorPlacement: function ( error, element ) {
+            // Add the `help-block` class to the error element
+            error.addClass( "help-block" ).css('margin-top','0px');
+            error.css({'font-size':'11px','margin-bottom':'0px'});
+
+            if ( element.prop( "type" ) === "checkbox" ) {
+              error.insertAfter( element.parent( "label" ) );
+            } else {
+              error.insertAfter( element );
+            }
+          },
+          highlight: function ( element, errorClass, validClass ) {
+            $( element ).parents( ".col-sm-6" ).addClass( "has-error" ).removeClass( "has-success" );
+          },
+          unhighlight: function (element, errorClass, validClass) {
+            $( element ).parents( ".col-sm-6" ).addClass( "has-success" ).removeClass( "has-error" );
+        }
+      } );
+  } );     
+</script>
