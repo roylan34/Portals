@@ -57,6 +57,7 @@ function login(route){
 							 	Cookies.set('user_type',val.account_type,0.5);
 							 	Cookies.set('user_mrf_flag',val.acc_mrf_flags,0.5);
 							 	Cookies.set('email',val.email,0.5);
+							 	Cookies.set('pm_type',val.pm_type,0.5);
 							 	if(app_module.app_mif == 1){
 							 		route.setRoute("/dashboard"); //Default route to dashboard.
 							 	}
@@ -110,6 +111,7 @@ function logout(){
 		Cookies.clear('email');
 		Cookies.clear('app_module_action');
 		Cookies.clear('user_mif_flag');
+		Cookies.clear('pm_type');
 		$("div.page-home").empty();
 		window.location.href = '#/login';
 	});

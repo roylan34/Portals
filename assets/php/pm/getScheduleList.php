@@ -15,21 +15,27 @@ $search="";
 $limit = "";
 $totalData =0;
 $totalFiltered =0;
-
-$branch 	= ( Utils::getValue('branch') ? Utils::getValue('branch') : Utils::getSysDate() );
-
+$branch = Utils::getValue('branch');
+$userid = Utils::getValue('userid');
 $conn = Database::getInstance(); //For Searching.
+
 if(Utils::getValue('pm_number'))		{ $search ="AND ps.pm_number ='".$conn->escapeString(Utils::getValue('pm_number'))."'"; }
 if(Utils::getValue('company_name'))		{ $search ="AND com.company_name LIKE '%".$conn->escapeString(Utils::getValue('company_name'))."%'"; }
 if(Utils::getValue('sched_date'))		{ $search ="AND ps.schedule_date ='".$conn->escapeString(Utils::getValue('sched_date'))."'"; }
-if(Utils::getValue('technician'))		{ $search ="AND ps.technician ='".$conn->escapeString(Utils::getValue('technician'))."'"; }
-
+if(Utils::getValue('technician'))		{ $search ="AND UPPER(CONCAT_WS(' ', ac.firstname, ac.lastname)) LIKE '%".$conn->escapeString(Utils::getValue('technician'))."%'"; }
+if(Utils::getValue('pm_type') == 'CONTROLLER'){
+	$search .= "AND ps.branch='".$branch."'";
+}else{
+	$search .= "AND ps.technician='".$userid."'";
+}
 $requestData= $_REQUEST;
 
 switch (Utils::getValue('action')) {
 	case 'current':
 			// storing  request (ie, get/post) global array to a variable.  
-			$conn->selectQuery('*','tbl_pm_schedule WHERE (status="pending" || status="in-progress" || status="complete") > 0 AND branch='.$branch.'');
+			$conn->selectQuery('ps.*','tbl_pm_schedule ps 
+				LEFT JOIN tbl_accounts ac ON ps.technician = ac.id
+				WHERE (ps.status="pending" || ps.status="in-progress" || ps.status="complete") > 0 '.$search.'');
 			$totalData = $conn->getNumRows(); //getting total number records without any search.
 			$conn->row_count = 0;
 			$conn->fields = null;
@@ -38,7 +44,8 @@ switch (Utils::getValue('action')) {
 
 				$conn->selectQuery('ps.id, ps.pm_number, ps.schedule_date, ps.technician, CONCAT(ps.date_entered, " ", ps.time_entered ) AS date_entered, ps.contact_name, ps.email_address, ps.department, com.company_name',' tbl_pm_schedule ps 
 					LEFT JOIN tbl_company com ON ps.company_id = com.id
-					WHERE ps.id > 0 AND (ps.status="pending" || ps.status="in-progress" || ps.status="complete") AND ps.branch='.$branch.' '.$search.'');
+					LEFT JOIN tbl_accounts ac ON ps.technician = ac.id
+					WHERE ps.id > 0 AND (ps.status="pending" || ps.status="in-progress" || ps.status="complete") '.$search.'');
 
 				$conn->fields = null;
 				$totalFiltered  = $conn->getNumRows(); // when there is a search parameter then we have to modify total number filtered rows as per search result. 
@@ -48,9 +55,10 @@ switch (Utils::getValue('action')) {
 			}
 			
 			if(intval($requestData['length']) >= 1 ) { $limit = ' LIMIT '.$requestData['start'].' ,'.$requestData['length'].''; }
-				$conn->selectQuery('ps.id, ps.company_id, ps.pm_number, ps.schedule_date, ps.technician, CONCAT(ps.date_entered, " ", ps.time_entered) AS date_entered, ps.contact_name, ps.email_address, ps.department, com.company_name, ps.status',' tbl_pm_schedule ps 	
+				$conn->selectQuery('ps.id, ps.company_id, ps.pm_number, ps.schedule_date, CONCAT(ac.firstname," ", ac.lastname) AS technician, CONCAT(ps.date_entered, " ", ps.time_entered) AS date_entered, ps.contact_name, ps.email_address, ps.department, com.company_name, ps.status',' tbl_pm_schedule ps 	
 					LEFT JOIN tbl_company com ON ps.company_id = com.id
-					WHERE ps.id > 0 AND (ps.status="pending" || ps.status="in-progress" || ps.status="complete") AND ps.branch='.$branch.' '.$search.' ORDER BY ps.id DESC '.$limit.' ');
+					LEFT JOIN tbl_accounts ac ON ps.technician = ac.id
+					WHERE ps.id > 0 AND (ps.status="pending" || ps.status="in-progress" || ps.status="complete") '.$search.' ORDER BY ps.id DESC '.$limit.' ');
 				$row = $conn->getFields(); //Get all rows
 
 			if($conn->getNumRows() > 0 ){
@@ -77,7 +85,9 @@ switch (Utils::getValue('action')) {
 		break;
 	case 'archive':
 		   // storing  request (ie, get/post) global array to a variable.  
-			$conn->selectQuery('*','tbl_pm_schedule WHERE (status="cancel" || status="done") > 0 AND branch='.$branch.'');
+			$conn->selectQuery('ps.*','tbl_pm_schedule ps 
+				LEFT JOIN tbl_accounts ac ON ps.technician = ac.id
+				WHERE (ps.status="cancel" || ps.status="done") > 0 '.$search.'');
 			$totalData = $conn->getNumRows(); //getting total number records without any search.
 			$conn->row_count = 0;
 			$conn->fields = null;
@@ -86,7 +96,8 @@ switch (Utils::getValue('action')) {
 
 				$conn->selectQuery('ps.id, ps.pm_number, ps.schedule_date, ps.technician, CONCAT(ps.date_entered, " ", ps.time_entered ) AS date_entered, ps.contact_name, ps.email_address, ps.department, com.company_name',' tbl_pm_schedule ps 
 					LEFT JOIN tbl_company com ON ps.company_id = com.id
-					WHERE ps.id > 0 AND (ps.status="cancel" || ps.status="done") AND ps.branch='.$branch.' '.$search.'');
+					LEFT JOIN tbl_accounts ac ON ps.technician = ac.id
+					WHERE ps.id > 0 AND (ps.status="cancel" || ps.status="done") '.$search.'');
 
 				$conn->fields = null;
 				$totalFiltered  = $conn->getNumRows(); // when there is a search parameter then we have to modify total number filtered rows as per search result. 
@@ -96,9 +107,10 @@ switch (Utils::getValue('action')) {
 			}
 			
 			if(intval($requestData['length']) >= 1 ) { $limit = ' LIMIT '.$requestData['start'].' ,'.$requestData['length'].''; }
-				$conn->selectQuery('ps.id, ps.company_id, ps.pm_number, ps.schedule_date, ps.technician, CONCAT(ps.date_entered, " ", ps.time_entered) AS date_entered, ps.contact_name, ps.email_address, ps.department, com.company_name, ps.status',' tbl_pm_schedule ps 	
+				$conn->selectQuery('ps.id, ps.company_id, ps.pm_number, ps.schedule_date, CONCAT(ac.firstname," ", ac.lastname) AS technician, CONCAT(ps.date_entered, " ", ps.time_entered) AS date_entered, ps.contact_name, ps.email_address, ps.department, com.company_name, ps.status',' tbl_pm_schedule ps 	
 					LEFT JOIN tbl_company com ON ps.company_id = com.id
-					WHERE ps.id > 0 AND (ps.status="cancel" || ps.status="done") AND ps.branch='.$branch.' '.$search.' ORDER BY ps.id DESC '.$limit.' ');
+					LEFT JOIN tbl_accounts ac ON ps.technician = ac.id
+					WHERE ps.id > 0 AND (ps.status="cancel" || ps.status="done") '.$search.' ORDER BY ps.id DESC '.$limit.' ');
 				$row = $conn->getFields(); //Get all rows
 
 			if($conn->getNumRows() > 0 ){

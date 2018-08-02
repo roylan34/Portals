@@ -34,6 +34,8 @@ var dtCurrentSched = {
                             d.sched_date   = $("#search-sched-schedule").val() || '';
                             d.technician   = $("#search-sched-technician").val() || '';
                             d.branch       = Cookies.get('branch_pm');
+                            d.pm_type      = Cookies.get('pm_type');
+                            d.userid       = Cookies.get('user_id');
                     },
                     complete: function(){ $(".dt-buttons a").removeClass('disabled'); }
                   },
@@ -63,7 +65,6 @@ var dtCurrentSched = {
                                     action: function ( e, dt, node, config ) {
                                         $("#modalFormCurrentSched .modal-title").text('Add'); 
                                         $("#modalFormCurrentSched #sched-date-entered").text(getTodayDateStandard());                                       
-                                        // self.dtCurrentSched.modalShow();
                                     }
                                 },
                                 {
@@ -76,8 +77,7 @@ var dtCurrentSched = {
                                             }else{
                                                node[0].innerText = 'Open Search Filter';
                                                $("#dt-head-schedsearch input[type='text']").val('');  //
-                                               // $("#search-company-branch, #search-company-accmngr, #search-company-location").val(0).trigger('chosen:updated'); //reset
-                                                //self.dtCurrentSched.dtInstance.ajax.reload(null, true); //Reload DT when closing filter search.
+                                               //self.dtCurrentSched.dtInstance.ajax.reload(null, true); //Reload DT when closing filter search.
                                             }
                                         });
                                     }
@@ -128,7 +128,8 @@ var dtCurrentSched = {
                             },                            
                             { data:  null, render: function( data, type, full, meta ){
                                 var action_edit = JSON.parse(Cookies.get('app_module_action'));
-                                    if(action_edit && action_edit.action_pm == "wr"){
+                                var pm_type = Cookies.get('pm_type');
+                                    if(action_edit && action_edit.action_pm == "wr" && pm_type.toLowerCase() == 'controller'){
                                         return "<button class='btn btn-xs btn-success btn-flat btnEditPM' data-id='"+data.id+"' data-pmnumber='"+data.pm_number+"' data-toggle='modal' data-target='#modalFormCurrentSched'>Edit</button>";
                                     }
                                     return '';
@@ -154,8 +155,17 @@ var dtCurrentSched = {
                         $(".dt-sched-print").text('').html("<i class='glyphicon glyphicon-print'></i>").attr('title','Print');
                 },
                 "fnDrawCallback": function(){
-                        $(".dt-button-add").attr('data-toggle','modal');
-                        $(".dt-button-add").attr('data-target','#modalFormCurrentSched');
+                    //Remove add button if pm_type is Technician.
+                    var pm_type = Cookies.get('pm_type');
+                        if(pm_type == '' || pm_type.toLowerCase() == 'technician'){
+                            this.api().buttons('.dt-button-add').nodes().remove();
+                            $("#btnAddPm").remove();
+                        }else{
+                            this.api().button('.dt-button-add').nodes().attr({
+                                'data-toggle': 'modal', 
+                                'data-target': '#modalFormCurrentSched'
+                            });
+                        }
                 }
        
         });
