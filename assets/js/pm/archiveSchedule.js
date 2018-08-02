@@ -34,6 +34,8 @@ var dtArchiveSched = {
                             d.sched_date   = $("#search-archive-sched-schedule").val() || '';
                             d.technician   = $("#search-archive-sched-technician").val() || '';
                             d.branch       = Cookies.get('branch_pm');
+                            d.pm_type      = Cookies.get('pm_type');
+                            d.userid       = Cookies.get('user_id');
                     },
                     complete: function(){ $(".dt-buttons a").removeClass('disabled'); }
                   },

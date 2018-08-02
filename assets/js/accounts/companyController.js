@@ -90,6 +90,7 @@ var dtAccounts = {
                      $('#modalFormAccount').modal('show');
                         autoDrpDown.getBranchNameMulti("#slctAccountLocation","100%",0,false);
                         autoDrpDownInvnt.getBranch("#slctAccountBranch"); // 
+                        autoDrpDownInvnt.getBranch("#slctAccountBranchPm"); // 
                         autoDrpDownInvnt.getBranch("#slctAccountBranchMrf"); 
                         autoDrpDownMrf.getAccountDept("#slctAccountDept"); 
 
@@ -124,6 +125,7 @@ var dtAccounts = {
                             success: function(data){
                                 $.each(data.aaData,function(key,val){
                                     var app_mif = parseInt(val.app_mif) || null;
+                                    var app_pm = parseInt(val.app_pm) || null;
                                     var app_invent = parseInt(val.app_inventory) || null;
                                     var app_mrf = parseInt(val.app_mrf) || null;
                                     $("#hdnIdAccount").val(val.id);
@@ -135,21 +137,26 @@ var dtAccounts = {
                                     $("#txtEmail").val(val.email);
                                     $("#slctStatus").val(val.status);  
                                     $("#slctAccountRole").val(val.accountrole);
+                                    $("#slctPmType").val(val.pm_type);
                                     $("#txtDateCreated").text(val.created_at);
                                     $("#chkAppMif").prop('checked', (app_mif == null ? false : true));
+                                    $("#chkAppPm").prop('checked', (app_pm == null ? false : true));
                                     $("#chkAppInventory").prop('checked', (app_invent == null  ? false : true));
                                     $("#chkAppMrf").prop('checked', (app_mrf == null  ? false : true));
                                     $("#slctAccountLocation").prop('disabled', (app_mif != null ? false : true));
                                     $("#slctAccountDept").val(val.account_type).trigger('change');                                      
                                     $("#slctAccountLocation").val((val.location == null ? null : val.location.split(","))).trigger('chosen:updated');  
                                     $("#slctAccountBranch").val(val.branch).prop('disabled', (app_invent != null ? false : true));                                
+                                    $("#slctAccountBranchPm").val(val.branch_pm).prop('disabled', (app_pm != null ? false : true));                                
                                     $("#slctAccountBranchMrf").val(val.branch_mrf).prop('disabled', (app_mrf != null && app_mrf > 0 && val.account_type > 1 ? false : true)); ;
                                     if(val.action_mif != "")//Check only if has value.
                                         $("input[name='radioMifActions'][value="+val.action_mif+"]").prop('checked',true); 
                                     if(val.action_invnt != "")               
                                         $("input[name='radioInvntActions'][value="+val.action_invnt+"]").prop('checked',true);
                                     if(val.action_mrf != "")                 
-                                        $("input[name='radioMrfActions'][value="+val.action_mrf+"]").prop('checked',true);                
+                                        $("input[name='radioMrfActions'][value="+val.action_mrf+"]").prop('checked',true);
+                                    if(val.action_pm != "")                 
+                                        $("input[name='radioPmActions'][value="+val.action_pm+"]").prop('checked',true);                 
                                 }); 
                             },
                             error: function(data,xhr,status){ alert("Something went wrong."); }
@@ -172,20 +179,25 @@ var dtAccounts = {
             var lname     = $("#txtLname").val();
             var email     = $("#txtEmail").val();
             var accrole   = $("#slctAccountRole option:selected").val();
+            var pm_type   = $("#slctPmType option:selected").val();
             var status    = $("#slctStatus option:selected").val();
-            var app_mif   = $("input[name='chkAppMif']:checked").val() || ''; 
+            var app_mif   = $("input[name='chkAppMif']:checked").val() || '';
+            var app_pm    = $("input[name='chkAppPm']:checked").val() || ''; 
             var loc       = ($("#slctAccountLocation").chosen().val() ? $("#slctAccountLocation").chosen().val().toString() : '');
             var app_invt  = $("input[name='chkAppInventory']:checked").val() || ''; 
             var branch    = $("#slctAccountBranch option:selected").val();
+            var branch_pm = $("#slctAccountBranchPm option:selected").val();
             var app_mrf   = $("input[name='chkAppMrf']:checked").val() || ''; 
             var branch_mrf= $("#slctAccountBranchMrf option:selected").val();
             var acc_type_mrf= $("#slctAccountDept option:selected").val();
-            var action_mif = $("input[name='radioMifActions']:checked").val();
+            var action_mif  = $("input[name='radioMifActions']:checked").val();
+            var action_pm   = $("input[name='radioPmActions']:checked").val();
             var action_invnt = $("input[name='radioInvntActions']:checked").val();
+
             var action_mrf = $("input[name='radioMrfActions']:checked").val();
             var data = {action: 'update', idaccount:id, username:username, pass:pass, fname:fname, mname:mname, lname:lname, email:email, 
-                        app_mif: app_mif, location:loc, app_invt:app_invt, branch:branch, app_mrf:app_mrf, branch_mrf:branch_mrf, accrole:accrole, status:status, acc_type_mrf:acc_type_mrf,
-                        action_mif:action_mif, action_invnt: action_invnt, action_mrf:action_mrf};
+                        app_mif: app_mif, app_pm:app_pm, action_pm:action_pm, location:loc, app_invt:app_invt, branch:branch, branch_pm:branch_pm, app_mrf:app_mrf, branch_mrf:branch_mrf, accrole:accrole, status:status, acc_type_mrf:acc_type_mrf,
+                        action_mif:action_mif, action_invnt: action_invnt, action_mrf:action_mrf, pm_type:pm_type};
 
              $.ajax({
                 type: 'POST',
@@ -231,9 +243,13 @@ var dtAccounts = {
             var action_mif = $("input[name='radioMifActions']:checked").val();
             var action_invnt = $("input[name='radioInvntActions']:checked").val();
             var action_mrf = $("input[name='radioMrfActions']:checked").val();
+            var pm_type    = $("#slctPmType option:selected").val();
+            var action_pm   = $("input[name='radioPmActions']:checked").val();
+            var branch_pm = $("#slctAccountBranchPm option:selected").val();
+            var app_pm    = $("input[name='chkAppPm']:checked").val() || ''; 
             var data = {action:'add', username:username, pass:pass, fname:fname, mname:mname, lname:lname, email:email, 
                         app_mif: app_mif, location:loc, app_invt:app_invt, branch:branch, app_mrf:app_mrf, branch_mrf:branch_mrf, accrole:accrole, status:status, acc_type_mrf:acc_type_mrf,
-                        action_mif:action_mif, action_invnt: action_invnt, action_mrf:action_mrf}; 
+                        action_mif:action_mif, action_invnt: action_invnt, action_mrf:action_mrf, pm_type:pm_type, action_pm:action_pm, branch_pm:branch_pm, app_pm:app_pm }; 
             var isResetForm = false;
           $.ajax({
                 type: 'POST',

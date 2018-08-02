@@ -21,10 +21,13 @@ if(Utils::getIsset('action')){
 	$mname   	= Utils::getValue('mname');
 	$lname   	= Utils::getValue('lname');
 	$email   	= Utils::getValue('email');
+	$pm_type   	= Utils::getValue('pm_type');
 	$app_mif    = Utils::getValue('app_mif');  
+	$app_pm     = Utils::getValue('app_pm');  
 	$location   = Utils::getValue('location');  
 	$app_invt   = Utils::getValue('app_invt');  
 	$branch     = Utils::getValue('branch');  
+	$branch_pm  = Utils::getValue('branch_pm');  
 	$app_mrf    = Utils::getValue('app_mrf');  
 	$branch_mrf = Utils::getValue('branch_mrf');  
 	$accrole   	= Utils::getValue('accrole');  
@@ -32,6 +35,7 @@ if(Utils::getIsset('action')){
 	$acc_type_mrf = Utils::getValue('acc_type_mrf');
 
 	$action_mif   = Utils::getValue('action_mif');  
+	$action_pm    = Utils::getValue('action_pm');  
 	$action_invnt = Utils::getValue('action_invnt');  
 	$action_mrf   = Utils::getValue('action_mrf');    
 	 
@@ -46,7 +50,7 @@ if(Utils::getIsset('action')){
 	switch ($action) {
 		case 'add':
 			  if(hasLocationAll($location) == false){
-				$db->insertQuery('tbl_accounts','username,password,firstname,middlename,lastname,email,location,branches,branches_mrf,accountrole,status,account_type,created_at',
+				$db->insertQuery('tbl_accounts','username, password, firstname, middlename, lastname, email, location, branches, branch_pm, branches_mrf, accountrole, status, account_type, pm_type, created_at',
 									  '"'.$username.'",
 									  "'.Utils::encrypt($pass).'",
 									  "'.Utils::ucFirstLetter($fname).'",
@@ -55,25 +59,29 @@ if(Utils::getIsset('action')){
 									  "'.strtolower($email).'",
 									  "'.$location.'",
 									  "'.$branch.'",
+									  "'.$branch_pm.'",
 									  "'.$branch_mrf.'",
 									  "'.Utils::ucFirstLetter($accrole).'",
 									  "'.$status.'",
 									  "'.$acc_type_mrf.'",
+									  "'.$pm_type.'",
 									  "'.$date_created.'"');
                       $last_id = $db->getLastId();
                       //Add to this table to restrict app module can access.
-                      $db->insertQuery('tbl_app_module','account_id,app_mif,app_inventory,app_mrf',
+                      $db->insertQuery('tbl_app_module','account_id, app_mif, app_pm, app_inventory, app_mrf',
 									  '"'.$last_id.'",
 									  "'.$app_mif.'",
+									  "'.$app_pm.'",
 									  "'.$app_invt.'",
 									  "'.$app_mrf.'"');
 
                        //Add to this table to restrict adding or updating.
-                      $db->insertQuery('tbl_app_action','id_account,app_mif,app_invnt,app_mrf',
+                      $db->insertQuery('tbl_app_action','id_account, app_mif, app_pm, app_invnt, app_mrf',
 									  '"'.$last_id.'",
-									  "'.$app_mif.'",
-									  "'.$app_invt.'",
-									  "'.$app_mrf.'"');
+									  "'.$action_mif.'",
+									  "'.$action_pm.'",
+									  "'.$action_invnt.'",
+									  "'.$action_mrf.'"');
 
                       $res = $db->getFields();
 				      $res['aaData']['check_location'] = 0;
@@ -94,6 +102,8 @@ if(Utils::getIsset('action')){
 												     email    	 = "'.$email.'",
 												     location  	 = "'.$location.'",
 												     branches  	 = "'.$branch.'",
+												     branch_pm   = "'.$branch_pm.'",
+												     pm_type     = "'.$pm_type.'",
 												     branches_mrf= "'.$branch_mrf.'",
 												     accountrole = "'.$accrole.'",
 												     account_type = "'.$acc_type_mrf.'",
@@ -108,6 +118,8 @@ if(Utils::getIsset('action')){
 													     email    	 = "'.$email.'",
 													     location  	 = "'.$location.'",
 													     branches  	 = "'.$branch.'",
+													     pm_type     = "'.$pm_type.'",
+													     branch_pm   = "'.$branch_pm.'",
 													     branches_mrf= "'.$branch_mrf.'",
 													     accountrole = "'.$accrole.'",
 													     account_type = "'.$acc_type_mrf.'",
@@ -116,12 +128,14 @@ if(Utils::getIsset('action')){
 					}
                        //Update to this table to restrict app module can access.
                        $db->updateQuery('tbl_app_module','app_mif    	= "'.$app_mif.'", 
+													      app_pm        = "'.$app_pm.'",
 													      app_inventory = "'.$app_invt.'",
 													      app_mrf 		= "'.$app_mrf.'"'
 													     ,'account_id = "'.$id.'"');
 
                        //Update to this table to restrict adding or updating.
                        $db->updateQuery('tbl_app_action','app_mif    = "'.$action_mif.'", 
+													      app_pm     = "'.$action_pm.'",
 													      app_invnt  = "'.$action_invnt.'",
 													      app_mrf    = "'.$action_mrf.'"'
 													     ,'id_account = "'.$id.'"');
@@ -160,7 +174,7 @@ if(Utils::getIsset('action')){
 			
 			break;
 		case 'view-id':
-				$db->selectQuery('a.*, app.app_mif, app.app_inventory, app.app_mrf, tac.app_mif AS action_mif, tac.app_invnt AS action_invnt, tac.app_mrf AS action_mrf','tbl_accounts a 
+				$db->selectQuery('a.*, app.app_mif, app.app_inventory, app.app_mrf, app.app_pm, tac.app_mif AS action_mif, tac.app_invnt AS action_invnt, tac.app_mrf AS action_mrf, tac.app_pm AS action_pm','tbl_accounts a 
 									LEFT JOIN tbl_app_module app ON a.id = app.account_id 
 									LEFT JOIN tbl_app_action tac ON a.id = tac.id_account
 									WHERE a.id = "'.$id.'"');
@@ -169,20 +183,23 @@ if(Utils::getIsset('action')){
 						$data['aaData'][] = array(
 												'id' => $val['id'],
 												'username' => $val['username'],
-												'password' => $val['password'],
 												'firstname' => Utils::ucFirstLetter($val['firstname']),
 												'middlename' => Utils::ucFirstLetter($val['middlename']),
 												'lastname' => Utils::ucFirstLetter($val['lastname']),
 												'email' => $val['email'],
 												'accountrole' => Utils::ucFirstLetter($val['accountrole']),
+												'pm_type' => $val['pm_type'],
 												'app_mif' => $val['app_mif'],
+												'app_pm' => $val['app_pm'],
 												'app_inventory' => $val['app_inventory'],
 												'app_mrf' => $val['app_mrf'],
 												'action_mif' => $val['action_mif'],
+												'action_pm' => $val['action_pm'],
 												'action_invnt' => $val['action_invnt'],
 												'action_mrf' => $val['action_mrf'],
 												'location' => strtoupper($val['location']),
 												'branch' => $val['branches'],
+												'branch_pm' => $val['branch_pm'],
 												'branch_mrf' => $val['branches_mrf'],
 												'status' => $val['status'],
 												'account_type' => $val['account_type'],

@@ -227,13 +227,13 @@ var dtCurrentMrf = {
 		                               	    
 
 		                               	    if(data.no_received_message > 0 && idUserFrom != null && (idUserFrom.indexOf(EXEC_ID[0]) >= 0  || idUserFrom.indexOf(EXEC_ID[1]) >=0 ) ){ //indexOf, return -1 if not found else return index value.
-		                               	    	buttonColor = 'btn-danger';
+		                               	    	buttonColor = 'btn-danger'; // If account type is executive, commenting.
 
 		                               	    }else if(data.no_received_message > 0 && idUserFrom != null && (idUserFrom.indexOf(EXEC_ID[0]) == -1 || idUserFrom.indexOf(EXEC_ID[1]) == -1 ) ){
-		                               	    	buttonColor = 'btn-warning';
+		                               	    	buttonColor = 'btn-warning';// If account type is not executive, commenting.
 		                               	    }
 		                               	    else{
-		                               	    	buttonColor = 'btn-info';
+		                               	    	buttonColor = 'btn-info'; //Default for empty comments.
 		                               	    }
 
 		                               	    buttons +='<div class="col-md-4"><button title="Comments" class="btn '+buttonColor+' btn-xs btn-flat btn-comment-mrf" data-mrf="'+data.id+'"" data-toggle="modal" data-target="#modalComments">COMMENTS</button></div>';  

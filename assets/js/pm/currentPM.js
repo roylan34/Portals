@@ -189,8 +189,18 @@ var dtCurrentPM = { //For development
                         $(".dt-pm-print").text('').html("<i class='glyphicon glyphicon-print'></i>").attr('title','Print');
                 },
                 "fnDrawCallback": function(){
-                        $(".btn-header-add-pm").attr('data-toggle','modal');
-                        $(".btn-header-add-pm").attr('data-target','#modalHeaderAddPm');
+                         //Remove add button if pm_type is Technician.
+                        var pm_type = Cookies.get('pm_type');
+                        if(pm_type == '' || pm_type.toLowerCase() == 'technician'){
+                            this.api().buttons('.btn-header-add-pm').remove();
+                            console.log('remove');
+                        }else{
+                            this.api().button('.btn-header-add-pm').nodes().attr({
+                                'data-toggle': 'modal', 
+                                'data-target': '#modalHeaderAddPm'
+                            });
+
+                        }
                 }
        
         });
