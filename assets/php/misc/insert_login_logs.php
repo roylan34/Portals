@@ -12,30 +12,15 @@ require_once '../utils.php';
 
 	$id_name     = Utils::getValue('user_id');
 	$description = Utils::getValue('description');
-	$is_account_manager = Utils::getValue('is_account_manager');
 	$date_log    = Utils::getSysDate().' '.Utils::getSysTime();  
 	$conn        = Database::getInstance();
 
-	switch ($is_account_manager) {
-		    case 0:
-					$conn->insertQuery('tbl_accounts_login_logs','id_name,date_log,description,ip_address',
-													  '"'.$id_name.'",
-													  "'.$date_log.'",
-													  "'.$description.'",
-													  "'.get_client_ip().'"');
-
-			break;
-			case 1:
-					$conn->insertQuery('tbl_acc_manager_login_logs','id_name,date_log,description,ip_address',
-												  '"'.$id_name.'",
-												  "'.$date_log.'",
-												  "'.$description.'",
-												  "'.get_client_ip().'"');
-
-			break;
-		default:
-			 throw new Exception($is_account_manager." doesn't exist.");
-			break;
+	if($id_name){
+		$conn->insertQuery('tbl_accounts_login_logs','id_name,date_log,description,ip_address',
+			  '"'.$id_name.'",
+			  "'.$date_log.'",
+			  "'.$description.'",
+			  "'.get_client_ip().'"');
 	}
 
 

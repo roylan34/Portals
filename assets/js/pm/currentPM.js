@@ -193,7 +193,6 @@ var dtCurrentPM = { //For development
                         var pm_type = Cookies.get('pm_type');
                         if(pm_type == '' || pm_type.toLowerCase() == 'technician'){
                             this.api().buttons('.btn-header-add-pm').remove();
-                            console.log('remove');
                         }else{
                             this.api().button('.btn-header-add-pm').nodes().attr({
                                 'data-toggle': 'modal', 
