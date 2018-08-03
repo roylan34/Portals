@@ -166,19 +166,19 @@ Class Utils{
 	}
 
 	static public function getImages($dirImage){
-		 $tmp_dir =  $_SERVER['DOCUMENT_ROOT']."/".self::$appName.'/assets/attachment/'.$dirImage; //Get the relative path.
+		 $tmp_dir =  $_SERVER['DOCUMENT_ROOT'].self::$appName.'/assets/attachment/'.$dirImage; //Get the relative path.
 		 $imgPath = self::getImagePath($dirImage);
          $array_files = array();
          
          // $files = array_slice(scandir($tmp_dir),2); //Scan only 1 level directory from $tmp_dir with DESCENDING ORDER = 1.
-         if( $files = scandir($tmp_dir)){
-
-         	$scan_files = array_slice($files,2);
-	         foreach ($scan_files as $key => $value) {
-	         	$array_files[$key]['imagename'] = $value;
-	         	$array_files[$key]['imagepath'] = $imgPath.'/'.rawurlencode($value);
-	         }
-     	}
+         if(file_exists($tmp_dir)){ //Check if filename exist.
+	         $files = scandir($tmp_dir);
+	         $scan_files = array_slice($files,2);
+		         foreach ($scan_files as $key => $value) {
+		         	$array_files[$key]['imagename'] = $value;
+		         	$array_files[$key]['imagepath'] = $imgPath.'/'.rawurlencode($value);
+		         }
+	    }
      	
          return $array_files;
 	}
