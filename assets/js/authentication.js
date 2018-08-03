@@ -36,18 +36,16 @@ function login(route){
 					 	promptMSG("custom","<strong>Warning!</strong>Account has been inactive.","<i class='fa fa-warning'></i>");
 					 }
 					 else {
-					 	var is_client_user = val.is_client_user;
 					 	var fullname = val.firstname+" "+val.lastname;
 					 	var app_module = { app_mif: val.app_mif, app_invnt: val.app_inventory, app_mrf: val.app_mrf, app_pm: val.app_pm };
 					 	var app_module_action = { action_mif: val.action_mif, action_invnt: val.action_invnt, action_mrf: val.action_mrf, action_pm: val.action_pm };
 
-					 	insert_logs_inout(val.id, is_client_user, "Log-in",function(){
+					 	insert_logs_inout(val.id, "Log-in",function(){
 						 		Cookies.set('user_mif_flag',val.acc_mif_flags,0.5);
 						 		Cookies.set('companies',val.company,0.5);
 						 		Cookies.set('location',val.location,0.5); //set cookie to remember login then expire one day.
 							 	Cookies.set('fullname',fullname,0.5);
 							 	Cookies.set('user_role',val.accountrole,0.5);
-							 	Cookies.set('is_client_user',(is_client_user == '' ? 0 : is_client_user),0.5);
 							 	Cookies.set('user_id',val.id,0.5);
 							 	Cookies.set('app_module', JSON.stringify(app_module),0.5);
 							 	Cookies.set('app_module_action', JSON.stringify(app_module_action),0.5);
@@ -92,13 +90,11 @@ function login(route){
 
 function logout(){
 	var userid = Cookies.get('user_id');
-	var isclient = Cookies.get('is_client_user');
 
-	insert_logs_inout(userid, isclient,"Log-out", function(){
+	insert_logs_inout(userid, "Log-out", function(){
 		Cookies.clear('location');
 		Cookies.clear('fullname');
 		Cookies.clear('user_role');
-		Cookies.clear('is_client_user');
 		Cookies.clear('companies');
 		Cookies.clear('position');
 		Cookies.clear('user_id');
@@ -117,11 +113,11 @@ function logout(){
 	});
 }
 
-function insert_logs_inout(userid, isclient, pdescription, callbackLogs){
+function insert_logs_inout(userid,  pdescription, callbackLogs){
    	$.ajax({
 		type: 'POST',
 		url: assets+'php/misc/insert_login_logs.php',
-		data: {user_id: userid, is_account_manager:isclient, description: pdescription},
+		data: {user_id: userid, description: pdescription},
 		success:function(data){
 			callbackLogs();
 		}	});
