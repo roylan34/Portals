@@ -93,7 +93,7 @@ var dtCurrentInventory = {
 	                                { "data": "type_name" },
 	                                { "data": "location" },
 	                                { "data": "date_entered" },
-	                                { "data": "acronym_name" },
+	                                { "data": null },
 	                                { "data": null, "width": '30px'},
 	                                { "data": null, "width": '30px'},
 	                                { "data": null, "width": '30px'}
@@ -110,6 +110,13 @@ var dtCurrentInventory = {
 	                                    "targets": 1,
 	                                    "render": function ( data, type, row, meta ) {
 	                                       return meta.row + 1;
+	                                    }
+	                                },
+	                                {
+	                                    "targets": 9,
+	                                    "render": function ( data, type, row, meta ) {
+	                                    	var cond = (data.acronym_name == "BNC" ? data.acronym_name_def : data.acronym_name );
+	                                		return cond;
 	                                    }
 	                                },
 	                                {

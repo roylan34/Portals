@@ -101,7 +101,8 @@ var dtCurrentSched = {
                                 }
                             },
                             { data:  null, render: function( data, type, full, meta ){
-                                return "<span class='text-center'>" + data.technician + "</span>"; 
+                                var technician = data.technician || '';
+                                return "<span class='text-center'>" + technician + "</span>"; 
                                 }
                             },      
                             { data:  null, render: function( data, type, full, meta ){
@@ -111,8 +112,9 @@ var dtCurrentSched = {
                             { data:  null, render: function( data, type, full, meta ){
                                     var badge_color = '';
                                     var status = data.status.toUpperCase() || '';
-                                            if(status == 'COMPLETE'){
-                                                badge_color = 'badge-blue';
+                                            if(status == 'DONE'){
+                                                // badge_color = 'badge-blue';
+                                                status = 'PM DONE';
                                             }
                                             else if(status == 'PENDING'){
                                                 badge_color = "badge-red";
@@ -174,8 +176,9 @@ var dtCurrentSched = {
     modalShow: function(){ //Show form modal.
 
         $("#displayFormSchedule").load(pages+'pm/current/form.html',function(){
-            autoDrpDown.getAllCompany("#sched-company","100%");   //Auto populated dropdown Company
-            self.dtCurrentSched.update_cancel().update_done();
+            autoDrpDown.getAllCompany("#sched-company","100%");   //dropdown Company
+            autoDrpDownPM.getTechnician("#sched-technician");  //dropdown Technician
+            self.dtCurrentSched.update_cancel().update_close();
 
             //Hide Schedule modal
             $(this).find('#modalFormCurrentSched').on('hidden.bs.modal', function() { //Reset form when modal hidden
@@ -240,7 +243,7 @@ var dtCurrentSched = {
           var $btn     = $("button[type='submit']");
           var company       = ($("#sched-company").chosen().val() ? $("#sched-company").chosen().val().toString() : '');
           var sched_date    = $("#sched-schedule").val();
-          var technician    = $("#sched-technician").val();        
+          var technician    = $("#sched-technician option:selected").val();        
           var contact_name  = $("#sched-contact-name").val();
           var contact_no    = $("#sched-contact-num").val();
           var contact_email = $("#sched-contact-email").val();
@@ -266,7 +269,7 @@ var dtCurrentSched = {
           var $btn     = $("button[type='submit']");
           var company       = ($("#sched-company").chosen().val() ? $("#sched-company").chosen().val().toString() : '');
           var sched_date    = $("#sched-schedule").val();
-          var technician    = $("#sched-technician").val();        
+          var technician    = $("#sched-technician option:selected").val();        
           var contact_name  = $("#sched-contact-name").val();
           var contact_no    = $("#sched-contact-num").val();
           var contact_email = $("#sched-contact-email").val();
@@ -331,8 +334,8 @@ var dtCurrentSched = {
 
         return this;
     },
-    update_done: function(){
-        $("#btn_done_sched").click(function(){
+    update_close: function(){
+        $("#btn_close_pm").click(function(){
             var btn_label = $(this);
 
              promptMSG("custom","Are you sure you want to <strong>"+btn_label.text()+"</strong>?","Confirmation","yn",false,true,function(){
@@ -342,7 +345,7 @@ var dtCurrentSched = {
                         $.ajax({
                             type: 'POST',
                             dataType: 'json',
-                            data: {action: 'update_done', id_pm: id_pm, pmnumber:pm_number },
+                            data: {action: 'update_close', id_pm: id_pm, pmnumber:pm_number },
                             url: assets + 'php/pm/schedule.php',
                             async: false,
                             beforeSend: function(){ 

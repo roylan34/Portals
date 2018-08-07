@@ -357,9 +357,11 @@ var dtCurrentPM = { //For development
                     dataType: 'json',
                     beforeSend: function(){ $btn.button('loading'); }, //Empty the search fields. 
                     success: function(data, xhr, status){
-                         if(data.aaData == "success"){
-                            self.dtCurrentPM.dtInstance.ajax.reload(null, false); //.page('last'); // Reload the data in DataTable and go to last page.
-                            promptMSG('success-add','PM Machines',null,null,true,true);
+                         if(data.aaData == "success"){                           
+                            self.dtCurrentPM.dtInstance.ajax.reload(function(){
+                                dtCurrentSched.dtInstance.ajax.reload(null, false);
+                            }, false); //.page('last'); // Reload the data in DataTable and go to last page.
+                             promptMSG('success-add','PM Machines',null,null,true,true);                           
                          }
                     },
                     error: function(xhr,status){ alert(xhr + status); },
@@ -380,7 +382,7 @@ var dtCurrentPM = { //For development
         if(pmnumber != '' && company_id != ''){
              var $btn      = $("button");
              var serialnum = self.dtCurrentPM.getMultipleSerial('dtInstanceAddPm','.chckbox-header-pm-sn');
-             var data = {action:'add-pm', serialnum: serialnum, pmnumber: pmnumber, company_id:company_id };
+             var data = {action:'add', serialnum: serialnum, pmnumber: pmnumber, company_id:company_id };
                 $.ajax({
                     type: 'POST',
                     url: assets+'php/pm/pm.php',
@@ -424,7 +426,9 @@ var dtCurrentPM = { //For development
                     dataType: 'json',
                     // beforeSend: function(){ $btn.button('loading'); },
                     success: function(data){
-                       self.dtCurrentPM.dtInstance.ajax.reload(null, false); // Reload the data in DataTable.
+                       self.dtCurrentPM.dtInstance.ajax.reload(function(){
+                            dtCurrentSched.dtInstance.ajax.reload(null, false);
+                       }, false); // Reload the data in DataTable.
                        promptMSG('success-update','PM Machine',null,null,true,true);
                     },
                     error: function(xhr,status){ alert("Something went wrong!"); },

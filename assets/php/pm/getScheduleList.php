@@ -35,7 +35,7 @@ switch (Utils::getValue('action')) {
 			// storing  request (ie, get/post) global array to a variable.  
 			$conn->selectQuery('ps.*','tbl_pm_schedule ps 
 				LEFT JOIN tbl_accounts ac ON ps.technician = ac.id
-				WHERE (ps.status="pending" || ps.status="in-progress" || ps.status="complete") > 0 '.$search.'');
+				WHERE (ps.status="pending" || ps.status="in-progress" || ps.status="done") > 0 '.$search.'');
 			$totalData = $conn->getNumRows(); //getting total number records without any search.
 			$conn->row_count = 0;
 			$conn->fields = null;
@@ -45,7 +45,7 @@ switch (Utils::getValue('action')) {
 				$conn->selectQuery('ps.id, ps.pm_number, ps.schedule_date, ps.technician, CONCAT(ps.date_entered, " ", ps.time_entered ) AS date_entered, ps.contact_name, ps.email_address, ps.department, com.company_name',' tbl_pm_schedule ps 
 					LEFT JOIN tbl_company com ON ps.company_id = com.id
 					LEFT JOIN tbl_accounts ac ON ps.technician = ac.id
-					WHERE ps.id > 0 AND (ps.status="pending" || ps.status="in-progress" || ps.status="complete") '.$search.'');
+					WHERE ps.id > 0 AND (ps.status="pending" || ps.status="in-progress" || ps.status="done") '.$search.'');
 
 				$conn->fields = null;
 				$totalFiltered  = $conn->getNumRows(); // when there is a search parameter then we have to modify total number filtered rows as per search result. 
@@ -58,7 +58,7 @@ switch (Utils::getValue('action')) {
 				$conn->selectQuery('ps.id, ps.company_id, ps.pm_number, ps.schedule_date, CONCAT(ac.firstname," ", ac.lastname) AS technician, CONCAT(ps.date_entered, " ", ps.time_entered) AS date_entered, ps.contact_name, ps.email_address, ps.department, com.company_name, ps.status',' tbl_pm_schedule ps 	
 					LEFT JOIN tbl_company com ON ps.company_id = com.id
 					LEFT JOIN tbl_accounts ac ON ps.technician = ac.id
-					WHERE ps.id > 0 AND (ps.status="pending" || ps.status="in-progress" || ps.status="complete") '.$search.' ORDER BY ps.id DESC '.$limit.' ');
+					WHERE ps.id > 0 AND (ps.status="pending" || ps.status="in-progress" || ps.status="done") '.$search.' ORDER BY ps.id DESC '.$limit.' ');
 				$row = $conn->getFields(); //Get all rows
 
 			if($conn->getNumRows() > 0 ){
@@ -87,7 +87,7 @@ switch (Utils::getValue('action')) {
 		   // storing  request (ie, get/post) global array to a variable.  
 			$conn->selectQuery('ps.*','tbl_pm_schedule ps 
 				LEFT JOIN tbl_accounts ac ON ps.technician = ac.id
-				WHERE (ps.status="cancel" || ps.status="done") > 0 '.$search.'');
+				WHERE (ps.status="cancel" || ps.status="close") > 0 '.$search.'');
 			$totalData = $conn->getNumRows(); //getting total number records without any search.
 			$conn->row_count = 0;
 			$conn->fields = null;
@@ -97,7 +97,7 @@ switch (Utils::getValue('action')) {
 				$conn->selectQuery('ps.id, ps.pm_number, ps.schedule_date, ps.technician, CONCAT(ps.date_entered, " ", ps.time_entered ) AS date_entered, ps.contact_name, ps.email_address, ps.department, com.company_name',' tbl_pm_schedule ps 
 					LEFT JOIN tbl_company com ON ps.company_id = com.id
 					LEFT JOIN tbl_accounts ac ON ps.technician = ac.id
-					WHERE ps.id > 0 AND (ps.status="cancel" || ps.status="done") '.$search.'');
+					WHERE ps.id > 0 AND (ps.status="cancel" || ps.status="close") '.$search.'');
 
 				$conn->fields = null;
 				$totalFiltered  = $conn->getNumRows(); // when there is a search parameter then we have to modify total number filtered rows as per search result. 
@@ -110,7 +110,7 @@ switch (Utils::getValue('action')) {
 				$conn->selectQuery('ps.id, ps.company_id, ps.pm_number, ps.schedule_date, CONCAT(ac.firstname," ", ac.lastname) AS technician, CONCAT(ps.date_entered, " ", ps.time_entered) AS date_entered, ps.contact_name, ps.email_address, ps.department, com.company_name, ps.status',' tbl_pm_schedule ps 	
 					LEFT JOIN tbl_company com ON ps.company_id = com.id
 					LEFT JOIN tbl_accounts ac ON ps.technician = ac.id
-					WHERE ps.id > 0 AND (ps.status="cancel" || ps.status="done") '.$search.' ORDER BY ps.id DESC '.$limit.' ');
+					WHERE ps.id > 0 AND (ps.status="cancel" || ps.status="close") '.$search.' ORDER BY ps.id DESC '.$limit.' ');
 				$row = $conn->getFields(); //Get all rows
 
 			if($conn->getNumRows() > 0 ){
