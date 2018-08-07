@@ -176,7 +176,8 @@ var dtCurrentSched = {
     modalShow: function(){ //Show form modal.
 
         $("#displayFormSchedule").load(pages+'pm/current/form.html',function(){
-            autoDrpDown.getAllCompany("#sched-company","100%");   //Auto populated dropdown Company
+            autoDrpDown.getAllCompany("#sched-company","100%");   //dropdown Company
+            autoDrpDownPM.getTechnician("#sched-technician");  //dropdown Technician
             self.dtCurrentSched.update_cancel().update_close();
 
             //Hide Schedule modal
@@ -242,7 +243,7 @@ var dtCurrentSched = {
           var $btn     = $("button[type='submit']");
           var company       = ($("#sched-company").chosen().val() ? $("#sched-company").chosen().val().toString() : '');
           var sched_date    = $("#sched-schedule").val();
-          var technician    = $("#sched-technician").val();        
+          var technician    = $("#sched-technician option:selected").val();        
           var contact_name  = $("#sched-contact-name").val();
           var contact_no    = $("#sched-contact-num").val();
           var contact_email = $("#sched-contact-email").val();
@@ -268,7 +269,7 @@ var dtCurrentSched = {
           var $btn     = $("button[type='submit']");
           var company       = ($("#sched-company").chosen().val() ? $("#sched-company").chosen().val().toString() : '');
           var sched_date    = $("#sched-schedule").val();
-          var technician    = $("#sched-technician").val();        
+          var technician    = $("#sched-technician option:selected").val();        
           var contact_name  = $("#sched-contact-name").val();
           var contact_no    = $("#sched-contact-num").val();
           var contact_email = $("#sched-contact-email").val();

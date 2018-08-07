@@ -711,3 +711,29 @@ var autoDrpDownMrf = {
 
 	},
 };
+
+
+var autoDrpDownPM = {
+	   cacheOptPM: [],
+		getTechnician: function(elem){
+			if(this.cacheOptPM.length == 0){
+	         	$.ajax({
+					type: 'GET',
+					dataType: 'json',
+					url: assets+'php/pm/misc/getTechnician.php',
+					async: false,
+					success: function(data){
+						var optTech = [];
+							$.each(data.aaData, function(i, val){
+									optTech.push("<option value='"+ val.id +"'> "+val.technician+"</option>");	
+							});
+							self.autoDrpDownPM.cacheOptPM = optTech;	
+					}
+				});
+	     	}
+	     	  //Render elements.
+	     	  $(elem).html("<option value=''>---</option>" + this.cacheOptPM.join(""));
+
+	},
+};
+
