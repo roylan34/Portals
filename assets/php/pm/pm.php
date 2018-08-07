@@ -34,9 +34,20 @@ if(Utils::getIsset('action')){
 	switch ($action) {
 		case 'add':
 				$db->customQuery('INSERT INTO tbl_pm_machines (pm_number, company_id, brand, model, serialnumber, location_area, no_of_user, date_installed, unit_owned, created_date )
-								 SELECT "'.$pmnumber.'", company_id, brand, model, serialnumber, location_area, no_of_user, date_installed, unit_owned_by, NOW() FROM tblmif
+								 SELECT "'.$pmnumber.'", company_id, brand, model, serialnumber, location_area, no_of_user, IF(date_installed, date_installed, NULL) AS date_installed, unit_owned_by, NOW() FROM tblmif
 								 WHERE company_id = '.$company_id.' AND serialnumber IN ("'.$serialnum.'")');
-                print Utils::jsonEncode($db->getFields());
+                $resSched = $db->getFields();
+				 		if($resSched['aaData'][0] == 'success'){ 
+				 			$db->fields = null;
+
+				 				//Update status.
+								$is_progress = checkStatus($pmnumber, $db);
+								if($is_progress['aaData']['status'] == 'in-progress'){
+									$db->updateQuery('tbl_pm_schedule','status = "in-progress"','pm_number = "'.$pmnumber.'"');
+								}
+						 		
+				 		}
+				print Utils::jsonEncode($resSched);
 			break;
 		case 'update':
 					if($pm_id){
@@ -49,19 +60,14 @@ if(Utils::getIsset('action')){
 														time_out 	= "'.$time_out.'"'
 										    			,'id = "'.$pm_id.'"');
 				 		$resPM = $db->getFields();
-				 		if($resPM['aaData'][0] == 'success'){ //For development.
+				 		if($resPM['aaData'][0] == 'success'){ 
 				 			$db->fields = null;
 
 				 				//Update status.
-								$is_done = checkIsDone($pmnumber, $db);
-								if($is_done['aaData']['status'] == 'complete'){
-									$db->updateQuery('tbl_pm_schedule','status = "complete"','pm_number = "'.$pmnumber.'"');
-									//echo 'complete';
-								}else if($is_done['aaData']['status'] == 'in-progress'){
-									$db->updateQuery('tbl_pm_schedule','status = "in-progress"','pm_number = "'.$pmnumber.'"');
-									//echo 'in-progress';
+								$is_done = checkStatus($pmnumber, $db);
+								if($is_done['aaData']['status'] == 'done'){
+									$db->updateQuery('tbl_pm_schedule','status = "done"','pm_number = "'.$pmnumber.'"');
 								}
-								else{ exit; }
 						 		
 				 		}
 				 		print Utils::jsonEncode($resPM);	
@@ -75,10 +81,10 @@ if(Utils::getIsset('action')){
 					
 			break;
 		case 'add-pm':
-				$db->customQuery('INSERT INTO tbl_pm_machines (pm_number, company_id, brand, model, serialnumber, location_area, no_of_user, date_installed, unit_owned, created_date )
+			/*	$db->customQuery('INSERT INTO tbl_pm_machines (pm_number, company_id, brand, model, serialnumber, location_area, no_of_user, date_installed, unit_owned, created_date )
 								 SELECT "'.$pmnumber.'", company_id, brand, model, serialnumber, location_area, no_of_user, IF(date_installed, date_installed, NULL) AS date_installed, unit_owned_by, NOW() FROM tblmif
 								 WHERE company_id = '.$company_id.' AND serialnumber IN ("'.$serialnum.'")');
-                print Utils::jsonEncode($db->getFields());
+                print Utils::jsonEncode($db->getFields());*/
 			break;		
 		default:
 			 throw new Exception($action." action doesn't exist.");
@@ -89,12 +95,12 @@ if(Utils::getIsset('action')){
 }
 
 
-function checkIsDone($pm_num, $db){
+function checkStatus($pm_num, $db){
 	$status = null;
 	if(!Utils::isEmpty($pm_num)){
 		$db->selectQuery("( CASE
 			WHEN pm.pm_number = '".$pm_num."' && (SELECT COUNT(*) FROM tbl_pm_machines WHERE pm_number = '".$pm_num."' AND ((time_in IS NULL || time_out IS NULL) || (time_in = '0000-00-00 00:00:00' || time_out = '0000-00-00 00:00:00')) ) > 0 THEN 'in-progress'
-			WHEN pm.pm_number = '".$pm_num."' && (SELECT COUNT(*) FROM tbl_pm_machines WHERE pm_number = '".$pm_num."' AND ((time_in IS NOT NULL && time_out IS NOT NULL) || (time_in != '0000-00-00 00:00:00' && time_out != '0000-00-00 00:00:00')) ) > 0 THEN 'complete'
+			WHEN pm.pm_number = '".$pm_num."' && (SELECT COUNT(*) FROM tbl_pm_machines WHERE pm_number = '".$pm_num."' AND ((time_in IS NOT NULL && time_out IS NOT NULL) || (time_in != '0000-00-00 00:00:00' && time_out != '0000-00-00 00:00:00')) ) > 0 THEN 'done'
 			ELSE 'no-pm'
 			END
 			) AS status","tbl_pm_schedule ps
@@ -102,7 +108,7 @@ function checkIsDone($pm_num, $db){
 			WHERE ps.pm_number = '".$pm_num."' GROUP BY ps.pm_number");
 		$status = $db->getFields();
 
-		if($status['aaData'][0]['status'] == 'complete'){ 
+		if($status['aaData'][0]['status'] == 'done'){ 
 			$status = array('aaData' => array(
 				'status' => $status['aaData'][0]['status'],
 				'result' =>  'true',

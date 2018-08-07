@@ -83,11 +83,11 @@ if(Utils::getIsset('action')){
 				 		print Utils::jsonEncode($is_cancel);	
 				 	}
 			break;
-		case 'update_done':
+		case 'update_close':
 					if($id_sched){
 						$is_done = checkIsDone($pmnumber, $db);
 						if($is_done['aaData']['result'] == 'true'){
-							$db->updateQuery('tbl_pm_schedule','status = "done"','id = "'.$id_sched.'"');
+							$db->updateQuery('tbl_pm_schedule','status = "close"','id = "'.$id_sched.'"');
 						}
 
 				 		print Utils::jsonEncode($is_done);	
@@ -143,7 +143,7 @@ function checkIsDone($pm_num, $db){
 	if(!Utils::isEmpty($pm_num)){
 		$db->selectQuery("( CASE
 			WHEN pm.pm_number = '".$pm_num."' && (SELECT COUNT(*) FROM tbl_pm_machines WHERE pm_number = '".$pm_num."' AND (time_in IS NULL || time_out IS NULL) ) > 0 THEN 'in-progress'
-			WHEN pm.pm_number = '".$pm_num."' && (SELECT COUNT(*) FROM tbl_pm_machines WHERE pm_number = '".$pm_num."' AND (time_in IS NOT NULL && time_out IS NOT NULL) ) > 0 THEN 'complete'
+			WHEN pm.pm_number = '".$pm_num."' && (SELECT COUNT(*) FROM tbl_pm_machines WHERE pm_number = '".$pm_num."' AND (time_in IS NOT NULL && time_out IS NOT NULL) ) > 0 THEN 'done'
 			ELSE 'no-pm'
 			END
 			) AS status","tbl_pm_schedule ps
@@ -151,11 +151,11 @@ function checkIsDone($pm_num, $db){
 			WHERE ps.pm_number = '".$pm_num."' GROUP BY ps.pm_number");
 		$status = $db->getFields();
 
-		if($status['aaData'][0]['status'] == 'complete'){ 
+		if($status['aaData'][0]['status'] == 'done'){ 
 			$status = array('aaData' => array(
 				'status' => $status['aaData'][0]['status'],
 				'result' =>  'true',
-				'message' => 'PM Done see at Archived.'
+				'message' => 'PM Close see at Archived.'
 			));
 		}
 		else if($status['aaData'][0]['status'] == 'in-progress'){ 

@@ -93,7 +93,8 @@ var dtArchiveSched = {
                                 }
                             },
                             { data:  null, render: function( data, type, full, meta ){
-                                return "<span class='text-center'>" + data.technician + "</span>"; 
+                                var technician =  data.technician || '';
+                                return "<span class='text-center'>" + technician + "</span>"; 
                                 }
                             },      
                             { data:  null, render: function( data, type, full, meta ){
@@ -103,8 +104,9 @@ var dtArchiveSched = {
                             { data:  null, render: function( data, type, full, meta ){
                                     var badge_color = '';
                                     var status = data.status.toUpperCase() || '';
-                                            if(status == 'DONE'){
+                                            if(status == 'CLOSE'){
                                                 badge_color = 'badge-green';
+                                                status = 'CLOSE PM';
                                             }
                                             else if(status == 'CANCEL'){
                                                 badge_color = 'badge-orange';                                               

@@ -998,7 +998,7 @@ Add a counter to the multi-steps indicator
   border-left: 3px solid #d8d6d6;
 }
 
-#btn_cancel_sched, #btn_done_sched{
+#btn_cancel_sched, #btn_close_pm{
   width: 60%;
 }
 
