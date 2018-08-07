@@ -124,7 +124,7 @@ if(Utils::getIsset('action')){
 					
 			break;	
 		case 'view-all': //Current and Archive
-					$db->selectQuery("m.id, m.id_company, m.serialnumber, b.brand_name, mo.model_name as model, cat.cat_name, t.type_name, con.acronym_name, m.location, br.branch_name, m.date_entered, s.status_name, c.company_name, m.date_return_deploy",
+					$db->selectQuery("m.id, m.id_company, m.serialnumber, b.brand_name, mo.model_name as model, cat.cat_name, t.type_name, con.acronym_name, m.location, br.branch_name, m.date_entered, s.status_name, c.company_name, m.date_return_deploy, con.acronym_name_def",
 						"tbl_invnt_machines m
 						LEFT JOIN tbl_brands b ON m.id_brand = b.id
 						LEFT JOIN tbl_model mo ON m.model = mo.id
