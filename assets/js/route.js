@@ -593,20 +593,23 @@ $(document).ready(function(){
 		},
 		'/mrf':{ //MRF
 			':/current': {
-				before: function(){	
-					var appmodule = JSON.parse(Cookies.get('app_module')); 
-	   				return mifPages.redirect(this,'mrf',appmodule);
-				},
-				on: function(){
-				   	window.setTimeout(function(){
-						mifPages.current_mrf();
-					},500);
-				},
-				'after': function(){
-					window.setTimeout(function(){
-						mifPages.abortAjaxDataTable();
-					},500);
-				}
+				// '/((\w?).*)': { // paramaters, Note: instead whitespace use '---'.
+				// '\/((\w?)|-)+\s*': { 
+					before: function(){	
+						var appmodule = JSON.parse(Cookies.get('app_module')); 
+		   				return mifPages.redirect(this,'mrf',appmodule);
+					},
+					on: function(){ //param Id
+					   	window.setTimeout(function(){
+							mifPages.current_mrf();
+						},500);
+					},
+					'after': function(){
+						window.setTimeout(function(){
+							mifPages.abortAjaxDataTable();
+						},500);
+					}
+				 // }
 			},
 			':/archive': {
 				before: function(){	
@@ -699,6 +702,7 @@ $(document).ready(function(){
     
            mifRouter.configure({
            	async: false,
+           	strict: false,
 	        before: function(){ //Check if user is already authenticated.
 	        	var user_id = Cookies.get('user_id');
         		if(!user_id){
