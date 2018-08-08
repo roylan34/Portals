@@ -248,6 +248,11 @@ table#chartlocation .badge{
 	.mrf-table-responsive {
    		overflow-x: auto;
   }
+
+  /*PM Form*/
+  #modalCurrentPMList .modal-dialog{
+    max-width:100% !important;
+  }
 }
 
 @media (min-width: 425px) and (max-width: 768px){
