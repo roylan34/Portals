@@ -87,61 +87,7 @@
     </div>
   </div>
 </div>
-<style type="text/css">
-   .form-control[readonly]{
-      background: transparent;
-   }
-</style>
 <script type="text/javascript">
-//When Hidden PM Form modal.
-$('#modalFormCurrentPM').on('hidden.bs.modal', function() {  
-    $("body").addClass("modal-open");        
-});
-
-$("#pm-manufacture").datepicker({dateFormat: 'yy-mm-dd' }); //Date schedule picker
-// $('#pm-date-in, #pm-date-out').datetimepicker({  controlType: 'select', timeFormat: 'hh:mm tt' }); //DateTime picker
-
-//DateTimepicker and restrict a dateIn and dateOut.
-var startDateIn = $('#pm-date-in');
-var endDateOut = $('#pm-date-out');
-
-startDateIn.datetimepicker({ 
-  controlType: 'select',
-  timeFormat: 'hh:mm tt',
-  onClose: function(dateText, inst) {
-    if (endDateOut.val() != '') {
-      var testStartDate = startDateIn.datetimepicker('getDate');
-      var testEndDate = endDateOut.datetimepicker('getDate');
-      if (testStartDate > testEndDate)
-        endDateOut.datetimepicker('setDate', testStartDate);       
-    }
-    else {
-      endDateOut.val(dateText);
-    }
-  },
-  onSelect: function (selectedDateTime){
-    endDateOut.datetimepicker('option', 'minDate', startDateIn.datetimepicker('getDate') );
-  }
-});
-endDateOut.datetimepicker({ 
-  controlType: 'select',
-  timeFormat: 'hh:mm tt',
-  onClose: function(dateText, inst) {
-    if (startDateIn.val() != '') {
-      var testStartDate = startDateIn.datetimepicker('getDate');
-      var testEndDate = endDateOut.datetimepicker('getDate');
-      if (testStartDate > testEndDate)
-        startDateIn.datetimepicker('setDate', testEndDate);
-    }
-    else {
-      startDateIn.val(dateText);
-    }
-  },
-  onSelect: function (selectedDateTime){
-    startDateIn.datetimepicker('option', 'maxDate', endDateOut.datetimepicker('getDate') );
-  }
-})
-
 $( document ).ready( function () {
 // Client-side edit form validation.
     $( "#frmCurrentPM" ).validate( {

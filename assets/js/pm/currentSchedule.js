@@ -206,7 +206,31 @@ var dtCurrentSched = {
         });
 
         $("#displayFormPM").load(pages+'pm/current/form-pm.html',function(){
+            //DateTimepicker and restrict a dateIn and dateOut.
+            var startDateIn = $('#pm-date-in');
+            var endDateOut = $('#pm-date-out');
 
+            //When Hidden PM Form modal.
+            $('#modalFormCurrentPM').on('hidden.bs.modal', function() {  
+                $("body").addClass("modal-open");  
+                 startDateIn.datetimepicker('option', 'maxDate', null ); //Reset
+                 endDateOut.datetimepicker('option', 'minDate', null ); 
+            });
+
+            //Date schedule picker
+            $("#pm-manufacture").datepicker({dateFormat: 'yy-mm-dd' }); 
+
+            $.timepicker.datetimeRange(
+              startDateIn,
+              endDateOut,
+              {
+                controlType: 'select',
+                minInterval: (1000*60), // (1000*60*60) = 1hr, (1000*60) = 1 min
+                timeFormat: 'hh:mm tt',
+                start: {}, // start picker options
+                end: {} // end picker options         
+              }
+            );
         });
         return this;
     },
