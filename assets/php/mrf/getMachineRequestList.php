@@ -25,7 +25,7 @@ if(Utils::getValue('date_delivery'))	{ $search .="AND mt.5th_delivery_date ='".$
 if(Utils::getValue('requested_by'))     { $search .="AND (CONCAT_WS(' ',ac.firstname,ac.lastname)) LIKE '%".$conn->escapeString(Utils::getValue('requested_by'))."%' "; }
 
 switch (Utils::getValue('action_view')) {
-	case 'current': //IN PROGRESS
+	case 'current':
 			if(Utils::getValue('status'))
 			{ 
 				$status = Utils::getValue('status'); // If has status search, query according to given paramater.
@@ -158,7 +158,6 @@ switch (Utils::getValue('action_view')) {
 					}
 
 					 print Utils::jsonEncode($json_data);  // send data as json format.
-					//print_r($json_data);
 			}
 			else{
 				echo "Something went wrong.";
@@ -246,7 +245,7 @@ switch (Utils::getValue('action_view')) {
 										LEFT JOIN tbl_accounts ac ON m.id_user_requestor = ac.id
 										LEFT JOIN tbl_mrf_request_tracker mt ON m.id = mt.id_mrf
 										LEFT JOIN tbl_branch br ON m.id_branch = br.id
-					  					WHERE m.id > 0 AND (mt.flag_completion ="complete" OR mt.1st_id_status = 3 OR mt.2nd_id_status = 3 OR mt.is_cancel = "yes") '.$search.' '.$limit.'');
+					  					WHERE m.id > 0 AND (mt.flag_completion ="complete" OR mt.1st_id_status = 3 OR mt.2nd_id_status = 3 OR mt.is_cancel = "yes") '.$search.' ORDER BY m.id DESC '.$limit.'');
 					$row = $conn->getFields(); //Get all rows
 
 					if($conn->getNumRows() > 0 ){
