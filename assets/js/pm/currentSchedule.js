@@ -63,7 +63,8 @@ var dtCurrentSched = {
                                     text: 'Add Schedule',
                                     className: 'btn btn-primary btn-flat btn-sm dt-button-add',
                                     action: function ( e, dt, node, config ) {
-                                        $("#modalFormCurrentSched .modal-title").text('Add'); 
+                                        $("#btn_cancel_sched, #btn_close_pm").hide();
+                                        $("#modalFormCurrentSched .modal-title").text('Add Schedule'); 
                                         $("#modalFormCurrentSched #sched-date-entered").text(getTodayDateStandard());                                       
                                     }
                                 },
@@ -236,7 +237,6 @@ var dtCurrentSched = {
     },
     getDataSched: function(id_pm){
             if(id_pm != null){
-                 $(this).find(".modal-title").text('Edit');
                  var $btn = $("button[type='submit']");
                  $.ajax({
                     type: 'GET',
@@ -415,6 +415,8 @@ var dtCurrentSched = {
                     if (button_label == 'edit') {
                         var sched_idcompany = $(this).data('id');
                         var sched_pmnumber = $(this).data('pmnumber');
+                        $("#modalFormCurrentSched .modal-title").text('Edit Schedule');
+                        $("#btn_cancel_sched, #btn_close_pm").show();
                         self.dtCurrentSched.getDataSched(sched_idcompany, sched_pmnumber);
                     }
                     if (button_label == 'pm') {
