@@ -89,9 +89,9 @@ var dtAccounts = {
           $("#displayFormAccount").load(pages+'accounts/form.html',function(data,status,xhr){
                      $('#modalFormAccount').modal('show');
                         autoDrpDown.getBranchNameMulti("#slctAccountLocation","100%",0,false);
-                        autoDrpDownInvnt.getBranch("#slctAccountBranch"); // 
-                        autoDrpDownInvnt.getBranch("#slctAccountBranchPm"); // 
+                        autoDrpDownInvnt.getBranch("#slctAccountBranch"); //                    
                         autoDrpDownInvnt.getBranch("#slctAccountBranchMrf"); 
+                        autoDrpDownInvnt.getBranch("#slctAccountBranchPm", null , [1]); //Execlude 1 = ALL
                         autoDrpDownMrf.getAccountDept("#slctAccountDept"); 
 
                         $("#slctAccountDept").change(function(e){ //Show/Hide option ALL and --Branch--
