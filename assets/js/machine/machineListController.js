@@ -349,7 +349,6 @@ var dtMachine = {
                 url: assets+'php/machine/machine.php',
                 data: data,
                 dataType: 'json',
-                timeout: 1000,
                 beforeSend: function(){ $btn.button('loading'); },
                 success: function(data){
                     if(data.aaData[0].status == 0){ // 0 = Blocked
@@ -404,7 +403,6 @@ var dtMachine = {
                 url: assets+'php/machine/machine.php',
                 data: data,
                 dataType: 'json',
-                timeout: 1000,
                 beforeSend: function(){ $(".dt-head-machinesearch input[type='text'], .dt-head-machinesearch select").val('');  $btn.button('loading'); }, //Empty the search fields. 
                 success: function(data, xhr, status){
                     self.dtMachine.dtMInstance.ajax.reload(function(){
