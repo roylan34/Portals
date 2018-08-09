@@ -62,8 +62,8 @@ if(Utils::getIsset('action')){
 					//$db->customQuery('INSERT INTO tblmif_archive SELECT * FROM tblmif WHERE id ='.$idmachine.' LIMIT 1'); //Replicate the data to tbl_archive if status is 2 = REMOVE
 					$db->updateQuery('tblmif','status_machine = '.$status.', reason= "'.$reason.'", date_in= null, date_out= "'.$date_now.'", can_retrieve ='.$status_action.'','id = '.$idmachine.'');//Update the record after the replication data.
 					$db->insertQuery('tblmif_archive_logs','company_id,serialnumber,reason,machine_status,user_id,updated_at', //Archive Logs
-					  '(SELECT company_id  FROM tblmif_archive WHERE id = '.$idmachine.' LIMIT 0,1),
-					   (SELECT serialnumber FROM tblmif_archive WHERE id = '.$idmachine.' LIMIT 0,1), 
+					  '(SELECT company_id  FROM tblmif WHERE id = '.$idmachine.' LIMIT 0,1),
+					   (SELECT serialnumber FROM tblmif WHERE id = '.$idmachine.' LIMIT 0,1), 
 					  "'.$reason.'",
 					  "'.$status.'",
 					  "'.$user_id.'",
