@@ -344,10 +344,17 @@ var dtCurrentPM = { //For development
     add: function(){
         var pmnumber    = $("#hdnPmNumber").val() || '';
         var company_id  = $("#hdnPmCompanyId").val() || '';
+        var serialnum = self.dtCurrentPM.getMultipleSerial('dtInstance','.chckbox-pm-sn');
 
-        if(pmnumber != '' && company_id != ''){
-             var $btn      = $("button");
-             var serialnum = self.dtCurrentPM.getMultipleSerial('dtInstance','.chckbox-pm-sn');
+            if(pmnumber == '' && company_id == ''){
+                alert('PM number is empty.');
+                return false;
+            }
+            if(serialnum == ''){
+                alert('Please click the checkboxes (left) in each row.');
+                return false;
+            }
+             var $btn     = $("button");             
              var data = {action:'add', serialnum: serialnum, pmnumber: pmnumber, company_id:company_id };
 
                 $.ajax({
@@ -370,18 +377,22 @@ var dtCurrentPM = { //For development
                     }
 
                 });
-            }else{
-                alert('PM number is empty.');
-            }
+          
         return this;
     },
     addPM: function(){
         var pmnumber    = $("#hdnAddPmNumber").val() || '';
         var company_id  = $("#hdnAddPmCompanyId").val() || '';
-
-        if(pmnumber != '' && company_id != ''){
+        var serialnum = self.dtCurrentPM.getMultipleSerial('dtInstanceAddPm','.chckbox-header-pm-sn');
+            if(pmnumber == '' && company_id == ''){
+                alert('PM number is empty.');
+                return false;
+            }
+            if(serialnum == ''){
+                alert('Please click the checkboxes (left) in each row.');
+                return false;
+            }    
              var $btn      = $("button");
-             var serialnum = self.dtCurrentPM.getMultipleSerial('dtInstanceAddPm','.chckbox-header-pm-sn');
              var data = {action:'add', serialnum: serialnum, pmnumber: pmnumber, company_id:company_id };
                 $.ajax({
                     type: 'POST',
@@ -402,9 +413,6 @@ var dtCurrentPM = { //For development
                     }
 
                 });
-            }else{
-                alert('PM number is empty.');
-            }
         return this;
     },
     update: function(pm_id){ //Edit record by company id.
