@@ -4,6 +4,10 @@ $("form").ready(function(){
     	return this.optional(element) || value == value.match(/^[a-zA-Z\s]+$/);// Validate if values has only characters and spaces.
 	});
 
+	$.validator.addMethod("lettersSepcialChar", function(value, element) {
+    	return this.optional(element) || value == value.match(/^[a-zA-Z\s.&)(]+$/);// Validate if values has only characters and spaces.
+	});
+
 	$.validator.addMethod("numbersonly", function(value, element) {
     	return this.optional(element) || value == value.match(/^[0-9]+$/);// Validate if values is numbers.
 	});
