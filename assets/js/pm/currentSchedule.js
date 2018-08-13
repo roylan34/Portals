@@ -221,7 +221,41 @@ var dtCurrentSched = {
             //Date schedule picker
             $("#pm-manufacture").datepicker({dateFormat: 'yy-mm-dd' }); 
 
-            $.timepicker.datetimeRange(
+            startDateIn.datetimepicker({ 
+                timeFormat: 'hh:mm tt',
+                controlType: 'select',
+                onClose: function(dateText, inst) {
+                    if (endDateOut.val() != '') {
+                        var testStartDate = startDateIn.datetimepicker('getDate');
+                        var testEndDate = endDateOut.datetimepicker('getDate');
+                        if (testStartDate > testEndDate){
+                            endDateOut.datetimepicker('setDate', testStartDate);
+                        }
+                    }
+                },
+                onSelect: function (selectedDateTime){
+                    endDateOut.datetimepicker('option', 'minDate', startDateIn.datetimepicker('getDate') );
+                }
+            });
+            endDateOut.datetimepicker({ 
+                timeFormat: 'hh:mm tt',
+                controlType: 'select',
+                minInterval: (1000*60), // (1000*60*60) = 1hr, (1000*60) = 1 min
+                onClose: function(dateText, inst) {
+                    if (startDateIn.val() != '') {
+                        var testStartDate = startDateIn.datetimepicker('getDate');
+                        var testEndDate = endDateOut.datetimepicker('getDate');
+                        if (testStartDate > testEndDate && testEndDate != null){
+                            startDateIn.datetimepicker('setDate', testEndDate);
+                        }
+                    }
+                },
+                onSelect: function (selectedDateTime){
+                    startDateIn.datetimepicker('option', 'maxDate', endDateOut.datetimepicker('getDate') );
+                }
+            });
+
+            /*  $.timepicker.datetimeRange(
               startDateIn,
               endDateOut,
               {
@@ -231,7 +265,7 @@ var dtCurrentSched = {
                 start: {}, // start picker options
                 end: {} // end picker options         
               }
-            );
+            );*/
         });
         return this;
     },
