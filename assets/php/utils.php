@@ -166,7 +166,7 @@ Class Utils{
 	}
 
 	static public function getImages($dirImage){
-		 $tmp_dir =  $_SERVER['DOCUMENT_ROOT'].self::$appName.'/assets/attachment/'.$dirImage; //Get the relative path.
+		 $tmp_dir =  $_SERVER['DOCUMENT_ROOT'].'/'.self::$appName.'/assets/attachment/'.$dirImage; //Get the relative path.
 		 $imgPath = self::getImagePath($dirImage);
          $array_files = array();
          
