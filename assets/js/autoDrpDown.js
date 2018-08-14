@@ -713,26 +713,72 @@ var autoDrpDownMrf = {
 };
 
 
+// var autoDrpDownPM = {
+// 	   cacheOptPM: [],
+// 		getTechnician: function(elem,branch){
+// 			if(this.cacheOptPM.length == 0){
+// 	         	$.ajax({
+// 					type: 'GET',
+// 					dataType: 'json',
+// 					url: assets+'php/pm/misc/getTechnician.php',
+// 					async: false,
+// 					data: { branch: branch },
+// 					success: function(data){
+// 						var optTech = [];
+// 							$.each(data.aaData, function(i, val){
+// 									optTech.push("<option value='"+ val.id +"'> "+val.technician+"</option>");	
+// 							});
+// 							self.autoDrpDownPM.cacheOptPM = optTech;	
+// 					}
+// 				});
+// 	     	}
+// 	     	  //Render elements.
+// 	     	  $(elem).html("<option value=''>---</option>" + this.cacheOptPM.join(""));
+
+// 	},
+// };
+
+
 var autoDrpDownPM = {
-	   cacheOptPM: [],
-		getTechnician: function(elem){
-			if(this.cacheOptPM.length == 0){
+	   cacheOptPM: {  },
+		getTechnician: function(elem,branch){
+			var storeOpt = {
+				set : function(_branch, optElem){
+					if(_branch != undefined && optElem != undefined){
+						if( !self.autoDrpDownPM.cacheOptPM.hasOwnProperty(_branch) ){
+							 self.autoDrpDownPM.cacheOptPM[_branch] = optElem;
+
+						}											
+					}						
+				},
+				get: function(_branch){
+					if( self.autoDrpDownPM.cacheOptPM.hasOwnProperty(_branch) )
+						return self.autoDrpDownPM.cacheOptPM[_branch];
+					else
+						return null;
+				}
+			};
+
+
+			if(!self.autoDrpDownPM.cacheOptPM.hasOwnProperty(branch)){
 	         	$.ajax({
 					type: 'GET',
 					dataType: 'json',
 					url: assets+'php/pm/misc/getTechnician.php',
 					async: false,
+					data: { branch: branch },
 					success: function(data){
 						var optTech = [];
 							$.each(data.aaData, function(i, val){
-									optTech.push("<option value='"+ val.id +"'> "+val.technician+"</option>");	
+								optTech.push("<option value='"+ val.id +"'> "+val.technician+"</option>");	
 							});
-							self.autoDrpDownPM.cacheOptPM = optTech;	
+							storeOpt.set(branch, optTech);	
 					}
 				});
 	     	}
 	     	  //Render elements.
-	     	  $(elem).html("<option value=''>---</option>" + this.cacheOptPM.join(""));
+	     	  var opts = ( storeOpt.get(branch) !== null ? storeOpt.get(branch).join("") : '' );
+	     	  	  $(elem).html("<option value=''>---</option>" + opts);
 
 	},
 };
