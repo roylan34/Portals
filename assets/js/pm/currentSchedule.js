@@ -178,7 +178,7 @@ var dtCurrentSched = {
 
         $("#displayFormSchedule").load(pages+'pm/current/form.html',function(){
             autoDrpDown.getAllCompany("#sched-company","100%");   //dropdown Company
-            autoDrpDownPM.getTechnician("#sched-technician");  //dropdown Technician
+            autoDrpDownPM.getTechnician("#sched-technician", Cookies.get('branch_pm'));  //dropdown Technician
             self.dtCurrentSched.update_cancel().update_close();
 
             //Hide Schedule modal
