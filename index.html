@@ -30,6 +30,7 @@
   <link rel="stylesheet" type="text/css" href="assets/css/datatables/buttons.dataTables.min.css">
   <link rel="stylesheet" type="text/css" href="plugins/chosen/chosen.min.css">
   <link rel="stylesheet" type="text/css" href="assets/css/custom-mif.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/media.css" media="screen">
   <link rel="stylesheet" type="text/css" href="plugins/autocomplete/jquery.autocomplete.css">
   <link rel="stylesheet" type="text/css" href="plugins/pace/pace.min.css">
   <link rel="stylesheet" type="text/css" href="plugins/timepicker/dist/jquery-ui-timepicker-addon.min.css"">
@@ -85,7 +86,7 @@
 <script src="dist/js/app.min.js"></script>
 <script src="plugins/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="plugins/pace/pace.min.js"></script>
-<script src="https://rawgit.com/flatiron/director/master/build/director.min.js"></script>
+<script src="https://rawgit.com/flatiron/director/master/build/director.min.js" async></script>
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. Slimscroll is required when using the
@@ -110,28 +111,28 @@
 <script src="plugins/jquery-base64/jquery.base64.min.js"></script>
 <script src="plugins/timepicker/dist/jquery-ui-timepicker-addon.min.js"></script>
 
-<script async src="assets/js/route.js"></script>
-<script src="assets/js/tools.js"></script>
-<script src="assets/js/authentication.js"></script>
-<script src="assets/js/restrictions.js"></script>
-<script src="assets/js/autoDrpDown.js"></script>
-<script src="assets/js/fileUpload.js"></script>
-<script src="assets/js/dateFormatter.js"></script>
+<script src="assets/js/route.js" async></script>
+<script src="assets/js/tools.js" defer></script>
+<script src="assets/js/authentication.js" defer></script>
+<script src="assets/js/restrictions.js" defer></script>
+<script src="assets/js/autoDrpDown.js" defer></script>
+<script src="assets/js/fileUpload.js" defer></script>
+<script src="assets/js/dateFormatter.js" defer></script>
 
 <!-- MIF app module -->
-<script  src="build/js/bundle-mif.min.js"></script>
+<script  src="build/js/bundle-mif.min.js" defer></script>
 
 <!-- Account manager dashboard -->
-<script  src="assets/js/manager/managerUser.js"></script>
+<script  src="assets/js/manager/managerUser.js" defer></script>
 
 <!-- Inventory app module -->
-<script  src="build/js/bundle-invent.min.js"></script>
+<script  src="build/js/bundle-invent.min.js" defer></script>
 
 <!-- MRF app module -->
-<script  src="build/js/bundle-mrf.min.js"></script>
+<script  src="build/js/bundle-mrf.min.js" defer></script>
 
 <!-- PM app module -->
-<script  src="build/js/bundle-pm.min.js"></script>
+<script  src="build/js/bundle-pm.min.js" defer></script>
 
 <script type="text/javascript">
 $(document).ready(function(){
