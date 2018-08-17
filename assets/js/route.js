@@ -194,9 +194,9 @@ $(document).ready(function(){
 			});
 			return this;
 		},
-		current_mif: function(location,user_mif_flag){
+		current_mif: function(location,user_mif_flag, app_action){
 			var _self = this;
-			if(user_mif_flag == 'view'){
+			if(user_mif_flag == 'view' && app_action == 'r'){
 			// if(jQuery.inArray(parseInt(user_type),[2,3]) > -1){ // 2 = Sales, 3 = Relation Officer
 				$(".view-content").load(pages+'client-dashboard/index.html',function(data,status,xhr){
 					dtClientCompany.pageDetails().render(_self.companies).actions();
@@ -410,10 +410,10 @@ $(document).ready(function(){
 				},
 				on: function(){
 				 var location = Cookies.get('location');
-				 var user_type = Cookies.get('user_type');
+				 var app_action = JSON.parse(Cookies.get('app_module_action'));
 				 var user_mif_flag = Cookies.get('user_mif_flag');
 					 window.setTimeout(function(){
-					 	mifPages.current_mif(location,user_mif_flag);
+					 	mifPages.current_mif(location, user_mif_flag, app_action.action_mif);
 					 },500);
 				},
 				'after': function(){
