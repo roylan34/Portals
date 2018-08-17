@@ -109,7 +109,7 @@ $(document).ready(function(){
 	        var sections = $('.view');
 	        var section;
 	        var default_route = ''; //Change inventory dashboard to default dashboard.
-	        	if(route == 'inventory/dashboard' || route == 'manager'){
+	        	if(route == 'inventory/dashboard'){
 	        		default_route = 'dashboard';
 	        	}
 	        	else if(route == 'mrf/current'){
@@ -194,9 +194,9 @@ $(document).ready(function(){
 			});
 			return this;
 		},
-		current_mif: function(location,user_mif_flag){
+		current_mif: function(location,user_mif_flag, app_action){
 			var _self = this;
-			if(user_mif_flag == 'view'){
+			if(user_mif_flag == 'view' && app_action == 'r'){
 			// if(jQuery.inArray(parseInt(user_type),[2,3]) > -1){ // 2 = Sales, 3 = Relation Officer
 				$(".view-content").load(pages+'client-dashboard/index.html',function(data,status,xhr){
 					dtClientCompany.pageDetails().render(_self.companies).actions();
@@ -373,17 +373,12 @@ $(document).ready(function(){
 
 	var mifRoutes = { //Routes of different pages.
 		'/login': { 
-			before: function(){
-				var is_client = Cookies.get('is_client_user');
-	        	 if(is_client == 0 ){
-	        	  this.setRoute('/dashboard');
-	        	  return false
-	        	}
-	        	
-	        	if (is_client == 1){
-	        	  this.setRoute('/manager');
-	        	  return false;
-	        	}
+			before: function(){     	
+	        	var user_id = Cookies.get('user_id');
+        		if(user_id != null || parseInt(user_id) > 0){
+        			this.setRoute('/dashboard');
+	        	 	return false
+        		}
 			},
 			on: function(){
 			   mifPages.login(this);
@@ -415,10 +410,10 @@ $(document).ready(function(){
 				},
 				on: function(){
 				 var location = Cookies.get('location');
-				 var user_type = Cookies.get('user_type');
+				 var app_action = JSON.parse(Cookies.get('app_module_action'));
 				 var user_mif_flag = Cookies.get('user_mif_flag');
 					 window.setTimeout(function(){
-					 	mifPages.current_mif(location,user_mif_flag);
+					 	mifPages.current_mif(location, user_mif_flag, app_action.action_mif);
 					 },500);
 				},
 				'after': function(){
@@ -705,7 +700,7 @@ $(document).ready(function(){
            	strict: false,
 	        before: function(){ //Check if user is already authenticated.
 	        	var user_id = Cookies.get('user_id');
-        		if(!user_id){
+        		if(user_id == null || user_id == 0){
         			// $("div.page-home").empty();
         			this.setRoute('/login');
         		}

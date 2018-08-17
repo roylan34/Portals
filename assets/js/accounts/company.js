@@ -94,9 +94,31 @@ var dtAccounts = {
                         autoDrpDownInvnt.getBranch("#slctAccountBranchPm", null , [1]); //Execlude 1 = ALL
                         autoDrpDownMrf.getAccountDept("#slctAccountDept"); 
 
+                         //MIF actions
+                        $("input[name='radioMifActions']").click(function(e){
+                            var deptAttr = $("#slctAccountDept option:selected").attr('data-group-mif');
+                               if( $(this).val() == 'r'){
+                                    if(deptAttr == 'view')
+                                        $("#slctAccountLocation").val(1).prop('disabled',true).trigger('chosen:updated');
+                               }else{
+                                    $("#slctAccountLocation").val(0).prop('disabled',false).trigger('chosen:updated');
+                               }
+                        });
+
                         $("#slctAccountDept").change(function(e){ //Show/Hide option ALL and --Branch--
-                              var flag = $(':selected', this).attr('data-group');
-                                  if(flag == 'approver'){
+                              var deptAttr = $(':selected', this);
+
+                                  //MIF
+                                  if(deptAttr.attr('data-group-mif') == 'view'){
+                                     $("input[name='radioMifActions'][value='r']").prop('checked',true);
+                                     $("#slctAccountLocation").val(1).prop('disabled',true).trigger('chosen:updated');  // with plugin
+                                  }
+                                  else{
+                                      $("#slctAccountLocation").val(0).prop('disabled',false).trigger('chosen:updated');
+                                  }
+
+                                  //MRF
+                                  if(deptAttr.attr('data-group') == 'approver'){
                                     // $select.chosen('destroy');  // with plugin
                                     // $select.attr('multiple', 'multiple');
                                     // $select.chosen();
