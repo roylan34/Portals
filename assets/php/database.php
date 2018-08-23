@@ -176,6 +176,26 @@ Class Database{
 		}
 	}
 
+	public function storProc($storedProc_name,$storedProc_param){
+
+		$qry ="CALL {$storedProc_name}('$storedProc_param')";
+
+		if($res = $this->conn->query($qry))
+		{
+			if($res->num_rows > 0){
+				$this->row_count = $res->num_rows; // Count all rows.
+
+				while ($row = $res->fetch_assoc()) {
+					$this->fields['aaData'][] = $row;
+				}
+			}
+			else { $this->emptyFields(); } //return empty data.
+		}
+		else{
+			trigger_error('Something wrong of query: '. $qry);
+		}
+	}
+
 	public function getNumRows(){
 		return $this->row_count;
 	}
