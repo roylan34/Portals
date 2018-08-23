@@ -163,6 +163,10 @@ var dtFilterMachine = {
                                 return "<span class='text-left'>" + isEmpty(data.date_installed) + "</span>";
                                 }
                             },
+                             { data:  null, title: "Unit Owned", render: function( data, type, full, meta ){
+                                return "<span class='text-left'>" + isEmpty(data.unit_owned_by) + "</span>";
+                                }
+                            },
                             { data:  null, title: "Billing Type", render: function( data, type, full, meta ){
                                 return "<span class='text-left'>" + isEmpty(data.billing_type) + "</span>";
                                 }
@@ -237,6 +241,7 @@ var dtFilterMachine = {
                                 $("#txtNoUser").val(val.no_of_user);
                                 $("#txtRemarks").val(val.remarks);
                                 $("#txtDateInstall").val(val.date_installed);
+                                $("#txtUnitOwn").val(val.unit_owned_by);
                                 $("#slctBilling").val(isUpperCase(val.billing_type));
                                 $("#txtBranch").val(val.branches).trigger('chosen:updated');
                                 $("#slctCompany").val(val.company_id).trigger('chosen:updated');
@@ -264,12 +269,13 @@ var dtFilterMachine = {
             var nouser      = $("#txtNoUser").val();
             var remarks     = $("#txtRemarks").val();
             var dateinstall = $("#txtDateInstall").val();    
+            var unit_own    = $("#txtUnitOwn").val();    
             var billing     = $("#slctBilling option:selected").val();    
             var branch      = $("#txtBranch").chosen().val();
             var user_id     = Cookies.get('user_id');
             var data = {action:'update', idmachine:id, company_id:company_id, serialnum:serialnum, brand:brand, model:model, 
                         category:cat, type:type, pagecount: page_count, location:loc, department:depart, nouser:nouser, remarks:remarks, 
-                        dateinstall: dateinstall, billing:billing, branch: branch, user_id: user_id};   
+                        dateinstall: dateinstall, unit_own:unit_own, billing:billing, branch: branch, user_id: user_id};   
              $.ajax({
                 type: 'POST',
                 url: assets+'php/machine/machine.php',

@@ -112,15 +112,15 @@ var dtArchiveMrf = {
                                         	return "<span class='badge "+badge_color+"'>" + status + "</span>";
 		                                }
 		                            },
+		                            { data:  null ,render: function( data, type, full, meta ){
+		                                	return '<a title="View Request" class="btn btn-info btn-xs btn-flat btn-view-mrf" data-mrf="'+data.id+'"" data-toggle="modal" data-target="#modalFormArchiveViewMrf">VIEW</a>'; 
+		                                }
+		                            },	
 		                           	{ data:  null ,render: function( data, type, full, meta ){
-		                           		var buttons = "";
 	                           		   	var EXEC_ID = [1,43]; //Executuve user id
 	                               	   	var idUserFrom = (data.id_user_from != null ? convertArrStrToInt(data.id_user_from) : null);
 	                               	   	var buttonColor = "";
-
-		                                 	buttons = '<div class="col-md-4"><a title="View Request" class="btn btn-info btn-xs btn-flat btn-view-mrf" data-mrf="'+data.id+'"" data-toggle="modal" data-target="#modalFormArchiveViewMrf">VIEW</a></div>';  
-		                                 	//buttons +='<div class="col-md-4"><button title="Comments" class="btn '+(data.no_received_message == 0 ? 'btn-info' : 'btn-warning')+' btn-xs btn-flat btn-comment-mrf" data-mrf="'+data.id+'"" data-toggle="modal" data-target="#modalArchiveComments">COMMENTS</button></div>';  
-		                               	
+	                               	
 		                                 	if(data.no_received_message > 0 && idUserFrom != null && (idUserFrom.indexOf(EXEC_ID[0]) >= 0  || idUserFrom.indexOf(EXEC_ID[1]) >=0 ) ){ //indexOf, return -1 if not found else return index value.
 		                               	    	buttonColor = 'btn-danger';
 
@@ -131,11 +131,22 @@ var dtArchiveMrf = {
 		                               	    	buttonColor = 'btn-info';
 		                               	    }
 
-		                               	    buttons +='<div class="col-md-4"><button title="Comments" class="btn '+buttonColor+' btn-xs btn-flat btn-comment-mrf" data-mrf="'+data.id+'"" data-toggle="modal" data-target="#modalArchiveComments">COMMENTS</button></div>';  
-		                               		return buttons;
-
+		                               	    return '<button title="Comments" class="btn '+buttonColor+' btn-xs btn-flat btn-comment-mrf" data-mrf="'+data.id+'"" data-toggle="modal" data-target="#modalArchiveComments">COMMENTS</button>'; 
 		                                }
-		                            }
+		                            },
+		                            { data:  null ,render: function( data, type, full, meta ){
+		                            	var pathExcel = window.location.origin + window.location.pathname + 'assets/php/mrf/excelArchiveMachine.php?form_no='+data.form_no;
+		                            	var status = data.status.toUpperCase() || '';
+		                            	   	if(status == 'COMPLETE'){
+		                            	   		 return '<div class="dropdown" title="Export Excel"><button style="vertical-align:top;" class="btn btn-primary btn-flat btn-xs dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa-file-excel-o" aria-hidden="true"></i>' +
+														    ' <span class="caret"></span></button>'+
+															   '<ul class="dropdown-menu dropdown-menu-right custom-export-excel">'+
+															      '<li><a href="'+pathExcel+'" class="export-machine-delivered" target="_blank">Machine Delivered</a></li>'+
+															   '</ul></div>';	
+		                            	   		}
+		                                	return ''; 
+		                                }
+		                            },
 				                 ],
 				                 "columnDefs": [
 				                        { responsivePriority: 1, target: 0},
@@ -144,12 +155,19 @@ var dtArchiveMrf = {
 				                 "preDrawCallback": function(settings){
 		                           		$(".btn-search-archivemrf, .btn-refresh-mrf").removeClass("dt-button").addClass("btn btn-primary btn-flat btn-sm").css({"margin-bottom":"0.5em","margin-right":"0.5em"});
 				                },
+				                "fnDrawCallback": function(){
+					                 this.api().button('.btn-refresh-mrf' )
+									  .nodes()
+									  .attr('title','Refresh');	
+						        }
 	                    });	
-
-	                    this.dtInstance.button('.btn-refresh-mrf' )
-								  .nodes()
-								  .attr('title','Refresh');							
-						
+		
+							//Export Excel.
+							 // $("div.dt-buttons").prepend('<div class="dropdown" style="display:inline; margin-right:0.5em; vertical-align:bottom"><button style="vertical-align:top;" class="btn btn-primary btn-flat btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Export Excel ' +
+							 //    '<span class="caret"></span></button>'+
+								//    '<ul class="dropdown-menu dropdown-menu-left custom-export-excel">'+
+								//       '<li><a href="#" class="export-machine-delivered">Machine Delivered (APPROVED)</a></li>'+
+								//     '</ul></div>');					
 	        return this;               
     },
     modalShow: function(){
@@ -447,8 +465,26 @@ var dtArchiveMrf = {
 	
 		return this;
     },
+    exportExcelRow: function(form_no){
+		 var formno = form_no || '';
+			if(formno != ''){
+			   $.ajax({
+			     url:  assets+'php/mrf/excelArchiveMachine.php',
+			     type: 'GET',
+			     data:{ form_no: formno},
+			     success: function(response){
+			       window.location = response;
+			     }
+			   });
+			}
+			else{
+				alert("Missing form no.");
+			}
+
+		return this;
+	},
     actions: function(){
-    	$("#archiveMrfList").on('click','button, a',function(e) {
+    	$("#archiveMrfList").on('click','button, a:not(.export-machine-delivered)',function(e) {
     		e.preventDefault();
     		    var inst = $(this);
     		    var button_label = inst.text().toLowerCase();
@@ -463,21 +499,23 @@ var dtArchiveMrf = {
                     self.dtArchiveMrf.dtInstance.ajax.reload(null, true);
                 }
                 //Reset button
-                if(button_label =="reset"){
+                else if(button_label =="reset"){
 	                $("#dthead-search-archivemrf input[type='text'], #dthead-search-archivemrf select").val('');  //Clear all values;
 	                self.dtArchiveMrf.dtInstance.ajax.reload(null, true); //Reload DT when closing filter search.
                 }
                  //View Button
-                if(button_label == "view"){
+               else if(button_label == "view"){
                 	var idview = $(this).data('mrf');
                 		self.dtArchiveMrf.getDataViewRequestForm(idview);
                 }
                  //Comments Button
-                if(button_label == "comments"){
+                else if(button_label == "comments"){
                 	var id_mrf = $(this).data('mrf');
                 	var id_user = Cookies.get('user_id');
                 		comment.display(id_mrf, id_user);
-                }  
+                } 
+                else{ }
+
 	 			    	 		   	   	     	   		
     	});
     	return this;    	 
