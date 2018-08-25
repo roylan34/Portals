@@ -144,7 +144,6 @@
 </div>
 
 <script type="text/javascript">
-$("#modalFormMachine").on('click','button',function(){
    $('#modalFormMachine').on('hidden.bs.modal', function () {
       $('body').addClass('modal-open');
       $(this).find("#frmMachine").trigger('reset');//Reset form when modal hidden
@@ -152,7 +151,6 @@ $("#modalFormMachine").on('click','button',function(){
       $(this).find("input, select").parent('.col-sm-5').removeClass('has-error has-success');
       $(this).find("input").next().remove('em');
    });
-});
    // Client-side edit form validation.
   $( document ).ready( function () {
 
