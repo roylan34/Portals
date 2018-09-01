@@ -70,7 +70,7 @@ var dtArchiveMrf = {
 		                                }       
 		                            },
 		                            { data: null, render: function( data, type, full, meta ){
-		                                return "<span class='text-center'>" + data.form_no + "</span>";
+		                                return "<input class='hidden-form-no' type='hidden' name='form_no[]' value='" + data.id + "'><span class='text-center'>" + data.form_no + "</span>";
 		                                }
 		                            },
 		                            { data:  null, render: function( data, type, full, meta ){
@@ -133,20 +133,7 @@ var dtArchiveMrf = {
 
 		                               	    return '<button title="Comments" class="btn '+buttonColor+' btn-xs btn-flat btn-comment-mrf" data-mrf="'+data.id+'"" data-toggle="modal" data-target="#modalArchiveComments">COMMENTS</button>'; 
 		                                }
-		                            },
-		                            { data:  null ,render: function( data, type, full, meta ){
-		                            	var pathExcel = window.location.origin + window.location.pathname + 'assets/php/mrf/excelArchiveMachine.php?form_no='+data.form_no;
-		                            	var status = data.status.toUpperCase() || '';
-		                            	   	if(status == 'COMPLETE'){
-		                            	   		 return '<div class="dropdown" title="Export Excel"><button style="vertical-align:top;" class="btn btn-primary btn-flat btn-xs dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa-file-excel-o" aria-hidden="true"></i>' +
-														    ' <span class="caret"></span></button>'+
-															   '<ul class="dropdown-menu dropdown-menu-right custom-export-excel">'+
-															      '<li><a href="'+pathExcel+'" class="export-machine-delivered" target="_blank">Machine Delivered</a></li>'+
-															   '</ul></div>';	
-		                            	   		}
-		                                	return ''; 
-		                                }
-		                            },
+		                            }
 				                 ],
 				                 "columnDefs": [
 				                        { responsivePriority: 1, target: 0},
@@ -162,12 +149,12 @@ var dtArchiveMrf = {
 						        }
 	                    });	
 		
-							//Export Excel.
-							 // $("div.dt-buttons").prepend('<div class="dropdown" style="display:inline; margin-right:0.5em; vertical-align:bottom"><button style="vertical-align:top;" class="btn btn-primary btn-flat btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Export Excel ' +
-							 //    '<span class="caret"></span></button>'+
-								//    '<ul class="dropdown-menu dropdown-menu-left custom-export-excel">'+
-								//       '<li><a href="#" class="export-machine-delivered">Machine Delivered (APPROVED)</a></li>'+
-								//     '</ul></div>');					
+							// Export Excel.
+							 $("div.dt-buttons").prepend('<div class="dropdown" style="display:inline; margin-right:0.5em; vertical-align:bottom"><button style="vertical-align:top;" class="btn btn-primary btn-flat btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Export Excel ' +
+							    '<span class="caret"></span></button>'+
+								   '<ul class="dropdown-menu dropdown-menu-left custom-export-excel">'+
+								      '<li><a href="#" class="export-machine-delivered">Machine Delivered (APPROVED)</a></li>'+
+								    '</ul></div>');					
 	        return this;               
     },
     modalShow: function(){
@@ -468,14 +455,8 @@ var dtArchiveMrf = {
     exportExcelRow: function(form_no){
 		 var formno = form_no || '';
 			if(formno != ''){
-			   $.ajax({
-			     url:  assets+'php/mrf/excelArchiveMachine.php',
-			     type: 'GET',
-			     data:{ form_no: formno},
-			     success: function(response){
-			       window.location = response;
-			     }
-			   });
+			    var urlExcel = window.location.origin + window.location.pathname + 'assets/php/mrf/excelArchiveMachine.php?form_no='+form_no;
+			       	window.open(urlExcel, '_blank');			     
 			}
 			else{
 				alert("Missing form no.");
@@ -483,8 +464,16 @@ var dtArchiveMrf = {
 
 		return this;
 	},
+	 getMultipleFormNo: function(dataTableInst, checkBoxElem){ //Get the multiple row selected IDs # if there is option selected.
+            var rows = dtArchiveMrf[dataTableInst].rows({ 'search': 'applied' }).nodes();
+            var checkedVals = $(checkBoxElem, rows).map(function() {
+                return this.value;
+            }).get();
+
+        return checkedVals.join(',');
+    },
     actions: function(){
-    	$("#archiveMrfList").on('click','button, a:not(.export-machine-delivered)',function(e) {
+    	$("#archiveMrfList").on('click','button, a',function(e) {
     		e.preventDefault();
     		    var inst = $(this);
     		    var button_label = inst.text().toLowerCase();
@@ -513,6 +502,11 @@ var dtArchiveMrf = {
                 	var id_mrf = $(this).data('mrf');
                 	var id_user = Cookies.get('user_id');
                 		comment.display(id_mrf, id_user);
+                } 
+                //Export Excel
+                if ( inst.hasClass('export-machine-delivered') ) {  
+                	var form_no = self.dtArchiveMrf.getMultipleFormNo('dtInstance','.hidden-form-no');
+                		self.dtArchiveMrf.exportExcelRow(form_no);
                 } 
                 else{ }
 

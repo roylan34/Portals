@@ -176,9 +176,9 @@ Class Database{
 		}
 	}
 
-	public function storProc($storedProc_name,$storedProc_param){
+	public function storProc($storedProc_name){
 
-		$qry ="CALL {$storedProc_name}('$storedProc_param')";
+		$qry ="CALL {$storedProc_name}";
 
 		if($res = $this->conn->query($qry))
 		{
