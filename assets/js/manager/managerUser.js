@@ -26,7 +26,7 @@ var dtClientCompany = {
                             // d.company   = $("#search-company-companyname").val();
                             // d.address   = $("#search-company-address").val();
                             // d.branch    = $("#search-company-branch").val();
-                            d.client_company_own = companyHandle; //Param for pre-listing of company.
+                            d.client_company_own = companyHandle; //Param for listing of company.
                             d.action_view = "account_manager";
                             d.status = 1;
                     }
@@ -65,7 +65,7 @@ var dtClientCompany = {
                                 }
                             },
                             { data:  null, render: function( data, type, full, meta ){
-                                return '<button class="btn btn-xs btn-success btn-flat btnViewPrinter" data-comp="'+data.id+'" data-status="'+data.status+'" '+(data.status == 0 ? 'disabled' : '')+'><i class="fa fa-list"></i></button>';
+                                return '<button class="btn btn-xs btn-success btn-flat btnViewPrinter" data-comp="'+data.id+'" data-compname="'+encodeURIComponent(data.company_name)+'" data-status="'+data.status+'" '+(data.status == 0 ? 'disabled' : '')+'><i class="fa fa-list"></i></button>';
                                 }
                             }
                  ],
@@ -115,7 +115,8 @@ var dtClientCompany = {
 
                         var idcompany = inst.data('comp');
                         var branch    = inst.data('branch');
-                            self.dtMachine.render(idcompany);  
+                        var company_name  = decodeURIComponent(inst.data('compname'));
+                            self.dtMachine.render(idcompany, company_name);  
                 } );
         return this;
     }

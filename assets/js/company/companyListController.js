@@ -123,13 +123,13 @@ var dtCompany = {
                                 var badge_color = '';
                                 var comp = data.delsan_company;
                                     if(comp == 'dosc'){
-                                        badge_color = 'badge-green';
+                                        badge_color ='green';
                                     }
                                     else if(comp == 'dbic'){
-                                        badge_color = 'badge-blue';
+                                        badge_color ='blue';
                                     }
                                     else{ badge_color; }
-                                    return "<span class='badge "+badge_color+"'>" + comp.toUpperCase() + "</span>";                              
+                                    return "<span class='badge badge-"+badge_color+"'>" + comp.toUpperCase() + "</span>";                              
                                 }
                             },
                             { data: null, render: function( data, type, full, meta ){
@@ -185,7 +185,7 @@ var dtCompany = {
                             { data:  null, render: function( data, type, full, meta ){
                                     var cstatus = data.status;
                                     if(cstatus == 1 ){
-                                      return '<a title="View MIF" class="btn btn-xs btn-success btn-flat btnViewPrinter" data-comp="'+data.id+'" data-branch="'+data.id_branch+'" data-status="'+cstatus+'"><i class="fa fa-list"></i></a>';
+                                      return '<a title="View MIF" class="btn btn-xs btn-success btn-flat btnViewPrinter" data-comp="'+data.id+'" data-branch="'+data.id_branch+'" data-status="'+cstatus+'" data-compname="'+encodeURIComponent(data.company_name)+'"><i class="fa fa-list"></i></a>';
                                     }
                                     return '';
                                 }
@@ -407,9 +407,10 @@ var dtCompany = {
                     //Show modal machine list.
                     if ($(inst[0]).hasClass('btnViewPrinter')) {
                         var idcompany = inst.data('comp');
+                        var company_name = decodeURIComponent(inst.data('compname'));
                         var branches  = inst.data('branch');
                         // var status    = inst.data('status');
-                         dtMachine.render(idcompany,branches); 
+                         dtMachine.render(idcompany, company_name, branches); 
                     }
                     //Show modal MIF activity logs.
                     if ($(inst[0]).hasClass('viewMifLogs')) {

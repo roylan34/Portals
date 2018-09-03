@@ -1,14 +1,12 @@
 var dtMachine = {
     dtMInstance: null,
     dtRenderDom: null,
-	render: function(paramId,branch){
+	render: function(paramId, companyName, branch){
   		this.dtRenderDom = $("#displayViewMachine").load(pages+'machine/modal/index.html',function(data,status,xhr){
             if(status == 'success'){
                 $("#modalMachineList").modal('show');
-                    var compInfo = companyInfo.name(paramId);
                     var exclBranch = (branch == null || branch == '' ? null : convertArrStrToInt(branch));
-                      $(this).find("#machine-company").text('Machine list in '+ compInfo);
-                      // $("#machine-branch").text('Branch: '+branch);
+                      $(this).find("#machine-company").text('Machine list in '+ companyName);
                        self.dtMachine.dataTable(paramId,exclBranch).addButton(paramId).actions();
                        self.dtMachine.modalShowMachine(exclBranch);
 

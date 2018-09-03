@@ -213,7 +213,7 @@ $(document).ready(function(){
 			return this;
 		},
 		archive_machine : function(location){
-			$(".view-content").load(pages+'archive/machine.html',function(data, status){
+			$(".view-content").load(pages+'archive/index.html',function(data, status){
 				if(status == 'success'){
 					dtArchiveMachine.pageDetails().render().actions().modalShowArchiveMachine();
 					dtArchiveCompany.render(location).actions();
