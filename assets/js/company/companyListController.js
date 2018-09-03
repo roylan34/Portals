@@ -123,13 +123,13 @@ var dtCompany = {
                                 var badge_color = '';
                                 var comp = data.delsan_company;
                                     if(comp == 'dosc'){
-                                        badge_color = 'badge-green';
+                                        badge_color ='green';
                                     }
                                     else if(comp == 'dbic'){
-                                        badge_color = 'badge-blue';
+                                        badge_color ='blue';
                                     }
                                     else{ badge_color; }
-                                    return "<span class='badge "+badge_color+"'>" + comp.toUpperCase() + "</span>";                              
+                                    return "<span class='badge badge-"+badge_color+"'>" + comp.toUpperCase() + "</span>";                              
                                 }
                             },
                             { data: null, render: function( data, type, full, meta ){
