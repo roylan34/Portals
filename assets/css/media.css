@@ -60,7 +60,8 @@
 	#modalFormAccClient .modal-dialog, #modalFormStatus .modal-dialog, #modalFormBrand .modal-dialog, #modalChartModel .modal-dialog,  
 	#modalFormCurrentInvnt .modal-dialog, #modalFormOutMachine .modal-dialog, #modalFormInMachine .modal-dialog, #modalFormModel .modal-dialog,
 	#modalFormInvntStatus .modal-dialog, #modalFormInvntBranch .modal-dialog, #modalFormMrfSettingsApprover .modal-dialog,
-  #modalChangePass .modal-dialog, #modalSapDetails .modal-dialog, #modalFormCurrentSched .modal-dialog, #modalFormCurrentPM .modal-dialog{ width:30%; }
+  #modalChangePass .modal-dialog, #modalSapDetails .modal-dialog, #modalFormCurrentSched .modal-dialog, #modalFormCurrentPM .modal-dialog, 
+  #modalArchiveCompanyList .modal-dialog{ width:30%; }
 
 	/* MRF table */
 	.mrf-table-responsive {

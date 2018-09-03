@@ -2,11 +2,6 @@ var dtArchiveCompany = {
     dtInstance: {},
     dtInstanceLogs: null,
     btn : $("button[type='submit']"),
-    pageDetails: function(){
-                $(".content-header h1").text("Machine in Field");
-                $(".content-header h1").append("<small>Current</small>");
-            return this;
-    },
     render: function(paramBranch){ 
         // document.title = "MIF"; // Change the title tag.
         this.dtInstance = $("#dtArchiveCompany").DataTable({
@@ -59,7 +54,7 @@ var dtArchiveCompany = {
                                         //     } 
                                         // }
                                      },
-                                    filename: 'Companies ' + getTodayDate()
+                                    filename: 'Archive Company ' + getTodayDate()
                                 },
                                 {
                                     extend: "print",
@@ -103,11 +98,24 @@ var dtArchiveCompany = {
                             { data: null, render: function (data, type, row, meta) {
                                 var sap_code = data.sap_code || null;
                                     if(sap_code != null){
-                                        return "<span class='text-center'><a href='#' title='View SAP Details' id='modalSapDetails' data-toggle='modal' data-target='#modalSapDetails'>" + sap_code + "</a></span>"; 
+                                        return "<span class='text-center'><a href='#' title='View SAP Details' id='modalSapDetails'>" + sap_code + "</a></span>"; 
                                     }else{
                                         return '---';
                                     }
                                 }       
+                            },
+                            { data: null, render: function( data, type, full, meta ){ 
+                                var badge_color = '';
+                                var comp = data.delsan_company;
+                                    if(comp == 'dosc'){
+                                        badge_color ='green';
+                                    }
+                                    else if(comp == 'dbic'){
+                                        badge_color ='blue';
+                                    }
+                                    else{ badge_color; }
+                                    return "<span class='badge badge-"+badge_color+"'>" + comp.toUpperCase() + "</span>";                              
+                                }
                             },
                             { data: null, render: function( data, type, full, meta ){
                                 return "<span class=''>" + data.company_name + "</span>";
@@ -115,13 +123,6 @@ var dtArchiveCompany = {
                             },
                             { data:  null, render: function( data, type, full, meta ){
                                 return "<span class='text-center'>" + data.client_category + "</span>"; 
-                                }
-                            },
-                            { data: null,  render: function( data, type, full, meta ){
-                                    if(data.number_of_machines != null){
-                                        return "<span class='text-center'>" + data.number_of_machines + "</span>"; 
-                                    }
-                                    return 0;
                                 }
                             },
                             { data:  null, "width": "20%", render: function( data, type, full, meta ){
@@ -145,10 +146,7 @@ var dtArchiveCompany = {
                                 }
                             },
                             { data:  null, render: function( data, type, full, meta ){
-                                        if(data.status == 1)
-                                            return "<span class='text-left'> ACTIVE </span>";
-                                        else 
-                                            return "<span class='text-left' style='color:#dd4b39'> BLOCKED </span>";
+                                    return "<span class='text-left' style='color:#dd4b39'> BLOCKED </span>";
                                 }
                             },
                             { data:  null, render: function( data, type, full, meta ){
@@ -156,7 +154,10 @@ var dtArchiveCompany = {
                                 }
                             },
                             { data:  null, render: function( data, type, full, meta ){
-                                    return "";
+                                 var action_edit = JSON.parse(Cookies.get('app_module_action'));
+                                    if(action_edit && action_edit.action_mif == "wr" ){
+                                        return "<button class='btn btn-xs btn-success btn-flat btnEditComp' data-comp='"+data.id+"'>Retrieve</button>";
+                                    }
                                 }
                             },
                  ],
@@ -175,8 +176,83 @@ var dtArchiveCompany = {
         });
          return this;
     },
-    edit: function(){ 
-            //Code, activate customer and move to current page.
+    modalShow: function(idcompany){ //Show form modal.
+          $("#displayFormCompany").load(pages+'archive/retrieve-company.html',function(data,status,xhr){
+                     $('#modalArchiveCompanyList').modal('show');
+                      var user_branch = Cookies.get('location');
+                      autoDrpDown.getBranchNameMulti("#slctCompanyBranch","100%",user_branch,true);
+                      autoDrpDown.getBranchNameMulti("#slctCompanyLocation","100%",user_branch,true);
+                      autoDrpDown.getClientName("#slctClientMngr","100%");
+                      autoDrpDown.getSapCompany("#txtSapCompany",true);                     
+
+                     if(idcompany != null){
+                         var $btn = $("button[type='submit']");
+                         $.ajax({
+                            type: 'GET',
+                            url : assets+'php/company/getCompanyById.php',
+                            data: {idcompany: idcompany},
+                            dataType: 'json',
+                            beforeSend: function(){ $btn.button('loading'); },
+                            success: function(data){
+                                var res_data = data.aaData[0];                             
+                                    $("#hdnIdCompany").val(res_data.id);
+                                    $("#txtEditCompany").val(res_data.company_name);
+                                    $("#txtSapCode").val(res_data.sap_code);
+                                    $("#txtSapCompany").val(res_data.sap_code).trigger('chosen:updated');
+                                    $("#OldhdnEditCompany").val(res_data.company_name);
+                                    $("#txtEditCategory").val(res_data.client_category);
+                                    $("#txtEditAddress").val(res_data.address);
+                                    $("#txtContactNo").val(res_data.contact_no);
+                                    $("input[name='delsanCompany'][value='"+res_data.delsan_company+"']").prop('checked',true);
+                                    $("#OldhdnClientMngr").val(res_data.id_client_mngr);
+                                    $("#slctClientMngr").val(res_data.id_client_mngr).trigger('chosen:updated');
+                                    $("#slctCompanyBranch").val(( res_data.id_branches == null ? null : res_data.id_branches.split(","))).trigger('chosen:updated');
+                                    $("#slctCompanyLocation").val(( res_data.main_location == null ? null : res_data.main_location)).trigger('chosen:updated');
+                                    $("#OldIdBranches").val(res_data.id_branches);    
+                                    $("#slctStatus").val(res_data.status);
+                                    $("#txtLastVisit").val(res_data.date_last_visit);     
+                            },
+                            error: function(data,xhr,status){ promptMSG('warning','ID Machine not exist.'); },
+                            complete: function(){ $btn.button('reset'); }
+                         });
+                     }
+              });
+    },
+    retrieve: function(){ //Retrieve.
+          var $btn     = $("button[type='submit']");
+          var id       = $("#hdnIdCompany").val();
+          var company  = $("#txtEditCompany").val();
+          var category = $("#txtEditCategory").val();
+          var address  = $("#txtEditAddress").val();
+          var branch   = ($("#slctCompanyBranch").chosen().val() ? $("#slctCompanyBranch").chosen().val().toString() : '');
+          var location  = ($("#slctCompanyLocation").chosen().val() ? $("#slctCompanyLocation").chosen().val().toString() : '');
+          var contactno = $("#txtContactNo").val();
+          var sap_code  = $("#txtSapCode").val();
+          var delsan_comp= $("input[name='delsanCompany']:checked").val();        
+          // var client_service =  $("#slctClientTypeService option:selected").val();
+          var accmngr   = $("#slctClientMngr").chosen().val();
+          var oldaccmngr = $("#OldhdnClientMngr").val();
+          var oldbranch  = $("#OldIdBranches").val();
+          var status     = $("#slctStatus option:selected").val();
+          var user_id    = Cookies.get('user_id');
+          var last_visit = $("#txtLastVisit").val();
+          var data       = {idcompany:id, company:company, category:category, address:address, location:location, branch: branch, contactno: contactno, accmngr: accmngr, 
+                            oldaccmngr: oldaccmngr, oldbranch:oldbranch ,status: status, user_id: user_id, last_visit: last_visit, sap_code:sap_code, delsan_comp:delsan_comp};
+           $.ajax({
+                type: 'POST',
+                url: assets+'php/company/updateCompany.php',
+                data: data,
+                dataType: 'json',
+                beforeSend: function(){ $btn.button('loading'); },
+                success: function(data){
+                   self.dtArchiveCompany.dtInstance.ajax.reload(null, false); // Reload the data in DataTable.
+                   autoDrpDown.cacheOptComp.splice(0,1); //Clear cache option, if update company name.
+                   promptMSG('success-update','Company',null,null,true,true);
+                },
+                error: function(xhr,status){ alert(xhr + status); },
+                complete: function(){ $btn.button('reset'); }
+
+            });
     },
     actions: function(){
             $("table#dtArchiveCompany").on('click','button, a',function (e) {
@@ -191,9 +267,10 @@ var dtArchiveCompany = {
                     inst.closest('tr').addClass('selected');
                 }
                 //Show modal edit
-                if (button_label == 'edit') {
+                if (button_label == 'retrieve') {
                     var idcompany = $(this).data('comp');
                     self.dtArchiveCompany.modalShow(idcompany);
+                   
                 }
                           
                 //Search button
