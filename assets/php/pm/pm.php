@@ -11,6 +11,8 @@ require_once '../utils.php';
 
 
 if(Utils::getIsset('action')){
+	$db = Database::getInstance();
+
 	//For inputs
 	$action     	= Utils::getValue('action');
 	$serialnum 		= Utils::getValue('serialnum');
@@ -18,18 +20,16 @@ if(Utils::getIsset('action')){
 	$pm_id  		= Utils::getValue('pm_id');
 	$company_id  	= Utils::getValue('company_id');
 	$manufacture  	= Utils::getValue('manufacture');
-	$remarks  		= Utils::getValue('remarks');
+	$remarks  		= $db->escapeString((Utils::getValue('remarks'));
 	$page  			= Utils::getValue('page');
-	$toner  	= Utils::getValue('toner');
+	$toner  	= $db->escapeString(Utils::getValue('toner'));
 	$time_in  	= Utils::getValue('time_in');
 	$time_out  	= Utils::getValue('time_out');
 
 	$date_entered = Utils::getSysDate();
 	$time_entered = Utils::getSysTime();
 
-	$db = Database::getInstance();
 	$search ="";
-
 
 	switch ($action) {
 		case 'add':
