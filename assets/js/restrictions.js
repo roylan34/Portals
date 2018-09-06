@@ -5,7 +5,7 @@ $("form").ready(function(){
 	});
 
 	$.validator.addMethod("lettersSepcialChar", function(value, element) {
-    	return this.optional(element) || value == value.match(/^[a-zA-Z\s.,&)(]+$/);// Validate if values has only characters and spaces.
+    	return this.optional(element) || value == value.match(/^[a-zA-Z\s\-.,&)(]+$/);// Validate if values has only characters and spaces.
 	});
 
 	$.validator.addMethod("numbersonly", function(value, element) {

@@ -9,12 +9,10 @@ var minify = require('gulp-minify');
 // gulp watch command
 gulp.task('watch',function(){
 	gulp.watch([
-				'assets/js/archive/*.js', 
 				'assets/js/charts/*.js',
-				'assets/js/company/*.js',
-				'assets/js/machine/*.js',
 				'assets/js/settings/*.js',
 				'assets/js/accounts/*.js',
+				'assets/js/mif/*.js',
 				'assets/js/inventory/*.js', 
 				'assets/js/inventory/reports/*.js',
 				'assets/js/inventory/settings/*.js',
@@ -27,10 +25,8 @@ gulp.task('watch',function(){
 //Merge and Minify Inventory
 gulp.task('pack-mif-js',function(){
 		return gulp.src([
-				'assets/js/archive/*.js', 
 				'assets/js/charts/*.js',
-				'assets/js/company/*.js',
-				'assets/js/machine/*.js',
+				'assets/js/mif/*.js',
 				'assets/js/settings/*.js',
 				'assets/js/accounts/*.js', ])
 				.pipe(concat('bundle-mif.min.js'))

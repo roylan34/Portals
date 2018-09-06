@@ -11,6 +11,8 @@ require_once '../utils.php';
 require_once '../phpemailer/emailFunction.php';
 
 if(Utils::getIsset('action')){
+	$db = Database::getInstance();
+
 	//For inputs
 	$action     = Utils::getValue('action');
 	$id_mrf 		= Utils::getValue('id_mrf');
@@ -32,10 +34,10 @@ if(Utils::getIsset('action')){
 	$date_request  = Utils::getValue('date_request');
 	$date_delivery = Utils::getValue('date_delivery');
 	$id_company    = Utils::getValue('id_company');
-	$ship_to    = Utils::getValue('ship_to');
-	$bill_to    = Utils::getValue('bill_to');
-	$contact_p  = Utils::getValue('contact_p');
-	$dept  		= Utils::getValue('dept');
+	$ship_to    = $db->escapeString(Utils::getValue('ship_to'));
+	$bill_to    = $db->escapeString(Utils::getValue('bill_to'));
+	$contact_p  = $db->escapeString(Utils::getValue('contact_p'));
+	$dept  		= $db->escapeString(Utils::getValue('dept'));
 	$tel_no  	= Utils::getValue('tel_no');
 	$id_user_requestor  = Utils::getValue('id_user_requestor');
 	$id_status  = Utils::getValue('id_status');
@@ -43,9 +45,6 @@ if(Utils::getIsset('action')){
 	$attachment_name  = Utils::getValue('attachment_name');
 	$date_entered = Utils::getSysDate().' '.Utils::getSysTime();
 	
-	$db = Database::getInstance();
-
-
 	switch ($action) {
 		case 'add':
 				$add_form_no = generateFormNo($db);
