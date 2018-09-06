@@ -100,7 +100,7 @@ $(document).ready(function(){
 					        }
 				        }
         	}else{
-        		route.setRoute('/manager');
+        		route.setRoute('/login');
         		return false;
         	}
 		},
@@ -377,7 +377,7 @@ $(document).ready(function(){
 	        	var user_id = Cookies.get('user_id');
         		if(user_id != null || parseInt(user_id) > 0){
         			this.setRoute('/dashboard');
-	        	 	return false
+	        	 	return false;
         		}
 			},
 			on: function(){
@@ -588,7 +588,8 @@ $(document).ready(function(){
 		},
 		'/mrf':{ //MRF
 			':/current': {
-				// '/((\w?).*)': { // paramaters, Note: instead whitespace use '---'.
+				// '?((\w?).*)': { 
+				// '/((\w?).*)': { // Optional paramaters, Note: instead whitespace use '---'.
 				// '\/((\w?)|-)+\s*': { 
 					before: function(){	
 						var appmodule = JSON.parse(Cookies.get('app_module')); 
