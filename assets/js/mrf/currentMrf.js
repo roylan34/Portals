@@ -1255,6 +1255,21 @@ var dtCurrentMrf = {
             	 	  		$(".container-edit-sn").hide();
             	 	  	}
 
+            	 	  	// History
+	                	var history = "";
+	                	if(view_data.res_history.length > 0){
+		                	$.each(view_data.res_history,function(i, val){
+		                		history +=  '<div class="history-list">'+
+	                   				'<p><span class="col-md-2 clear-left">Remarks: </span><span class="badge badge-'+(val.remarks == 'returned' ? 'green' :'orange')+' history-remarks">'+val.remarks+'</span></p>'+
+	                    			'<p><span class="col-md-2 clear-left">DateTime: </span><span class="history-date">'+val.date_created+'</span></p>'+
+	                    			'<p><span class="col-md-2 clear-left">S/N: </span><span class=" history-sn">'+val.serial_num+'</span></p></div>';
+		                	});
+		                }
+		                else{
+		                	history = "<div style='text-align:center'>No data available.</div>";
+		                }
+	                	$(".history").html(history);
+
 	                },
 	                complete: function(){ $(".view-loader").hide();	},
 	                error: function(xhr,status){ alert("Something went wrong!"); }

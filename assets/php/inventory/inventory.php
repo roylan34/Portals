@@ -112,7 +112,7 @@ if(Utils::getIsset('action')){
 							$db->insertQuery('tbl_mrf_history','id_mrf, company_id, remarks, date_created, serial_num', 
 												''.$checkDemo[0]['id_mrf'].', 
 												"'.$company.'", 
-												"returned unit", 
+												"returned", 
 												"'.$date_entered.'", 
 												"'.$serialnum.'"');							
 						}

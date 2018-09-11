@@ -17,6 +17,7 @@
           <ul class="nav nav-tabs" id="tabs-form">
             <li class="active"><a href="#tab-form-request" data-toggle="tab" id="index-tab-form-approve"><i class="fa fa-info-circle"></i> <span>Details</span></a></li>
             <li><a href="#tab-form-approve" data-toggle="tab"><i class="fa fa-thumbs-up"></i> <span>Approve</span></a></li>
+            <li><a href="#tab-history" data-toggle="tab"><i class="fa fa-history"></i> <span>History</span></a></li>
           </ul>
         </div>
 
@@ -340,12 +341,16 @@
                 </form>
             </div>
 
-          </div><!--end of tab-content-->
+            <div role="tabpanel" class="tab-pane fade" id="tab-history">
+              <div class="history"></div>
+            </div>
 
+          </div><!--end of tab-content-->
 
         </div>
 
         <div class="modal-footer">
+          <button type="button" class="btn btn-flat btn-sm btn-primary pull-left recall_demo" onClick="dtArchiveMrf.recallUnit()">Recall Demo/Rental unit</button>
           <button type="button" class="btn btn-flat btn-sm btn-danger" data-dismiss="modal">Close</button>
         </div>
 
@@ -426,18 +431,18 @@ $('#modalArchiveAttachment').on('hidden.bs.modal', function() {
 </script>
 
 <style type="text/css">
-  .tbl_approver_header_bg > thead > tr:nth-child(1) > th{
-     background: #00a95b;
-     color: #f2f2e9;
-  }
-  .tbl_approver_header_bg > thead > tr > th{
-    text-align: center;
-    padding:4px;
-  }
-  .tbl_approver_header_bg > tfoot > tr > td{
-     padding:4px;
-  }
-  .tbl_approver_header_bg {
-    border: 1px solid #ddd;
-  }
+.tbl_approver_header_bg > thead > tr:nth-child(1) > th{
+   background: #00a95b;
+   color: #f2f2e9;
+}
+.tbl_approver_header_bg > thead > tr > th{
+  text-align: center;
+  padding:4px;
+}
+.tbl_approver_header_bg > tfoot > tr > td{
+   padding:4px;
+}
+.tbl_approver_header_bg {
+  border: 1px solid #ddd;
+}
 </style>
