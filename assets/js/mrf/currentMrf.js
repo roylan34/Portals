@@ -213,19 +213,19 @@ var dtCurrentMrf = {
 		                            { data:  null, render: function( data, type, full, meta ){
 		                            	   var buttons ="";
 		                            	   var user_mrf_flag = Cookies.get("user_mrf_flag");
+		                            	   var status      = data.status_approval.split("|") || null;
 
-		                            	   var EXEC_ID = [1,43]; //Executuve user id
-		                               	   var idUserFrom = (data.id_user_from != null ? convertArrStrToInt(data.id_user_from) : null);
+		                            	   var EXEC_ID     = [1,43]; //Executive user id
+		                               	   var idUserFrom  = (data.id_user_from != null ? convertArrStrToInt(data.id_user_from) : null);
 		                               	   var buttonColor = "";
 
-		                            	  if(user_mrf_flag == "requestor"){
+		                            	  if(user_mrf_flag == "requestor" && (status[0] == "APPROVER-1" || status[0] == "APPROVER-2")){
 		                                      	buttons += '<div class="col-md-4"><a title="Edit Request" class="btn btn-success btn-xs btn-flat btn-edit-mrf" data-mrf="'+data.id+'"" data-toggle="modal" data-target="#modalFormCurrentMrf">EDIT</a></div>';
 		                            	  }
-		                                  else{
+		                                  if(user_mrf_flag == "approver" || (user_mrf_flag == "requestor" && status[0] == "engineering") ) {
 		                                      	buttons += '<div class="col-md-4"><a title="View Request" class="btn btn-info btn-xs btn-flat btn-view-mrf" data-mrf="'+data.id+'"" data-toggle="modal" data-target="#modalFormCurrentViewMrf">VIEW</a></div>';                                		
 		                               	  }
 		                               	    
-
 		                               	    if(data.no_received_message > 0 && idUserFrom != null && (idUserFrom.indexOf(EXEC_ID[0]) >= 0  || idUserFrom.indexOf(EXEC_ID[1]) >=0 ) ){ //indexOf, return -1 if not found else return index value.
 		                               	    	buttonColor = 'btn-danger'; // If account type is executive, commenting.
 
