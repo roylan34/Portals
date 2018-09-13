@@ -17,13 +17,14 @@ $totalData =0;
 $totalFiltered =0;
 $branch = Utils::getValue('branch');
 $userid = Utils::getValue('userid');
+$pm_type = Utils::getValue('pm_type');
 $conn = Database::getInstance(); //For Searching.
 
 if(Utils::getValue('pm_number'))		{ $search ="AND ps.pm_number ='".$conn->escapeString(Utils::getValue('pm_number'))."'"; }
 if(Utils::getValue('company_name'))		{ $search ="AND com.company_name LIKE '%".$conn->escapeString(Utils::getValue('company_name'))."%'"; }
 if(Utils::getValue('sched_date'))		{ $search ="AND ps.schedule_date ='".$conn->escapeString(Utils::getValue('sched_date'))."'"; }
 if(Utils::getValue('technician'))		{ $search ="AND UPPER(CONCAT_WS(' ', ac.firstname, ac.lastname)) LIKE '%".$conn->escapeString(Utils::getValue('technician'))."%'"; }
-if(Utils::getValue('pm_type') == 'CONTROLLER'){
+if($pm_type == 'CONTROLLER' || $pm_type == 'MONITOR'){
 	$search .= "AND ps.branch='".$branch."'";
 }else{
 	$search .= "AND ps.technician='".$userid."'";

@@ -33,7 +33,7 @@ var dtCurrentSched = {
                             d.company_name = $("#search-sched-company").val() || '';
                             d.sched_date   = $("#search-sched-schedule").val() || '';
                             d.technician   = $("#search-sched-technician").val() || '';
-                            d.branch       = Cookies.get('branch_pm');
+                            d.branch       = $("#current-pm-branchlist option:selected").val(); 
                             d.pm_type      = Cookies.get('pm_type');
                             d.userid       = Cookies.get('user_id');
                     },
@@ -140,7 +140,8 @@ var dtCurrentSched = {
                             }, 
                             { data:  null, render: function( data, type, full, meta ){
                                   var action_pm = JSON.parse(Cookies.get('app_module_action'));
-                                    if(action_pm && action_pm.action_pm == "wr"){
+                                  var pm_type = Cookies.get('pm_type');
+                                    if(action_pm && action_pm.action_pm == "wr" || pm_type.toLowerCase() == 'monitor'){
                                         return "<button class='btn btn-xs btn-success btn-flat btnPM' data-pmnumber='"+data.pm_number+"' data-comp-id='"+data.company_id+"' data-toggle='modal' data-target='#modalCurrentPMList'>PM</button>";
                                     }
                                     return '';
@@ -160,7 +161,7 @@ var dtCurrentSched = {
                 "fnDrawCallback": function(){
                     //Remove add button if pm_type is Technician.
                     var pm_type = Cookies.get('pm_type');
-                        if(pm_type == '' || pm_type.toLowerCase() == 'technician'){
+                        if(pm_type == '' || pm_type.toLowerCase() == 'technician' || pm_type.toLowerCase() == 'monitor'){
                             this.api().buttons('.dt-button-add').nodes().remove();
                             $("#btnAddPm").remove();
                         }else{
@@ -432,7 +433,22 @@ var dtCurrentSched = {
         });
 
         return this;
-    },        
+    }, 
+    selectBranch: function(){ //Display dropdown branch if pm_type is MONITOR.
+            var pm_type = Cookies.get('pm_type');
+            var branch = Cookies.get('branch_pm');
+            var reverseBranch = true;
+            if(pm_type == "MONITOR"){
+                if(branch == 1)
+                    reverseBranch = false;
+                 
+            }
+                autoDrpDownMrf.getBranch("#current-pm-branchlist",false,convertArrStrToInt(branch),null,reverseBranch,false);                     
+                $("select#current-pm-branchlist").change(function(){
+                    self.dtCurrentSched.dtInstance.ajax.reload();
+                });                             
+        return this;
+    },       
     actions: function(){
                 $("table#dtCurrentSched").on('click','button, a',function (e) {
                     e.preventDefault();
