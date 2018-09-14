@@ -222,7 +222,7 @@ var dtCurrentMrf = {
 		                            	  if(user_mrf_flag == "requestor" && (status[0] == "APPROVER-1" || status[0] == "APPROVER-2")){
 		                                      	buttons += '<div class="col-md-4"><a title="Edit Request" class="btn btn-success btn-xs btn-flat btn-edit-mrf" data-mrf="'+data.id+'"" data-toggle="modal" data-target="#modalFormCurrentMrf">EDIT</a></div>';
 		                            	  }
-		                                  if(user_mrf_flag == "approver" || (user_mrf_flag == "requestor" && status[0] == "engineering") ) {
+		                                  if(user_mrf_flag == "approver" || (user_mrf_flag == "requestor" && (status[0] == "ENGINEERING" || status[0] == 'ACCOUNTING' || status[0] == 'LOGISTICS')) ) {
 		                                      	buttons += '<div class="col-md-4"><a title="View Request" class="btn btn-info btn-xs btn-flat btn-view-mrf" data-mrf="'+data.id+'"" data-toggle="modal" data-target="#modalFormCurrentViewMrf">VIEW</a></div>';                                		
 		                               	  }
 		                               	    
@@ -445,7 +445,7 @@ var dtCurrentMrf = {
 		}
 
 	    //Modal View machine request form.
-	    if(mrf_flag == 'approver'){
+	    //if(mrf_flag == 'approver'){
 		    $("#displayViewStepDetails").load(pages+'mrf/current/view-request-form.html',function(){
 
 		    		//Hide View Modal
@@ -463,7 +463,7 @@ var dtCurrentMrf = {
 					      //$(".view-step-2 .radioBtn-group-c2").prop('checked',false); IN PROGRESS
 					});
 		    });
-		 }
+		 //}
 
 	    //Modal Comments.
 	    $("#displayComments").load(pages+'mrf/current/comments.html',function(){
