@@ -356,7 +356,11 @@ $(document).ready(function(){
 			var _self = this;
 			$('.view-content').load(pages+'pm/current/index.html',function(data,status){
 				if(status =='success'){					
-					dtCurrentSched.pageDetails().render().modalShow().actions();	
+					dtCurrentSched.pageDetails()
+					.selectBranch()
+					.render()
+					.modalShow()
+					.actions();	
 				}
 			});
 		},
@@ -364,7 +368,11 @@ $(document).ready(function(){
 			var _self = this;
 			$('.view-content').load(pages+'pm/archive/index.html',function(data,status){
 				if(status =='success'){					
-					dtArchiveSched.pageDetails().render().modalShow().actions();
+					dtArchiveSched.pageDetails()
+					.selectBranch()
+					.render()
+					.modalShow()
+					.actions();
 				}
 			});
 		},

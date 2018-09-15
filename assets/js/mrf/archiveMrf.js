@@ -295,8 +295,13 @@ var dtArchiveMrf = {
 	                		$(".view-step-2 input[type=radio][value='"+view_s2_radio+"'").prop('checked',true);
 	                		if(view_data.s2_radio_nodays > 0 && view_s2_radio == 3){
 	                			$("#no_of_days").text(view_data.s2_radio_nodays).show();	
+
+	                			if(Cookies.get('user_id') == view_data.id_user_requestor)
+	                				$(".recall_demo").show();
+	                			else
+	                				$(".recall_demo").hide();
 	                		}else{
-		                		$("#no_of_days").hide();
+		                		$("#no_of_days, .recall_demo").hide();
 		                	}
 
 		                	if(view_data.s2_radio_others != '' && view_s2_radio == 4){
@@ -418,6 +423,21 @@ var dtArchiveMrf = {
 		                }
 	                	$("#edit-table-sn tbody").html(edit_sn);
 
+	                	// History
+	                	var history = "";
+	                	if(view_data.res_history.length > 0){
+		                	$.each(view_data.res_history,function(i, val){
+		                		history +=  '<div class="history-list">'+
+	                   				'<p><span class="col-md-2 clear-left">Remarks: </span><span class="badge badge-'+(val.remarks == 'returned' ? 'green' :'orange')+' history-remarks">'+val.remarks+'</span></p>'+
+	                    			'<p><span class="col-md-2 clear-left">DateTime: </span><span class="history-date">'+val.date_created+'</span></p>'+
+	                    			'<p><span class="col-md-2 clear-left">S/N: </span><span class=" history-sn">'+val.serial_num+'</span></p></div>';
+		                	});
+		                }
+		                else{
+		                	history = "<div style='text-align:center'>No data available.</div>";
+		                }
+
+	                	 $(".history").html(history);
 	                },
 	                complete: function(){ $(".view-loader").hide();	},
 	                error: function(xhr,status){ alert("Something went wrong!"); }
@@ -464,6 +484,43 @@ var dtArchiveMrf = {
 
 		return this;
 	},
+	recallUnit: function(){
+
+		promptMSG("custom","Are you sure you want to <strong>Recall</strong> this request?","Confirmation","yn",false,true,function(){
+			//Verify if form_no is demo unit. Then return message.
+			//Reset the approval form to 1st approver.
+			//Insert remarks in History tab.
+				var id_mrf = $("#hdnIdCurrentViewMrf").val();
+    			var $btn   = $('button');
+			 	    $.ajax({
+			 	    	type: 'POST',
+			 	    	dataType: 'json',
+			 	    	data: {action: 'recall_unit',  id_mrf: id_mrf },
+			 	    	url: assets + 'php/mrf/mrf.php',
+			 	    	beforeSend: function(){ 
+			 	    		$btn.button('loading');
+			 				$(".mif-modalPromptMSG").modal('hide');  
+			 	    	},
+			 	    	success: function(data,xhr){			 	    		
+			 	    		setTimeout(function(){
+			 	    			 if(data.result == 'true'){
+			 	    		 		promptMSG("success-custom","Machine Request has been successfully <strong>Recall</strong>.</br>Please see at Current page.",'',null,false,true);
+						 	    	$('.mif-modalPromptMSG').on('click','button',function(){//Hide modal Remove Machine.
+			                            $('#modalFormArchiveViewMrf').modal('hide');
+			                       	});
+			 	    		 		self.dtArchiveMrf.dtInstance.ajax.reload(null, true); //Refresh the page
+			 	    		 	}else{
+			 	    		 		promptMSG("custom",data.message,"Warning!",null,false,true);
+				 	    		}
+			 	    		},300);
+			 	    	},
+			 	    	complete: function(){
+	                		$btn.button('reset');  
+	            		}
+			 	    });
+		});
+
+	},
 	 getMultipleFormNo: function(dataTableInst, checkBoxElem){ //Get the multiple row selected IDs # if there is option selected.
             var rows = dtArchiveMrf[dataTableInst].rows({ 'search': 'applied' }).nodes();
             var checkedVals = $(checkBoxElem, rows).map(function() {
@@ -504,7 +561,7 @@ var dtArchiveMrf = {
                 		comment.display(id_mrf, id_user);
                 } 
                 //Export Excel
-                if ( inst.hasClass('export-machine-delivered') ) {  
+                else if ( inst.hasClass('export-machine-delivered') ) {  
                 	var form_no = self.dtArchiveMrf.getMultipleFormNo('dtInstance','.hidden-form-no');
                 		self.dtArchiveMrf.exportExcelRow(form_no);
                 } 

@@ -24,6 +24,7 @@ body.waiting * {
 	float: left;
 }
 .clear{ clear: both; }
+.clear-left{ clear: left; }
 
 div.scrollToTop{
 	display: none;
@@ -608,5 +609,17 @@ Add a counter to the multi-steps indicator
 }
 
 #btn_cancel_sched{
+  margin-bottom: 5px;
+}
+
+/** History **/
+.history-list{
+  border-bottom: 2px solid #e8e8e8;
+  padding-top: 5px;
+}
+.history-sn{
+  word-wrap: break-word;
+}
+.history-list > p{
   margin-bottom: 5px;
 }

@@ -33,7 +33,7 @@ var dtArchiveSched = {
                             d.company_name = $("#search-archive-sched-company").val() || '';
                             d.sched_date   = $("#search-archive-sched-schedule").val() || '';
                             d.technician   = $("#search-archive-sched-technician").val() || '';
-                            d.branch       = Cookies.get('branch_pm');
+                            d.branch       = $("#archive-pm-branchlist option:selected").val(); 
                             d.pm_type      = Cookies.get('pm_type');
                             d.userid       = Cookies.get('user_id');
                     },
@@ -119,7 +119,8 @@ var dtArchiveSched = {
                             },                            
                             { data:  null, render: function( data, type, full, meta ){
                                   var action_pm = JSON.parse(Cookies.get('app_module_action'));
-                                    if(action_pm && action_pm.action_pm == "wr"){
+                                  var pm_type = Cookies.get('pm_type');
+                                    if(action_pm && action_pm.action_pm == "wr" || pm_type.toLowerCase() == 'monitor'){
                                         return "<button class='btn btn-xs btn-success btn-flat btnPM' data-pmnumber='"+data.pm_number+"' data-comp-id='"+data.company_id+"' data-toggle='modal' data-target='#modalArchivePMList'>PM</button>";
                                     }
                                     return '';
@@ -153,6 +154,21 @@ var dtArchiveSched = {
 
         return this;
     },
+    selectBranch: function(){ //Display dropdown branch if pm_type is MONITOR.
+            var pm_type = Cookies.get('pm_type');
+            var branch = Cookies.get('branch_pm');
+            var reverseBranch = true;
+            if(pm_type == "MONITOR"){
+                if(branch == 1)
+                    reverseBranch = false;
+                 
+            }
+                autoDrpDownMrf.getBranch("#archive-pm-branchlist",false,convertArrStrToInt(branch),null,reverseBranch,false);                     
+                $("select#archive-pm-branchlist").change(function(){
+                    self.dtArchiveSched.dtInstance.ajax.reload();
+                });                             
+        return this;
+    },  
     actions: function(){
                 $("table#dtArchiveSched").on('click','button, a',function (e) {
                     e.preventDefault();

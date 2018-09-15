@@ -20,7 +20,7 @@ if(Utils::getIsset('action')){
 	$pm_id  		= Utils::getValue('pm_id');
 	$company_id  	= Utils::getValue('company_id');
 	$manufacture  	= Utils::getValue('manufacture');
-	$remarks  		= $db->escapeString((Utils::getValue('remarks'));
+	$remarks  		= $db->escapeString(Utils::getValue('remarks'));
 	$page  			= Utils::getValue('page');
 	$toner  	= $db->escapeString(Utils::getValue('toner'));
 	$time_in  	= Utils::getValue('time_in');

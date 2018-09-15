@@ -523,14 +523,20 @@ if(Utils::getIsset('action')){
 					$res_row_data_s1 = $db->getFields();
 					$db->fields = null;
 
+					//History
+					$db->selectQuery("*","tbl_mrf_history
+						WHERE id_mrf = ".$id_mrf."");
+					$res_history= $db->getFields();
+					$db->fields = null;
+
 					$merge_res['aaData'][0] = array_merge($res_row_data_s4['aaData'][0], 
 						array("res_row_data_s1" => $res_row_data_s1['aaData'] ),  
 						array("res_row_data_s1_toner" => $tableValues['aaData'] ), 
 						array("res_row_data_s2" => $res_row_data_s2['aaData'] ),
 						array("is_approver" => $is_approver['aaData']),
 						array("user_approved" => $user_approved['aaData']),
-						array("res_row_data_s1_toner_sub" => $SubTonertableValues['aaData'] )
-					);
+						array("res_row_data_s1_toner_sub" => $SubTonertableValues['aaData']),
+						array("res_history" => $res_history['aaData'] ));
 
 					print Utils::jsonEncode($merge_res);
 
@@ -549,6 +555,58 @@ if(Utils::getIsset('action')){
 				}
 
 			break;
+		case 'recall_unit': 
+				$status = null;
+				//Check if demo unit.
+				$db->selectQuery('*','tbl_mrf WHERE s2_radio_id = 2 AND id = '.$id_mrf.'');
+				$checkRecall = $db->getFields();
+				if($db->getNumRows() == 0){
+					//History
+					$db->customQuery('INSERT INTO tbl_mrf_history (id_mrf, company_id, remarks, date_created, serial_num)
+								 SELECT '.$id_mrf.', mr.id_company, "recall", NOW(), ms.s1_serialnum FROM tbl_mrf mr
+								 INNER JOIN tbl_mrf_s1 ms ON mr.id = ms.id_mrf
+								 WHERE mr.id = '.$id_mrf.'');
+                	$resSched = $db->getFields();
+                	if($resSched['aaData'][0] == 'success'){
+						$db->updateQuery('tbl_mrf_request_tracker','is_cancel = "no",
+									1st_approver = null,
+									1st_date	 = null,
+									1st_id_status= 1,
+									2nd_approver = null,
+									2nd_date 	 = null,
+									2nd_id_status= 1,
+									3rd_approver = null,
+									3rd_date 	 = null,
+									3rd_id_status= 1,
+									4th_approver = null,
+									4th_date 	 = null,
+									4th_id_status= 1,
+									4th_dr_number= null,
+									4th_edr_number= null,
+									4th_inv_number= null,
+									5th_approver = null,
+									5th_date 	 = null,
+									5th_id_status= 1,
+									5th_delivery_date = null,
+									5th_received_by = null,
+									5th_delivered_by = null,
+									flag_completion = "not complete",
+									is_cancel = "no"'											
+									,'id_mrf = '.$id_mrf.'');
+	                	$status =  array(
+							'result'   =>  'true',
+							 'message' =>  ''
+							);
+					}			
+				}
+				else{
+					$status =  array(
+						'result'   =>  'false',
+						 'message' =>  'Can\'t Recall due to this Request Form is not Demo unit.'
+						);	
+				}
+				print Utils::jsonEncode($status);
+			break;			
 		default:
 			 throw new Exception($action." action doesn't exist.");
 			break;

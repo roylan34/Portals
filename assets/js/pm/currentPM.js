@@ -191,7 +191,8 @@ var dtCurrentPM = { //For development
                 "fnDrawCallback": function(){
                          //Remove add button if pm_type is Technician.
                         var pm_type = Cookies.get('pm_type');
-                        if(pm_type == '' || pm_type.toLowerCase() == 'technician'){
+                        var action_edit = JSON.parse(Cookies.get('app_module_action'));
+                        if(pm_type == '' || pm_type.toLowerCase() == 'technician' || pm_type.toLowerCase() == 'monitor'){
                             this.api().buttons('.btn-header-add-pm').remove();
                         }else{
                             this.api().button('.btn-header-add-pm').nodes().attr({

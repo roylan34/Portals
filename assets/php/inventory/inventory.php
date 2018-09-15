@@ -99,17 +99,35 @@ if(Utils::getIsset('action')){
 			break;
 		case 'update_in':
 					if($id_machine){
+						
+						//Check the unit if from Demo unit.
+						$db->selectQuery("s1.id_mrf, m.id_company, s1.s1_serialnum","tbl_mrf_s1 s1
+						INNER JOIN tbl_mrf m ON s1.id_mrf = m.id
+						INNER JOIN tbl_mrf_request_tracker rt ON s1.id_mrf = rt.id_mrf
+						WHERE s1.s1_serialnum LIKE CONCAT('%',(SELECT serialnumber FROM tbl_invnt_machines WHERE id = ".$id_machine."),'%') AND m.id_company = '".$company."' AND m.s2_radio_id = 3 AND rt.flag_completion = 'complete' LIMIT 1");
+						$data = $db->getFields();
+						$checkDemo = $data['aaData'];
+						if($db->getNumRows() > 0){
+							//Insert table history.
+							$db->insertQuery('tbl_mrf_history','id_mrf, company_id, remarks, date_created, serial_num', 
+												''.$checkDemo[0]['id_mrf'].', 
+												"'.$company.'", 
+												"returned", 
+												"'.$date_entered.'", 
+												"'.$serialnum.'"');							
+						}
+						$db->fields = null;
+						//Move to current page.
 						$db->updateQuery('tbl_invnt_machines','id_status = "'.$status.'", 
 														 date_return_deploy = "'.date_format($convert_date,'Y-m-d').'"'
 										    			,'id = '.$id_machine.'');
 						machineLogs($id_machine,$status,date_format($convert_date,'Y-m-d'),$id_user,$company,$remarks,$db);
-						
 				 		print Utils::jsonEncode($db->getFields());
 				 	}
 			break;
 		case 'get-company-name':
 					if($id_machine){
-						$db->selectQuery("c.id, c.company_name","tbl_invnt_machines m 
+						$db->selectQuery("c.id, c.company_name, m.serialnumber","tbl_invnt_machines m 
 						LEFT JOIN tbl_company c ON m.id_company = c.id
 						WHERE m.id = ".$id_machine."");
 

@@ -154,8 +154,9 @@ var dtArchiveInventory = {
             var company  = $("#hdnInvntInCompanyId").val();
             var date 	 = $("#txtArchInvntDateIn").val();
             var remarks  = $("#txtArchInvntRemarks").val();
+            var serialnum=$("#hdnInvntInSerial").val();
             var id_user   = Cookies.get('user_id');
-            var data = { action:'update_in', id_machine:id, status:status, company: company, date: date, remarks: remarks, id_user:id_user} 
+            var data = { action:'update_in', id_machine:id, status:status, company: company, date: date, remarks: remarks, id_user:id_user, serialnum:serialnum} 
 
             $.ajax({
                 type: 'POST',
@@ -190,6 +191,7 @@ var dtArchiveInventory = {
 	                	$.each(data.aaData, function(i,val){
 	                		 $("#hdnInvntInCompanyId").val(val.id);
 	                		 $("#slctArchInvntCompany").text(val.company_name);
+	                		 $("#hdnInvntInSerial").val(val.serialnumber);
 	                	});
 	                },
 	                error: function(xhr,status){ alert(xhr + status); },

@@ -137,6 +137,20 @@ var dtAccounts = {
                                   }
                         });
 
+                         $("#slctPmType").change(function(e){ //Show/Hide option ALL and --Branch--
+                                var typeAttr = $(':selected', this);
+                                if(typeAttr.val() == "MONITOR"){
+                                    $("#slctAccountBranchPm option[value=1]").show();
+                                    $("input[name='radioPmActions'][value='r']").prop('checked',true); 
+                                    $("input[name='radioPmActions'][value='wr']").prop('disabled',true); 
+
+                                }else{
+                                    $("#slctAccountBranchPm option[value=1]").hide();
+                                     $("#slctAccountBranchPm").val('');
+                                    $("input[name='radioPmActions'][value='wr']").prop('disabled',false); 
+                                }
+                         });
+
                         if(idaccount != null){
                          $(this).find(".modal-title").text('Update Account');
                          $.ajax({
