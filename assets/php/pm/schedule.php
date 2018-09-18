@@ -142,8 +142,8 @@ function checkIsDone($pm_num, $db){
 	$status = null;
 	if(!Utils::isEmpty($pm_num)){
 		$db->selectQuery("( CASE
-			WHEN pm.pm_number = '".$pm_num."' && (SELECT COUNT(*) FROM tbl_pm_machines WHERE pm_number = '".$pm_num."' AND (time_in IS NULL || time_out IS NULL) ) > 0 THEN 'in-progress'
-			WHEN pm.pm_number = '".$pm_num."' && (SELECT COUNT(*) FROM tbl_pm_machines WHERE pm_number = '".$pm_num."' AND (time_in IS NOT NULL && time_out IS NOT NULL) ) > 0 THEN 'done'
+			WHEN pm.pm_number = '".$pm_num."' && (SELECT COUNT(*) FROM tbl_pm_machines WHERE is_delete = 'no' AND pm_number = '".$pm_num."' AND (time_in IS NULL || time_out IS NULL) ) > 0 THEN 'in-progress'
+			WHEN pm.pm_number = '".$pm_num."' && (SELECT COUNT(*) FROM tbl_pm_machines WHERE is_delete = 'no' AND pm_number = '".$pm_num."' AND (time_in IS NOT NULL && time_out IS NOT NULL) ) > 0 THEN 'done'
 			ELSE 'no-pm'
 			END
 			) AS status","tbl_pm_schedule ps
