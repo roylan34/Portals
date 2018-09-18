@@ -130,7 +130,7 @@ function checkIsCancel($pm_num,$db){
 		}else{
 			$res = array('aaData' => array(
 				'result' =>  'false',
-				'message' => "Unable to cancel request because already in process."
+				'message' => "Unable to cancel request because already in-progress."
 			));
 		}
 	}
