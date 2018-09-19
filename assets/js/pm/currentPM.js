@@ -6,20 +6,6 @@ var dtCurrentPM = { //For development
         $("#hdnPmNumber").val(pmNumber); //Fill hidden input PM Number 
         $("#hdnPmCompanyId").val(companyId); //Fill hidden input Company Id    
         this.dtInstance = $("#dtCurrentPM").DataTable({
-                initComplete: function(settings, json){
-                           if (json.enabledMultiSelectAdd == 'false'){//Hide or Show button Add.
-                               // self.dtCurrentPM.detachBtnAdd =  $("#btnAddPm").detach();
-                                $("#btnAddPm").hide();
-                           }
-                           else{
-                                $("#btnAddPm").show();
-                               // if(self.dtCurrentPM.detachBtnAdd != null){
-                               //       self.dtCurrentPM.detachBtnAdd.appendTo('#modalCurrentPMList div.modal-footer div');
-                               //       self.dtCurrentPM.detachBtnAdd = null;                                  
-                               //  }
-                                
-                           }
-                },
                 "dom"       : 'Blrtip', 
                 "autoWidth" : false,
                 "responsive": true,
@@ -173,6 +159,15 @@ var dtCurrentPM = { //For development
                                     return '';
                                 }
                             }, 
+                             { data:  null, render: function( data, type, full, meta ){
+                                var action_edit = JSON.parse(Cookies.get('app_module_action'));
+                                var pm_type = Cookies.get('pm_type');
+                                    if(action_edit && action_edit.action_pm == "wr" && data.enabled_update == 'true' && pm_type.toLowerCase() == 'controller'){
+                                        return "<button class='btn btn-xs btn-danger btn-flat btnRemovePM' title='Remove' data-id='"+data.id+"' data-toggle='modal' data-target='#'><i class='fa fa-trash-o' aria-hidden='true'></i></button>";
+                                    }
+                                    return '';
+                                }
+                            }, 
                          
                  ],
                  "columnDefs": [
@@ -181,14 +176,18 @@ var dtCurrentPM = { //For development
                  ],
                 "deferRender": true,
                 "fnCreatedRow": function( row, data ) { //Add attribute id-company in first td element.
-                        // $('td:eq(0)',row).attr( 'data-id-company',data.id);
                         $('td:eq(10)',row).addClass('border-left');                                  
                 },
                 "preDrawCallback": function(settings){
                         $(".dt-button-pmsearch, .dt-pm-print, .dt-button-add, .btn-refresh-pm, .btn-header-add-pm").removeClass("dt-button").addClass("btn btn-primary btn-flat btn-sm").css({"margin-bottom":"0.5em","margin-right":"0.5em"});
                         $(".dt-pm-print").text('').html("<i class='glyphicon glyphicon-print'></i>").attr('title','Print');
                 },
-                "fnDrawCallback": function(){
+                "fnDrawCallback": function(settings){
+                        if(settings.json.enabledMultiSelectAdd == 'false'){//Hide or Show button Add.
+                            $("#btnAddPm").hide();
+                        }else{
+                            $("#btnAddPm").show();                                
+                        }
                          //Remove add button if pm_type is Technician.
                         var pm_type = Cookies.get('pm_type');
                         var action_edit = JSON.parse(Cookies.get('app_module_action'));
@@ -249,6 +248,7 @@ var dtCurrentPM = { //For development
                             d.pm_number  = pmNumber;
                             d.company_id = companyId;                      
                     },
+                    error: function(data){ alert('Something went wrong.'); },
                     complete: function(data){ $(".dt-buttons a").removeClass('disabled'); }
                   },
                 "columns"  : [
@@ -277,7 +277,10 @@ var dtCurrentPM = { //For development
                         { responsivePriority: 1, target: 1},
 
                  ],
-                "deferRender": true,       
+                "deferRender": true,
+                // "fnCreatedRow": function( row, data ) { //Add attribute id in first td element.
+                //     $(row).attr('id',data.id);                                  
+                // },       
         });
 
                  //Handle Select All.
@@ -351,7 +354,7 @@ var dtCurrentPM = { //For development
                 alert('PM number is empty.');
                 return false;
             }
-            if(serialnum == ''){
+            if(serialnum.insert.length == 0 && serialnum.update.length == 0){
                 alert('Please click the checkboxes (left) in each row.');
                 return false;
             }
@@ -389,7 +392,7 @@ var dtCurrentPM = { //For development
                 alert('PM number is empty.');
                 return false;
             }
-            if(serialnum == ''){
+            if(serialnum.insert.length == 0 && serialnum.update.length == 0){
                 alert('Please click the checkboxes (left) in each row.');
                 return false;
             }    
@@ -402,7 +405,7 @@ var dtCurrentPM = { //For development
                     dataType: 'json',
                     beforeSend: function(){ $btn.button('loading'); }, //Empty the search fields. 
                     success: function(data, xhr, status){
-                         if(data.aaData == "success"){
+                         if(data.aaData[0] == "success"){
                             self.dtCurrentPM.dtInstanceAddPm.ajax.reload(null, false); //.page('last'); // Reload the data in DataTable and go to last page.
                             self.dtCurrentPM.dtInstance.ajax.reload(null, false);
                             promptMSG('success-add','PM Machines',null,null,true,true);
@@ -433,7 +436,6 @@ var dtCurrentPM = { //For development
                     url: assets+'php/pm/pm.php',
                     data: data,
                     dataType: 'json',
-                    // beforeSend: function(){ $btn.button('loading'); },
                     success: function(data){
                        self.dtCurrentPM.dtInstance.ajax.reload(function(){
                             dtCurrentSched.dtInstance.ajax.reload(null, false);
@@ -441,8 +443,6 @@ var dtCurrentPM = { //For development
                        promptMSG('success-update','PM Machine',null,null,true,true);
                     },
                     error: function(xhr,status){ alert("Something went wrong!"); },
-                    // complete: function(){ $btn.button('reset'); }
-
                 });
         }
         else{
@@ -450,12 +450,58 @@ var dtCurrentPM = { //For development
         }
     },
     getMultipleSerial: function(dataTableInst, checkBoxElem){ //Get the multiple row selected IDs # if there is option selected.
+            var array_sn = {update: [], insert: []};         
             var rows = dtCurrentPM[dataTableInst].rows({ 'search': 'applied' }).nodes();
             var checkedVals = $(checkBoxElem+':checked', rows).map(function() {
-                return this.value;
-            }).get();
-
-        return checkedVals.join('","');
+                // var val = parseInt($(this).closest('tr').attr('id'));
+ 
+                // if(val > 0){                                       
+                //     array_sn.update.push(val);
+                // }else{
+                    array_sn.insert.push(this.value);
+                // }
+                
+            });
+            return array_sn;
+         // return checkedVals.join('","');
+    },
+    removeMachine: function(id){
+        promptMSG("custom","Are you sure you want to <strong>Remove</strong> this machine?","Confirmation","yn",false,true,function(){
+            var pm_id = id || null;
+            if(pm_id){
+                var $btn   = $('button');
+                    $.ajax({
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {action: 'remove-pm',  pm_id: pm_id },
+                          url: assets+'php/pm/pm.php',
+                        beforeSend: function(){ 
+                            $btn.button('loading');
+                            $(".mif-modalPromptMSG").modal('hide');  
+                        },
+                        success: function(data,xhr){                            
+                            setTimeout(function(){
+                                 if(data.aaData[0] == 'success'){
+                                    promptMSG("success-custom","Machine Request has been successfully <strong>Remove</strong>.</br>Please view back at Add PM Machine page.",'',null,false,true);
+                                    $('.mif-modalPromptMSG').on('click','button',function(){//Hide modal Remove Machine.
+                                          self.dtCurrentPM.dtInstance.ajax.reload(null, true); //Refresh the page
+                                    });
+                                  
+                                }else{
+                                    alert('Something went wrong!');
+                                }
+                            },300);
+                        },
+                        complete: function(){
+                            $btn.button('reset');  
+                        }
+                    });
+            }
+            else{
+                alert('Warning! Empty PM ID.');
+            }
+        });
+        return this;
     },
     actions: function(){
                 $("#modalCurrentPMList").on('click','button, a',function (e) {
@@ -487,6 +533,9 @@ var dtCurrentPM = { //For development
                         $("#dt-head-search input[type='text']").val('');  //
                         self.dtCurrentPM.dtInstance.ajax.reload(null, true); //Reload DT when closing filter search.
                     }
+                    if(inst.hasClass('btnRemovePM')){
+                        self.dtCurrentPM.removeMachine(inst.data('id'));
+                    }
                 } );
         return this;
     },
@@ -494,7 +543,7 @@ var dtCurrentPM = { //For development
                 $("#modalHeaderAddPm").on('click','#btn-header-pm-save',function (e) {
                     e.preventDefault();
                         self.dtCurrentPM.addPM();
-                        self.dtCurrentPM.dtInstanceAddPm.ajax.reload(null, true); //Reload DT when closing filter search.                    
+                        // self.dtCurrentPM.dtInstanceAddPm.ajax.reload(null, true); //Reload DT when closing filter search.                    
                 } );
         return this;
     }
