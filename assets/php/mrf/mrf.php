@@ -593,6 +593,8 @@ if(Utils::getIsset('action')){
 									flag_completion = "not complete",
 									is_cancel = "no"'											
 									,'id_mrf = '.$id_mrf.'');
+							$db->updateQuery('tbl_mrf','date_requested = "'.$date_entered.'"'											
+									,'id = '.$id_mrf.'');
 	                	$status =  array(
 							'result'   =>  'true',
 							 'message' =>  ''
