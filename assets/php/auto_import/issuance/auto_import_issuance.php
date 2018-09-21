@@ -38,16 +38,16 @@ $con = $conn->connect();
 			
 			// Checking for Duplicate data entries
 			$filter_insert = 1;
-			$filter_update = 1;
+			// $filter_update = 1;
 			
-			$Qry = new Query();
-			$Qry->table = "tbl_invnt_issuances_auto_import";
-			$Qry->selected = "*";
-			$Qry->fields = "serial='".$serial_number."'";
-			$rs = $Qry->exe_SELECT($con);
-			//echo $company_name;
-			$count = mysqli_fetch_array($rs);			
-			if(count($count) == 0){		
+			// $Qry = new Query();
+			// $Qry->table = "tbl_invnt_issuances_auto_import";
+			// $Qry->selected = "*";
+			// $Qry->fields = "serial='".$serial_number."'";
+			// $rs = $Qry->exe_SELECT($con);
+			// //echo $company_name;
+			// $count = mysqli_fetch_array($rs);			
+			// if(count($count) == 0){		
 			//$count = mysqli_fetch_array($rs);
 				// INSERT 			
 				$Qry_i = new Query();
@@ -71,35 +71,36 @@ $con = $conn->connect();
 				$rs_i = $Qry_i->exe_INSERT($con);
 				if($rs_i){
 					$counter_i++;
+
 					$filter_insert = 1;
 				}else{
 					$counter_i++;
 					$filter_insert = 0;
 				}
 				
-			}else{
+			// }else{
 				
-				// UPDATE
-				$Qry_u = new Query();
-				$Qry_u->table = "tbl_invnt_issuances_auto_import";
-				$Qry_u->selected = "sap_code='".$sap_code."',
-									company_name='".$company_name."',
-									ref_no='".$ref_no."',
-									doc_date='".$doc_date."',
-									item_code='".$item_code."',
-									description='".$description."',
-									trans_type='".$transtype."'";								
-				$Qry_u->fields = "serial='".$serial_number."'";
-				$rs_u = $Qry_u->exe_UPDATE($con);
-				if($rs_u){
-					$counter_u++;
-					$filter_update = 1;
-				}else{
-					$counter_u++;
-					$filter_update = 0;
-				}
+			// 	// UPDATE
+			// 	$Qry_u = new Query();
+			// 	$Qry_u->table = "tbl_invnt_issuances_auto_import";
+			// 	$Qry_u->selected = "sap_code='".$sap_code."',
+			// 						company_name='".$company_name."',
+			// 						ref_no='".$ref_no."',
+			// 						doc_date='".$doc_date."',
+			// 						item_code='".$item_code."',
+			// 						description='".$description."',
+			// 						trans_type='".$transtype."'";								
+			// 	$Qry_u->fields = "serial='".$serial_number."'";
+			// 	$rs_u = $Qry_u->exe_UPDATE($con);
+			// 	if($rs_u){
+			// 		$counter_u++;
+			// 		$filter_update = 1;
+			// 	}else{
+			// 		$counter_u++;
+			// 		$filter_update = 0;
+			// 	}
 				
-			}		
+			// }		
 		}
 			
 		// Inserted output text
@@ -114,14 +115,14 @@ $con = $conn->connect();
 		}
 		
 		
-		// Updated output text
-		if($filter_update == 1){
-			echo $counter_u.' '."Row data updated successfully.\r\n";
-			echo "**************************** END OF EXECUTION ****************************\r\n";
-		}else{
-			echo $counter_u.' '."Error in updated the data.\r\n";
-			echo "**************************** END OF EXECUTION ****************************\r\n";
-		}
+		// // Updated output text
+		// if($filter_update == 1){
+		// 	echo $counter_u.' '."Row data updated successfully.\r\n";
+		// 	echo "**************************** END OF EXECUTION ****************************\r\n";
+		// }else{
+		// 	echo $counter_u.' '."Error in updated the data.\r\n";
+		// 	echo "**************************** END OF EXECUTION ****************************\r\n";
+		// }
 		
 
 		fclose($getdata);	
@@ -137,7 +138,7 @@ class connector{
 	public $host = "localhost";					
 	public $dbname = "dbmif";			
 	public $name = "root";						
-	public $pass = "waterfront07";
+	public $pass = "";
 	function connect(){
 		$conn = mysqli_connect("$this->host", "$this->name", "$this->pass","$this->dbname");
 		if (!$conn)

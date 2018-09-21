@@ -45,7 +45,7 @@ if(Utils::getValue('trans'))			{ $search .="AND trans_type = '".$conn->escapeStr
 			
 			if(intval($requestData['length']) >= 1 ) { $limit = ' LIMIT '.$requestData['start'].' ,'.$requestData['length'].''; }
 
-				$conn->selectQuery('*','tbl_invnt_issuances_auto_import	WHERE id > 0 '.$search.' '.$limit.'');
+				$conn->selectQuery('*','tbl_invnt_issuances_auto_import	WHERE id > 0 '.$search.' ORDER BY doc_date DESC '.$limit.'');
 				$row = $conn->getFields(); //Get all rows
 
 			if($conn->getNumRows() > 0 ){
