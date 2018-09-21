@@ -33,7 +33,7 @@ var dtCurrentInvtHq = {
 	                                        {
 			                                    extend: "excel",
 			                                    className: 'btn-excel-inventory hidden-xs',
-			                                    exportOptions: { columns: [1,2,3,4,5,6] },
+			                                    exportOptions: { columns: [1,2,3,4,5] },
 			                                    filename: 'Current HQ Inventory ' + getTodayDate()
 			                                },
 			                               {

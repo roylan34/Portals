@@ -473,3 +473,8 @@ DATE: 2018-07-10 TIME: 9:50:00
 0 Row data inserted successfully.
 710 Row data updated successfully.
 **************************** END OF EXECUTION ****************************
+
+Warning: mysqli_connect(): (28000/1045): Access denied for user 'root'@'localhost' (using password: YES) in C:\wamp\www\machine\assets\php\auto_import\issuance\auto_import_issuance.php on line 143
+Could not connect: Access denied for user 'root'@'localhost' (using password: YES)*** AUTO IMPORT ISSUANCE ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-09-20 TIME: 14:36:00
+11 Row data inserted successfully.
