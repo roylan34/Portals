@@ -13,7 +13,7 @@ $con = $conn->connect();
 	$counter_i = 0;
 	$counter_u = 0;
 	
-	if (($getdata = fopen($filepath, "r")) !== FALSE) {
+	if(file_exists($filepath) && ($getdata = fopen($filepath, "r")) !== FALSE ) {
 		
 		fgetcsv($getdata);
 		//$vvv = array();
@@ -127,6 +127,13 @@ $con = $conn->connect();
 
 		fclose($getdata);	
 		
+	}else{
+		
+		echo "** AUTO IMPORT ISSUANCE ROW DATA TO MYSQL DATABASE **\r\n";
+		echo "DATE:".' '.$SysDate.' '."TIME:".' '.$SysTime."\r\n";
+		echo "No file because it was deleted.\r\n";
+		echo "*************************** END OF EXECUTION ***************************\r\n";
+		
 	}
 	
 	
@@ -138,7 +145,7 @@ class connector{
 	public $host = "localhost";					
 	public $dbname = "dbmif";			
 	public $name = "root";						
-	public $pass = "";
+	public $pass = "waterfront07";
 	function connect(){
 		$conn = mysqli_connect("$this->host", "$this->name", "$this->pass","$this->dbname");
 		if (!$conn)
