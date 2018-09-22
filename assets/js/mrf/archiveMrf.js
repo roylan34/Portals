@@ -291,17 +291,25 @@ var dtArchiveMrf = {
 
 	                	//Step 2 Form 
 	                	var view_s2_radio = view_data.s2_radio_id;
+	                	var view_radio_others = view_data.s2_radio_others.toLowerCase() || "";
+
+	                	if( (view_s2_radio == 3 && view_data.s2_radio_nodays > 0) || (view_s2_radio == 4 && view_radio_others == "service unit") ){ //Show only Recall button if Demo or Others with service unit.
+	                		if(Cookies.get('user_id') == view_data.id_user_requestor)
+	                			$(".recall_demo").show();
+	                		else
+	                			$(".recall_demo").hide();
+	                	}
+	                	else{
+	                		$(".recall_demo").hide();
+	                	}
+
+
                 		if(view_s2_radio > 0){ //Get only the first value of s2_radio_id.
 	                		$(".view-step-2 input[type=radio][value='"+view_s2_radio+"'").prop('checked',true);
 	                		if(view_data.s2_radio_nodays > 0 && view_s2_radio == 3){
 	                			$("#no_of_days").text(view_data.s2_radio_nodays).show();	
-
-	                			if(Cookies.get('user_id') == view_data.id_user_requestor)
-	                				$(".recall_demo").show();
-	                			else
-	                				$(".recall_demo").hide();
 	                		}else{
-		                		$("#no_of_days, .recall_demo").hide();
+		                		$("#no_of_days").hide();
 		                	}
 
 		                	if(view_data.s2_radio_others != '' && view_s2_radio == 4){
