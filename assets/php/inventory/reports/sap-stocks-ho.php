@@ -2,7 +2,7 @@
 /**
 * 03/15/2017
 *
-* This file is contains reports table of Brand Stocks.
+* This file is contains reports table of SAP Stocks.
 *
 */ 
 
