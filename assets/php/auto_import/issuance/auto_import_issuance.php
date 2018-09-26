@@ -30,10 +30,11 @@ $con = $conn->connect();
 			$company_name = preg_replace('/\s+/', ' ', str_replace("'", "",$columnData[1]));
 			$ref_no = preg_replace('/\s+/', ' ', str_replace("'", "",$columnData[2]));
 			$doc_date = preg_replace('/\s+/', ' ', str_replace("'", "",$columnData[3]));
-			$item_code = preg_replace('/\s+/', ' ', str_replace("'", "",$columnData[4]));
-			$description = preg_replace('/\s+/', ' ', str_replace("'", "",$columnData[5]));
-			$serial_number = preg_replace('/\s+/', ' ', str_replace("'", "",$columnData[6]));
-			$transtype = preg_replace('/\s+/', ' ', str_replace("'", "",$columnData[7]));
+			$item_code = preg_replace('/\s+/', ' ', str_replace("'", "",$columnData[5]));
+			$brand = preg_replace('/\s+/', ' ', str_replace("'", "",$columnData[6]));
+			$description = preg_replace('/\s+/', ' ', str_replace("'", "",$columnData[7]));
+			$serial_number = preg_replace('/\s+/', ' ', str_replace("'", "",$columnData[8]));
+			$transtype = preg_replace('/\s+/', ' ', str_replace("'", "",$columnData[9]));
 			
 			
 			// Checking for Duplicate data entries
@@ -57,6 +58,7 @@ $con = $conn->connect();
 									ref_no,
 									doc_date,
 									item_code,
+									brand,
 									description,
 									serial,
 									trans_type";
@@ -65,6 +67,7 @@ $con = $conn->connect();
 								  '".$ref_no."',
 								  '".$doc_date."',
 								  '".$item_code."',
+								  '".$brand."',
 								  '".$description."',
 								  '".$serial_number."',
 								  '".$transtype."'";								
@@ -145,7 +148,7 @@ class connector{
 	public $host = "localhost";					
 	public $dbname = "dbmif";			
 	public $name = "root";						
-	public $pass = "waterfront07";
+	public $pass = "";
 	function connect(){
 		$conn = mysqli_connect("$this->host", "$this->name", "$this->pass","$this->dbname");
 		if (!$conn)
