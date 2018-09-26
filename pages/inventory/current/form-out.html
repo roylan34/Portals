@@ -74,9 +74,9 @@
 </div>
 <script type="text/javascript">
 $( document ).ready( function () {
-
+   var notRequired = [9,10]; // 9 = Transfer, 10 = Blocked status.
   $("#slctCurInvntStatus").change(function(){ //Show/Hide branch select.
-      if($(this).val() == 9){ // 9 = Transfer status.
+      if( notRequired.indexOf(parseInt($(this).val())) > -1 ){ 
           $(".branch-out").show();
           $(".company-out, .location-out").hide();
       }else{
@@ -111,13 +111,22 @@ $( document ).ready( function () {
             required: true
           },
           slctCurInvntOutBranch: {
-            required: function(){  return ($("#slctCurInvntStatus").val()  == 9 ? true : false); } // 9 = Transfer status.
+            required: function(){  
+                var status = $("#slctCurInvntStatus").val();
+                return ( notRequired.indexOf(parseInt(status)) > -1 ? true : false)
+              } // 9 = Transfer status.
           },              
           slctCurInvntCompany: {
-            required: function(){  return ($("#slctCurInvntStatus").val()  != 9 ? true : false); }
+             required: function(){  
+                var status = $("#slctCurInvntStatus").val();
+                return ( notRequired.indexOf(parseInt(status)) == -1 ? true : false)
+              } 
           },            
           slctCurInvntLocation: {
-            required: function(){  return ($("#slctCurInvntStatus").val()  != 9 ? true : false); }
+            required: function(){  
+                var status = $("#slctCurInvntStatus").val();
+                return ( notRequired.indexOf(parseInt(status)) == -1 ? true : false)
+              } 
           },  
           txtCurInvntDateOut: {
             required: true,

@@ -557,17 +557,18 @@ if(Utils::getIsset('action')){
 			break;
 		case 'recall_unit': 
 				$status = null;
+				$allowed_purpose = array(3,4); // 3 = Demo, 4 = Others
 				//Check if demo unit.
-				$db->selectQuery('*','tbl_mrf WHERE s2_radio_id = 2 AND id = '.$id_mrf.'');
+				$db->selectQuery('s2_radio_id','tbl_mrf WHERE id = '.$id_mrf.' LIMIT 1');
 				$checkRecall = $db->getFields();
-				if($db->getNumRows() == 0){
+				if(in_array($checkRecall['aaData'][0]['s2_radio_id'], $allowed_purpose)){
 					//History
 					$db->customQuery('INSERT INTO tbl_mrf_history (id_mrf, company_id, remarks, date_created, serial_num)
 								 SELECT '.$id_mrf.', mr.id_company, "recall", NOW(), ms.s1_serialnum FROM tbl_mrf mr
 								 INNER JOIN tbl_mrf_s1 ms ON mr.id = ms.id_mrf
 								 WHERE mr.id = '.$id_mrf.'');
                 	$resSched = $db->getFields();
-                	if($resSched['aaData'][0] == 'success'){
+                	if($resSched['aaData'][1] == 'success'){
 						$db->updateQuery('tbl_mrf_request_tracker','is_cancel = "no",
 									1st_approver = null,
 									1st_date	 = null,

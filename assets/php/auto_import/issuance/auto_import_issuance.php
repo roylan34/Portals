@@ -13,7 +13,7 @@ $con = $conn->connect();
 	$counter_i = 0;
 	$counter_u = 0;
 	
-	if (($getdata = fopen($filepath, "r")) !== FALSE) {
+	if(file_exists($filepath) && ($getdata = fopen($filepath, "r")) !== FALSE ) {
 		
 		fgetcsv($getdata);
 		//$vvv = array();
@@ -30,10 +30,11 @@ $con = $conn->connect();
 			$company_name = preg_replace('/\s+/', ' ', str_replace("'", "",$columnData[1]));
 			$ref_no = preg_replace('/\s+/', ' ', str_replace("'", "",$columnData[2]));
 			$doc_date = preg_replace('/\s+/', ' ', str_replace("'", "",$columnData[3]));
-			$item_code = preg_replace('/\s+/', ' ', str_replace("'", "",$columnData[4]));
-			$description = preg_replace('/\s+/', ' ', str_replace("'", "",$columnData[5]));
-			$serial_number = preg_replace('/\s+/', ' ', str_replace("'", "",$columnData[6]));
-			$transtype = preg_replace('/\s+/', ' ', str_replace("'", "",$columnData[7]));
+			$item_code = preg_replace('/\s+/', ' ', str_replace("'", "",$columnData[5]));
+			$brand = preg_replace('/\s+/', ' ', str_replace("'", "",$columnData[6]));
+			$description = preg_replace('/\s+/', ' ', str_replace("'", "",$columnData[7]));
+			$serial_number = preg_replace('/\s+/', ' ', str_replace("'", "",$columnData[8]));
+			$transtype = preg_replace('/\s+/', ' ', str_replace("'", "",$columnData[9]));
 			
 			
 			// Checking for Duplicate data entries
@@ -57,6 +58,7 @@ $con = $conn->connect();
 									ref_no,
 									doc_date,
 									item_code,
+									brand,
 									description,
 									serial,
 									trans_type";
@@ -65,6 +67,7 @@ $con = $conn->connect();
 								  '".$ref_no."',
 								  '".$doc_date."',
 								  '".$item_code."',
+								  '".$brand."',
 								  '".$description."',
 								  '".$serial_number."',
 								  '".$transtype."'";								
@@ -126,6 +129,13 @@ $con = $conn->connect();
 		
 
 		fclose($getdata);	
+		
+	}else{
+		
+		echo "** AUTO IMPORT ISSUANCE ROW DATA TO MYSQL DATABASE **\r\n";
+		echo "DATE:".' '.$SysDate.' '."TIME:".' '.$SysTime."\r\n";
+		echo "No file because it was deleted.\r\n";
+		echo "*************************** END OF EXECUTION ***************************\r\n";
 		
 	}
 	

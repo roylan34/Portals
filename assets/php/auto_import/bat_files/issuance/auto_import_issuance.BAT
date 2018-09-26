@@ -41,6 +41,17 @@ FOR /L %%A IN (1,1,%FULL_COUNT%) DO (
 )
 <nul SET/P="%$BS%*"
 "C:\wamp\bin\php\php5.3.0\php.exe"  C:\wamp\www\machine\assets\php\auto_import\issuance\auto_import_issuance.php %* >>C:\wamp\www\machine\assets\php\auto_import\issuance\logs\issuance_logs.txt
+
+REM /p - specify the path name
+REM /m - specify a pattern
+REM /c - specify the command to be executed
+REM /d - specify the date, /d -30 for 30 days before now!
+
+
+forfiles /p "C:\SAP FILES\issuance" /m *.* /c "cmd /c del @path"
+
+
+
 ENDLOCAL & EXIT /B %CTR%
 
 :BackSpace

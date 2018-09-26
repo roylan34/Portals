@@ -72,7 +72,7 @@ $(document).ready(function(){
 
 			if(appmodule != null){
 				var nav_url = window.location.hash.slice(2);
-				var blocklist_url = ['account/company','account/manager','settings','inventory/settings', 'mrf/settings']; //Block access url if account type is not a Admin.
+				var blocklist_url = ['account/company','account/manager','settings','inventory/settings', 'mrf/settings']; //Block access url if account type is a User.
 				var blocked_url =  blocklist_url.filter(function(url){
 				    	return url == nav_url;
 				    });
@@ -93,7 +93,7 @@ $(document).ready(function(){
 			        		 navigateTo(route,appmodule);
 			        		return false;
 			        	}
-				       	if(this.user_role != "Admin"){
+				       	if(this.user_role == "User"){
 					       	if(blocked_url.length > 0){ //if found
 				        		navigateTo(route,appmodule);
 				        		return false;
@@ -166,6 +166,21 @@ $(document).ready(function(){
 
 							}
 							else if( user_role == "Admin"){
+								views.find("ul.sidebar-menu li#sidebar-accounts").remove();
+								if(app_module.app_mif == 0){
+								 	views.find("ul.sidebar-menu li#home-mif, ul.sidebar-menu li#current-mif, ul.sidebar-menu li#archive-machine, ul.sidebar-menu li#settings-mif").remove(); //Remove sub-menu of MIF
+								}
+								if( app_module.app_pm == 0){
+									views.find("ul.sidebar-menu li#current-pm, ul.sidebar-menu li#archive-pm").remove(); //Remove sub-menu of PM
+								}										
+								if( app_module.app_invnt == 0){
+									views.find("ul.sidebar-menu li#home-inventory, ul.sidebar-menu li#current-inventory, ul.sidebar-menu li#archive-inventory, ul.sidebar-menu li#settings-inventory, ul.sidebar-menu li#sidebar-reports").remove(); //Remove sub-menu of Inventory
+								}
+								if( app_module.app_mrf == 0){
+									views.find("ul.sidebar-menu li#current-mrf, ul.sidebar-menu li#archive-mrf, ul.sidebar-menu li#settings-mrf").remove(); //Remove sub-menu of MRF
+								}			
+							}
+							else if( user_role == "Sysadmin"){
 								if(app_module.app_mif == 0){
 								 	views.find("ul.sidebar-menu li#home-mif, ul.sidebar-menu li#current-mif, ul.sidebar-menu li#archive-machine, ul.sidebar-menu li#settings-mif").remove(); //Remove sub-menu of MIF
 								}
@@ -317,7 +332,7 @@ $(document).ready(function(){
 					}
 				});
 			}
-			if(report_page == 'in-out-stock'){
+			else if(report_page == 'in-out-stock'){
 				$('.view-content').load(pages+'inventory/reports/in-out-stock.html',function(data,status){
 					if(status =='success'){
 						reportInvntInOutTable.pageDetails(_self.branch).table_in_out_stock(_self.branch);
@@ -325,6 +340,22 @@ $(document).ready(function(){
 					}
 				});
 			}
+			else if(report_page == 'sap-stock-ho'){
+				$('.view-content').load(pages+'inventory/reports/sap-stock-ho.html',function(data,status){
+					if(status =='success'){
+						reportInvntSapStocks.pageDetails().table_sap_stock();
+									
+					}
+				});
+			}
+			else if(report_page == 'sap-issuances'){
+				$('.view-content').load(pages+'inventory/reports/sap-issuances.html',function(data,status){
+					if(status =='success'){
+						reportInvntSapIssuances.pageDetails().table_sap_issuances();
+									
+					}
+				});
+			}else{ }
 		},
 		current_mrf: function(){
 			var _self = this;

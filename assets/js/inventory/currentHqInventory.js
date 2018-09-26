@@ -34,17 +34,17 @@ var dtCurrentInvtHq = {
 			                                    extend: "excel",
 			                                    className: 'btn-excel-inventory hidden-xs',
 			                                    exportOptions: { columns: [1,2,3,4,5] },
-			                                    filename: 'Current HQ Inventory ' + getTodayDate()
+			                                    filename: 'Current HO Inventory ' + getTodayDate()
 			                                },
 			                               {
 			                                    extend: "print",
-			                                    exportOptions: { columns: [0,1,2,3,4,5,6] },
+			                                    exportOptions: { columns: [0,1,2,3,4,5] },
 			                                    // autoPrint: false,
 			                                    className: 'btn-print-inventory hidden-xs',
 			                                    customize: function(win){
 			                                        var elem = $(win.document.body);
                                             		elem.find('h1').remove();
-                                                	elem.prepend("<h4>Machine HQ Inventory Stocks</h4>"); 
+                                                	elem.prepend("<h4>Machine HO Inventory Stocks</h4>"); 
 
 			                                    }
                                 			},

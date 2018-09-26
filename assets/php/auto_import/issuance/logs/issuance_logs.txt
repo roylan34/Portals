@@ -478,3 +478,14 @@ Warning: mysqli_connect(): (28000/1045): Access denied for user 'root'@'localhos
 Could not connect: Access denied for user 'root'@'localhost' (using password: YES)*** AUTO IMPORT ISSUANCE ROW DATA TO MYSQL DATABASE ***
 DATE: 2018-09-20 TIME: 14:36:00
 11 Row data inserted successfully.
+
+Warning: mysqli_connect(): (28000/1045): Access denied for user 'root'@'localhost' (using password: YES) in C:\wamp\www\machine\assets\php\auto_import\issuance\auto_import_issuance.php on line 153
+Could not connect: Access denied for user 'root'@'localhost' (using password: YES)
+Warning: mysqli_connect(): (28000/1045): Access denied for user 'root'@'localhost' (using password: YES) in C:\wamp\www\machine\assets\php\auto_import\issuance\auto_import_issuance.php on line 153
+Could not connect: Access denied for user 'root'@'localhost' (using password: YES)** AUTO IMPORT ISSUANCE ROW DATA TO MYSQL DATABASE **
+DATE: 2018-09-26 TIME: 9:39:00
+No file because it was deleted.
+*************************** END OF EXECUTION ***************************
+*** AUTO IMPORT ISSUANCE ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-09-26 TIME: 9:40:00
+4546 Row data inserted successfully.
