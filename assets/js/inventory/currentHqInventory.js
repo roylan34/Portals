@@ -11,9 +11,9 @@ var dtCurrentInvtHq = {
       				// document.title = "Inventory"; // Change the title tag.
 	                this.dtInstance = $('#dtCurrentInvtHq').DataTable({
 	                	        "initComplete": function(){
-	                	        						autoDrpDownInvnt.getType("#search-hq-type");//Search Dropdown
-														autoDrpDown.getBrandName("#search-hq-brand")
-																	.getCategory("#search-hq-category");
+	                	        						autoDrpDownInvnt.getType(".search-hq-type");//Search Dropdown
+														autoDrpDown.getBrandName(".search-hq-brand")
+																	.getCategory(".search-hq-category");
 
 	                	        				},
 	                            "dom" : "Bl<'dropdown-bulk col-md-3 col-xs-12'>rtip",
@@ -34,7 +34,7 @@ var dtCurrentInvtHq = {
 			                                    extend: "excel",
 			                                    className: 'btn-excel-inventory hidden-xs',
 			                                    exportOptions: { columns: [1,2,3,4,5] },
-			                                    filename: 'Current HO Inventory ' + getTodayDate()
+			                                    filename: 'SAP - BN Stocks HO ' + getTodayDate()
 			                                },
 			                               {
 			                                    extend: "print",
@@ -44,7 +44,7 @@ var dtCurrentInvtHq = {
 			                                    customize: function(win){
 			                                        var elem = $(win.document.body);
                                             		elem.find('h1').remove();
-                                                	elem.prepend("<h4>Machine HO Inventory Stocks</h4>"); 
+                                                	elem.prepend("<h4>SAP - BN Stocks HO</h4>"); 
 
 			                                    }
                                 			},
@@ -52,7 +52,7 @@ var dtCurrentInvtHq = {
 			                                    text: 'Open Search Filter',
 			                                    className: 'btn-search-inventory',
 			                                    action: function ( e, dt, node, config ) {
-		                                            $("#dthead-search-invnt-hq").slideToggle('fast',function(){
+		                                            $(".dthead-search-invnt-hq").slideToggle('fast',function(){
 		                                                if($(this).is(':visible')){
 		                                                    node[0].innerText = 'Close Search Filter';
 		                                                }else{
@@ -69,40 +69,38 @@ var dtCurrentInvtHq = {
 	                                "type": "POST",
 	                                "dataSrc": "records",
 	                                 data: function(d){	                                 		
-	                                 		d.serialnumber = $("#search-hq-serial").val() || '';
-	                                 		d.brand = $("#search-hq-brand option:selected").val() || '';
-	                                 		d.model = $("#search-hq-model").val() || '';
-	                                 		d.category = $("#search-hq-category option:selected").val() || '';
-	                                 		d.type = $("#search-hq-type option:selected").val() || '';                                	  
+	                                 		d.serialnumber = $(".search-hq-serial:visible").val() || '';
+	                                 		d.brand 	= $(".search-hq-brand:visible option:selected").val() || '';
+	                                 		d.model 	= $(".search-hq-model:visible").val() || '';
+	                                 		d.category  = $(".search-hq-category:visible option:selected").val() || '';
+	                                 		d.type 		= $(".search-hq-type:visible option:selected").val() || '';                                	  
 	                                     }
 	                            },	   
 	                            "columns": [
-	                            	{ "data": null},
-	                                { "data": "serialnumber"},
-	                                { "data": "brand_name"},
-	                                { "data": null, render: function(data){
+	                            	{ "data": null, "width": "20px", "render": function ( data, type, row, meta ) {
+	                                       return meta.row + 1;
+	                                    }
+	                                },
+	                                { "data": "serialnumber", "width": "160px"},
+	                                { "data": "brand_name" , "width": "160px"},
+	                                { "data": null, "width": "160px", render: function(data){
 	                                		var model = data.model_name || "- No Manufacturer ";
 	                                		return model;
 	                                	}
 	                            	},
-	                                { "data": null, render: function(data){
+	                                { "data": null , "width": "160px", render: function(data){
 	                                		var cat = data.cat_name || "---";
 	                                		return cat;
 	                                	}
 	                                },
-	                                { "data": null, render: function(data){
+	                                { "data": null, "width": "160px", render: function(data){
 	                                		var type = data.type_name || "---";
 	                                		return type;
 	                                	}
-	                            	}
-	                            ],
-	                            "columnDefs": [
-	                                {
-	                                    "targets": 0,
-	                                    "render": function ( data, type, row, meta ) {
-	                                       return meta.row + 1;
-	                                    }
-	                                }
+	                            	},
+	                            	{ "data": null, "width": "160px", render: function(){
+	                            		return '';
+	                            	} }
 	                            ],
 	                            "preDrawCallback": function(settings){
 		                           $(".btn-excel-inventory, .btn-print-inventory, .btn-search-inventory").removeClass("dt-button").addClass("btn btn-primary btn-flat btn-sm").css({"margin-bottom":"0.5em","margin-right":"0.5em"});
@@ -113,7 +111,7 @@ var dtCurrentInvtHq = {
 	        return this;               
     },
     actions: function(){
-    	$("#dthead-search-invnt-hq").on('click','button, a',function(e) {
+    	$(".dthead-search-invnt-hq").on('click','button, a',function(e) {
     		e.preventDefault();
     		    var inst = $(this);
     		    var button_label = inst.text().toLowerCase();
