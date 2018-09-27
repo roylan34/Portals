@@ -63,13 +63,13 @@ var dtCurrentInvtIssuances = {
 	                                "type": "POST",
 	                                "dataSrc": "records",
 	                                 data: function(d){	 
-	                                 		d.company_name 	= $(".search-hq-company:visible").val() || '';                                		
-	                                 		d.ref 			= $(".search-hq-ref:visible").val() || '';                                		
-	                                 		d.date 			= $(".search-hq-date:visible").val() || '';
-	                                 		d.item 			= $(".search-hq-item:visible").val() || '';
-	                                 		d.descrip 		= $(".search-hq-descrip:visible").val() || '';
-	                                 		d.serial 		= $(".search-hq-issue-serial:visible").val() || '';
-	                                 		// d.trans 		= $("#search-hq-transfer:visible").val() || '';                                	  
+	                                 		d.company_name 	= $(".search-hq-company").filter(':visible').val() || '';                                		
+	                                 		d.ref 			= $(".search-hq-ref").filter(':visible').val() || '';                                		
+	                                 		d.date 			= $(".search-hq-date").filter(':visible').val() || '';
+	                                 		d.item 			= $(".search-hq-item").filter(':visible').val() || '';
+	                                 		d.descrip 		= $(".search-hq-descrip").filter(':visible').val() || '';
+	                                 		d.serial 		= $(".search-hq-issue-serial").filter(':visible').val() || '';
+	                                 		// d.trans 		= $("#search-hq-transfer").filter(':visible').val() || '';                                	  
 	                                     }
 	                            },	   
 	                            "columns": [

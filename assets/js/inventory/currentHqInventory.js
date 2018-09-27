@@ -69,9 +69,9 @@ var dtCurrentInvtHq = {
 	                                "type": "POST",
 	                                "dataSrc": "records",
 	                                 data: function(d){	                                 		
-	                                 		d.serialnumber = $(".search-hq-serial:visible").val() || '';
+	                                 		d.serialnumber = $(".search-hq-serial").filter(':visible').val() || '';
 	                                 		d.brand 	= $(".search-hq-brand:visible option:selected").val() || '';
-	                                 		d.model 	= $(".search-hq-model:visible").val() || '';
+	                                 		d.model 	= $(".search-hq-model").filter(':visible').val() || '';
 	                                 		d.category  = $(".search-hq-category:visible option:selected").val() || '';
 	                                 		d.type 		= $(".search-hq-type:visible option:selected").val() || '';                                	  
 	                                     }
