@@ -28,7 +28,7 @@ var dtCurrentInvtIssuances = {
 			                                    extend: "excel",
 			                                    className: 'btn-excel-inventory hidden-xs',
 			                                    exportOptions: { columns: [1,2,3,4,5,6,7] },
-			                                    filename: 'Current HQ Inventory ' + getTodayDate()
+			                                    filename: 'SAP - Issuances ' + getTodayDate()
 			                                },
 			                               {
 			                                    extend: "print",
@@ -38,7 +38,7 @@ var dtCurrentInvtIssuances = {
 			                                    customize: function(win){
 			                                        var elem = $(win.document.body);
                                             		elem.find('h1').remove();
-                                                	elem.prepend("<h4>Machine Issues</h4>"); 
+                                                	elem.prepend("<h4>SAP - Issuances</h4>"); 
 
 			                                    }
                                 			},
@@ -46,7 +46,7 @@ var dtCurrentInvtIssuances = {
 			                                    text: 'Open Search Filter',
 			                                    className: 'btn-search-inventory',
 			                                    action: function ( e, dt, node, config ) {
-		                                            $("#dthead-search-invnt-issuances").slideToggle('fast',function(){
+		                                            $(".dthead-search-invnt-issuances").slideToggle('fast',function(){
 		                                                if($(this).is(':visible')){
 		                                                    node[0].innerText = 'Close Search Filter';
 		                                                }else{
@@ -63,32 +63,31 @@ var dtCurrentInvtIssuances = {
 	                                "type": "POST",
 	                                "dataSrc": "records",
 	                                 data: function(d){	 
-	                                 		d.company_name 	= $("#search-hq-company").val() || '';                                		
-	                                 		d.ref 			= $("#search-hq-ref ").val() || '';                                		
-	                                 		d.date 			= $("#search-hq-date").val() || '';
-	                                 		d.item 			= $("#search-hq-item").val() || '';
-	                                 		d.descrip 		= $("#search-hq-descrip").val() || '';
-	                                 		d.serial 		= $("#search-hq-issue-serial").val() || '';
-	                                 		d.trans 		= $("#search-hq-transfer ").val() || '';                                	  
+	                                 		d.company_name 	= $(".search-hq-company:visible").val() || '';                                		
+	                                 		d.ref 			= $(".search-hq-ref:visible").val() || '';                                		
+	                                 		d.date 			= $(".search-hq-date:visible").val() || '';
+	                                 		d.item 			= $(".search-hq-item:visible").val() || '';
+	                                 		d.descrip 		= $(".search-hq-descrip:visible").val() || '';
+	                                 		d.serial 		= $(".search-hq-issue-serial:visible").val() || '';
+	                                 		// d.trans 		= $("#search-hq-transfer:visible").val() || '';                                	  
 	                                     }
 	                            },	   
 	                            "columns": [
-	                            	{ "data": null},
+	                            	{ "data": null, "render": function ( data, type, row, meta ) {
+	                                       return meta.row + 1;
+	                                    }
+	                                },
 	                                { "data": "company_name"},
 	                                { "data": "ref_no"},
 	                                { "data": "doc_date"},
 	                                { "data": "item_code"},
 	                                { "data": "description"},
 	                                { "data": "serial"},
-	                                { "data": "trans_type"}
-	                            ],
-	                            "columnDefs": [
-	                                {
-	                                    "targets": 0,
-	                                    "render": function ( data, type, row, meta ) {
-	                                       return meta.row + 1;
+	                                // { "data": "trans_type"},
+	                                { "data": null, "width": "120px", "render": function ( data, type, row, meta ) {
+	                                       return '';
 	                                    }
-	                                }
+	                                },
 	                            ],
 	                            "preDrawCallback": function(settings){
 		                           $(".btn-excel-inventory, .btn-print-inventory, .btn-search-inventory").removeClass("dt-button").addClass("btn btn-primary btn-flat btn-sm").css({"margin-bottom":"0.5em","margin-right":"0.5em"});
@@ -99,7 +98,7 @@ var dtCurrentInvtIssuances = {
 	        return this;               
     },
     actions: function(){
-    	$("#dthead-search-invnt-issuances").on('click','button, a',function(e) {
+    	$(".dthead-search-invnt-issuances").on('click','button, a',function(e) {
     		e.preventDefault();
     		    var inst = $(this);
     		    var button_label = inst.text().toLowerCase();
