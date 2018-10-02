@@ -116,7 +116,7 @@ var dtArchiveMrf = {
 		                                	return '<a title="View Request" class="btn btn-info btn-xs btn-flat btn-view-mrf" data-mrf="'+data.id+'"" data-toggle="modal" data-target="#modalFormArchiveViewMrf">VIEW</a>'; 
 		                                }
 		                            },	
-		                           	{ data:  null ,render: function( data, type, full, meta ){
+								 	/*{ data:  null ,render: function( data, type, full, meta ){
 	                           		   	var EXEC_ID = [1,43]; //Executuve user id
 	                               	   	var idUserFrom = (data.id_user_from != null ? convertArrStrToInt(data.id_user_from) : null);
 	                               	   	var buttonColor = "";
@@ -133,7 +133,7 @@ var dtArchiveMrf = {
 
 		                               	    return '<button title="Comments" class="btn '+buttonColor+' btn-xs btn-flat btn-comment-mrf" data-mrf="'+data.id+'"" data-toggle="modal" data-target="#modalArchiveComments">COMMENTS</button>'; 
 		                                }
-		                            }
+		                            }*/
 				                 ],
 				                 "columnDefs": [
 				                        { responsivePriority: 1, target: 0},
@@ -174,13 +174,6 @@ var dtArchiveMrf = {
 				      //$(".view-step-2 .radioBtn-group-c2").prop('checked',false); IN PROGRESS
 				});
 	    });
-
-    		//Hide View Modal
-			$('#modalArchiveComments').on('hidden.bs.modal', function() { //Reset form when modal hidden
-			      $(this).find("#frmArchiveComment").trigger('reset');
-			      $(this).find("#frmArchiveComment input[type='hidden']").val('');
-			      $(".comment-box").empty();  			   
-			});
 	    return this;
     },
     selectBranch: function(user_mrf_flag,branch){ //Display only branch where to assigned.
@@ -217,10 +210,12 @@ var dtArchiveMrf = {
     getDataViewRequestForm: function(id){
     	    if (id != '' && id != undefined){
     	 		 var step_one, step_two;
+    	 		 var id_user_logged = Cookies.get("user_id");
+    	 		 var app_action = JSON.parse(Cookies.get('app_module_action'));
 			 	$.ajax({
 	                type: 'POST',
 	                url: assets+'php/mrf/mrf.php',
-	                data: {action: 'view-toner-details', id_mrf:id},
+	                data: {action: 'view-toner-details', id_mrf:id, id_user: id_user_logged},
 	                dataType: 'json',
 	                cache: false,
 	                // async: false,
@@ -231,6 +226,7 @@ var dtArchiveMrf = {
 	                },
 	                success: function(data, xhr, status){
 	              		var view_data = data.aaData[0];
+
 	              		var no_data = "<tr ><td colspan='6'><div class='text-center'><span class='label label-info text-center'>No data available in table.</span></div></td></tr>";
 
 	              		// $(".hdnAttachmentName").val(view_data.attachment);
@@ -446,6 +442,26 @@ var dtArchiveMrf = {
 		                }
 
 	                	 $(".history").html(history);
+
+	                	//Comments
+	                	if(app_action.action_mrf == 'r'){
+	                		 $(".btn-archive-comment-mrf").remove();
+	                	}else{
+		                	 var EXEC_ID     = [1,43]; //Executive user id
+		                	 var no_received_message = view_data.res_comments[0].no_received_message;
+			                 var idUserFrom  = (view_data.res_comments[0].user_from != 0 ? convertArrStrToInt(view_data.res_comments[0].user_from) : 0);
+			                 var buttonColor = "";
+								if(no_received_message > 0 && idUserFrom != 0 && (idUserFrom.indexOf(EXEC_ID[0]) >= 0  || idUserFrom.indexOf(EXEC_ID[1]) >=0 ) ){ //indexOf, return -1 if not found else return index value.
+	                       	    	buttonColor = 'btn-danger'; // If comment from executive.
+
+	                       	    }else if(no_received_message > 0 && idUserFrom != 0 && (idUserFrom.indexOf(EXEC_ID[0]) == -1 || idUserFrom.indexOf(EXEC_ID[1]) == -1 ) ){
+	                       	    	buttonColor = 'btn-warning';// If comment not from executive.
+	                       	    }
+	                       	    else{
+	                       	    	buttonColor = 'btn-info'; //Default for empty comments.
+	                       	    }
+	                       	    $(".btn-archive-comment-mrf").removeClass('btn-info btn-danger btn-warning').addClass(buttonColor);
+                       	}
 	                },
 	                complete: function(){ $(".view-loader").hide();	},
 	                error: function(xhr,status){ alert("Something went wrong!"); }
@@ -562,12 +578,12 @@ var dtArchiveMrf = {
                 	var idview = $(this).data('mrf');
                 		self.dtArchiveMrf.getDataViewRequestForm(idview);
                 }
-                 //Comments Button
-                else if(button_label == "comments"){
-                	var id_mrf = $(this).data('mrf');
-                	var id_user = Cookies.get('user_id');
-                		comment.display(id_mrf, id_user);
-                } 
+                //Comments Button
+                // else if(button_label == "comments"){
+                // 	var id_mrf = $(this).data('mrf');
+                // 	var id_user = Cookies.get('user_id');
+                // 		comment.display(id_mrf, id_user);
+                // } 
                 //Export Excel
                 else if ( inst.hasClass('export-machine-delivered') ) {  
                 	var form_no = self.dtArchiveMrf.getMultipleFormNo('dtInstance','.hidden-form-no');

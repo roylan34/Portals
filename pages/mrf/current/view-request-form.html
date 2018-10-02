@@ -161,7 +161,7 @@
                 <div class="col-md-12 view-form-section view-step-4">
                   <!-- <h4>Step 4</h4> -->
                     <div class="mrf-table-responsive">
-                         <div class="col-md-12">
+                        <div class="col-md-12">
                           <div class="form-group">     
                             <div for="dateRequest" ><strong>Date Requested:</strong> <span id="dateRequest"></span></div>
                           </div> 
@@ -445,7 +445,10 @@
 
         <div class="modal-footer">
          <!--  <button type="submit" class="btn btn-sm btn-primary btn-flat" id="btn_save_view_mrf">Save</button> -->
-          <div id="details_approver_2_btn" class="details_approver_2_btn col-md-offset-7 col-md-4 col-xs-9">
+         <div class="col-md-7 col-sm-6 text-left"> 
+              <button title="Comments" class="btn btn-sm btn-flat btn-current-comment-mrf" data-toggle="modal" data-target="#modalComments">COMMENTS</button>
+         </div>      
+          <div id="details_approver_2_btn" class="details_approver_2_btn col-md-4 col-sm-6 col-xs-12">
                 <button type="button" onClick="dtCurrentMrf.update_status(this)" name="2nd_approver" data-id-status="3" class="btn btn-warning btn-sm btn-flat">Disapprove</button>
                 <button type="button" onClick="dtCurrentMrf.update_status(this)" name="2nd_approver" data-id-status="2" class="btn btn-success btn-sm btn-flat" style="margin-right: 40px;">Approve</button>
                 <button type="button" onClick="dtCurrentMrf.update_status(this)" name="2nd_approver_2" data-id-status="3" class="btn btn-warning btn-sm btn-flat">Disapprove</button>
@@ -554,16 +557,24 @@
 </style>
 <script type="text/javascript">
 
-//Modal Attachment.
-$('#modalAttachment').on('show.bs.modal', function() { 
-   var dirname = $(".hdnAttachmentName").val() || '';
-   fileUpload.listFiles(dirname,".container-files");
+//Comments in View Request Form
+$('.btn-current-comment-mrf').click(function(){
+  var id_mrf = $("#hdnIdCurrentViewMrf").val();
+  var id_user = Cookies.get('user_id');
+      $("#hdnIdMRF").val(id_mrf);
+      comment.display(id_mrf, id_user);
+});
+
+// //Modal Attachment.
+// $('#modalAttachment').on('show.bs.modal', function() { 
+//    var dirname = $(".hdnAttachmentName").val() || '';
+//    fileUpload.listFiles(dirname,".container-files");
    
-});
-//When modal hidden addClass.
-$('#modalAttachment').on('hidden.bs.modal', function() { 
-    $("body").addClass('modal-open'); 
-});
+// });
+// //When modal hidden addClass.
+// $('#modalAttachment').on('hidden.bs.modal', function() { 
+//     $("body").addClass('modal-open'); 
+// });
 
 //Hack the core of jQuery validator plugin in this page only. This will multi-validate the same input name.
 $.extend( $.validator.prototype, { 

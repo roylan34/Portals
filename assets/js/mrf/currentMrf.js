@@ -211,32 +211,33 @@ var dtCurrentMrf = {
 		                                }
 		                            },
 		                            { data:  null, render: function( data, type, full, meta ){
-		                            	   var buttons ="";
-		                            	   var user_mrf_flag = Cookies.get("user_mrf_flag");
-		                            	   var status      = data.status_approval.split("|") || null;
+	                            	   var buttons ="";
+	                            	   var user_mrf_flag = Cookies.get("user_mrf_flag");
+	                            	   var status      = data.status_approval.split("|") || null;
 
-		                            	   var EXEC_ID     = [1,43]; //Executive user id
-		                               	   var idUserFrom  = (data.id_user_from != null ? convertArrStrToInt(data.id_user_from) : null);
-		                               	   var buttonColor = "";
+	                            	   var EXEC_ID     = [1,43]; //Executive user id
+	                               	   var idUserFrom  = (data.id_user_from != null ? convertArrStrToInt(data.id_user_from) : null);
+	                               	   var buttonColor = "";
 
-		                            	  if(user_mrf_flag == "requestor" && (status[0] == "APPROVER-1" || status[0] == "APPROVER-2")){
-		                                      	buttons += '<div class="col-md-4"><a title="Edit Request" class="btn btn-success btn-xs btn-flat btn-edit-mrf" data-mrf="'+data.id+'"" data-toggle="modal" data-target="#modalFormCurrentMrf">EDIT</a></div>';
-		                            	  }
-		                                  if(user_mrf_flag == "approver" || (user_mrf_flag == "requestor" && (status[0] == "ENGINEERING" || status[0] == 'ACCOUNTING' || status[0] == 'LOGISTICS')) ) {
-		                                      	buttons += '<div class="col-md-4"><a title="View Request" class="btn btn-info btn-xs btn-flat btn-view-mrf" data-mrf="'+data.id+'"" data-toggle="modal" data-target="#modalFormCurrentViewMrf">VIEW</a></div>';                                		
-		                               	  }
-		                               	    
-		                               	    if(data.no_received_message > 0 && idUserFrom != null && (idUserFrom.indexOf(EXEC_ID[0]) >= 0  || idUserFrom.indexOf(EXEC_ID[1]) >=0 ) ){ //indexOf, return -1 if not found else return index value.
-		                               	    	buttonColor = 'btn-danger'; // If account type is executive, commenting.
+	                               	    if(data.no_received_message > 0 && idUserFrom != null && (idUserFrom.indexOf(EXEC_ID[0]) >= 0  || idUserFrom.indexOf(EXEC_ID[1]) >=0 ) ){ //indexOf, return -1 if not found else return index value.
+	                               	    	buttonColor = 'btn-danger'; // If comments from executive.
 
-		                               	    }else if(data.no_received_message > 0 && idUserFrom != null && (idUserFrom.indexOf(EXEC_ID[0]) == -1 || idUserFrom.indexOf(EXEC_ID[1]) == -1 ) ){
-		                               	    	buttonColor = 'btn-warning';// If account type is not executive, commenting.
-		                               	    }
-		                               	    else{
-		                               	    	buttonColor = 'btn-info'; //Default for empty comments.
-		                               	    }
+	                               	    }else if(data.no_received_message > 0 && idUserFrom != null && (idUserFrom.indexOf(EXEC_ID[0]) == -1 || idUserFrom.indexOf(EXEC_ID[1]) == -1 ) ){
+	                               	    	buttonColor = 'btn-warning';// If comments not from executive.
+	                               	    }
+	                               	    else{
+	                               	    	buttonColor = 'btn-info'; //Default for empty comments.
+	                               	    }
 
-		                               	    buttons +='<div class="col-md-4"><button title="Comments" class="btn '+buttonColor+' btn-xs btn-flat btn-comment-mrf" data-mrf="'+data.id+'"" data-toggle="modal" data-target="#modalComments">COMMENTS</button></div>';  
+		                            	if(user_mrf_flag == "requestor" && (status[0] == "APPROVER-1" || status[0] == "APPROVER-2")){
+	                                      	buttons += '<div class="col-md-4"><a title="Edit Request" class="btn btn-success btn-xs btn-flat btn-edit-mrf" data-mrf="'+data.id+'"" data-toggle="modal" data-target="#modalFormCurrentMrf">EDIT</a></div>';
+	                            	  		buttons +='<div class="col-md-4"><button title="Comments" class="btn '+buttonColor+' btn-xs btn-flat btn-comment-mrf" data-mrf="'+data.id+'"" data-toggle="modal" data-target="#modalComments">COMMENTS</button></div>';  
+
+		                            	}
+		                                if(user_mrf_flag == "approver" || (user_mrf_flag == "requestor" && (status[0] == "ENGINEERING" || status[0] == 'ACCOUNTING' || status[0] == 'LOGISTICS')) ) {
+	                                      	buttons += '<div class="col-md-4"><a title="View Request" class="btn btn-info btn-xs btn-flat btn-view-mrf" data-mrf="'+data.id+'"" data-toggle="modal" data-target="#modalFormCurrentViewMrf">VIEW</a></div>';                                		
+		                               	}
+		                               	    		                            
 		                               		return buttons;
 		                                }
 		                            }
@@ -483,6 +484,11 @@ var dtCurrentMrf = {
 				      $(this).find("#frmComment input[type='hidden']").val('');
 				      $(".comment-box").empty();  
 				       clearInterval(intervalComments); 
+
+				       if($("#modalFormCurrentViewMrf").is(':visible')){//Check if View Request modal still visible and addClass.
+				       	   $("body").addClass('modal-open');
+				       }
+
 				   
 				});
 	    });
@@ -1041,7 +1047,7 @@ var dtCurrentMrf = {
 			 	$.ajax({
 	                type: 'POST',
 	                url: assets+'php/mrf/mrf.php',
-	                data: {action: 'view-toner-details', id_mrf:id},
+	                data: {action: 'view-toner-details', id_mrf:id, id_user: id_user_logged},
 	                dataType: 'json',
 	                cache: false,
 	                // async: false,
@@ -1269,6 +1275,26 @@ var dtCurrentMrf = {
 		                	history = "<div style='text-align:center'>No data available.</div>";
 		                }
 	                	$(".history").html(history);
+
+	                	//Comments
+	                	if(app_action.action_mrf == 'r'){
+	                		 $(".btn-current-comment-mrf").remove();
+	                	}else{
+		                	 var EXEC_ID     = [1,43]; //Executive user id
+		                	 var no_received_message = view_data.res_comments[0].no_received_message;
+			                 var idUserFrom  = (view_data.res_comments[0].user_from != 0 ? convertArrStrToInt(view_data.res_comments[0].user_from) : 0);
+			                 var buttonColor = "";
+								if(no_received_message > 0 && idUserFrom != 0 && (idUserFrom.indexOf(EXEC_ID[0]) >= 0  || idUserFrom.indexOf(EXEC_ID[1]) >=0 ) ){ //indexOf, return -1 if not found else return index value.
+	                       	    	buttonColor = 'btn-danger'; // If comment from executive.
+
+	                       	    }else if(no_received_message > 0 && idUserFrom != 0 && (idUserFrom.indexOf(EXEC_ID[0]) == -1 || idUserFrom.indexOf(EXEC_ID[1]) == -1 ) ){
+	                       	    	buttonColor = 'btn-warning';// If comment not from executive.
+	                       	    }
+	                       	    else{
+	                       	    	buttonColor = 'btn-info'; //Default for empty comments.
+	                       	    }
+	                       	    $(".btn-current-comment-mrf").removeClass('btn-info btn-danger btn-warning').addClass(buttonColor);
+                       	}
 
 	                },
 	                complete: function(){ $(".view-loader").hide();	},
