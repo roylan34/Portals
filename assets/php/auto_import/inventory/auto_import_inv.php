@@ -18,9 +18,9 @@ $con = $conn->connect();
 	if (($getdata = fopen($filepath, "r")) !== FALSE) {
 		
 		// TRUNCATE
-		$Qry_t = new Query();
-		$Qry_t->table = "tbl_invnt_machines_auto_import";
-		$rs_t = $Qry_t->exe_TRUNCATE($con);
+		// $Qry_t = new Query();
+		// $Qry_t->table = "tbl_invnt_machines_auto_import";
+		// $rs_t = $Qry_t->exe_TRUNCATE($con);
 		
 		
 		fgetcsv($getdata);
@@ -31,14 +31,14 @@ $con = $conn->connect();
 			for ($c=0; $c < $fieldCount; $c++){
 				$columnData[$c] = $data[$c];
 				$data_column = preg_replace('/\s+/', ' ', $columnData[$c]);
-				if( $c==1 ){
+			/*if( $c==1 ){
 					
 					if($columnData[$c] == '- No Manufacturer -'){
 						$data_column = 0;
 					}
 					
 					$id_brand = 0;
-					if(!empty($data_column)){
+					if(!empty($data_column)){//Select id brand.
 						$Qry_brands = new Query();
 						$Qry_brands->table = "tbl_brands";
 						$Qry_brands->selected = "*";
@@ -81,18 +81,18 @@ $con = $conn->connect();
 						}
 						
 						
-						$Qry_insert_model = new Query();
-						$Qry_insert_model->table = "tbl_model";
-						$Qry_insert_model->selected = "id_brand,
-													   model_name";
-						$Qry_insert_model->fields = "'".$id_brand."',
-													 '".$data_column."'";
-						$rs_insert_model = $Qry_insert_model->exe_INSERT($con);
+						// $Qry_insert_model = new Query();
+						// $Qry_insert_model->table = "tbl_model";
+						// $Qry_insert_model->selected = "id_brand,
+						// 							   model_name";
+						// $Qry_insert_model->fields = "'".$id_brand."',
+						// 							 '".$data_column."'";
+						// $rs_insert_model = $Qry_insert_model->exe_INSERT($con);
 						
 						
 					}
 					
-					$id_model = 0;
+					$id_model = $data_column;
 					if(!empty($data_column)){
 						$Qry_model = new Query();
 						$Qry_model->table = "tbl_model";
@@ -107,7 +107,7 @@ $con = $conn->connect();
 						}
 					}
 					$columnData[$c] = $id_model;
-				}
+				}*/
 				
 			}
 			
@@ -115,6 +115,7 @@ $con = $conn->connect();
 			$serialnumber = preg_replace('/\s+/', ' ', str_replace("'", "",$columnData[0]));
 			$brand_name = preg_replace('/\s+/', ' ', str_replace("'", "",$columnData[1]));
 			$model_name = preg_replace('/\s+/', ' ', str_replace("'", "",$columnData[2]));
+			$location = preg_replace('/\s+/', ' ', str_replace("'", "",$columnData[3]));
 			$date_entered = preg_replace('/\s+/', ' ', str_replace("'", "",$columnData[4]));
 			
 			
@@ -122,9 +123,9 @@ $con = $conn->connect();
 			$filter_insert = 1;
 			//$filter_update = 1;
 			
-			$id_status = 0;
-			$id_branch = 2;
-			$id_condition = 1;
+			// $id_status = 0;
+			// $id_branch = 2;
+			// $id_condition = 1;
 			
 				
 			$filter_truncate = 1;
@@ -147,17 +148,13 @@ $con = $conn->connect();
 				$Qry_i->selected = "serialnumber,
 									id_brand,
 									model,
-									id_condition,
-									id_branch,
-									date_entered,
-									id_status";
+									location,
+									date_entered";
 				$Qry_i->fields = "'".$serialnumber."',
 								  '".$brand_name."',
 								  '".$model_name."',
-								  '".$id_condition."',
-								  '".$id_branch."',
-								  '".$date_entered."',
-								  '".$id_status."'";								
+								  '".$location."',
+								  '".$date_entered."'";								
 				$rs_i = $Qry_i->exe_INSERT($con);
 				if($rs_i){
 					$counter_i++;
@@ -217,7 +214,7 @@ class connector{
 	public $host = "localhost";					
 	public $dbname = "dbmif";			
 	public $name = "root";						
-	public $pass = "waterfront07";
+	public $pass = "";
 	function connect(){
 		$conn = mysqli_connect("$this->host", "$this->name", "$this->pass","$this->dbname");
 		if (!$conn)

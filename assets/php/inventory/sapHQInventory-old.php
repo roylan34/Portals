@@ -17,11 +17,11 @@ $totalData =0;
 $totalFiltered =0;
 
 $conn = Database::getInstance(); //For Searching.
-if(Utils::getValue('serialnumber'))		{ $search ="AND serialnumber ='".$conn->escapeString(Utils::getValue('serialnumber'))."'"; }
-if(Utils::getValue('brand'))			{ $search .="AND id_brand = '".$conn->escapeString(Utils::getValue('brand'))."'"; }
-if(Utils::getValue('model'))			{ $search .="AND model LIKE '%".$conn->escapeString(Utils::getValue('model'))."%'"; }
-if(Utils::getValue('location'))			{ $search .="AND location ='".$conn->escapeString(Utils::getValue('location'))."'"; }
-if(Utils::getValue('date'))				{ $search .="AND date_entered ='".$conn->escapeString(Utils::getValue('date'))."'"; }
+if(Utils::getValue('serialnumber'))		{ $search ="AND ai.serialnumber ='".$conn->escapeString(Utils::getValue('serialnumber'))."'"; }
+if(Utils::getValue('brand'))			{ $search .="AND ai.id_brand = '".$conn->escapeString(Utils::getValue('brand'))."'"; }
+if(Utils::getValue('model'))			{ $search .="AND mo.model_name LIKE '%".$conn->escapeString(Utils::getValue('model'))."%'"; }
+if(Utils::getValue('category'))			{ $search .="AND cat.id = '".$conn->escapeString(Utils::getValue('category'))."'"; }
+if(Utils::getValue('type'))				{ $search .="AND t.id = '".$conn->escapeString(Utils::getValue('type'))."'"; }
 
 			$requestData= $_REQUEST;
 			// storing  request (ie, get/post) global array to a variable  
@@ -32,8 +32,12 @@ if(Utils::getValue('date'))				{ $search .="AND date_entered ='".$conn->escapeSt
 
 			if( !empty($search) ) { // if there is a search parameter, $requestData['search']['value'] contains search parameter.
 
-			$conn->selectQuery('*','tbl_invnt_machines_auto_import 
-					WHERE id > 0 '.$search.'');
+			$conn->selectQuery('ai.id, ai.serialnumber, br.brand_name, mo.model_name, cat.cat_name, t.type_name','tbl_invnt_machines_auto_import ai 
+					LEFT JOIN tbl_brands br ON ai.id_brand = br.id
+					LEFT JOIN tbl_model mo ON  ai.model = mo.id
+					LEFT JOIN tbl_category cat ON mo.id_category = cat.id
+					LEFT JOIN tbl_type t ON mo.id_type = t.id
+					WHERE ai.id > 0 '.$search.'');
 
 				$conn->fields = null;
 				$totalFiltered  = $conn->getNumRows(); // when there is a search parameter then we have to modify total number filtered rows as per search result. 
@@ -44,8 +48,12 @@ if(Utils::getValue('date'))				{ $search .="AND date_entered ='".$conn->escapeSt
 			
 			if(intval($requestData['length']) >= 1 ) { $limit = ' LIMIT '.$requestData['start'].' ,'.$requestData['length'].''; }
 
-				$conn->selectQuery('*','tbl_invnt_machines_auto_import
-					WHERE id > 0 '.$search.' '.$limit.'');
+				$conn->selectQuery('ai.id, ai.serialnumber, br.brand_name, mo.model_name, cat.cat_name, t.type_name','tbl_invnt_machines_auto_import ai 
+					LEFT JOIN tbl_brands br ON ai.id_brand = br.id
+					LEFT JOIN tbl_model mo ON  ai.model = mo.id
+					LEFT JOIN tbl_category cat ON mo.id_category = cat.id
+					LEFT JOIN tbl_type t ON mo.id_type = t.id
+					WHERE ai.id > 0 '.$search.' '.$limit.'');
 				$row = $conn->getFields(); //Get all rows
 
 			if($conn->getNumRows() > 0 ){

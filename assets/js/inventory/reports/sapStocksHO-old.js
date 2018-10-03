@@ -14,7 +14,7 @@ var reportInvntSapStocks = {
 			success: function (data, status, xhr) {
 						if(data.length != 0){
 							var i = 0;
-							$.each(data, function(brand_key, _result) {
+							$.each(data, function(brand_key, result) {
 									view+='<div class="col-lg-3 col-md-6 '+( i % 4 === 0 ? "clearFix": "" )+'">';
 										view+='<div class="panel panel-orange" id="panelReportStocks'+brand_key+'">';
 											view+='<div class="panel-heading">';
@@ -35,15 +35,19 @@ var reportInvntSapStocks = {
 											view += '<thead>';
 											view += '<tr>';
 											view += '<th>Model</th>';
-											view += '<th>Total</th>';
+											view += '<th>QTY</th>';
 											view += '</tr>';
 											view += '</thead>';
 											view += '<tbody>';
-												$.each(_result, function (brand_key, result) {
-													view += '<tr>'
-													view += '<td>' + result.model + '</td>';
-													view += '<td>' + result.total_model + '</td>';
-													view += '</tr>';
+												$.each(result, function(cat_type_key, _result) {
+													view += '<tr><th colspan="2">'+ (cat_type_key || 'Others') + '</th></tr>';
+
+													$.each(_result, function(data_key, __result) {
+														view += '<tr>'
+														view += '<td>'+ (__result.model_name || '- No Manufacturer')+ '</td>';
+														view += '<td>'+ __result.qty+ '</td>';
+														view += '</tr>';
+													});
 												});
 											view += '</tbody>';
 											view += '</table>';
