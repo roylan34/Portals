@@ -16,6 +16,7 @@ if(Utils::getIsset('action')){
 	//For inputs
 	$action     = Utils::getValue('action');
 	$id_mrf 		= Utils::getValue('id_mrf');
+	$id_user 		= Utils::getValue('id_user');
 
 	$s1_row_data  	= Utils::getValue('s1_row_data');
 	$s1_row_toner_data = Utils::getValue('s1_row_toner_data');
@@ -529,6 +530,13 @@ if(Utils::getIsset('action')){
 					$res_history= $db->getFields();
 					$db->fields = null;
 
+					//Comments
+					$db->selectQuery("IFNULL(GROUP_CONCAT(DISTINCT CAST(id_user_from AS CHAR(10)) SEPARATOR ','), 0) AS user_from,
+								      IFNULL(SUM( id_user_from != ".$id_user."), 0) AS no_received_message","tbl_mrf_comments
+						WHERE id_mrf = ".$id_mrf."");
+					$res_comments= $db->getFields();
+					$db->fields = null;
+
 					$merge_res['aaData'][0] = array_merge($res_row_data_s4['aaData'][0], 
 						array("res_row_data_s1" => $res_row_data_s1['aaData'] ),  
 						array("res_row_data_s1_toner" => $tableValues['aaData'] ), 
@@ -536,7 +544,9 @@ if(Utils::getIsset('action')){
 						array("is_approver" => $is_approver['aaData']),
 						array("user_approved" => $user_approved['aaData']),
 						array("res_row_data_s1_toner_sub" => $SubTonertableValues['aaData']),
-						array("res_history" => $res_history['aaData'] ));
+						array("res_history" => $res_history['aaData'] ),
+						array("res_comments" => $res_comments['aaData'] )
+					);
 
 					print Utils::jsonEncode($merge_res);
 

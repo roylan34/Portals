@@ -11,9 +11,10 @@ var dtCurrentInvtHq = {
       				// document.title = "Inventory"; // Change the title tag.
 	                this.dtInstance = $('#dtCurrentInvtHq').DataTable({
 	                	        "initComplete": function(){
-	                	        						autoDrpDownInvnt.getType(".search-hq-type");//Search Dropdown
-														autoDrpDown.getBrandName(".search-hq-brand")
-																	.getCategory(".search-hq-category");
+	             //    	        						autoDrpDownInvnt.getType(".search-hq-type");//Search Dropdown
+														// autoDrpDown.getBrandName(".search-hq-brand")
+														// 			.getCategory(".search-hq-category");
+														autoDrpDown.getBrandName(".search-hq-brand");
 
 	                	        				},
 	                            "dom" : "Bl<'dropdown-bulk col-md-3 col-xs-12'>rtip",
@@ -68,12 +69,14 @@ var dtCurrentInvtHq = {
 	                                "url": assets+'php/inventory/sapHQInventory.php',
 	                                "type": "POST",
 	                                "dataSrc": "records",
-	                                 data: function(d){	                                 		
+	                                 data: function(d){	                                		
 	                                 		d.serialnumber = $(".search-hq-serial").filter(':visible').val() || '';
-	                                 		d.brand 	= $(".search-hq-brand:visible option:selected").val() || '';
+	                                 		d.brand 	= ($(".search-hq-brand:visible option:selected").val() ?  $(".search-hq-brand:visible option:selected").text() : '');
 	                                 		d.model 	= $(".search-hq-model").filter(':visible').val() || '';
-	                                 		d.category  = $(".search-hq-category:visible option:selected").val() || '';
-	                                 		d.type 		= $(".search-hq-type:visible option:selected").val() || '';                                	  
+	                                 		d.location 	= $(".search-hq-location").filter(':visible').val() || '';
+	                                 		d.date 		= $(".search-hq-date").filter(':visible').val() || '';
+	                                 		// d.category  = $(".search-hq-category:visible option:selected").val() || '';
+	                                 		// d.type 		= $(".search-hq-type:visible option:selected").val() || '';                                	  
 	                                     }
 	                            },	   
 	                            "columns": [
@@ -82,22 +85,32 @@ var dtCurrentInvtHq = {
 	                                    }
 	                                },
 	                                { "data": "serialnumber", "width": "160px"},
-	                                { "data": "brand_name" , "width": "160px"},
+	                                { "data": "id_brand" , "width": "160px"},
 	                                { "data": null, "width": "160px", render: function(data){
-	                                		var model = data.model_name || "- No Manufacturer ";
+	                                		var model = data.model || "---";
 	                                		return model;
 	                                	}
 	                            	},
-	                                { "data": null , "width": "160px", render: function(data){
-	                                		var cat = data.cat_name || "---";
-	                                		return cat;
-	                                	}
-	                                },
-	                                { "data": null, "width": "160px", render: function(data){
-	                                		var type = data.type_name || "---";
-	                                		return type;
+	                            	{ "data": null, "width": "160px", render: function(data){
+	                                		var location = data.location || "---";
+	                                		return location;
 	                                	}
 	                            	},
+	                            	{ "data": null, "width": "160px", render: function(data){
+	                                		var date_entered = data.date_entered || "---";
+	                                		return date_entered;
+	                                	}
+	                            	},
+	                             //    { "data": null , "width": "160px", render: function(data){
+	                             //    		var cat = data.cat_name || "---";
+	                             //    		return cat;
+	                             //    	}
+	                             //    },
+	                             //    { "data": null, "width": "160px", render: function(data){
+	                             //    		var type = data.type_name || "---";
+	                             //    		return type;
+	                             //    	}
+	                            	// },
 	                            	{ "data": null, "width": "160px", render: function(){
 	                            		return '';
 	                            	} }

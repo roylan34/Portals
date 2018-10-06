@@ -8,7 +8,7 @@
 
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">View Request Form</h4>
+          <h4 class="modal-title">VIEW REQUEST FORM</h4>
         </div>
 
         <div class="modal-body">
@@ -161,62 +161,61 @@
                 <div class="col-md-12 view-form-section view-step-4">
                   <!-- <h4>Step 4</h4> -->
                     <div class="mrf-table-responsive">
-                         <div class="col-md-6">
+                        <div class="col-md-12">
                           <div class="form-group">     
-                            <label class="col-sm-5" for="dateRequest" >Date Requested:</label>
-                            <div class="col-md-offset-1 col-sm-6">
-                              <span id="dateRequest"></span>
-                            </div>
+                            <div for="dateRequest" ><strong>Date Requested:</strong> <span id="dateRequest"></span></div>
                           </div> 
                         </div>
 
-                        <div class="col-md-12">
-                          <div class="form-group">     
-                            <label class="col-sm-3" for="txtCompany">Company Name:</label>
-                            <div class="col-sm-9">
-                              <span id="txtCompany"></span>
+                          <div class="col-md-12"> 
+                            <div class="form-group">      
+                              <div for="txtCompany"><strong>Company Name:</strong></div>
+                              <div>
+                                <span id="txtCompany"></span>
+                              </div>
                             </div>
                           </div> 
-                        </div>
 
                         <div class="col-md-12">
-                          <div class="form-group">     
-                            <label class=" col-sm-3" for="txtShipTo">Ship to address:</label>
-                             <div class="col-sm-9">
+                          <div class="form-group">    
+                            <div for="txtShipTo"><strong>Ship to address:</strong></div>
+                             <div>
                                 <span id="txtShipTo"></span>
-                             </div>
-                          </div> 
+                            </div>
+                          </div>
                         </div>
 
                           <div class="col-md-12">
-                              <div class="form-group">    
-                                  <label class="col-sm-3" for="txtBillTo">Bill to address:</label>
-                                  <div class="col-sm-9"> 
-                                    <span id="txtBillTo"></span>            
-                                  </div>
-                              </div> 
+                            <div class="form-group">    
+                              <div for="txtBillTo"><strong>Bill to address:</strong></div>
+                              <div> 
+                                <span id="txtBillTo"></span>            
+                              </div>
+                            </div>
                           </div>   
 
                         <div class="col-md-12">
-                            <div class="form-group">
-                              <div class="col-md-5">     
-                                <label  for="txtContactPerson">Contact Person:</label>
-                                  <span id="txtContactPerson"></span>
-                              </div> 
-
-                              <div class="col-md-4">     
-                                <label for="txtDepartment">Department:</label>
-                                <span id="txtDepartment"></span>
-                              </div> 
-
-                              <div class="col-md-3">     
-                                <label for="txtTelNo">Tel No:</label>
-                                <span id="txtTelNo"></span>
-                              </div> 
-                            </div>
+                          <div class="form-group">  
+                              <div for="txtContactPerson"><strong>Contact Person:</strong></div>
+                              <span id="txtContactPerson"></span>
+                          </div>
                         </div>
 
-                            <div class="col-md-6 attachment-form" style="margin-top: 10px;">
+                        <div class="col-md-6">
+                          <div class="form-group">     
+                              <div for="txtDepartment"><strong>Department:</strong></div>
+                              <span id="txtDepartment"></span>
+                          </div> 
+                        </div>  
+
+                        <div class="col-md-6">
+                            <div class="form-group">     
+                              <div for="txtTelNo"><strong>Tel No:</strong></div>
+                              <span id="txtTelNo"></span>
+                            </div> 
+                        </div>
+
+                            <div class="col-md-6 attachment-form" style="margin-top: 10px; clear: left;">
                               <div class="box box-success box-solid">
                                   <div class="box-header">
                                       <p class="box-title" style="font-size: 13px">Attachment</p>
@@ -241,11 +240,11 @@
                                       </form>
                                   </div>
                               </div>
+                          </div> <!--end of attachment-->   
 
-                          </div>                                                            
-                      </div>   
-                    </div>
-            </div>
+                      </div>                                                        
+                  </div>   
+              </div>
 
              <div role="tabpanel" class="tab-pane fade" id="tab-form-approve">
                 <form id="frmCurrentViewMrf" class="form-horizontal">
@@ -440,14 +439,16 @@
               <div class="history"></div>
             </div>
 
-          </div><!--end of tab-content-->
+            </div><!--end of tab-content-->
 
-
-        </div>
+        </div><!--end of modal body-->
 
         <div class="modal-footer">
          <!--  <button type="submit" class="btn btn-sm btn-primary btn-flat" id="btn_save_view_mrf">Save</button> -->
-          <div id="details_approver_2_btn" class="details_approver_2_btn col-md-offset-7 col-md-4 col-xs-9">
+         <div class="col-md-7 col-sm-6 text-left"> 
+              <button title="Comments" class="btn btn-sm btn-flat btn-current-comment-mrf" data-toggle="modal" data-target="#modalComments">COMMENTS</button>
+         </div>      
+          <div id="details_approver_2_btn" class="details_approver_2_btn col-md-4 col-sm-6 col-xs-12">
                 <button type="button" onClick="dtCurrentMrf.update_status(this)" name="2nd_approver" data-id-status="3" class="btn btn-warning btn-sm btn-flat">Disapprove</button>
                 <button type="button" onClick="dtCurrentMrf.update_status(this)" name="2nd_approver" data-id-status="2" class="btn btn-success btn-sm btn-flat" style="margin-right: 40px;">Approve</button>
                 <button type="button" onClick="dtCurrentMrf.update_status(this)" name="2nd_approver_2" data-id-status="3" class="btn btn-warning btn-sm btn-flat">Disapprove</button>
@@ -556,16 +557,24 @@
 </style>
 <script type="text/javascript">
 
-//Modal Attachment.
-$('#modalAttachment').on('show.bs.modal', function() { 
-   var dirname = $(".hdnAttachmentName").val() || '';
-   fileUpload.listFiles(dirname,".container-files");
+//Comments in View Request Form
+$('.btn-current-comment-mrf').click(function(){
+  var id_mrf = $("#hdnIdCurrentViewMrf").val();
+  var id_user = Cookies.get('user_id');
+      $("#hdnIdMRF").val(id_mrf);
+      comment.display(id_mrf, id_user);
+});
+
+// //Modal Attachment.
+// $('#modalAttachment').on('show.bs.modal', function() { 
+//    var dirname = $(".hdnAttachmentName").val() || '';
+//    fileUpload.listFiles(dirname,".container-files");
    
-});
-//When modal hidden addClass.
-$('#modalAttachment').on('hidden.bs.modal', function() { 
-    $("body").addClass('modal-open'); 
-});
+// });
+// //When modal hidden addClass.
+// $('#modalAttachment').on('hidden.bs.modal', function() { 
+//     $("body").addClass('modal-open'); 
+// });
 
 //Hack the core of jQuery validator plugin in this page only. This will multi-validate the same input name.
 $.extend( $.validator.prototype, { 

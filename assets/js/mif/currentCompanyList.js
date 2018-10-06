@@ -574,18 +574,22 @@ var dtCompany = {
     },
     countMachines: function(location){
             var loc = (location ? location : '');
+            var  dateFrom = $("#date-from").val();
+            var  dateTo   = $("#date-to").val();
             var countMachine = setInterval(function(){// Auto refresh every 10 seconds.
                  $.ajax({
                     type: 'GET',
                     url : assets+'php/misc/countmachines.php',
-                    data: { branch: location},
+                    data: { branch: location, dateFrom:dateFrom, dateTo:dateTo},
                     dataType: 'json',
                     beforeSend: function(){ $(".mif-info-box h3.total-mif").fadeTo('fast',0.33); },
                     success: function(data){
                         $(".mif-info-box .inner h3.total-mif").text(data[0]);   
                         $(".mif-info-box .inner ul li h4.total-client-active").text('ACTIVE: ' + data[1]);  
-                        $(".mif-info-box .inner ul li h4.total-client-blocked").text('BLOCKED: ' + data[2]);   
-                    }, 
+                        $(".mif-info-box .inner ul li h4.total-client-blocked").text('BLOCKED: ' + data[2]);
+                        $(".mif-info-box .inner #total-in a").text(data[3]);  
+                        $(".mif-info-box .inner #total-out a").text(data[4]);                      
+                    },    
                     error: function(data,xhr,status){ },
                     complete: function(){ 
                         $(".mif-info-box, .mif-info-box h3.total-mif").fadeTo('slow',1);
