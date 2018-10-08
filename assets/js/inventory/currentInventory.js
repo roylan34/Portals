@@ -254,7 +254,9 @@ var dtCurrentInventory = {
                 error: function(xhr,status){ alert(xhr + status); },
                 complete: function(data,xhr){
                 	if(data.responseJSON.aaData == "success"){
-                 		resetForm("#frmCurrentInvnt");  
+                 		// resetForm("#frmCurrentInvnt"); 
+                 		$("#frmCurrentInvnt select").not('select#slctCurInvntBranch').val(null); 
+                 		$("#frmCurrentInvnt input[type='text']").val(''); 
                  		$("#slctCurInvntModel").val(0).trigger('chosen:updated');
                  	}
                  	$btn.button('reset'); 
