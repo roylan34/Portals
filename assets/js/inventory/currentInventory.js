@@ -65,8 +65,8 @@ var dtCurrentInventory = {
 		                                                    node[0].innerText = 'Close Search Filter';
 		                                                }else{
 		                                                   node[0].innerText = 'Open Search Filter';
-		                                                    // $("#dt-head-search input[type='text']").val('');  //
-		                                                    // $("#search-company-branch, #search-company-accmngr").val(0).trigger('chosen:updated'); //reset
+		                                                    $(".dt-searchfield input[type='text']").val('');  //clear text
+		                                                    $(".dt-searchfield select option").val(null); //reset
 		                                                    dtCurrentInventory.dtInstance.ajax.reload(null, true);
 		                                                }
 		                                            });
@@ -478,12 +478,13 @@ var dtCurrentInventory = {
    	 	    	   
 		   	 	}
 		   	 	else if ($(inst[0]).hasClass('btn-out-inventory')) { // Out
-    	   	 		 var id_machine = $(inst[0]).data('id-invnt') || '';
-    	   	 			 			  $("#modalFormOutMachine .modal-title").text('Out Machine');
-   	 					              $("#hdnInvntOutId").val(id_machine);
+    	   	 		var id_machine = $(inst[0]).data('id-invnt') || '';
+		 			  $("#modalFormOutMachine .modal-title").text('Out Machine');
+		              $("#hdnInvntOutId").val(id_machine);
    	 	    	   
 		   	 	}   		   	 	
 		   	 	else if ($(inst[0]).hasClass('dt-invnt-refresh')) { // Refresh
+		   	 		 $(".dt-searchfield input[type='text']").val('');  //Clear text
     	   	 		 var branch = Cookies.get('branch');
     	   	 		 var app_module = JSON.parse(Cookies.get('app_module'));
    	 					 self.dtCurrentInventory.render(app_module.invnt,branch);   	 	    	   
