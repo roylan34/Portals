@@ -65,8 +65,8 @@ var dtCurrentInventory = {
 		                                                    node[0].innerText = 'Close Search Filter';
 		                                                }else{
 		                                                   node[0].innerText = 'Open Search Filter';
-		                                                    // $("#dt-head-search input[type='text']").val('');  //
-		                                                    // $("#search-company-branch, #search-company-accmngr").val(0).trigger('chosen:updated'); //reset
+		                                                    $(".dt-searchfield input[type='text']").val('');  //clear text
+		                                                    $(".dt-searchfield select option").val(null); //reset
 		                                                    dtCurrentInventory.dtInstance.ajax.reload(null, true);
 		                                                }
 		                                            });
@@ -254,7 +254,9 @@ var dtCurrentInventory = {
                 error: function(xhr,status){ alert(xhr + status); },
                 complete: function(data,xhr){
                 	if(data.responseJSON.aaData == "success"){
-                 		resetForm("#frmCurrentInvnt");  
+                 		// resetForm("#frmCurrentInvnt"); 
+                 		$("#frmCurrentInvnt select").not('select#slctCurInvntBranch').val(null); 
+                 		$("#frmCurrentInvnt input[type='text']").val(''); 
                  		$("#slctCurInvntModel").val(0).trigger('chosen:updated');
                  	}
                  	$btn.button('reset'); 
@@ -265,7 +267,7 @@ var dtCurrentInventory = {
     },
     update: function(id){
     	 var $btn     = $("button[type='submit']");
-		 var serialnum = $("#txtCurInvntSerial").val();
+		 var serialnum = $(".txtCurInvntSerial").val();
 		 var brand 	   = $("#slctCurInvntBrands option:selected").val();
 		 var model     = $("#slctCurInvntModel").chosen().val();
 		 var type      = $("#slctCurInvntType option:selected").val();
@@ -305,7 +307,7 @@ var dtCurrentInventory = {
 	                success: function(data, xhr, status){
 	                	$.each(data.aaData, function(i,val){
 	                		 $("#hdnCurInvntId").val(val.id);
-	                		 $("#txtCurInvntSerial").val(val.serialnumber);
+	                		 $(".txtCurInvntSerial").val(val.serialnumber);
 	                		 $("#hdnOldCurInvntSerial").val(val.serialnumber);
 							 $("#slctCurInvntBrands").val(val.id_brand).trigger('change');
 							 $("#slctCurInvntModel").val(val.model).trigger('chosen:updated');
@@ -476,12 +478,13 @@ var dtCurrentInventory = {
    	 	    	   
 		   	 	}
 		   	 	else if ($(inst[0]).hasClass('btn-out-inventory')) { // Out
-    	   	 		 var id_machine = $(inst[0]).data('id-invnt') || '';
-    	   	 			 			  $("#modalFormOutMachine .modal-title").text('Out Machine');
-   	 					              $("#hdnInvntOutId").val(id_machine);
+    	   	 		var id_machine = $(inst[0]).data('id-invnt') || '';
+		 			  $("#modalFormOutMachine .modal-title").text('Out Machine');
+		              $("#hdnInvntOutId").val(id_machine);
    	 	    	   
 		   	 	}   		   	 	
 		   	 	else if ($(inst[0]).hasClass('dt-invnt-refresh')) { // Refresh
+		   	 		 $(".dt-searchfield input[type='text']").val('');  //Clear text
     	   	 		 var branch = Cookies.get('branch');
     	   	 		 var app_module = JSON.parse(Cookies.get('app_module'));
    	 					 self.dtCurrentInventory.render(app_module.invnt,branch);   	 	    	   
@@ -524,7 +527,7 @@ var dtCurrentInventory = {
 			    e.preventDefault();
 			    if(max_sn <= 10){
 			         $(container).append('<div class="input-group">'+
-			            '<input type="text" class="form-control txtCurInvntSerial" id="txtCurInvntSerial" name="txtCurInvntSerial" placeholder="S/N '+max_sn+'"/>'+
+			            '<input type="text" class="form-control txtCurInvntSerial" name="txtCurInvntSerial" placeholder="S/N '+max_sn+'"/>'+
 			            '<span class="input-group-btn">'+
 			                '<button class="btn btn-danger btn-xs delete-sn" type="button">x</button>'+
 			           '</span></div>').focus();

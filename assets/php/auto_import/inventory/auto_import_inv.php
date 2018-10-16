@@ -18,9 +18,9 @@ $con = $conn->connect();
 	if (($getdata = fopen($filepath, "r")) !== FALSE) {
 		
 		// TRUNCATE
-		// $Qry_t = new Query();
-		// $Qry_t->table = "tbl_invnt_machines_auto_import";
-		// $rs_t = $Qry_t->exe_TRUNCATE($con);
+		$Qry_t = new Query();
+		$Qry_t->table = "tbl_invnt_machines_auto_import";
+		$rs_t = $Qry_t->exe_TRUNCATE($con);
 		
 		
 		fgetcsv($getdata);
@@ -132,14 +132,14 @@ $con = $conn->connect();
 			$counter_t++;
 			
 			
-			$Qry = new Query();
-			$Qry->table = "tbl_invnt_machines_auto_import";
-			$Qry->selected = "*";
-			$Qry->fields = "serialnumber='".$serialnumber."'";
-			$rs = $Qry->exe_SELECT($con);
-			//echo $company_name;
-			$count = mysqli_fetch_array($rs);			
-			if(count($count) == 0){		
+			// $Qry = new Query();
+			// $Qry->table = "tbl_invnt_machines_auto_import";
+			// $Qry->selected = "*";
+			// $Qry->fields = "serialnumber='".$serialnumber."'";
+			// $rs = $Qry->exe_SELECT($con);
+			// //echo $company_name;
+			// $count = mysqli_fetch_array($rs);			
+			// if(count($count) == 0){		
 		
 				
 				// INSERT 
@@ -164,7 +164,7 @@ $con = $conn->connect();
 					$filter_insert = 0;
 				}
 				
-			}
+			// }
 				
 			
 		}

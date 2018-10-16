@@ -443,12 +443,12 @@ tr.subRow:not(:last-child) {
   overflow: hidden;
   white-space: nowrap;
 }
-.pre-list-attachment:not(:empty):before {
+.pre-list-attachment:not(:empty):before, .view-pre-list-attachment:not(:empty):before {
   content: "Selected file: ";
   font-style: normal;
   font-weight: 600;
 }
-.pre-list-attachment:not(:empty):before {
+.pre-list-attachment:not(:empty):before, .view-pre-list-attachment:not(:empty):before {
   border-bottom: 1px solid #000;
 }
 /*.pre-list-attachment:empty:before {

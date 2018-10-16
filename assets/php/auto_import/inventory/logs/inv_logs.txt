@@ -3,3 +3,18 @@ DATE: 2018-10-02 TIME: 16:33:00
 2570 Row data inserted successfully.
 2578 Row data truncate successfully.
 **************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-10-12 TIME: 9:32:00
+2578 Row data inserted successfully.
+2578 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-10-12 TIME: 9:40:00
+2404 Row data inserted successfully.
+2404 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2018-10-12 TIME: 9:41:00
+2404 Row data inserted successfully.
+2404 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
