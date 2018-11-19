@@ -70,7 +70,7 @@ var dtCompany = {
                                        format: {
                                             body: function ( data, column, row ) {
                                                 return column === 6 ?
-                                                    data.replace( /<br\s*\/?>/gi, '"'+"\r\n"+'"' ) :
+                                                    data.toString().replace( /<br\s*\/?>/gi, '"'+"\r\n"+'"' ) :
                                                     data; 
                                             } 
                                         }
