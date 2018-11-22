@@ -29,6 +29,7 @@ $(document).ready(function(){
 	 							         '<div id="displayFormSchedule"></div>',
 	 							         '<div id="displayPMList"></div>',
 	 							         '<div id="displayFormPM"></div>',
+	 							          '<div id="displaySalesHistory"></div>',
 	 							         '<div class="displayPromptMSG"></div>');
 
 	var mifPages = {

@@ -83,7 +83,7 @@ var dtCompany = {
                                 },
                                 {
                                     text: 'Add New Company',
-                                    className: 'btn btn-primary btn-flat btn-sm dt-button-add',
+                                    className: 'dt-button-add',
                                     action: function ( e, dt, node, config ) {
                                           self.dtCompany.modalShow();
                                     }
@@ -168,14 +168,11 @@ var dtCompany = {
                                 }
                             },
                             { data:  null, render: function( data, type, full, meta ){
-                                        if(data.status == 1)
-                                            return "<span class='text-left'> ACTIVE </span>";
-                                        else 
-                                            return "<span class='text-left' style='color:#dd4b39'> BLOCKED </span>";
+                                return "<span class='text-center'>" + isEmpty(data.date_last_visit) + "</span>";
                                 }
                             },
-                            { data:  null, render: function( data, type, full, meta ){
-                                return "<span class='text-center'>" + isEmpty(data.date_last_visit) + "</span>";
+                             { data:  null, render: function( data, type, full, meta ){
+                                    return "<button class='btn btn-xs btn-success btn-flat btnSalesHist' data-sapcode='"+data.sap_code+"'>Sales</button>";
                                 }
                             },
                             { data:  null, render: function( data, type, full, meta ){
@@ -197,13 +194,11 @@ var dtCompany = {
                  ],
                  "columnDefs": [
                             { responsivePriority: 1, target: 0},
-                            { responsivePriority: 2, target: 1}
+                            { responsivePriority: 2, target: 1},
+                            { targets: 15, className: "none" }
 
                  ],
                 "deferRender": true,
-                "fnCreatedRow": function( row, data ) { //Add attribute id-company in first td element.
-                                    $('td:eq(0)',row).attr( 'data-id-company',data.id);                                 
-                            },
                 "fnDrawCallback": function(oSettings){
                        var action = JSON.parse(Cookies.get('app_module_action'));
                             if(action == null){
@@ -262,15 +257,15 @@ var dtCompany = {
                              });
 
                             // Update footer
-                            $( api.column( 3 ).footer() ).html(
+                            $( api.column( 4 ).footer() ).html(
                                 'Page Total:'+ formatNumber(res_total)+' (Overall Total: '+ formatNumber(res_pagetotal)+')'
                             ).css('font-size','12px');
 
                         }
        
         });
-                        $("div.FilterMachine").html('<a href="#" id="filter-machine"><i class="fa fa-filter"></i>Filter Machine</a>'); // DOM toolbarSMachine. 
-                            return this;
+                $("div.FilterMachine").html('<a href="#" id="filter-machine"><i class="fa fa-filter"></i>Filter Machine</a>'); // DOM toolbarSMachine. 
+            return this;
     },
     modalShow: function(idcompany){ //Show form modal.
           $("#displayFormCompany").load(pages+'company/form.html',function(data,status,xhr){
@@ -399,13 +394,14 @@ var dtCompany = {
                         self.dtCompany.dtInstance.$('tr.selected').removeClass('selected');
                         inst.closest('tr').addClass('selected');
                     }
+
                     //Show modal edit
                     if (button_label == 'edit') {
                         var idcompany = $(this).data('comp');
                         self.dtCompany.modalShow(idcompany);
                     }
                     //Show modal machine list.
-                    if ($(inst[0]).hasClass('btnViewPrinter')) {
+                    else if ($(inst[0]).hasClass('btnViewPrinter')) {
                         var idcompany = inst.data('comp');
                         var company_name = decodeURIComponent(inst.data('compname'));
                         var branches  = inst.data('branch');
@@ -413,31 +409,36 @@ var dtCompany = {
                          dtMachine.render(idcompany, company_name, branches); 
                     }
                     //Show modal MIF activity logs.
-                    if ($(inst[0]).hasClass('viewMifLogs')) {
+                    else if ($(inst[0]).hasClass('viewMifLogs')) {
                         var idcompany = inst.data('comp');
                          self.dtCompany.modal_mif_logs(idcompany)
                     }
+                    else if(button_label == "sales"){
+                         var sapcode = inst.data('sapcode');
+                         dtSalesHistory.render(sapcode);
+                     }
                     //Search button
-                    if(button_label == "search"){
+                    else if(button_label == "search"){
                         self.dtCompany.dtInstance.ajax.reload(null, true);
                         // var branch = Cookies.get('location');
                         // self.dtCompany.render(branch); 
                     }
                      //Reset button
-                    if(button_label =="reset"){
+                   else if(button_label =="reset"){
                         $("#dt-head-search input[type='text'], #search-company-delsan").val('');  //
                         $("#search-company-branch, #search-company-accmngr, #search-company-location").val(0).trigger('chosen:updated'); //reset
                         self.dtCompany.dtInstance.ajax.reload(null, true); //Reload DT when closing filter search.
                     }
                      //Google Map
-                     if ($(inst[0]).is('#modalMap')) { 
+                    else if ($(inst[0]).is('#modalMap')) { 
                         var address_column = inst.text();
                         self.dtCompany.view_map_by_address(address_column);
-                     }
-                     if ($(inst[0]).is('#modalSapDetails')) { 
+                    }
+                    else if ($(inst[0]).is('#modalSapDetails')) { 
                         var sap_code = inst.text();
                         self.dtCompany.view_sap_details(sap_code);
-                     }
+                    }
+                     
                 } );
         return this;
     },
@@ -602,7 +603,7 @@ var dtCompany = {
             },20000);
         return this;
     },
-    countInOutMachine: function(){ //IN PROGRESS
+    countInOutMachine: function(){ 
          var  dateFrom = $("#date-from").val();
          var  dateTo   = $("#date-to").val();
             $.ajax({
@@ -663,21 +664,6 @@ var dtCompany = {
 
                                                 }
                                             },
-                                            // {
-                                            //     text: 'Open Search Filter',
-                                            //     className: 'btn-search-inout',
-                                            //     action: function ( e, dt, node, config ) {
-                                            //         $("#dthead-search-inout").slideToggle('fast',function(){
-                                            //             if($(this).is(':visible')){
-                                            //                 node[0].innerText = 'Close Search Filter';
-                                            //             }else{
-                                            //                node[0].innerText = 'Open Search Filter';
-                                            //                 $(".dt-head-search input[type='text'], .dt-head-search select").val('');  //                                                          
-                                            //                 self.dtCompany.dtInstanceInOut.ajax.reload(null, true);
-                                            //             }
-                                            //         });
-                                            //     }
-                                            // }
                                 ],
                                 "ajax": {
                                     "url": assets+'php/misc/listInOutMachines.php',

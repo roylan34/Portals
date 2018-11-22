@@ -124,7 +124,7 @@ h2 { font-weight:500 }
 
 /** DataTable Current Company, Inventory **/
 table#dtCompany thead .dt-searchfield, table#dtCurrentInventory thead .dt-searchfield, table#dtArchiveInventory thead .dt-searchfield,  table#dtArchiveCompany thead .dt-searchfield, 
-table#dtCurrentPM thead .dt-searchfield, table#dtArchiveSched thead .dt-searchfield, table#dtArchivePM thead .dt-searchfield{
+table#dtCurrentPM thead .dt-searchfield, table#dtArchiveSched thead .dt-searchfield, table#dtArchivePM thead .dt-searchfield, table#dtSalesHistory thead .dt-searchfield{
 	width:150px;
 	padding:2px 5px;
 }
