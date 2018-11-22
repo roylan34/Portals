@@ -32,7 +32,6 @@
   <link rel="stylesheet" type="text/css" href="assets/css/custom-mif.css">
   <link rel="stylesheet" type="text/css" href="assets/css/media.css" media="screen">
   <link rel="stylesheet" type="text/css" href="plugins/autocomplete/jquery.autocomplete.css">
-  <link rel="stylesheet" type="text/css" href="plugins/pace/pace.min.css">
   <link rel="stylesheet" type="text/css" href="plugins/timepicker/dist/jquery-ui-timepicker-addon.min.css"">
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> <!--JQuery UI -->
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -85,7 +84,6 @@
 <!-- AdminLTE App -->
 <script src="dist/js/app.min.js"></script>
 <script src="plugins/slimscroll/jquery.slimscroll.min.js"></script>
-<script src="plugins/pace/pace.min.js"></script>
 <script src="https://rawgit.com/flatiron/director/master/build/director.min.js"></script>
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
@@ -140,13 +138,15 @@ $(document).ready(function(){
     $(document).ajaxSend(function(event, xhr, settings) { //Global loader.
         var mifCounter = RegExp(assets+'php/misc/countmachines.php*','gi'); //For development
         var mrfComments = assets+'php/mrf/comments.php';
-       
-        if( mrfComments == settings.url || mifCounter.test(settings.url)){
-             Pace.restart();  //Top loader
-        }else{          
-            $("#machine-backDrop").show();
+            
+        if( mrfComments == settings.url) {      
+          //empty
         }
-
+        else if (mifCounter.test(settings.url)){
+           //empty
+        }else{
+          $("#machine-backDrop").show();
+        }
     });
     $(document).ajaxComplete(function(){
         $("#machine-backDrop").hide();
