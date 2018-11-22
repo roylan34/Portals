@@ -132,20 +132,11 @@ var dtCompany = {
                                     return "<span class='badge badge-"+badge_color+"'>" + comp.toUpperCase() + "</span>";                              
                                 }
                             },
-                            { data: null, render: function( data, type, full, meta ){
-                                return "<span class=''>" + data.company_name + "</span>";
-                                }
+                            { data: "company_name"
                             },
-                            { data:  null, render: function( data, type, full, meta ){
-                                return "<span class='text-center'>" + data.client_category + "</span>"; 
-                                }
+                            { data: "client_category"
                             },
-                            { data: null,  render: function( data, type, full, meta ){
-                                    if(data.number_of_machines != null){
-                                        return "<span class='text-center'>" + data.number_of_machines + "</span>"; 
-                                    }
-                                    return 0;
-                                }
+                            { data: "number_of_machines"
                             },
                             { data:  null, "width": "20%", render: function( data, type, full, meta ){
                                     return "<span class='text-center'><a href='#' title='View Map' id='modalMap' data-toggle='modal' data-target='#modalMap'>" + data.address + "</a></span>"; 
@@ -217,29 +208,22 @@ var dtCompany = {
                 },
                 "footerCallback": function( tfoot, data, start, end, display ) {
                             var api = this.api();
-                 
-                            //Get current page
-                           var total = api
-                                .column( 3, { page: 'current'} )
-                                .data();
 
+                             // Remove the formatting to get integer data for summation
+                            var intVal = function ( i ) {
+                                return typeof i === 'string' ?
+                                    i.replace(/[\$,]/g, '')*1 :
+                                    typeof i === 'number' ?
+                                        i : 0;
+                            };
+                 
                             //Total of current page
                             var res_total = 0;
-                            $.each(total,function(key,val){
-                                if(val['number_of_machines'] != null){
-                                    res_total += parseInt(val['number_of_machines']);
-                                }
-                            });
-                            
-                            // Get over all pages
-                            // var pageTotal = api
-                            //     .column( 3 )
-                            //     .data();
-                            // $.each(pageTotal,function(key,val){
-                            //     if(val['number_of_machines'] != null){
-                            //         res_pagetotal += parseInt(val['number_of_machines']);
-                            //     }
-                            // });
+                            res_total =  api.column( 5, { page: 'current'}  )
+                                            .data()
+                                            .reduce( function ( a, b ) {
+                                return intVal(a) + intVal(b);
+                            }, 0 )
                             
                             //Total over all pages
                             var res_pagetotal =0;
