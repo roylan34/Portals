@@ -148,7 +148,7 @@ class connector{
 	public $host = "localhost";					
 	public $dbname = "dbmif";			
 	public $name = "root";						
-	public $pass = "";
+	public $pass = "waterfront07";
 	function connect(){
 		$conn = mysqli_connect("$this->host", "$this->name", "$this->pass","$this->dbname");
 		if (!$conn)
