@@ -145,6 +145,17 @@ var dtSalesHistory = {
                        $(".dt-company-excel, .dt-button-machinesearch, .dt-machine-print").removeClass("dt-button").addClass("btn btn-primary btn-flat btn-sm").css({"margin-bottom":"0.5em","margin-right":"0.5em"});
                        $(".dt-machine-print").text('').html("<i class='glyphicon glyphicon-print'></i>").attr('title','Print');
                        $(".dt-company-excel").text('').html("<i class='fa fa-file-excel-o'></i>").attr('title','Export to Excel');
+                },
+                "footerCallback": function(tfoot, data, start, end, display){
+                    var api   = this.api();
+                    var total = api.context[0].json.totalSales;
+
+                        // Update footer
+                        var totalStyle ={'border-left':'1px solid #000','border-bottom':'1px solid #000'};
+                        $( api.column( 12 ).footer() ).html('Overall Total:').css(totalStyle);
+                        $( api.column( 13 ).footer() ).html(total.total_vat).css(totalStyle);
+                        $( api.column( 14 ).footer() ).html(total.total_gross).css(totalStyle);
+                        $( api.column( 15 ).footer() ).html(total.total_net).css({'border-left':'1px solid #000','border-bottom':'1px solid #000','border-right':'1px solid #000'});
                 }
 
             }); 

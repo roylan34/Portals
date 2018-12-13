@@ -15,7 +15,6 @@ $search="";
 $limit = "";
 $totalData =0;
 $totalFiltered =0;
-
 $conn = Database::getInstance(); //For Searching.
 $sap_code = $conn->escapeString(Utils::getValue('sap_code'));
 if($sap_code)	{ $search .="AND sap_code ='".$sap_code."'"; }
@@ -24,8 +23,15 @@ if(Utils::getValue('acc_manager'))	{ $search .="AND acc_manager LIKE '%".$conn->
 if(Utils::getValue('fiscal_year'))	{ $search .="AND fiscal_year ='".$conn->escapeString(Utils::getValue('fiscal_year'))."'"; }
 if(Utils::getValue('month'))		{ $search .="AND month = '".$conn->escapeString(Utils::getValue('month'))."'"; }
 
-
 			$requestData= $_REQUEST;
+
+			//Sum of Vat, Gross & NetSales
+			if(!Utils::isEmpty($sap_code)){
+				$conn->selectQuery('FORMAT(SUM(vat),2) AS total_vat, FORMAT(SUM(gross),2) AS total_gross, FORMAT(SUM(net),2) AS total_net ','tbl_sales_history_auto_import WHERE id > 0 AND sap_code="'.$sap_code.'"');
+				$totalSales = $conn->getFields(); //Get all rows
+				$conn->fields = null;
+			}
+
 			// storing  request (ie, get/post) global array to a variable  
 			$conn->selectQuery('*','tbl_sales_history_auto_import WHERE id > 0 AND sap_code="'.$sap_code.'"');
 			$totalData = $conn->getNumRows(); //getting total number records without any search.
@@ -57,16 +63,16 @@ if(Utils::getValue('month'))		{ $search .="AND month = '".$conn->escapeString(Ut
 					}
 					$data = $nestedData; 
 					
-				$json_data = array(
+				$json_data = array(							
 							"draw"            => intval( $requestData['draw'] ),   // for every request/draw by clientside , they send a number as a parameter, when they recieve a response/data they first check the draw number, so we are sending same number in draw. 
 							"recordsTotal"    => intval( $totalData ),  // total number of records
 							"recordsFiltered" => intval( $totalFiltered ), // total number of records after searching, if there is no searching then totalFiltered = totalData
-							"records"         => $data   // data array,
+							"records"         => $data,   // data array,
+							"totalSales"	  => $totalSales['aaData'][0]
 							);
 			} 
 			else{ 
-				$json_data = array("draw" =>  0,"recordsTotal" => 0, "recordsFiltered" => 0, "records" => array());
-				$json_data['aaData'] = array(); 
+				$json_data = array("draw" =>  0,"recordsTotal" => 0, "recordsFiltered" => 0, "records" => array(), "totalSales"	=> array("total_vat"=> 0, "total_gross"=>0, "total_net"=>0) );
 			}
 
 				print Utils::jsonEncode($json_data);  // send data as json format.
