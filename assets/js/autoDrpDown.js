@@ -16,6 +16,7 @@ var autoDrpDown = {
 	cacheOptBrandsInst: null,
 	cacheOptCategory: [],
 	cacheOptSapCompany: [],
+	cacheOptYear: [],
 	getBranchName: function(selectedBranch,selectorTarget,excludeBranch){
 		var elem = selectorTarget;
 		$.ajax({
@@ -376,7 +377,32 @@ var autoDrpDown = {
 				});
 	     }
 	     return this;
-	}
+	},
+	getlistYear: function(elem){
+			if(this.cacheOptYear.length === 0){
+	         	$.ajax({
+					type: 'GET',
+					dataType: 'json',
+					url: assets+"php/company/sapSalesPerAccount.php",
+					data: {action:"list-year"},
+					async: false,
+					success: function(data){
+						var optYear = [];
+						var optElem = "";
+							$.each(data, function(i, val){
+								optElem += "<option value="+val.fiscal_year+">"+val.fiscal_year+"</option>";							
+							});
+							 optYear.push(optElem);	
+							 self.autoDrpDown.cacheOptYear = optYear;	
+					}
+				});
+	     	}
+	     	  //Render elements.
+	     	  $(elem).html("<option value='' disabled>--Year--</option>" + this.cacheOptYear.join(""));
+
+	    return this;
+
+	},
 };
 
 
