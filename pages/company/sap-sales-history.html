@@ -45,24 +45,41 @@
 
                   </tr>
                </thead> 
+               <tbody></tbody>
                <tfoot>
                  <tr>
-                   <th></th>
-                   <th></th>
-                   <th></th>
-                   <th></th>
-                   <th></th>
-                   <th></th>
-                   <th></th>
-                   <th></th>
-                   <th></th>
-                   <th></th>
-                   <th></th>
-                   <th></th>
-                   <th></th>
-                   <th></th>
-                   <th></th>
-                   <th></th>
+                   <td></td>
+                   <td></td>
+                   <td></td>
+                   <td></td>
+                   <td></td>
+                   <td></td>
+                   <td></td>
+                   <td></td>
+                   <td></td>
+                   <td></td>
+                   <td></td>
+                   <td colspan="2"></td>
+                   <td></td>
+                   <td></td>
+                   <td></td>
+                 </tr>
+                 <tr>
+                   <td></td>
+                   <td></td>
+                   <td></td>
+                   <td></td>
+                   <td></td>
+                   <td></td>
+                   <td></td>
+                   <td></td>
+                   <td></td>
+                   <td></td>
+                   <td></td>
+                   <td colspan="2"></td>
+                   <td class="text-center"></td>
+                   <td class="text-center"></td>
+                   <td class="text-center"></td>
                  </tr>
                </tfoot>
             </table>
@@ -74,6 +91,19 @@
     </div>
   </div>
 
+<style type="text/css">
+  table#dtSalesHistory tfoot tr:nth-child(2) td{
+    border-top: none;
+  }
+  table#dtSalesHistory tfoot tr > td:nth-child(11) ~ td{
+    border-left:1px solid #000;
+    border-bottom:1px solid #000;
+  }
+   table#dtSalesHistory tfoot tr > td:last-child{
+    border-right:1px solid #000
+  }
+
+</style>
 <script>
   $( document ).ready( function () {
         $('#modalSalesHistory').on('shown.bs.modal', function() {

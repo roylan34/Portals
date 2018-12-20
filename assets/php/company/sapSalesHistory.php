@@ -27,9 +27,10 @@ if(Utils::getValue('month'))		{ $search .="AND month = '".$conn->escapeString(Ut
 
 			//Sum of Vat, Gross & NetSales
 			if(!Utils::isEmpty($sap_code)){
-				$conn->selectQuery('FORMAT(SUM(vat),2) AS total_vat, FORMAT(SUM(gross),2) AS total_gross, FORMAT(SUM(net),2) AS total_net ','tbl_sales_history_auto_import WHERE id > 0 AND sap_code="'.$sap_code.'"');
+				$conn->selectQuery('FORMAT(SUM(ROUND(vat,2)),2) AS total_vat, FORMAT(SUM(ROUND(gross,2)),2) AS total_gross, FORMAT(SUM(ROUND(net,2)),2) AS total_net ','tbl_sales_history_auto_import WHERE id > 0 AND sap_code="'.$sap_code.'"');
 				$totalSales = $conn->getFields(); //Get all rows
 				$conn->fields = null;
+				
 			}
 
 			// storing  request (ie, get/post) global array to a variable  
@@ -51,7 +52,7 @@ if(Utils::getValue('month'))		{ $search .="AND month = '".$conn->escapeString(Ut
 			
 			if(intval($requestData['length']) >= 1 ) { $limit = ' LIMIT '.$requestData['start'].' ,'.$requestData['length'].''; }
 
-				$conn->selectQuery('*','tbl_sales_history_auto_import 
+				$conn->selectQuery('id, sap_code,company_name,acc_manager,fiscal_year,month,doc_num,doc_date,baseref,customer_po,item_code,description,quantity,pricevat,FORMAT(vat,2) AS vat,FORMAT(gross,2) AS gross, FORMAT(net, 2) AS net','tbl_sales_history_auto_import 
 										WHERE id > 0 AND sap_code="'.$sap_code.'" '.$search.' '.$limit.'');
 				$row = $conn->getFields(); //Get all rows
 

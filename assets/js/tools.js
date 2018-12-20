@@ -466,3 +466,19 @@ function datePickerFromTo(fromDate, toDate){
 		from.datepicker("option", "maxDate", $(this).val());
 	});
 }
+
+// Remove the formatting to get integer data for summation
+function intVal( i ) {
+    return typeof i === 'string' ?
+        i.replace(/[\$,]/g, '')*1 :
+        typeof i === 'number' ?
+            i : 0;
+};
+
+//Convert floating number to Fixed two decimal places
+function toDecimal( f ){
+	if( f != 0 ){
+		return Number.parseFloat(f).toFixed(2);
+	}
+	return f;
+}

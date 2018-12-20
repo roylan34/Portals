@@ -79,63 +79,63 @@ var dtSalesHistory = {
                                     }       
                             },
                             { data:  null,  render: function( data, type, full, meta ){
-                                return "<span class='text-left'>" + isEmpty(data.company_name) + "</span>";
+                                return  isEmpty(data.company_name);
                                 }
                             },
                             { data:  null,  render: function( data, type, full, meta ){
-                                return "<span class='text-left'>" + isEmpty(data.acc_manager) + "</span>";
+                                return isEmpty(data.acc_manager);
                                 }
                             },
                             { data:  null, render: function( data, type, full, meta ){
-                                return "<span class='text-left'>" + isEmpty(data.fiscal_year) + "</span>"; 
+                                return isEmpty(data.fiscal_year); 
                                 }
                             },
                             { data:  null,  render: function( data, type, full, meta ){
-                                return "<span class='text-left'>" + isEmpty(data.month) + "</span>"; 
+                                return isEmpty(data.month); 
                                 }
                             },
                             { data:  null,  render: function( data, type, full, meta ){
-                                return "<span class='text-left'>" + isEmpty(data.doc_num) + "</span>";
+                                return isEmpty(data.doc_num);
                                 }
                             },
                             { data:  null,  render: function( data, type, full, meta ){
-                                return "<span class='text-left'>" + isEmpty(data.doc_date) + "</span>";
+                                return  isEmpty(data.doc_date);
                                 }
                             },
                             { data:  null, render: function( data, type, full, meta ){
-                                return "<span class='text-left'>" + isEmpty(data.baseref) + "</span>";
+                                return isEmpty(data.baseref);
                                 }
                             },
                             { data:  null,  render: function( data, type, full, meta ){
-                                return "<span class='text-left'>" + isEmpty(data.customer_po) + "</span>";
+                                return isEmpty(data.customer_po);
                                 }
                             },
                             { data:  null,  render: function( data, type, full, meta ){
-                                return "<span class='text-left'>" + isEmpty(data.item_code) + "</span>";
+                                return isEmpty(data.item_code);
                                 }
                             },
                             { data:  null,  render: function( data, type, full, meta ){
-                                return "<span class='text-left'>" + isEmpty(data.description) + "</span>";
+                                return isEmpty(data.description);
                                 }
                             },
                             { data:  null,  render: function( data, type, full, meta ){
-                                return "<span class='text-left'>" + data.quantity + "</span>";
+                                return  data.quantity;
                                 }
                             },
                             { data:  null,  render: function( data, type, full, meta ){
-                                return "<span class='text-left'>" + isEmpty(data.pricevat) + "</span>";
+                                return isEmpty(data.pricevat);
                                 }
                             },
-                            { data:  null,  render: function( data, type, full, meta ){
-                                return "<span class='text-left'>" + isEmpty(data.vat) + "</span>";
+                            { data:  null, class:"text-center", render: function( data, type, full, meta ){
+                                return  isEmpty(data.vat);
                                 }
                             },
-                            { data:  null,  render: function( data, type, full, meta ){
-                                return "<span class='text-left'>" + isEmpty(data.gross) + "</span>";
+                            { data:  null, class:"text-center", render: function( data, type, full, meta ){
+                                return isEmpty(data.gross);
                                 }
                             },
-                            { data:  null,  render: function( data, type, full, meta ){
-                                return "<span class='text-left'>" + isEmpty(data.net) + "</span>";
+                            { data:  null, class:"text-center", render: function( data, type, full, meta ){
+                                return isEmpty(data.net);
                                 }
                             },
 
@@ -148,14 +148,36 @@ var dtSalesHistory = {
                 },
                 "footerCallback": function(tfoot, data, start, end, display){
                     var api   = this.api();
-                    var total = api.context[0].json.totalSales;
+                    var overall = api.context[0].json.totalSales;
 
-                        // Update footer
-                        var totalStyle ={'border-left':'1px solid #000','border-bottom':'1px solid #000'};
-                        $( api.column( 12 ).footer() ).html('Overall Total:').css(totalStyle);
-                        $( api.column( 13 ).footer() ).html(total.total_vat).css(totalStyle);
-                        $( api.column( 14 ).footer() ).html(total.total_gross).css(totalStyle);
-                        $( api.column( 15 ).footer() ).html(total.total_net).css({'border-left':'1px solid #000','border-bottom':'1px solid #000','border-right':'1px solid #000'});
+                    //Total per page
+                    var totalVat = data.reduce( function(a,b){
+                        return intVal(a) + intVal(b.vat);
+                    }, 0 );
+
+                    var totalGross = data.reduce( function(c,d){
+                        return intVal(c) + intVal(d.gross);
+                    }, 0 );
+
+                     var totalNet = data.reduce( function(e,f){
+                        return intVal(e) + intVal(f.net);
+                    }, 0 );
+
+                    var footer = api.table().footer();
+                    var footerTrOne = $(footer).children()[0];
+                    var footerTrTwo = $(footer).children()[1];
+
+                    $(footerTrOne).find('td:eq(11)').html('Current Total:');
+                    $(footerTrOne).find('td:eq(12)').html(formatNumber(toDecimal(totalVat)));
+                    $(footerTrOne).find('td:eq(13)').html(formatNumber(toDecimal(totalGross)));
+                    $(footerTrOne).find('td:eq(14)').html(formatNumber(toDecimal(totalNet)));
+
+                    //Over all Total
+                    $(footerTrTwo).find('td:eq(11)').html('Overall Total:');
+                    $(footerTrTwo).find('td:eq(12)').html(overall.total_vat);
+                    $(footerTrTwo).find('td:eq(13)').html(overall.total_gross);
+                    $(footerTrTwo).find('td:eq(14)').html(overall.total_net);
+
                 }
 
             }); 
