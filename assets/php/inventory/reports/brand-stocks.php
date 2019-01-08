@@ -27,7 +27,7 @@ if(Utils::getIsset('id_branch') && Utils::getValue('id_branch')) { $search ="AND
 						WHERE im.is_delete = 0 AND (im.id_status = 0 OR s.status_type = 'IN')
 						".$search."
 						GROUP BY im.model
-						ORDER BY total_brand DESC");
+						ORDER BY m.model_name");
 	$row = $db->getFields(); //Get all rows
 	$data = array();
 

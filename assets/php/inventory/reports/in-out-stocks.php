@@ -27,7 +27,7 @@ if(Utils::getIsset('id_branch') && Utils::getValue('id_branch')) { $search ="AND
 							WHERE m.is_delete = 0
 							  ".$search."
 							GROUP BY m.model
-						) X ORDER BY X.total_brand DESC");
+						) X ORDER BY X.model");
 	$row = $db->getFields(); //Get all rows
 	$data = array();
 

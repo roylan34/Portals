@@ -13,7 +13,7 @@ $search ="";
 $db = Database::getInstance();
 
 	$db->selectQuery("  id_brand AS brand, model, COUNT(*) total_model ","tbl_invnt_machines_auto_import
-						GROUP BY model ORDER BY brand DESC");
+						GROUP BY model ORDER BY model");
 	$row = $db->getFields(); //Get all rows
 	$data = array();
 
