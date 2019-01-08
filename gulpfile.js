@@ -13,6 +13,7 @@ gulp.task('watch',function(){
 				'assets/js/settings/*.js',
 				'assets/js/accounts/*.js',
 				'assets/js/mif/*.js',
+				'assets/js/manager/*.js',
 				'assets/js/mif/reports/*.js',
 				'assets/js/inventory/*.js', 
 				'assets/js/inventory/reports/*.js',
@@ -28,6 +29,7 @@ gulp.task('pack-mif-js',function(){
 		return gulp.src([
 				'assets/js/charts/*.js',
 				'assets/js/mif/*.js',
+				'assets/js/manager/*.js',
 				'assets/js/settings/*.js',
 				'assets/js/accounts/*.js',
 				'assets/js/mif/reports/*.js' ])
