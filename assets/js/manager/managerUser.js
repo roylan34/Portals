@@ -64,6 +64,10 @@ var dtClientCompany = {
                                 return "<div class='text-center dt-column-branches'>" + isEmpty(data.branches) + "</div>";
                                 }
                             },
+                            { data:  null, class: 'text-right', render: function( data, type, full, meta ){
+                                return '<button class="btn btn-xs btn-success btn-flat btnSapCode" data-sapcode="'+data.sap_code+'">Sales</button>';
+                                }
+                            },
                             { data:  null, render: function( data, type, full, meta ){
                                 return '<button class="btn btn-xs btn-success btn-flat btnViewPrinter" data-comp="'+data.id+'" data-compname="'+encodeURIComponent(data.company_name)+'" data-status="'+data.status+'" '+(data.status == 0 ? 'disabled' : '')+'><i class="fa fa-list"></i></button>';
                                 }
@@ -103,7 +107,7 @@ var dtClientCompany = {
         return this;
     },
     actions: function(){
-                $("table#dtClientCompany").on('click', 'button.btnViewPrinter', function () {
+                $("table#dtClientCompany").on('click', 'button', function () {
                     var inst = $(this);
                     if ( inst.closest('tr').hasClass('selected') ) {  //Highlight row selected.
                          // $(this).closest('tr').removeClass('selected');
@@ -113,10 +117,18 @@ var dtClientCompany = {
                         inst.closest('tr').addClass('selected');
                     }
 
+                    if($(inst[0]).hasClass('btnViewPrinter')) {
                         var idcompany = inst.data('comp');
                         var branch    = inst.data('branch');
                         var company_name  = decodeURIComponent(inst.data('compname'));
                             self.dtMachine.render(idcompany, company_name);  
+                    }
+                    else if($(inst[0]).hasClass('btnSapCode')) {
+                        var sapcode = inst.data('sapcode');
+                            dtSalesHistory.render(sapcode);
+                    }
+                    else{}
+
                 } );
         return this;
     }

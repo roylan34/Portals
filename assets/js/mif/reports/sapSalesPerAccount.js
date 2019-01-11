@@ -32,8 +32,8 @@ var reportSalesPerAccount = {
 								$.each(data, function(employ_key, employ) {
 									view += '<tr>';
 									view += '<td>'+ employ.acc_manager+ '</td>';
-									view += '<td>'+ employ.t_vat+ '</td>';
 									view += '<td>'+ employ.t_gross+ '</td>';
+									view += '<td>'+ employ.t_vat+ '</td>';
 									view += '<td>'+ employ.t_net+ '</td>';
 									view += '</tr>';
 								});
@@ -63,8 +63,8 @@ var reportSalesPerAccount = {
 								$.each(data, function(employ_key, employ) {
 									view += '<tr>';
 									view += '<td>'+ employ.acc_manager+ '</td>';
-									view += '<td>'+ employ.t_vat+ '</td>';
 									view += '<td>'+ employ.t_gross+ '</td>';
+									view += '<td>'+ employ.t_vat+ '</td>';
 									view += '<td>'+ employ.t_net+ '</td>';
 									view += '</tr>';
 								});

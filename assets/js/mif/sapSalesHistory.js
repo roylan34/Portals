@@ -48,6 +48,7 @@ var dtSalesHistory = {
                                     extend: 'print',
                                     exportOptions: { columns: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]},
                                     className: 'dt-machine-print hidden-xs',
+                                    footer: true,
                                     // autoPrint: false, // For debugging
                                     customize: function ( win ) {
                                             var elem = $(win.document.body);
@@ -118,28 +119,46 @@ var dtSalesHistory = {
                                 return isEmpty(data.description);
                                 }
                             },
-                            { data:  null,  render: function( data, type, full, meta ){
-                                return  data.quantity;
+                            { data:  null, render: function( data, type, full, meta ){
+                                return  "<div class='text-center'>"+data.quantity +"</div>";
                                 }
                             },
-                            { data:  null,  render: function( data, type, full, meta ){
-                                return isEmpty(data.pricevat);
+                            { data:  null, render: function( data, type, full, meta ){
+                                return "<div class='text-center'>"+isEmpty(data.pricevat)+"</div>";
                                 }
                             },
-                            { data:  null, class:"text-center", render: function( data, type, full, meta ){
-                                return  isEmpty(data.vat);
+                            { data:  null, render: function( data, type, full, meta ){
+                                return  "<div class='text-right'>"+isEmpty(data.gross)+"</div>";
                                 }
                             },
-                            { data:  null, class:"text-center", render: function( data, type, full, meta ){
-                                return isEmpty(data.gross);
+                            { data:  null, render: function( data, type, full, meta ){
+                                return "<div class='text-right'>"+isEmpty(data.vat)+"</div>";
                                 }
                             },
-                            { data:  null, class:"text-center", render: function( data, type, full, meta ){
-                                return isEmpty(data.net);
+                            { data:  null, render: function( data, type, full, meta ){
+                                return "<div class='text-right'>"+isEmpty(data.net)+"</div>";
                                 }
                             },
 
                  ],
+                  columnDefs: [ 
+                   {
+                        className: 'min-mobile  ',
+                        targets:   1
+                    },
+                   {
+                        className: 'min-mobile text-right',
+                        targets:   13
+                    },
+                    {
+                        className: 'min-mobile',
+                        targets:   14
+                    },
+                     {
+                        className: 'min-mobile text-right',
+                        targets:   15
+                    },
+                ],
                 "deferRender": true,
                 "preDrawCallback": function(settings){
                        $(".dt-company-excel, .dt-button-machinesearch, .dt-machine-print").removeClass("dt-button").addClass("btn btn-primary btn-flat btn-sm").css({"margin-bottom":"0.5em","margin-right":"0.5em"});
@@ -151,13 +170,13 @@ var dtSalesHistory = {
                     var overall = api.context[0].json.totalSales;
 
                     //Total per page
-                    var totalVat = data.reduce( function(a,b){
-                        return intVal(a) + intVal(b.vat);
-                    }, 0 );
+                    // var totalVat = data.reduce( function(a,b){
+                    //     return intVal(a) + intVal(b.vat);
+                    // }, 0 );
 
-                    var totalGross = data.reduce( function(c,d){
-                        return intVal(c) + intVal(d.gross);
-                    }, 0 );
+                    // var totalGross = data.reduce( function(c,d){
+                    //     return intVal(c) + intVal(d.gross);
+                    // }, 0 );
 
                      var totalNet = data.reduce( function(e,f){
                         return intVal(e) + intVal(f.net);
@@ -167,16 +186,16 @@ var dtSalesHistory = {
                     var footerTrOne = $(footer).children()[0];
                     var footerTrTwo = $(footer).children()[1];
 
-                    $(footerTrOne).find('td:eq(11)').html('Current Total:');
-                    $(footerTrOne).find('td:eq(12)').html(formatNumber(toDecimal(totalVat)));
-                    $(footerTrOne).find('td:eq(13)').html(formatNumber(toDecimal(totalGross)));
-                    $(footerTrOne).find('td:eq(14)').html(formatNumber(toDecimal(totalNet)));
+                    // $(footerTrOne).find('td:eq(14)').html('Page Total:');
+                    // $(footerTrOne).find('td:eq(12)').html(formatNumber(toDecimal(totalGross)));
+                    // $(footerTrOne).find('td:eq(13)').html(formatNumber(toDecimal(totalVat)));
+                    $(footerTrOne).find('td:eq(15)').html(formatNumber(toDecimal(totalNet)));
 
                     //Over all Total
-                    $(footerTrTwo).find('td:eq(11)').html('Overall Total:');
-                    $(footerTrTwo).find('td:eq(12)').html(overall.total_vat);
-                    $(footerTrTwo).find('td:eq(13)').html(overall.total_gross);
-                    $(footerTrTwo).find('td:eq(14)').html(overall.total_net);
+                    // $(footerTrTwo).find('td:eq(14)').html('Overall Total:');
+                    // $(footerTrTwo).find('td:eq(12)').html(overall.total_gross);
+                    // $(footerTrTwo).find('td:eq(13)').html(overall.total_vat);
+                    $(footerTrTwo).find('td:eq(15)').html(overall.total_net);
 
                 }
 
@@ -199,7 +218,6 @@ var dtSalesHistory = {
 
                     //Search button
                     if(button_label == "search"){
-                        console.log('clicked');
                         self.dtSalesHistory.dtInstance.ajax.reload(null, true);
                     }
                      //Reset button

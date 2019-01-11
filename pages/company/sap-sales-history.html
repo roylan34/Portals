@@ -21,11 +21,11 @@
                      <th class="text-left">PO</th>
                      <th class="text-left">ItemCode</th>  
                      <th class="text-left">Description</th> 
-                     <th class="text-left">Quantity</th>       
-                     <th class="text-left">PriceVat</th>  
-                     <th class="text-left">VAT</th>
-                     <th class="text-left">GrossTotal</th> 
-                     <th class="text-left">NetSales</th>                  
+                     <th class="text-center">Quantity</th>       
+                     <th class="text-center">PriceVat</th>  
+                     <th class="text-center">GrossTotal</th>
+                     <th class="text-center">VAT</th> 
+                     <th class="text-center">NetSales</th>                  
                   </tr>
               </thead>
               <thead class="dt-headsearch" style="display:none;">
@@ -59,9 +59,10 @@
                    <td></td>
                    <td></td>
                    <td></td>
-                   <td colspan="2"></td>
-                   <td></td>
-                   <td></td>
+                   <td ></td>
+                   <td ></td>
+                   <td>Current</td>
+                   <td class="text-left">Total:</td>
                    <td></td>
                  </tr>
                  <tr>
@@ -76,10 +77,11 @@
                    <td></td>
                    <td></td>
                    <td></td>
-                   <td colspan="2"></td>
-                   <td class="text-center"></td>
-                   <td class="text-center"></td>
-                   <td class="text-center"></td>
+                   <td ></td>
+                   <td ></td>
+                   <td class="min-mobile text-right">Overall</td>
+                   <td class="min-mobile text-left">Total:</td>
+                   <td class="min-mobile text-right"></td>
                  </tr>
                </tfoot>
             </table>
@@ -92,16 +94,27 @@
   </div>
 
 <style type="text/css">
+table#dtSalesHistory tfoot {
+    display: table-row-group;
+}
+ table#dtSalesHistory tfoot tr > td:last-child{
+    border:1px solid #000;
+ }
+/* @media (min-width: 320px) and (max-width: 768px){
+    table#dtSalesHistory tfoot tr > td:last-child{
+      border-right: none !important;
+    }
+  }*/
   table#dtSalesHistory tfoot tr:nth-child(2) td{
     border-top: none;
   }
-  table#dtSalesHistory tfoot tr > td:nth-child(11) ~ td{
+ /* table#dtSalesHistory tfoot tr > td:nth-child(14) ~ td{
     border-left:1px solid #000;
     border-bottom:1px solid #000;
   }
-   table#dtSalesHistory tfoot tr > td:last-child{
+  table#dtSalesHistory tfoot tr > td:last-child{
     border-right:1px solid #000
-  }
+  }*/
 
 </style>
 <script>

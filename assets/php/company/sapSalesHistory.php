@@ -41,7 +41,7 @@ if(Utils::getValue('month'))		{ $search .="AND month = '".$conn->escapeString(Ut
 
 			if( !empty($search) ) { // if there is a search parameter, $requestData['search']['value'] contains search parameter.
 
-			$conn->selectQuery('*','tbl_sales_history_auto_import WHERE id > 0 AND sap_code="'.$sap_code.'"');
+			$conn->selectQuery('*','tbl_sales_history_auto_import WHERE id > 0 AND sap_code="'.$sap_code.'" '.$search.'' );
 
 				$conn->fields = null;
 				$totalFiltered  = $conn->getNumRows(); // when there is a search parameter then we have to modify total number filtered rows as per search result. 

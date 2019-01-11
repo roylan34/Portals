@@ -35,22 +35,12 @@
                   </th>
           			</tr>
           			<tr>
-          				<th>Vat</th>
-          				<th>Gross</th>
-          				<th>Net</th>
+          				<th class="text-center">Gross</th>
+          				<th class="text-center">Vat</th>
+          				<th class="text-center">Net</th>
           			</tr>		
           		</thead>
           		<tbody>	</tbody>
-              <tfoot>
-                <tr>
-                  <th rowspan="2">Name</th>
-                </tr>
-                <tr>
-                  <th>Vat</th>
-                  <th>Gross</th>
-                  <th>Net</th>
-                </tr>   
-              </tfoot>
           	</table>
           </div>
 
@@ -64,22 +54,12 @@
                   </th>
                 </tr>
                 <tr>
-                  <th>Vat</th>
                   <th>Gross</th>
+                  <th>Vat</th>
                   <th>Net</th>
                 </tr>   
               </thead>
               <tbody> </tbody>
-              <tfoot>
-                <tr>
-                  <th rowspan="2">Name</th>
-                </tr>
-                <tr>
-                  <th>Vat</th>
-                  <th>Gross</th>
-                  <th>Net</th>
-                </tr>   
-              </tfoot>
             </table>
           </div>
 
@@ -87,7 +67,14 @@
          <div class="box-footer"></div><!-- box-footer -->
     </div>
 </div>
-<style type="text/css">
+<style type="text/css"> 
+  table#reportMonthlySales tbody tr td:not(:first-child), table#reportYearlySales tbody tr td:not(:first-child){
+    text-align: right;
+  }
+  table#reportMonthlySales thead tr:nth-child(2) th, table#reportYearlySales thead tr:nth-child(2) th{
+    text-align: center;
+  }
+
 	table#reportMonthlySales thead tr > th, table#reportYearlySales thead tr > th{
 		vertical-align: middle;
 	}
