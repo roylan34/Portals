@@ -224,7 +224,7 @@ $("#slctStatus").on('change',function(){
           txtContactNo: {
             required: false,
             maxlength: 20,
-            // numbersonly: true
+            numericSpecialChar: true
           },
           txtEmailAdd: {
             required: false,
@@ -258,7 +258,7 @@ $("#slctStatus").on('change',function(){
           },
           txtContactNo: {
             maxlength: "Please enter no more than {0} characters",
-            // numbersonly: "Please enter only numbers"
+            numericSpecialChar: "Some special characters doesnt't allowed."
           },
           txtEmailAdd: {
             email: "Please enter valid email"
