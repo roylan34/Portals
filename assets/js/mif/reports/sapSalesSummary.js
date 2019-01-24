@@ -23,7 +23,7 @@ var reportSalesPerAccount = {
 		var selectedYear  = $("#select-year-sales option:selected").val(); //get the 2nd option value as default branch value.
 		$.ajax({
 			type: "GET",
-			url: assets+"php/company/sapSalesPerAccount.php",
+			url: assets+"php/company/sapSalesSummary.php",
 			cache: false,
 			data: {action:"month", month: selectedMonth, year : selectedYear},
 			dataType: 'json',
@@ -54,7 +54,7 @@ var reportSalesPerAccount = {
 		var selectedYear = $("#select-yearly-sales option:selected").val(); //get the 2nd option value as default branch value.
 		$.ajax({
 			type: "GET",
-			url: assets+"php/company/sapSalesPerAccount.php",
+			url: assets+"php/company/sapSalesSummary.php",
 			cache: false,
 			data: {action:"year", year : selectedYear},
 			dataType: 'json',

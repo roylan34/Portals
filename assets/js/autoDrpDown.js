@@ -383,7 +383,7 @@ var autoDrpDown = {
 	         	$.ajax({
 					type: 'GET',
 					dataType: 'json',
-					url: assets+"php/company/sapSalesPerAccount.php",
+					url: assets+"php/company/sapSalesSummary.php",
 					data: {action:"list-year"},
 					async: false,
 					success: function(data){
