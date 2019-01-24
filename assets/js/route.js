@@ -30,6 +30,7 @@ $(document).ready(function(){
                          '<div id="displayPMList"></div>',
                          '<div id="displayFormPM"></div>',
                           '<div id="displaySalesHistory"></div>',
+                          '<div id="displaySalesDetails"></div>',
                          '<div class="displayPromptMSG"></div>');
 
   var mifPages = {
@@ -73,7 +74,7 @@ $(document).ready(function(){
 
       if(appmodule != null){
         var nav_url = window.location.hash.slice(2);
-        var blocklist_url = ['account/company','account/manager','settings','inventory/settings', 'mrf/settings','reports/sap-sales']; //Block access url if account type is a User.
+        var blocklist_url = ['account/company','account/manager','settings','inventory/settings', 'mrf/settings','reports/sap-sales-summary']; //Block access url if account type is a User.
         var blocked_url =  blocklist_url.filter(function(url){
               return url == nav_url;
             });
@@ -150,14 +151,14 @@ $(document).ready(function(){
             });
           $(".view #include-left-sidebar").load(baseApp+'pages/dashboard/left-sidebar.html',function(){
              views.find(".user .info p").text(fullname);
-             // //Reports SAP - Sales Summary viewable only for Sir Glenn G. = 1 and Glenn I. = 7.
-             // var allowed_view_sap_sales = [1,7]; //account id
-             // if(allowed_view_sap_sales.indexOf(parseInt(Cookies.get('user_id'))) == -1 ){
-             //     views.find("ul.sidebar-menu li#reports-sap-sales").remove();
-             // }
+               // Reports SAP - Sales Details viewable only for Sales = 2 and Relation Officer = 3.
+               var allowed_view_sap_sales = [2,3]; //account id
+               if(allowed_view_sap_sales.indexOf(parseInt(Cookies.get('user_type'))) == -1 ){
+                   views.find("ul.sidebar-menu li#reports-sap-details").remove();
+               }
 
               if( user_role == "User"){
-                  views.find("ul.sidebar-menu li#sidebar-accounts, ul.sidebar-menu li#sidebar-settings, ul.sidebar-menu li#reports-sap-sales").remove();
+                  views.find("ul.sidebar-menu li#sidebar-accounts, ul.sidebar-menu li#sidebar-settings, ul.sidebar-menu li#reports-sap-sales-summary").remove();
                 if(app_module.app_mif == 0){
                   views.find("ul.sidebar-menu li#home-mif, ul.sidebar-menu li#current-mif, ul.sidebar-menu li#archive-machine").remove(); //Remove sub-menu of MIF
                 }
@@ -175,7 +176,7 @@ $(document).ready(function(){
               else if( user_role == "Admin"){
                   views.find("ul.sidebar-menu li#sidebar-accounts").remove();
                 if(app_module.app_mif == 0){
-                  views.find("ul.sidebar-menu li#home-mif, ul.sidebar-menu li#current-mif, ul.sidebar-menu li#archive-machine, ul.sidebar-menu li#settings-mif, ul.sidebar-menu li#reports-sap-sales").remove(); //Remove sub-menu of MIF
+                  views.find("ul.sidebar-menu li#home-mif, ul.sidebar-menu li#current-mif, ul.sidebar-menu li#archive-machine, ul.sidebar-menu li#settings-mif, ul.sidebar-menu li#reports-sap-sales-summary").remove(); //Remove sub-menu of MIF
                 }
                 if( app_module.app_pm == 0){
                   views.find("ul.sidebar-menu li#current-pm, ul.sidebar-menu li#archive-pm").remove(); //Remove sub-menu of PM
@@ -189,7 +190,7 @@ $(document).ready(function(){
               }
               else if( user_role == "Sysadmin"){
                 if(app_module.app_mif == 0){
-                  views.find("ul.sidebar-menu li#home-mif, ul.sidebar-menu li#current-mif, ul.sidebar-menu li#archive-machine, ul.sidebar-menu li#settings-mif, ul.sidebar-menu li#reports-sap-sales").remove(); //Remove sub-menu of MIF
+                  views.find("ul.sidebar-menu li#home-mif, ul.sidebar-menu li#current-mif, ul.sidebar-menu li#archive-machine, ul.sidebar-menu li#settings-mif, ul.sidebar-menu li#reports-sap-sales-summary").remove(); //Remove sub-menu of MIF
                 }
                 if( app_module.app_pm == 0){
                   views.find("ul.sidebar-menu li#current-pm, ul.sidebar-menu li#archive-pm").remove(); //Remove sub-menu of PM
@@ -363,10 +364,18 @@ $(document).ready(function(){
           }
         });
       }
-       else if(report_page == 'sap-sales'){
-        $('.view-content').load(pages+'company/reports/sales-per-account.html',function(data,status){
+       else if(report_page == 'sap-sales-summary'){
+        $('.view-content').load(pages+'company/reports/sales-summary.html',function(data,status){
           if(status =='success'){
               reportSalesPerAccount.pageDetails().table_montly_sales().table_yearly_sales();
+                  
+          }
+        });
+      }
+      else if(report_page == 'sap-details'){
+        $('.view-content').load(pages+'company/reports/sales-details.html',function(data,status){
+          if(status =='success'){
+              reportSalesDetails.pageDetails().dataTable().actions();
                   
           }
         });
@@ -794,7 +803,7 @@ $(document).ready(function(){
           },500);
         }
       },
-       ':/sap-sales':{
+       ':/sap-sales-summary':{
         before: function(){ 
             // //Reports SAP - Sales Summary viewable only for Sir Glenn G. = 1 and Glenn I. = 7.
             //  var allowed_view_sap_sales = [1,7]; //account id
@@ -809,7 +818,28 @@ $(document).ready(function(){
           },
         on: function(report_page){
           window.setTimeout(function(){
-            mifPages.reports('sap-sales');
+            mifPages.reports('sap-sales-summary');
+          },500);
+        },
+        'after': function(){
+          window.setTimeout(function(){
+            mifPages.abortAjaxDataTable();
+          },500);
+        }
+      },
+      ':/sap-details':{
+        before: function(){ 
+            //Reports SAP - Sales Details viewable only for Sales = 2 and Relation Officer = 3.
+             var allowed_view_sap_sales = [2,3]; //account id
+             if(allowed_view_sap_sales.indexOf(parseInt(Cookies.get('user_type'))) == -1 ){ // -1 not found
+                 return false;
+             }
+             return true;
+             
+          },
+        on: function(report_page){
+          window.setTimeout(function(){
+            mifPages.reports('sap-details');
           },500);
         },
         'after': function(){
