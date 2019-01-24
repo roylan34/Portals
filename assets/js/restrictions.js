@@ -4,8 +4,8 @@ $("form").ready(function(){
     	return this.optional(element) || value == value.match(/^[a-zA-Z\s]+$/);// Validate if values has only characters and spaces.
 	});
 
-	$.validator.addMethod("lettersSepcialChar", function(value, element) {
-    	return this.optional(element) || value == value.match(/^[a-zA-Z\s\-.,&)(]+$/);// Validate if values has only characters and spaces.
+	$.validator.addMethod("lettersSpecialChar", function(value, element) {
+    	return this.optional(element) || value == value.match(/^[a-zA-Z0-9\s\-.,&)(]+$/);// Validate if values has only characters and spaces.
 	});
 
 	$.validator.addMethod("numericSpecialChar", function(value, element) {

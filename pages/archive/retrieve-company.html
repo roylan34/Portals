@@ -194,7 +194,7 @@ $("#slctStatus").on('change',function(){
           txtEditCompany: {
             required: true,
             maxlength: 200,
-            lettersSepcialChar: true,
+            lettersSpecialChar: true,
             remote: {
               url: assets+'php/company/checkCompanyName.php',
               type: 'POST',
@@ -245,7 +245,7 @@ $("#slctStatus").on('change',function(){
             required: "This field is required.",
             maxlength: "Please enter no more than {0} characters",
             remote: jQuery.validator.format("{0} is already exist."),
-            lettersSepcialChar: "Some special characters doesnt't allowed."
+            lettersSpecialChar: "Some special characters doesnt't allowed."
 
           },
            txtSapCompany: {           
