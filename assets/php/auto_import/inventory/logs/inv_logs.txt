@@ -4920,3 +4920,2038 @@ DATE: 2018-12-10 TIME: 8:40:00
 2354 Row data inserted successfully.
 2354 Row data truncate successfully.
 **************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-01-30 TIME: 10:40:00
+2352 Row data inserted successfully.
+2352 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-01-30 TIME: 12:40:00
+2351 Row data inserted successfully.
+2351 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-01-30 TIME: 14:40:00
+2346 Row data inserted successfully.
+2346 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-01-30 TIME: 16:40:00
+2339 Row data inserted successfully.
+2339 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-01-30 TIME: 18:40:00
+2339 Row data inserted successfully.
+2339 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-01-30 TIME: 20:40:00
+2339 Row data inserted successfully.
+2339 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-01-30 TIME: 22:40:00
+2339 Row data inserted successfully.
+2339 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-01-31 TIME: 0:40:00
+2339 Row data inserted successfully.
+2339 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-01-31 TIME: 2:40:00
+2339 Row data inserted successfully.
+2339 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-01-31 TIME: 4:40:00
+2339 Row data inserted successfully.
+2339 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-01-31 TIME: 6:40:00
+2339 Row data inserted successfully.
+2339 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-01-31 TIME: 8:40:00
+2339 Row data inserted successfully.
+2339 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-01-31 TIME: 10:40:00
+2430 Row data inserted successfully.
+2430 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-01-31 TIME: 12:40:00
+2429 Row data inserted successfully.
+2429 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-01-31 TIME: 14:40:00
+2403 Row data inserted successfully.
+2403 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-01-31 TIME: 16:40:00
+2400 Row data inserted successfully.
+2400 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-01-31 TIME: 18:40:00
+2400 Row data inserted successfully.
+2400 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-01-31 TIME: 20:40:00
+2400 Row data inserted successfully.
+2400 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-01-31 TIME: 22:40:00
+2400 Row data inserted successfully.
+2400 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-01 TIME: 0:40:00
+2400 Row data inserted successfully.
+2400 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-01 TIME: 2:40:00
+2400 Row data inserted successfully.
+2400 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-01 TIME: 4:40:00
+2400 Row data inserted successfully.
+2400 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-01 TIME: 6:40:00
+2400 Row data inserted successfully.
+2400 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-01 TIME: 8:40:00
+2400 Row data inserted successfully.
+2400 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-01 TIME: 10:40:00
+2700 Row data inserted successfully.
+2700 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-01 TIME: 12:40:00
+2694 Row data inserted successfully.
+2694 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-01 TIME: 14:40:00
+2693 Row data inserted successfully.
+2693 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-01 TIME: 16:40:00
+2692 Row data inserted successfully.
+2692 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-01 TIME: 18:40:00
+2692 Row data inserted successfully.
+2692 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-01 TIME: 20:40:00
+2692 Row data inserted successfully.
+2692 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-01 TIME: 22:40:00
+2692 Row data inserted successfully.
+2692 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-02 TIME: 0:40:00
+2692 Row data inserted successfully.
+2692 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-02 TIME: 2:40:00
+2692 Row data inserted successfully.
+2692 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-02 TIME: 4:40:00
+2692 Row data inserted successfully.
+2692 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-02 TIME: 6:40:00
+2692 Row data inserted successfully.
+2692 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-02 TIME: 8:40:00
+2692 Row data inserted successfully.
+2692 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-02 TIME: 10:40:00
+2689 Row data inserted successfully.
+2689 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-02 TIME: 12:40:00
+2685 Row data inserted successfully.
+2685 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-02 TIME: 14:40:00
+2684 Row data inserted successfully.
+2684 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-02 TIME: 16:40:00
+2683 Row data inserted successfully.
+2683 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-02 TIME: 18:40:00
+2683 Row data inserted successfully.
+2683 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-02 TIME: 20:40:00
+2683 Row data inserted successfully.
+2683 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-02 TIME: 22:40:00
+2683 Row data inserted successfully.
+2683 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-03 TIME: 0:40:00
+2683 Row data inserted successfully.
+2683 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-03 TIME: 2:40:00
+2683 Row data inserted successfully.
+2683 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-03 TIME: 4:40:00
+2683 Row data inserted successfully.
+2683 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-03 TIME: 6:40:00
+2683 Row data inserted successfully.
+2683 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-03 TIME: 8:40:00
+2683 Row data inserted successfully.
+2683 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-03 TIME: 10:40:00
+2683 Row data inserted successfully.
+2683 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-03 TIME: 12:40:00
+2683 Row data inserted successfully.
+2683 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-03 TIME: 14:40:00
+2683 Row data inserted successfully.
+2683 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-03 TIME: 16:40:00
+2683 Row data inserted successfully.
+2683 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-03 TIME: 18:40:00
+2683 Row data inserted successfully.
+2683 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-03 TIME: 20:40:00
+2683 Row data inserted successfully.
+2683 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-03 TIME: 22:40:00
+2683 Row data inserted successfully.
+2683 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-04 TIME: 0:40:00
+2683 Row data inserted successfully.
+2683 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-04 TIME: 2:40:00
+2683 Row data inserted successfully.
+2683 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-04 TIME: 4:40:00
+2683 Row data inserted successfully.
+2683 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-04 TIME: 6:40:00
+2683 Row data inserted successfully.
+2683 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-04 TIME: 8:40:00
+2683 Row data inserted successfully.
+2683 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-04 TIME: 10:40:00
+2679 Row data inserted successfully.
+2679 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-04 TIME: 12:40:00
+2675 Row data inserted successfully.
+2675 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-04 TIME: 14:40:00
+2725 Row data inserted successfully.
+2725 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-04 TIME: 16:40:00
+2724 Row data inserted successfully.
+2724 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-04 TIME: 18:40:00
+2724 Row data inserted successfully.
+2724 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-04 TIME: 20:40:00
+2724 Row data inserted successfully.
+2724 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-04 TIME: 22:40:00
+2724 Row data inserted successfully.
+2724 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-05 TIME: 0:40:00
+2724 Row data inserted successfully.
+2724 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-05 TIME: 2:40:00
+2724 Row data inserted successfully.
+2724 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-05 TIME: 4:40:00
+2724 Row data inserted successfully.
+2724 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-05 TIME: 6:40:00
+2724 Row data inserted successfully.
+2724 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-05 TIME: 8:40:00
+2724 Row data inserted successfully.
+2724 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-05 TIME: 10:40:00
+2724 Row data inserted successfully.
+2724 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-05 TIME: 12:40:00
+2724 Row data inserted successfully.
+2724 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-05 TIME: 14:40:00
+2724 Row data inserted successfully.
+2724 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-05 TIME: 16:40:00
+2724 Row data inserted successfully.
+2724 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-05 TIME: 18:40:00
+2724 Row data inserted successfully.
+2724 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-05 TIME: 20:40:00
+2724 Row data inserted successfully.
+2724 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-05 TIME: 22:40:00
+2724 Row data inserted successfully.
+2724 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-06 TIME: 0:40:00
+2724 Row data inserted successfully.
+2724 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-06 TIME: 2:40:00
+2724 Row data inserted successfully.
+2724 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-06 TIME: 4:40:00
+2724 Row data inserted successfully.
+2724 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-06 TIME: 6:40:00
+2724 Row data inserted successfully.
+2724 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-06 TIME: 8:40:00
+2724 Row data inserted successfully.
+2724 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-06 TIME: 10:40:00
+2723 Row data inserted successfully.
+2723 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-06 TIME: 12:40:00
+2723 Row data inserted successfully.
+2723 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-06 TIME: 14:40:00
+2720 Row data inserted successfully.
+2720 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-06 TIME: 16:40:00
+2719 Row data inserted successfully.
+2719 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-06 TIME: 18:40:00
+2702 Row data inserted successfully.
+2702 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-06 TIME: 20:40:00
+2702 Row data inserted successfully.
+2702 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-06 TIME: 22:40:00
+2702 Row data inserted successfully.
+2702 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-07 TIME: 0:40:00
+2702 Row data inserted successfully.
+2702 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-07 TIME: 2:40:00
+2702 Row data inserted successfully.
+2702 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-07 TIME: 4:40:00
+2702 Row data inserted successfully.
+2702 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-07 TIME: 6:40:00
+2702 Row data inserted successfully.
+2702 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-07 TIME: 8:40:00
+2697 Row data inserted successfully.
+2697 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-07 TIME: 10:40:00
+2723 Row data inserted successfully.
+2723 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-07 TIME: 12:40:00
+2715 Row data inserted successfully.
+2715 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-07 TIME: 14:40:00
+2714 Row data inserted successfully.
+2714 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-07 TIME: 16:40:00
+2714 Row data inserted successfully.
+2714 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-07 TIME: 18:40:00
+2714 Row data inserted successfully.
+2714 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-07 TIME: 20:40:00
+2714 Row data inserted successfully.
+2714 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-07 TIME: 22:40:00
+2714 Row data inserted successfully.
+2714 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-08 TIME: 0:40:00
+2714 Row data inserted successfully.
+2714 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-08 TIME: 2:40:00
+2714 Row data inserted successfully.
+2714 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-08 TIME: 4:40:00
+2714 Row data inserted successfully.
+2714 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-08 TIME: 6:40:00
+2714 Row data inserted successfully.
+2714 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-08 TIME: 8:40:00
+2714 Row data inserted successfully.
+2714 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-08 TIME: 10:40:00
+2712 Row data inserted successfully.
+2712 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-08 TIME: 12:40:00
+2709 Row data inserted successfully.
+2709 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-08 TIME: 14:40:00
+2708 Row data inserted successfully.
+2708 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-08 TIME: 16:40:00
+2706 Row data inserted successfully.
+2706 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-08 TIME: 18:40:00
+2706 Row data inserted successfully.
+2706 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-08 TIME: 20:40:00
+2706 Row data inserted successfully.
+2706 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-08 TIME: 22:40:00
+2706 Row data inserted successfully.
+2706 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-09 TIME: 0:40:00
+2706 Row data inserted successfully.
+2706 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-09 TIME: 2:40:00
+2706 Row data inserted successfully.
+2706 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-09 TIME: 4:40:00
+2706 Row data inserted successfully.
+2706 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-09 TIME: 6:40:00
+2706 Row data inserted successfully.
+2706 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-09 TIME: 8:40:00
+2706 Row data inserted successfully.
+2706 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-09 TIME: 10:40:00
+2700 Row data inserted successfully.
+2700 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-09 TIME: 12:40:00
+2693 Row data inserted successfully.
+2693 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-09 TIME: 14:40:00
+2693 Row data inserted successfully.
+2693 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-09 TIME: 16:40:00
+2692 Row data inserted successfully.
+2692 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-09 TIME: 18:40:00
+2692 Row data inserted successfully.
+2692 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-09 TIME: 20:40:00
+2692 Row data inserted successfully.
+2692 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-09 TIME: 22:40:00
+2692 Row data inserted successfully.
+2692 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-10 TIME: 0:40:00
+2692 Row data inserted successfully.
+2692 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-10 TIME: 2:40:00
+2692 Row data inserted successfully.
+2692 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-10 TIME: 4:40:00
+2692 Row data inserted successfully.
+2692 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-10 TIME: 6:40:00
+2692 Row data inserted successfully.
+2692 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-10 TIME: 8:40:00
+2692 Row data inserted successfully.
+2692 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-10 TIME: 10:40:00
+2692 Row data inserted successfully.
+2692 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-10 TIME: 12:40:00
+2692 Row data inserted successfully.
+2692 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-10 TIME: 14:40:00
+2692 Row data inserted successfully.
+2692 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-10 TIME: 16:40:00
+2692 Row data inserted successfully.
+2692 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-10 TIME: 18:40:00
+2692 Row data inserted successfully.
+2692 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-10 TIME: 20:40:00
+2692 Row data inserted successfully.
+2692 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-10 TIME: 22:40:00
+2692 Row data inserted successfully.
+2692 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-11 TIME: 0:40:00
+2692 Row data inserted successfully.
+2692 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-11 TIME: 2:40:00
+2692 Row data inserted successfully.
+2692 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-11 TIME: 4:40:00
+2692 Row data inserted successfully.
+2692 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-11 TIME: 6:40:00
+2692 Row data inserted successfully.
+2692 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-11 TIME: 8:40:00
+2692 Row data inserted successfully.
+2692 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-11 TIME: 10:40:00
+2691 Row data inserted successfully.
+2691 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-11 TIME: 12:40:00
+2691 Row data inserted successfully.
+2691 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-11 TIME: 14:40:00
+2688 Row data inserted successfully.
+2688 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-11 TIME: 16:40:00
+2686 Row data inserted successfully.
+2686 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-11 TIME: 18:40:00
+2686 Row data inserted successfully.
+2686 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-11 TIME: 20:40:00
+2686 Row data inserted successfully.
+2686 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-11 TIME: 22:40:00
+2686 Row data inserted successfully.
+2686 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-12 TIME: 0:40:00
+2686 Row data inserted successfully.
+2686 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-12 TIME: 2:40:00
+2686 Row data inserted successfully.
+2686 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-12 TIME: 4:40:00
+2686 Row data inserted successfully.
+2686 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-12 TIME: 6:40:00
+2686 Row data inserted successfully.
+2686 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-12 TIME: 8:40:00
+2686 Row data inserted successfully.
+2686 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-12 TIME: 10:40:00
+2687 Row data inserted successfully.
+2687 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-12 TIME: 12:40:00
+2685 Row data inserted successfully.
+2685 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-12 TIME: 14:40:00
+2708 Row data inserted successfully.
+2708 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-12 TIME: 16:40:00
+2709 Row data inserted successfully.
+2709 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-12 TIME: 18:40:00
+2705 Row data inserted successfully.
+2705 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-12 TIME: 20:40:00
+2705 Row data inserted successfully.
+2705 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-12 TIME: 22:40:00
+2705 Row data inserted successfully.
+2705 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-13 TIME: 0:40:00
+2705 Row data inserted successfully.
+2705 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-13 TIME: 2:40:00
+2705 Row data inserted successfully.
+2705 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-13 TIME: 4:40:00
+2705 Row data inserted successfully.
+2705 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-13 TIME: 6:40:00
+2705 Row data inserted successfully.
+2705 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-13 TIME: 8:40:00
+2705 Row data inserted successfully.
+2705 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-13 TIME: 10:40:00
+2706 Row data inserted successfully.
+2706 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-13 TIME: 12:40:00
+2705 Row data inserted successfully.
+2705 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-13 TIME: 14:40:00
+2705 Row data inserted successfully.
+2705 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-13 TIME: 16:40:00
+2705 Row data inserted successfully.
+2705 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-13 TIME: 18:40:00
+2699 Row data inserted successfully.
+2699 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-13 TIME: 20:40:00
+2699 Row data inserted successfully.
+2699 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-13 TIME: 22:40:00
+2699 Row data inserted successfully.
+2699 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-14 TIME: 0:40:00
+2699 Row data inserted successfully.
+2699 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-14 TIME: 2:40:00
+2699 Row data inserted successfully.
+2699 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-14 TIME: 4:40:00
+2699 Row data inserted successfully.
+2699 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-14 TIME: 6:40:00
+2699 Row data inserted successfully.
+2699 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-14 TIME: 8:40:00
+2699 Row data inserted successfully.
+2699 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-14 TIME: 10:40:00
+2699 Row data inserted successfully.
+2699 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-14 TIME: 12:40:00
+2698 Row data inserted successfully.
+2698 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-14 TIME: 14:40:00
+2687 Row data inserted successfully.
+2687 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-14 TIME: 16:40:00
+2679 Row data inserted successfully.
+2679 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-14 TIME: 18:40:00
+2679 Row data inserted successfully.
+2679 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-14 TIME: 20:40:00
+2679 Row data inserted successfully.
+2679 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-14 TIME: 22:40:00
+2679 Row data inserted successfully.
+2679 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-15 TIME: 0:40:00
+2679 Row data inserted successfully.
+2679 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-15 TIME: 2:40:00
+2679 Row data inserted successfully.
+2679 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-15 TIME: 4:40:00
+2679 Row data inserted successfully.
+2679 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-15 TIME: 6:40:00
+2679 Row data inserted successfully.
+2679 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-15 TIME: 8:40:00
+2679 Row data inserted successfully.
+2679 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-15 TIME: 10:40:00
+2679 Row data inserted successfully.
+2679 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-15 TIME: 12:40:00
+2678 Row data inserted successfully.
+2678 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-15 TIME: 14:40:00
+2675 Row data inserted successfully.
+2675 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-15 TIME: 16:40:00
+2669 Row data inserted successfully.
+2669 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-15 TIME: 18:40:00
+2666 Row data inserted successfully.
+2666 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-15 TIME: 20:40:00
+2666 Row data inserted successfully.
+2666 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-15 TIME: 22:40:00
+2666 Row data inserted successfully.
+2666 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-16 TIME: 0:40:00
+2666 Row data inserted successfully.
+2666 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-16 TIME: 2:40:00
+2666 Row data inserted successfully.
+2666 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-16 TIME: 4:40:00
+2666 Row data inserted successfully.
+2666 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-16 TIME: 6:40:00
+2666 Row data inserted successfully.
+2666 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-16 TIME: 8:40:00
+2666 Row data inserted successfully.
+2666 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-16 TIME: 10:40:00
+2674 Row data inserted successfully.
+2674 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-16 TIME: 12:40:00
+2670 Row data inserted successfully.
+2670 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-16 TIME: 14:40:00
+2670 Row data inserted successfully.
+2670 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-16 TIME: 16:40:00
+2670 Row data inserted successfully.
+2670 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-16 TIME: 18:40:00
+2670 Row data inserted successfully.
+2670 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-16 TIME: 20:40:00
+2670 Row data inserted successfully.
+2670 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-16 TIME: 22:40:00
+2670 Row data inserted successfully.
+2670 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-17 TIME: 0:40:00
+2670 Row data inserted successfully.
+2670 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-17 TIME: 2:40:00
+2670 Row data inserted successfully.
+2670 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-17 TIME: 4:40:00
+2670 Row data inserted successfully.
+2670 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-17 TIME: 6:40:00
+2670 Row data inserted successfully.
+2670 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-17 TIME: 8:40:00
+2670 Row data inserted successfully.
+2670 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-17 TIME: 10:40:00
+2670 Row data inserted successfully.
+2670 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-17 TIME: 12:40:00
+2670 Row data inserted successfully.
+2670 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-17 TIME: 14:40:00
+2670 Row data inserted successfully.
+2670 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-17 TIME: 16:40:00
+2670 Row data inserted successfully.
+2670 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-17 TIME: 18:40:00
+2670 Row data inserted successfully.
+2670 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-17 TIME: 20:40:00
+2670 Row data inserted successfully.
+2670 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-17 TIME: 22:40:00
+2670 Row data inserted successfully.
+2670 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-18 TIME: 0:40:00
+2670 Row data inserted successfully.
+2670 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-18 TIME: 2:40:00
+2670 Row data inserted successfully.
+2670 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-18 TIME: 4:40:00
+2670 Row data inserted successfully.
+2670 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-18 TIME: 6:40:00
+2670 Row data inserted successfully.
+2670 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-18 TIME: 8:40:00
+2670 Row data inserted successfully.
+2670 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-18 TIME: 10:40:00
+2668 Row data inserted successfully.
+2668 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-18 TIME: 12:40:00
+2666 Row data inserted successfully.
+2666 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-18 TIME: 14:40:00
+2663 Row data inserted successfully.
+2663 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-18 TIME: 16:40:00
+2663 Row data inserted successfully.
+2663 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-18 TIME: 18:40:00
+2660 Row data inserted successfully.
+2660 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-18 TIME: 20:40:00
+2660 Row data inserted successfully.
+2660 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-18 TIME: 22:40:00
+2660 Row data inserted successfully.
+2660 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-19 TIME: 0:40:00
+2660 Row data inserted successfully.
+2660 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-19 TIME: 2:40:00
+2660 Row data inserted successfully.
+2660 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-19 TIME: 4:40:00
+2660 Row data inserted successfully.
+2660 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-19 TIME: 6:40:00
+2660 Row data inserted successfully.
+2660 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-19 TIME: 8:40:00
+2660 Row data inserted successfully.
+2660 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-19 TIME: 10:40:00
+2659 Row data inserted successfully.
+2659 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-19 TIME: 12:40:00
+2771 Row data inserted successfully.
+2771 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-19 TIME: 14:40:00
+2770 Row data inserted successfully.
+2770 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-19 TIME: 16:40:00
+2761 Row data inserted successfully.
+2761 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-19 TIME: 18:40:00
+2759 Row data inserted successfully.
+2759 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-19 TIME: 20:40:00
+2759 Row data inserted successfully.
+2759 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-19 TIME: 22:40:00
+2759 Row data inserted successfully.
+2759 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-20 TIME: 0:40:00
+2759 Row data inserted successfully.
+2759 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-20 TIME: 2:40:00
+2759 Row data inserted successfully.
+2759 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-20 TIME: 4:40:00
+2759 Row data inserted successfully.
+2759 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-20 TIME: 6:40:00
+2759 Row data inserted successfully.
+2759 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-20 TIME: 8:40:00
+2759 Row data inserted successfully.
+2759 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-20 TIME: 10:40:00
+2756 Row data inserted successfully.
+2756 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-20 TIME: 12:40:00
+2756 Row data inserted successfully.
+2756 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-20 TIME: 14:40:00
+2745 Row data inserted successfully.
+2745 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-20 TIME: 16:40:00
+2744 Row data inserted successfully.
+2744 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-20 TIME: 18:40:00
+2743 Row data inserted successfully.
+2743 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-20 TIME: 20:40:00
+2743 Row data inserted successfully.
+2743 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-20 TIME: 22:40:00
+2743 Row data inserted successfully.
+2743 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-21 TIME: 0:40:00
+2743 Row data inserted successfully.
+2743 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-21 TIME: 2:40:00
+2743 Row data inserted successfully.
+2743 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-21 TIME: 4:40:00
+2743 Row data inserted successfully.
+2743 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-21 TIME: 6:40:00
+2743 Row data inserted successfully.
+2743 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-21 TIME: 8:40:00
+2741 Row data inserted successfully.
+2741 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-21 TIME: 10:40:00
+2734 Row data inserted successfully.
+2734 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-21 TIME: 12:40:00
+2724 Row data inserted successfully.
+2724 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-21 TIME: 14:40:00
+2724 Row data inserted successfully.
+2724 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-21 TIME: 16:40:00
+2724 Row data inserted successfully.
+2724 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-21 TIME: 18:40:00
+2724 Row data inserted successfully.
+2724 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-21 TIME: 20:40:00
+2724 Row data inserted successfully.
+2724 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-21 TIME: 22:40:00
+2724 Row data inserted successfully.
+2724 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-22 TIME: 0:40:00
+2724 Row data inserted successfully.
+2724 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-22 TIME: 2:40:00
+2724 Row data inserted successfully.
+2724 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-22 TIME: 4:40:00
+2724 Row data inserted successfully.
+2724 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-22 TIME: 6:40:00
+2724 Row data inserted successfully.
+2724 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-22 TIME: 8:40:00
+2724 Row data inserted successfully.
+2724 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-22 TIME: 12:40:00
+2722 Row data inserted successfully.
+2722 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-22 TIME: 14:40:00
+2731 Row data inserted successfully.
+2731 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-22 TIME: 16:40:00
+2731 Row data inserted successfully.
+2731 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-22 TIME: 18:40:00
+2724 Row data inserted successfully.
+2724 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-22 TIME: 20:40:00
+2724 Row data inserted successfully.
+2724 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-22 TIME: 22:40:00
+2724 Row data inserted successfully.
+2724 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-23 TIME: 0:40:00
+2724 Row data inserted successfully.
+2724 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-23 TIME: 2:40:00
+2724 Row data inserted successfully.
+2724 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-23 TIME: 4:40:00
+2724 Row data inserted successfully.
+2724 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-23 TIME: 6:40:00
+2724 Row data inserted successfully.
+2724 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-23 TIME: 8:40:00
+2724 Row data inserted successfully.
+2724 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-23 TIME: 10:40:00
+2724 Row data inserted successfully.
+2724 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-23 TIME: 12:40:00
+2723 Row data inserted successfully.
+2723 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-23 TIME: 14:40:00
+2723 Row data inserted successfully.
+2723 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-23 TIME: 16:40:00
+2723 Row data inserted successfully.
+2723 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-23 TIME: 18:40:00
+2723 Row data inserted successfully.
+2723 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-23 TIME: 20:40:00
+2723 Row data inserted successfully.
+2723 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-23 TIME: 22:40:00
+2723 Row data inserted successfully.
+2723 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-24 TIME: 0:40:00
+2723 Row data inserted successfully.
+2723 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-24 TIME: 2:40:00
+2723 Row data inserted successfully.
+2723 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-24 TIME: 4:40:00
+2723 Row data inserted successfully.
+2723 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-24 TIME: 6:40:00
+2723 Row data inserted successfully.
+2723 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-24 TIME: 8:40:00
+2723 Row data inserted successfully.
+2723 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-24 TIME: 10:40:00
+2723 Row data inserted successfully.
+2723 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-24 TIME: 12:40:00
+2723 Row data inserted successfully.
+2723 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-24 TIME: 14:40:00
+2723 Row data inserted successfully.
+2723 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-24 TIME: 16:40:00
+2723 Row data inserted successfully.
+2723 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-24 TIME: 18:40:00
+2723 Row data inserted successfully.
+2723 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-24 TIME: 20:40:00
+2723 Row data inserted successfully.
+2723 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-24 TIME: 22:40:00
+2723 Row data inserted successfully.
+2723 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-25 TIME: 0:40:00
+2723 Row data inserted successfully.
+2723 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-25 TIME: 2:40:00
+2723 Row data inserted successfully.
+2723 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-25 TIME: 4:40:00
+2723 Row data inserted successfully.
+2723 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-25 TIME: 6:40:00
+2723 Row data inserted successfully.
+2723 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-25 TIME: 8:40:00
+2723 Row data inserted successfully.
+2723 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-25 TIME: 10:40:00
+2723 Row data inserted successfully.
+2723 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-25 TIME: 12:40:00
+2723 Row data inserted successfully.
+2723 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-25 TIME: 14:40:00
+2723 Row data inserted successfully.
+2723 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-25 TIME: 16:40:00
+2723 Row data inserted successfully.
+2723 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-25 TIME: 18:40:00
+2723 Row data inserted successfully.
+2723 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-25 TIME: 20:40:00
+2723 Row data inserted successfully.
+2723 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-25 TIME: 22:40:00
+2723 Row data inserted successfully.
+2723 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-26 TIME: 0:40:00
+2723 Row data inserted successfully.
+2723 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-26 TIME: 2:40:00
+2723 Row data inserted successfully.
+2723 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-26 TIME: 4:40:00
+2723 Row data inserted successfully.
+2723 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-26 TIME: 6:40:00
+2723 Row data inserted successfully.
+2723 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-26 TIME: 8:40:00
+2723 Row data inserted successfully.
+2723 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-26 TIME: 10:40:00
+2709 Row data inserted successfully.
+2709 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-26 TIME: 12:40:00
+2708 Row data inserted successfully.
+2708 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-26 TIME: 14:40:00
+2707 Row data inserted successfully.
+2707 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-26 TIME: 16:40:00
+2706 Row data inserted successfully.
+2706 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-26 TIME: 18:40:00
+2699 Row data inserted successfully.
+2699 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-26 TIME: 20:40:00
+2699 Row data inserted successfully.
+2699 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-26 TIME: 22:40:00
+2699 Row data inserted successfully.
+2699 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-27 TIME: 0:40:00
+2699 Row data inserted successfully.
+2699 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-27 TIME: 2:40:00
+2699 Row data inserted successfully.
+2699 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-27 TIME: 4:40:00
+2699 Row data inserted successfully.
+2699 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-27 TIME: 6:40:00
+2699 Row data inserted successfully.
+2699 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-27 TIME: 8:40:00
+2695 Row data inserted successfully.
+2695 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-27 TIME: 10:40:00
+2732 Row data inserted successfully.
+2732 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-27 TIME: 12:40:00
+2732 Row data inserted successfully.
+2732 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-27 TIME: 14:40:00
+2732 Row data inserted successfully.
+2732 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-27 TIME: 16:40:00
+2721 Row data inserted successfully.
+2721 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-27 TIME: 18:40:00
+2712 Row data inserted successfully.
+2712 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-27 TIME: 20:40:00
+2712 Row data inserted successfully.
+2712 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-27 TIME: 22:40:00
+2712 Row data inserted successfully.
+2712 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-28 TIME: 0:40:00
+2712 Row data inserted successfully.
+2712 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-28 TIME: 2:40:00
+2712 Row data inserted successfully.
+2712 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-28 TIME: 4:40:00
+2712 Row data inserted successfully.
+2712 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-28 TIME: 6:40:00
+2712 Row data inserted successfully.
+2712 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-28 TIME: 8:40:00
+2708 Row data inserted successfully.
+2708 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-28 TIME: 10:40:00
+2706 Row data inserted successfully.
+2706 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-28 TIME: 12:40:00
+2705 Row data inserted successfully.
+2705 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-28 TIME: 14:40:00
+2704 Row data inserted successfully.
+2704 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-28 TIME: 16:40:00
+2702 Row data inserted successfully.
+2702 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-28 TIME: 18:40:00
+2702 Row data inserted successfully.
+2702 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-28 TIME: 20:40:00
+2702 Row data inserted successfully.
+2702 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-02-28 TIME: 22:40:00
+2702 Row data inserted successfully.
+2702 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-01 TIME: 0:40:00
+2702 Row data inserted successfully.
+2702 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-01 TIME: 2:40:00
+2702 Row data inserted successfully.
+2702 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-01 TIME: 4:40:00
+2702 Row data inserted successfully.
+2702 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-01 TIME: 6:40:00
+2702 Row data inserted successfully.
+2702 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-01 TIME: 8:40:00
+2702 Row data inserted successfully.
+2702 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-01 TIME: 10:40:00
+2689 Row data inserted successfully.
+2689 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-01 TIME: 12:40:00
+2692 Row data inserted successfully.
+2692 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-01 TIME: 14:40:00
+2692 Row data inserted successfully.
+2692 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-01 TIME: 16:40:00
+2692 Row data inserted successfully.
+2692 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-01 TIME: 18:40:00
+2692 Row data inserted successfully.
+2692 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-01 TIME: 20:40:00
+2692 Row data inserted successfully.
+2692 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-01 TIME: 22:40:00
+2692 Row data inserted successfully.
+2692 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-02 TIME: 0:40:00
+2692 Row data inserted successfully.
+2692 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-02 TIME: 2:40:00
+2692 Row data inserted successfully.
+2692 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-02 TIME: 4:40:00
+2692 Row data inserted successfully.
+2692 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-02 TIME: 6:40:00
+2692 Row data inserted successfully.
+2692 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-02 TIME: 8:40:00
+2692 Row data inserted successfully.
+2692 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-02 TIME: 10:40:00
+2692 Row data inserted successfully.
+2692 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-02 TIME: 12:40:00
+2692 Row data inserted successfully.
+2692 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-02 TIME: 14:40:00
+2669 Row data inserted successfully.
+2669 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-02 TIME: 16:40:00
+2668 Row data inserted successfully.
+2668 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-02 TIME: 18:40:00
+2668 Row data inserted successfully.
+2668 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-02 TIME: 20:40:00
+2668 Row data inserted successfully.
+2668 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-02 TIME: 22:40:00
+2668 Row data inserted successfully.
+2668 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-03 TIME: 0:40:00
+2668 Row data inserted successfully.
+2668 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-03 TIME: 2:40:00
+2668 Row data inserted successfully.
+2668 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-03 TIME: 4:40:00
+2668 Row data inserted successfully.
+2668 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-03 TIME: 6:40:00
+2668 Row data inserted successfully.
+2668 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-03 TIME: 8:40:00
+2668 Row data inserted successfully.
+2668 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-03 TIME: 10:40:00
+2668 Row data inserted successfully.
+2668 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-03 TIME: 12:40:00
+2668 Row data inserted successfully.
+2668 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-03 TIME: 14:40:00
+2668 Row data inserted successfully.
+2668 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-03 TIME: 16:40:00
+2668 Row data inserted successfully.
+2668 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-03 TIME: 18:40:00
+2668 Row data inserted successfully.
+2668 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-03 TIME: 20:40:00
+2668 Row data inserted successfully.
+2668 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-03 TIME: 22:40:00
+2668 Row data inserted successfully.
+2668 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-04 TIME: 0:40:00
+2668 Row data inserted successfully.
+2668 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-04 TIME: 2:40:00
+2668 Row data inserted successfully.
+2668 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-04 TIME: 4:40:00
+2668 Row data inserted successfully.
+2668 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-04 TIME: 6:40:00
+2668 Row data inserted successfully.
+2668 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-04 TIME: 8:40:00
+2668 Row data inserted successfully.
+2668 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-04 TIME: 10:40:00
+2718 Row data inserted successfully.
+2718 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-04 TIME: 12:40:00
+2718 Row data inserted successfully.
+2718 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-04 TIME: 14:40:00
+2713 Row data inserted successfully.
+2713 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-04 TIME: 16:40:00
+2711 Row data inserted successfully.
+2711 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-04 TIME: 18:40:00
+2709 Row data inserted successfully.
+2709 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-04 TIME: 20:40:00
+2709 Row data inserted successfully.
+2709 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-04 TIME: 22:40:00
+2709 Row data inserted successfully.
+2709 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-05 TIME: 0:40:00
+2709 Row data inserted successfully.
+2709 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-05 TIME: 2:40:00
+2709 Row data inserted successfully.
+2709 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-05 TIME: 4:40:00
+2709 Row data inserted successfully.
+2709 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-05 TIME: 6:40:00
+2709 Row data inserted successfully.
+2709 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************
+*** AUTO IMPORT INVENTORY ROW DATA TO MYSQL DATABASE ***
+DATE: 2019-03-05 TIME: 8:40:00
+2709 Row data inserted successfully.
+2709 Row data truncate successfully.
+**************************** END OF EXECUTION ****************************

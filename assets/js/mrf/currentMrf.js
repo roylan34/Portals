@@ -157,6 +157,7 @@ var dtCurrentMrf = {
 				"type": "GET",
 				"dataSrc": "records",
 				data: function (d) {
+					delete d.columns;
 					d.form_no = $("#search-mrf-formno").val() || '';
 					d.company = $("#search-mrf-company").val() || '';
 					d.date_requested = $("#search-mrf-dateRequest").val() || '';

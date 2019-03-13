@@ -4,7 +4,9 @@ var assets = baseApp+'assets/';
 var win = window;
 
 $(document).ready(function(){
-   $('body').find('div#modal-container').append('<div id="displayFormCompany"></div>',
+   $('body').find('div#modal-container').append(
+                         '<div id="displayFormCompany"></div>',
+                          '<div id="displayMap"></div>',
                          '<div id="displayViewMachine"></div>',
                          '<div id="displayViewMifLogs"></div>',
                          '<div id="displayFormArchiveMachine"></div>',
@@ -54,7 +56,7 @@ $(document).ready(function(){
       var navigateTo = function(route, app_module){
         for(var key in app_module){
            if(key == 'app_mif' && app_module[key] == 1){
-             route.setRoute('/dashboard');
+             route.setRoute('/mif/dashboard');
              break;
            }
            if(key == 'app_invnt' && app_module[key] == 1){
@@ -72,39 +74,41 @@ $(document).ready(function(){
         }
       };
 
-      if(appmodule != null){
-        var nav_url = window.location.hash.slice(2);
-        var blocklist_url = ['account/company','account/manager','settings','inventory/settings', 'mrf/settings','reports/sap-sales-summary']; //Block access url if account type is a User.
-        var blocked_url =  blocklist_url.filter(function(url){
-              return url == nav_url;
-            });
+        if(appmodule != null){
+          var nav_url = window.location.hash.slice(2);
+          var blocklist_url = ['account/company','account/manager','mif/settings','inventory/settings', 'mrf/settings','reports/sap-sales-summary']; //Block access url if account type is a User.
+          var blocked_url =  blocklist_url.filter(function(url){
+                return url == nav_url;
+              });
             
-                if(module =='mif' && appmodule.app_mif == 0){
-                  navigateTo(route,appmodule);
-                  return false;
-                }
-                if(module =='inventory' && appmodule.app_invnt == 0){
-                  navigateTo(route,appmodule);
-                  return false;
-                }
-                if(module =='mrf' && appmodule.app_mrf == 0){
-                   navigateTo(route,appmodule);
-                  return false;
-                }
-                if(module =='pm' && appmodule.app_pm == 0){
-                   navigateTo(route,appmodule);
-                  return false;
-                }
-                if(this.user_role == "User"){
-                  if(blocked_url.length > 0){ //if found
+                if(this.user_role == "User" && blocked_url.length > 0){
+                 // if(blocked_url.length > 0){ //if found
                     navigateTo(route,appmodule);
                     return false;
                   }
+                  else{
+                    if(module =='mif' && appmodule.app_mif == 0){
+                      navigateTo(route,appmodule);
+                      return false;
+                    }
+                    if(module =='inventory' && appmodule.app_invnt == 0){
+                      navigateTo(route,appmodule);
+                      return false;
+                    }
+                    if(module =='mrf' && appmodule.app_mrf == 0){
+                       navigateTo(route,appmodule);
+                      return false;
+                    }
+                    if(module =='pm' && appmodule.app_pm == 0){
+                       navigateTo(route,appmodule);
+                      return false;
+                    }
                 }
-          }else{
-            route.setRoute('/login');
-            return false;
-          }
+                //}
+        }else{
+          route.setRoute('/login');
+          return false;
+        }
     },
     route: function(){
       var route    = window.location.hash.slice(2) || null;
@@ -209,10 +213,19 @@ $(document).ready(function(){
 
       return this;
     },
-    home_employee: function(){
-        $(".view-content").load(pages+'home.html',function(data,status){
+    mif_dashboard: function(){
+        $(".view-content").load(pages+'mif-home.html',function(data,status){
         if(status == 'success'){
           machineCharts.pageDetails().brands().location();
+        }
+      });
+      return this;
+    },
+    mif_maps: function(){
+        $(".view-content").load(pages+'mif-maps.html',function(data,status){
+        if(status == 'success'){
+          $(".content").addClass('r-content'); //Add class .r-content to override the .content style
+           mifMaps.pageDetails().initMap();
         }
       });
       return this;
@@ -222,13 +235,15 @@ $(document).ready(function(){
       if(user_mif_flag == 'view' && app_action == 'r'){
       // if(jQuery.inArray(parseInt(user_type),[2,3]) > -1){ // 2 = Sales, 3 = Relation Officer
         $(".view-content").load(pages+'client-dashboard/index.html',function(data,status,xhr){
-          dtClientCompany.pageDetails().render(_self.companies).actions();
+          dtClientCompany.pageDetails().render().actions();
+          dtFilterMachine.showModal("sales");
+
         });
       }
       else{
         $(".view-content").load(pages+'company/index.html',function(data, status){
           dtCompany.pageDetails().render(location).countMachines(location).actions();
-          dtFilterMachine.showModal();
+          dtFilterMachine.showModal("admin");
         });
       }
 
@@ -440,7 +455,7 @@ $(document).ready(function(){
       before: function(){       
             var user_id = Cookies.get('user_id');
             if(user_id != null || parseInt(user_id) > 0){
-              this.setRoute('/dashboard');
+              this.setRoute('/mif/dashboard');
               return false;
             }
       },
@@ -451,34 +466,16 @@ $(document).ready(function(){
         // mifPages.route();
           }
     },
-    '/dashboard': { //MIF
-      before: function(){ 
-        var appmodule = JSON.parse(Cookies.get('app_module')); 
-          return mifPages.redirect(this,'mif',appmodule);
-      },
-      on: function(){
-        window.setTimeout(function(){
-          mifPages.home_employee();
-        },1000);
-      },
-      'after': function(){
-        window.setTimeout(function(){
-          mifPages.abortAjaxDataTable();
-         },500);
-      }
-    },
-    '/current': {
+    '/mif': { //MIF
+      ':/dashboard': { //MIF
         before: function(){ 
           var appmodule = JSON.parse(Cookies.get('app_module')); 
             return mifPages.redirect(this,'mif',appmodule);
         },
         on: function(){
-         var location = Cookies.get('location');
-         var app_action = JSON.parse(Cookies.get('app_module_action'));
-         var user_mif_flag = Cookies.get('user_mif_flag');
-           window.setTimeout(function(){
-            mifPages.current_mif(location, user_mif_flag, app_action.action_mif);
-           },500);
+          window.setTimeout(function(){
+            mifPages.mif_dashboard();
+          },1000);
         },
         'after': function(){
           window.setTimeout(function(){
@@ -486,22 +483,73 @@ $(document).ready(function(){
            },500);
         }
       },
-    '/archive': {
-      before: function(){ 
-        var appmodule = JSON.parse(Cookies.get('app_module')); 
-          return mifPages.redirect(this,'mif',appmodule);
+      ':/maps': { //MIF
+        before: function(){ 
+          var appmodule = JSON.parse(Cookies.get('app_module')); 
+            return mifPages.redirect(this,'mif',appmodule);
+        },
+        on: function(){
+          window.setTimeout(function(){
+            mifPages.mif_maps();
+          },1000);
+        },
+        after: function(){
+            $(".content").removeClass('r-content');
+        }
       },
-      on: function(){
-        var location = Cookies.get('location');
-         window.setTimeout(function(){
-          mifPages.archive_machine(location);
-         },500);
-        
+      ':/current': {
+          before: function(){ 
+            var appmodule = JSON.parse(Cookies.get('app_module')); 
+                // loadScript('build/js/bundle-mif.min.js', 'mif-bundle');
+              return mifPages.redirect(this,'mif',appmodule);
+          },
+          on: function(){
+           var location = Cookies.get('location');
+           var app_action = JSON.parse(Cookies.get('app_module_action'));
+           var user_mif_flag = Cookies.get('user_mif_flag');
+             window.setTimeout(function(){
+              mifPages.current_mif(location, user_mif_flag, app_action.action_mif);
+             },500);
+          },
+          'after': function(){
+            window.setTimeout(function(){
+              mifPages.abortAjaxDataTable();
+             },500);
+          }
+        },
+      ':/archive': {
+        before: function(){ 
+          var appmodule = JSON.parse(Cookies.get('app_module')); 
+            return mifPages.redirect(this,'mif',appmodule);
+        },
+        on: function(){
+          var location = Cookies.get('location');
+           window.setTimeout(function(){
+            mifPages.archive_machine(location);
+           },500);
+          
+        },
+        'after': function(){
+          window.setTimeout(function(){
+            mifPages.abortAjaxDataTable();
+           },500);
+        }
       },
-      'after': function(){
-        window.setTimeout(function(){
-          mifPages.abortAjaxDataTable();
-         },500);
+      ':/settings': {
+        before: function(){ 
+          var appmodule = JSON.parse(Cookies.get('app_module')); 
+            return mifPages.redirect(this,'mif',appmodule);
+        },
+        on: function(){
+          window.setTimeout(function(){
+            mifPages.settings();
+          },500);
+        },
+        'after': function(){
+          window.setTimeout(function(){
+            mifPages.abortAjaxDataTable();
+           },500);
+        }
       }
     },
     '/account/:account_page': {
@@ -512,22 +560,6 @@ $(document).ready(function(){
       on: function(account_page){
         window.setTimeout(function(){
           mifPages.accounts(account_page);
-        },500);
-      },
-      'after': function(){
-        window.setTimeout(function(){
-          mifPages.abortAjaxDataTable();
-         },500);
-      }
-    },
-    '/settings': {
-      before: function(){ 
-        var appmodule = JSON.parse(Cookies.get('app_module')); 
-          return mifPages.redirect(this,'mif',appmodule);
-      },
-      on: function(){
-        window.setTimeout(function(){
-          mifPages.settings();
         },500);
       },
       'after': function(){

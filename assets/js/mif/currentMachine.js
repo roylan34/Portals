@@ -1,13 +1,13 @@
 var dtMachine = {
     dtMInstance: null,
     dtRenderDom: null,
-	render: function(paramId, companyName, branch){
+	render: function(paramId, companyName, branch, dept){
   		this.dtRenderDom = $("#displayViewMachine").load(pages+'machine/modal/index.html',function(data,status,xhr){
             if(status == 'success'){
                 $("#modalMachineList").modal('show');
                     var exclBranch = (branch == null || branch == '' ? null : convertArrStrToInt(branch));
                       $(this).find("#machine-company").text('Machine list in '+ companyName);
-                       self.dtMachine.dataTable(paramId,exclBranch).addButton(paramId).actions();
+                       self.dtMachine.dataTable(paramId,exclBranch,dept).addButton(paramId).actions();
                        self.dtMachine.modalShowMachine(exclBranch);
 
             }
@@ -15,7 +15,7 @@ var dtMachine = {
   		});
         return this; 
 	},
-    dataTable: function(param_Id,branch){
+    dataTable: function(param_Id, branch, dept){
         // var set_branch = (Cookies.get('location') == '1' ? null : (branch == null || branch == '' ? null : branch.toString() )); // 1 = mean ALL Branch
          var set_branch = (Cookies.get('location') == '1' ? null :  Cookies.get('location')); // Fixed display machine by user logged location.
         this.dtMInstance = $("#dtMachine").DataTable({
@@ -33,7 +33,7 @@ var dtMachine = {
                 "ordering"  : false,
                     "ajax" : {
                     "url"  : assets+"php/machine/getMachineListByCompany.php",
-                    "data" : {company_id: param_Id, branch:set_branch},
+                    "data" : {company_id: param_Id, branch:set_branch, department: dept, user_id: Cookies.get('user_id')},
                     "type" : "GET",
                     beforeSend: function(){ $(".btnViewPrinter").prop('disabled', true); },
                     complete : function(data){ 

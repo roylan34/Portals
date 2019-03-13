@@ -15,19 +15,20 @@ $count_mif_branch = "";
 $has_branch = "";
 $limit = "";
 $conn = Database::getInstance(); //For Searching.
-if(Utils::getValue('company'))	{ $search .="AND c.company_name LIKE '%".$conn->escapeString(Utils::getValue('company'))."%'"; }
-if(Utils::getValue('category'))	{ $search .="AND c.client_category LIKE '%".$conn->escapeString(Utils::getValue('category'))."%'"; }
-if(Utils::getValue('address'))	{ $search .="AND c.address LIKE '%".$conn->escapeString(Utils::getValue('address'))."%'"; }
-if(Utils::getValue('s_location')) { $search .="AND c.main_location =".$conn->escapeString(Utils::getValue('s_location'))." "; }
-if(Utils::getValue('s_branch')) { $search .="AND cbr.id_branches IN (".$conn->escapeString(Utils::getValue('s_branch')).")"; }
-if(Utils::getValue('contactno')){ $search .="AND c.contact_no='".$conn->escapeString(Utils::getValue('contactno'))."'"; }
-if(Utils::getValue('accmngr'))  { $search .="AND c.id_client_mngr ='".$conn->escapeString(Utils::getValue('accmngr'))."'"; }
-if(Utils::getValue('status'))   { $search .="AND c.status ='".$conn->escapeString(Utils::getValue('status'))."'"; }
-if(Utils::getValue('delsan_comp')) { $search .="AND c.delsan_company ='".$conn->escapeString(Utils::getValue('delsan_comp'))."'"; }
+if(Utils::getValue('company'))	{ $search .=" AND c.company_name LIKE '%".$conn->escapeString(Utils::getValue('company'))."%'"; }
+if(Utils::getValue('category'))	{ $search .=" AND c.client_category LIKE '%".$conn->escapeString(Utils::getValue('category'))."%'"; }
+if(Utils::getValue('address'))	{ $search .=" AND c.address LIKE '%".$conn->escapeString(Utils::getValue('address'))."%'"; }
+if(Utils::getValue('s_location')) { $search .=" AND c.main_location =".$conn->escapeString(Utils::getValue('s_location'))." "; }
+if(Utils::getValue('s_branch')) { $search .=" AND cbr.id_branches IN (".$conn->escapeString(Utils::getValue('s_branch')).")"; }
+if(Utils::getValue('contactno')){ $search .=" AND c.contact_no='".$conn->escapeString(Utils::getValue('contactno'))."'"; }
+if(Utils::getValue('accmngr'))  { $search .=" AND c.id_client_mngr ='".$conn->escapeString(Utils::getValue('accmngr'))."'"; }
+if(Utils::getValue('status'))   { $search .=" AND c.status ='".$conn->escapeString(Utils::getValue('status'))."'"; }
+if(Utils::getValue('delsan_comp')) { $search .=" AND c.delsan_company ='".$conn->escapeString(Utils::getValue('delsan_comp'))."'"; }
+if(Utils::getValue('toner_model')) { $search .=" AND tm.toner_id ='".$conn->escapeString(Utils::getValue('toner_model'))."'"; }
 
 if(Utils::getValue('branch'))   { 
-	$count_mif_branch ="AND branches IN (".$conn->escapeString(Utils::getValue('branch')).")"; //Condition of counting no of branches.
-	$has_branch ="AND cbr.id_branches IN (".$conn->escapeString(Utils::getValue('branch')).")";//Condition to get total number records.
+	$count_mif_branch =" AND branches IN (".$conn->escapeString(Utils::getValue('branch')).")"; //Condition of counting no of branches.
+	$has_branch =" AND cbr.id_branches IN (".$conn->escapeString(Utils::getValue('branch')).")";//Condition to get total number records.
 }
 
 switch (Utils::getValue('action_view')) {
@@ -45,6 +46,8 @@ switch (Utils::getValue('action_view')) {
 
 			$conn->selectQuery('c.*','tbl_company c 
 						LEFT JOIN tbl_company_branches cbr ON c.id = cbr.id_company
+						LEFT JOIN tblmif m ON c.id = m.company_id
+						LEFT JOIN tbl_toner_model tm ON m.model = tm.model 
 			  			WHERE c.status = 1 AND c.id > 0 '.$search.' GROUP BY id');
 
 				$conn->fields = null;
@@ -56,13 +59,15 @@ switch (Utils::getValue('action_view')) {
 			
 			if(intval($requestData['length']) >= 1 ) { $limit = 'LIMIT '.$requestData['start'].' ,'.$requestData['length'].''; }
 
-			$conn->selectQuery('c.*, GROUP_CONCAT(br.id) as id_branch, CONCAT(ac.firstname," ",ac.lastname) AS account_mngr_name, GROUP_CONCAT(br.branch_name SEPARATOR "<br>") AS branches, mbr.branch_name AS main_location, (SELECT count(*) FROM tblmif WHERE company_id = c.id AND status_machine = 0 '.$count_mif_branch.' GROUP BY company_id) as number_of_machines','tbl_company c 
+			$conn->selectQuery('c.*, GROUP_CONCAT(br.id) as id_branch, CONCAT(ac.firstname," ",ac.lastname) AS account_mngr_name, GROUP_CONCAT(DISTINCT br.branch_name SEPARATOR "<br>") AS branches, mbr.branch_name AS main_location, (SELECT count(*) FROM tblmif WHERE company_id = c.id AND status_machine = 0 '.$count_mif_branch.' GROUP BY company_id) as number_of_machines','tbl_company c 
 						LEFT JOIN tbl_client_accounts ca ON c.id_client_mngr = ca.id
 						LEFT JOIN tbl_accounts ac ON ca.account_id = ac.id
 						LEFT JOIN tbl_company_branches cbr ON c.id = cbr.id_company
 						LEFT JOIN tbl_location br ON cbr.id_branches = br.id
 						LEFT JOIN tbl_location mbr ON c.main_location = mbr.id
-			  			WHERE c.status = 1 AND c.id > 0 '.$search.' GROUP BY id ORDER BY IF(c.company_name RLIKE "^[a-z]", 1, 2), c.company_name '.$limit.'');
+						LEFT JOIN tblmif m ON c.id = m.company_id
+						LEFT JOIN tbl_toner_model tm ON m.model = tm.model 
+			  			WHERE c.status = 1 AND c.id > 0 '.$search.' GROUP BY c.id ORDER BY IF(c.company_name RLIKE "^[a-z]", 1, 2), c.company_name '.$limit.'');
 			$row = $conn->getFields(); //Get all rows
 
 			if($conn->getNumRows() > 0 ){
@@ -88,15 +93,14 @@ switch (Utils::getValue('action_view')) {
 				print Utils::jsonEncode($json_data);  // send data as json format.
 		break;
 	case 'account_manager':
-		  if (Utils::getValue('client_company_own')) {
-		  		$search .="AND c.id IN (".Utils::getValue('client_company_own').")"; //List of Companies handled.
+		  if (Utils::getValue('user_id')) {
+		  		// $search .="AND c.id IN (".Utils::getValue('client_company_own').")"; //List of Companies handled.
+		  		 $search .="AND c.id_client_mngr = (SELECT id FROM tbl_client_accounts WHERE account_id = ".Utils::getValue('user_id').")"; //List of Companies handled.
 
-  	  			$conn->selectQuery('c.*, GROUP_CONCAT(br.id) as id_branch, CONCAT(ac.firstname," ",ac.lastname) AS account_mngr_name, GROUP_CONCAT(br.branch_name SEPARATOR "<br>") AS branches, (SELECT count(*) FROM tblmif WHERE company_id = c.id AND status_machine = 0 '.$count_mif_branch.' GROUP BY company_id) as number_of_machines','tbl_company c 
-				LEFT JOIN tbl_client_accounts ca ON c.id_client_mngr = ca.id
-				LEFT JOIN tbl_accounts ac ON ca.account_id = ac.id
+  	  			$conn->selectQuery('c.*, (SELECT count(*) FROM tblmif WHERE company_id = c.id AND status_machine = 0 '.$count_mif_branch.' GROUP BY company_id) as number_of_machines','tbl_company c 
 				LEFT JOIN tbl_company_branches cbr ON c.id = cbr.id_company
 				LEFT JOIN tbl_location br ON cbr.id_branches = br.id
-	  			WHERE c.id > 0 '.$search.' GROUP BY id ORDER BY IF(c.company_name RLIKE "^[a-z]", 1, 2), c.company_name');
+	  			WHERE c.id > 0 '.$search.' GROUP BY c.id ORDER BY IF(c.company_name RLIKE "^[a-z]", 1, 2), c.company_name');
 
 				$resultComp = $conn->getFields();
 				if($conn->getNumRows() > 0 ){

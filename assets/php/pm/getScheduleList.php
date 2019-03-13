@@ -13,6 +13,7 @@ require_once '../utils.php';
 
 $search="";
 $limit = "";
+$searchBranch ="";
 $totalData =0;
 $totalFiltered =0;
 $branch = Utils::getValue('branch');
@@ -26,8 +27,10 @@ if(Utils::getValue('sched_date'))		{ $search ="AND ps.schedule_date ='".$conn->e
 if(Utils::getValue('technician'))		{ $search ="AND UPPER(CONCAT_WS(' ', ac.firstname, ac.lastname)) LIKE '%".$conn->escapeString(Utils::getValue('technician'))."%'"; }
 if($pm_type == 'CONTROLLER' || $pm_type == 'MONITOR'){
 	$search .= "AND ps.branch='".$branch."'";
+	$searchBranch .= " AND ps.branch='".$branch."'";
 }else{
 	$search .= "AND ps.technician='".$userid."'";
+	$searchBranch .= " AND ps.technician='".$userid."'";
 }
 $requestData= $_REQUEST;
 
@@ -36,7 +39,7 @@ switch (Utils::getValue('action')) {
 			// storing  request (ie, get/post) global array to a variable.  
 			$conn->selectQuery('ps.*','tbl_pm_schedule ps 
 				LEFT JOIN tbl_accounts ac ON ps.technician = ac.id
-				WHERE (ps.status="pending" || ps.status="in-progress" || ps.status="done") > 0 '.$search.'');
+				WHERE (ps.status="pending" || ps.status="in-progress" || ps.status="done") > 0 '.$searchBranch.'');
 			$totalData = $conn->getNumRows(); //getting total number records without any search.
 			$conn->row_count = 0;
 			$conn->fields = null;
@@ -87,6 +90,7 @@ switch (Utils::getValue('action')) {
 	case 'archive':
 		   // storing  request (ie, get/post) global array to a variable.  
 			$conn->selectQuery('ps.*','tbl_pm_schedule ps 
+				LEFT JOIN tbl_company com ON ps.company_id = com.id
 				LEFT JOIN tbl_accounts ac ON ps.technician = ac.id
 				WHERE (ps.status="cancel" || ps.status="close") > 0 '.$search.'');
 			$totalData = $conn->getNumRows(); //getting total number records without any search.

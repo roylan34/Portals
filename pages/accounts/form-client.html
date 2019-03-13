@@ -23,7 +23,7 @@
                 </div>
               </div> 
 
-             <!-- <div class="form-group">
+<!--               <div class="form-group">
                 <label class="col-sm-4 control-label" for="txtClientUsername">Username:</label>
                 <div class="col-sm-6">
                   <input type="text" class="form-control" id="txtClientUsername" name="txtClientUsername" placeholder="Username" val=""/>
@@ -35,7 +35,7 @@
                 <div class="col-sm-6">
                   <input type="password" class="form-control" id="txtClientPassword" name="txtClientPassword" placeholder="Password" val=""/>
                 </div>
-              </div>
+              </div> -->
 
               <div class="form-group">
                 <label class="col-sm-4 control-label" for="txtIDemp">ID emp:</label>
@@ -44,7 +44,7 @@
                 </div>
               </div>
 
-              <div class="form-group">
+             <!-- <div class="form-group">
                 <label class="col-sm-4 control-label" for="txtClientFname">First name:</label>
                 <div class="col-sm-6">
                   <input type="text" class="form-control" id="txtClientFname" name="txtClientFname" placeholder="Full Name" val=""/>
@@ -125,10 +125,18 @@
             }
           },
         rules: {
-          slctAcctMngrName: { required: true }
+          slctAcctMngrName: { required: true },
+          txtIDemp:{
+            required: true,
+            digits: true
+          },
         },
         messages: {
           slctAcctMngrName: { required: "This field is required." },
+          txtIDemp:{
+            required: "This field is required.",
+            digits: "Please enter digits only"
+          },
         },
         errorElement: "em",
         errorPlacement: function ( error, element ) {

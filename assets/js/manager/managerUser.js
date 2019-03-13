@@ -5,9 +5,9 @@ var dtClientCompany = {
                 $(".content-header h1").append("<small>Home</small>");
             return this;
     },
-    render: function(companyHandle){ 
+    render: function(){ 
       this.dtInstance = $("#dtClientCompany").DataTable({
-                "dom"       : 'fBlrtip', 
+                "dom"       : 'fBl<"FilterMachine col-md-2 col-xs-12">rtip', 
                 "autoWidth" : false,
                 "responsive": true,
                 "pageLength": 25,
@@ -26,7 +26,7 @@ var dtClientCompany = {
                             // d.company   = $("#search-company-companyname").val();
                             // d.address   = $("#search-company-address").val();
                             // d.branch    = $("#search-company-branch").val();
-                            d.client_company_own = companyHandle; //Param for listing of company.
+                            d.user_id = Cookies.get('user_id');
                             d.action_view = "account_manager";
                             d.status = 1;
                     }
@@ -104,6 +104,7 @@ var dtClientCompany = {
                             ).css('font-size','13px');                         
                     }
         });
+                 $("div.FilterMachine").html('<a href="#" class="filter-machine"><i class="fa fa-filter"></i>Filter Machine</a>'); // DOM toolbarSMachine. 
         return this;
     },
     actions: function(){
@@ -121,7 +122,7 @@ var dtClientCompany = {
                         var idcompany = inst.data('comp');
                         var branch    = inst.data('branch');
                         var company_name  = decodeURIComponent(inst.data('compname'));
-                            self.dtMachine.render(idcompany, company_name);  
+                            dtMachine.render(idcompany, company_name, null, "sales");  
                     }
                     else if($(inst[0]).hasClass('btnSapCode')) {
                         var sapcode = inst.data('sapcode');

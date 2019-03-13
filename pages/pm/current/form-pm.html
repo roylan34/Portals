@@ -10,6 +10,7 @@
         <div class="modal-body">
               <input type="hidden" name="hdnCurPMId" id='hdnCurPMId' value=''>
               <input type="hidden" name="hdnCurSchedPmNum2" id='hdnCurSchedPmNum2' value=''>
+              <input type="hidden" name="hdnCurCompId" id='hdnCurCompId' value=''>
 
               <div class="form-group">
                 <label class="col-sm-4 control-label" for="pm-serialnum">S/N</label>
@@ -103,7 +104,7 @@ $( document ).ready( function () {
         },
        rules: {
             "pm-manufacture": {
-              required: true
+              required: false
             },
             "pm-remarks": {
               required: true
@@ -114,11 +115,11 @@ $( document ).ready( function () {
             "pm-toner": {
               required: true
             },
-            "pm-time-in": {
+            "pm-date-in": {
               required: true
             },
-             "pm-time-out": {
-              required: true
+             "pm-date-out": {
+              required: false
             }
           },
           messages: {
@@ -134,10 +135,10 @@ $( document ).ready( function () {
             "pm-toner": {
               required: "This field is required.",
             } ,
-            "pm-time-in": {
+            "pm-date-in": {
               required: "This field is required.",
             } ,
-            "pm-time-out": {
+            "pm-date-out": {
               required: "This field is required.",
             } 
         

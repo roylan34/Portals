@@ -1,8 +1,9 @@
 var dtFilterMachine = {
     dtFInstance: null,
     dtRenderDom: null,
-  	showModal: function(){ 
-          $("#filter-machine").click(function(e){
+  	showModal: function(dept){ 
+          $(".filter-machine").click(function(e){
+
               e.preventDefault();
           		$("#displayFilterMachine").load(pages+'company/filter-machine.html',function(data,status,xhr){
                 $("#modalFilterMachine").modal('show');
@@ -15,6 +16,19 @@ var dtFilterMachine = {
                          autoDrpDown.getBranchNameOne("#fltr-slctlocation","120px",location,reverseDrpdown); 
                          self.dtFilterMachine.autoComplete().showFormMachine().actions();                          
                          $("#fltr-slctcompany, #fltr-slctlocation").val(0).trigger('chosen:updated'); //reset
+
+
+                          //Render the DataTable
+                           $(this).find( "#btnFilterSearch" ).click(function(e){
+                              e.preventDefault();
+
+                              if ($.fn.DataTable.isDataTable('#dtFilterMachine')) {
+                                $(this).find('#dtFilterMachine').DataTable().destroy();
+                              }
+
+                              $(this).find('#dtFilterMachine tbody').empty();
+                                self.dtFilterMachine.render(dept);
+                            });
 
                     }
                     else { alert(xhr.status + 'File not found.'); }
@@ -55,7 +69,7 @@ var dtFilterMachine = {
             });
         return this; 
     },
-    render: function(paramData){ //Must check if all field are empty not display the table.
+    render: function(deptData){ //Must check if all field are empty not display the table.
                 var $btn = $("button#btnFilterSearch");
                 this.dtFInstance = $("#dtFilterMachine").DataTable({
                 "dom"     : 'lBtip',
@@ -101,6 +115,8 @@ var dtFilterMachine = {
                               d.type     = $("#fltr-slcttype option:selected").val() || '';
                               d.company  = $("#fltr-slctcompany").chosen().val() || null;
                               d.branch   = $("#fltr-slctlocation").chosen().val() || null;
+                              d.user_id  = Cookies.get('user_id');
+                              d.department = deptData;
                     },
                     "type" : "GET",
                     beforeSend: function(){ $btn.button('loading'); }, //Empty the search fields. 

@@ -158,6 +158,7 @@ var dtArchiveCompany = {
                                     if(action_edit && action_edit.action_mif == "wr" ){
                                         return "<button class='btn btn-xs btn-success btn-flat btnEditComp' data-comp='"+data.id+"'>Retrieve</button>";
                                     }
+                                    return '';
                                 }
                             },
                  ],

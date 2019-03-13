@@ -18,16 +18,19 @@ $location  = Utils::getValue('location');
 $contactno = Utils::getValue('contactno'); 
 $accmngr   = Utils::getValue('accmngr');
 $user_id   = Utils::getValue('user_id');
-$date_created = Utils::getSysDate().' '.Utils::getSysTime();  
+$date_created 		 = Utils::getSysDate().' '.Utils::getSysTime();  
 $selected_branch_exp = (!empty($branch) ? explode(',',$branch) : array());
-$last_visit = Utils::getValue('last_visit');
-$client_service= Utils::getValue('client_service');
-$sap_code= Utils::getValue('sap_code');
-$delsan_comp= Utils::getValue('delsan_comp');
+$last_visit 		 = Utils::getValue('last_visit');
+$client_service		 = Utils::getValue('client_service');
+$sap_code			 = Utils::getValue('sap_code');
+$delsan_comp         = Utils::getValue('delsan_comp');
+$lat                 = Utils::getValue('lat');
+$lng                 = Utils::getValue('lng');
+
 
 
 	$conn = Database::getInstance();
-	$conn->insertQuery('tbl_company','company_name,client_category,address,contact_no,id_client_mngr, main_location, date_last_visit, sap_code, delsan_company',
+	$conn->insertQuery('tbl_company','company_name,client_category,address,contact_no,id_client_mngr, main_location, date_last_visit, sap_code, delsan_company, latitude, longitude',
 									  '"'.Utils::uppercase($company).'",
 									  "'.Utils::uppercase($category).'",
 									  "'.Utils::uppercase($address).'",
@@ -36,7 +39,9 @@ $delsan_comp= Utils::getValue('delsan_comp');
 									  "'.$location.'",
 									  "'.$last_visit.'",
 									  "'.$sap_code.'",
-									  "'.$delsan_comp.'"');
+									  "'.$delsan_comp.'",
+									  "'.$lat.'",
+									  "'.$lng.'"');
 	
 	$last_id   = $conn->getLastId();
 	companyLogs($last_id,$user_id,'CREATE',$conn);//Logs Insert action.

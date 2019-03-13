@@ -57,7 +57,7 @@ function login(route){
 							 	Cookies.set('email',val.email,0.5);
 							 	Cookies.set('pm_type',val.pm_type,0.5);
 							 	if(app_module.app_mif == 1){
-							 		route.setRoute("/dashboard"); //Default route to dashboard.
+							 		route.setRoute("/mif/dashboard"); //Default route to dashboard.
 							 	}
 							 	else if(app_module.app_invnt == 1){
 							 		route.setRoute("/inventory/dashboard");

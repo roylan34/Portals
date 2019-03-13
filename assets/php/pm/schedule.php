@@ -118,11 +118,21 @@ function generatePmNo($db){
 function checkIsCancel($pm_num,$db){
 	$res = null;
 	if(!Utils::isEmpty($pm_num)){
-		$db->selectQuery("COUNT(*) AS total_pending ","tbl_pm_machines  
-			WHERE pm_number = '".$pm_num."'");
-		$res = $db->getFields();
+		// $db->selectQuery("COUNT(*) AS total_pending ","tbl_pm_machines  
+		// 	WHERE pm_number = '".$pm_num."' || (time_in = '' AND time_out ='') ");
+		// $res = $db->getFields();
 
-		if($res['aaData'][0]['total_pending'] == 0){ //If 0 = no pending.
+		$db->selectQuery("IF( 
+						(SELECT COUNT(*) FROM tbl_pm_machines WHERE pm_number = '".$pm_num."' ) 
+						= 
+						(SELECT COUNT(*) FROM tbl_pm_machines WHERE pm_number = '".$pm_num."' AND 
+						((time_in = '0000-00-00 00:00:00' AND time_out = '0000-00-00 00:00:00') 
+						|| 
+						(time_in IS NULL AND time_out IS NULL))
+						), 'yes', 'no') AS can_cancel", "tbl_pm_machines  WHERE pm_number = '".$pm_num."' GROUP BY pm_number");
+		$res = $db->getFields();;
+		if($res['aaData'][0]['can_cancel'] == 'yes'){ 
+
 			$res = array('aaData' => array(
 				'result' =>  'true',
 				'message' => 'Request has been successfully cancelled see at Archived.'		
@@ -142,8 +152,8 @@ function checkIsDone($pm_num, $db){
 	$status = null;
 	if(!Utils::isEmpty($pm_num)){
 		$db->selectQuery("( CASE
-			WHEN pm.pm_number = '".$pm_num."' && (SELECT COUNT(*) FROM tbl_pm_machines WHERE is_delete = 'no' AND pm_number = '".$pm_num."' AND (time_in IS NULL || time_out IS NULL) ) > 0 THEN 'in-progress'
-			WHEN pm.pm_number = '".$pm_num."' && (SELECT COUNT(*) FROM tbl_pm_machines WHERE is_delete = 'no' AND pm_number = '".$pm_num."' AND (time_in IS NOT NULL && time_out IS NOT NULL) ) > 0 THEN 'done'
+			WHEN pm.pm_number = '".$pm_num."' && (SELECT COUNT(*) FROM tbl_pm_machines WHERE is_delete = 'no' AND pm_number = '".$pm_num."' AND ((time_in IS NULL || time_out IS NULL) || (time_in = '0000-00-00 00:00:00' || time_out = '0000-00-00 00:00:00')) ) > 0 THEN 'in-progress'
+			WHEN pm.pm_number = '".$pm_num."' && (SELECT COUNT(*) FROM tbl_pm_machines WHERE is_delete = 'no' AND pm_number = '".$pm_num."' AND ((time_in IS NOT NULL && time_out IS NOT NULL) || (time_in != '0000-00-00 00:00:00' && time_out != '0000-00-00 00:00:00')) ) > 0 THEN 'done'
 			ELSE 'no-pm'
 			END
 			) AS status","tbl_pm_schedule ps

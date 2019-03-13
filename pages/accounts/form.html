@@ -298,13 +298,23 @@
                   $("#slctAccountBranchPm, #slctPmType").val('').prop('disabled',true);
                }           
           }
-          else{
+           else if($(this).is('#chkAppMif')){
+             var deptVal = parseInt($("#slctAccountDept option:selected").val()); 
+             var disableRead = [2,3]; //2 = sales, 3 = relation offficer
                if($(this).is(':checked')){
-                  $("#slctAccountLocation").prop('disabled',false).trigger('chosen:updated');
+                 if(disableRead.indexOf(deptVal) > -1){ 
+                    $("#slctAccountLocation").prop('disabled',true).trigger('chosen:updated'); //disable location dropdown if dept is sales & RO
+                    $("input[name='radioMifActions'][value='r']").prop('checked',true); //auto check the Read only radio button if Dept is Sales or RO.
+                  }else{
+                    $("#slctAccountLocation").prop('disabled',false).trigger('chosen:updated');
+                  }
                }else{
                   $("#slctAccountLocation").prop('disabled',true).trigger('chosen:updated');
                }
               
+          }
+          else{ 
+            return false;
           }
       });
       

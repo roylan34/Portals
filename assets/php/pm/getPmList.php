@@ -20,7 +20,7 @@ $enabled_update = 'true';
 
 $conn = Database::getInstance(); 
 $pm_number = Utils::getValue('pm_number'); 
-
+$company_id = Utils::getValue('company_id');
 // storing  request (ie, get/post) global array to a variable.  
 $requestData= $_REQUEST;
 
@@ -42,7 +42,7 @@ switch (Utils::getValue('action')) {
 
 					if(Utils::getValue('serialnumber'))	{ $search ="AND ps.serialnumber LIKE '%".$conn->escapeString(Utils::getValue('serialnumber'))."%'"; }
 					if(Utils::getValue('brand'))	{ $search ="AND br.brand_name='".$conn->escapeString(Utils::getValue('brand'))."'"; }
-					if(Utils::getValue('model'))	{ $search ="AND ps.model='".$conn->escapeString(Utils::getValue('model'))."'"; }
+					if(Utils::getValue('model'))	{ $search ="AND m.model='".$conn->escapeString(Utils::getValue('model'))."'"; }
 
 	        	//Table @tbl_pm_machines					
 					$conn->selectQuery('*','tbl_pm_machines WHERE id > 0 AND is_delete="no" AND pm_number="'.$pm_number.'"');
@@ -53,8 +53,9 @@ switch (Utils::getValue('action')) {
 					if( !empty($search) ) { // if there is a search parameter, $requestData['search']['value'] contains search parameter.
 
 						$conn->selectQuery('ps.*',' tbl_pm_machines ps 
-							LEFT JOIN tbl_brands br ON ps.brand = br.id
-							WHERE ps.id > 0 AND ps.is_delete="no" AND ps.pm_number="'.$pm_number.'" '.$search.'');
+							LEFT JOIN tblmif m ON m.serialnumber = ps.serialnumber
+							LEFT JOIN tbl_brands br ON m.brand = br.id
+							WHERE ps.id > 0 AND ps.is_delete="no" AND m.company_id='.$company_id.' AND ps.pm_number="'.$pm_number.'" '.$search.'');
 
 						$conn->fields = null;
 						$totalFiltered  = $conn->getNumRows(); // when there is a search parameter then we have to modify total number filtered rows as per search result. 
@@ -63,16 +64,16 @@ switch (Utils::getValue('action')) {
 						$totalFiltered = $totalData;
 					}
 					
-					if(intval($requestData['length']) >= 1 ) { $limit = ' LIMIT '.$requestData['start'].' ,'.$requestData['length'].''; }
-						$conn->selectQuery('ps.id, ps.serialnumber, br.brand_name, ps.model, ps.location_area, ps.department, ps.no_of_user, ps.date_installed, ps.unit_owned, ps.manufacture_date,
+				if(intval($requestData['length']) >= 1 ) { $limit = ' LIMIT '.$requestData['start'].' ,'.$requestData['length'].''; }
+						$conn->selectQuery('ps.id, ps.serialnumber, br.brand_name, m.model, m.location_area, m.department, m.no_of_user, m.date_installed, m.unit_owned_by AS unit_owned, ps.manufacture_date,
 							ps.remarks, ps.page_count, ps.toner_use, ps.time_in, ps.time_out ',' tbl_pm_machines ps 
-							LEFT JOIN tbl_brands br ON ps.brand = br.id
-							WHERE ps.id > 0 AND ps.is_delete="no" AND ps.pm_number="'.$pm_number.'" '.$search.' ORDER BY ps.id DESC '.$limit.' ');
+							LEFT JOIN tblmif m ON m.serialnumber = ps.serialnumber
+							LEFT JOIN tbl_brands br ON m.brand = br.id
+							WHERE ps.id > 0 AND ps.is_delete="no" AND m.company_id='.$company_id.' AND ps.pm_number="'.$pm_number.'" '.$search.' ORDER BY ps.id DESC '.$limit.' ');
 						$row = $conn->getFields(); //Get all rows				
 
 	        } else {
 	        	//Table @tblmif	
-	        		$company_id = Utils::getValue('company_id');
 	        		$enabled_add = 'true';
 	        		$enabled_update = 'false';
 	        		if(Utils::getValue('serialnumber'))	{ $search ="AND m.serialnumber LIKE '%".$conn->escapeString(Utils::getValue('serialnumber'))."%'"; }
@@ -156,7 +157,7 @@ switch (Utils::getValue('action')) {
 	case 'archive':
 					if(Utils::getValue('serialnumber'))	{ $search ="AND ps.serialnumber LIKE '%".$conn->escapeString(Utils::getValue('serialnumber'))."%'"; }
 					if(Utils::getValue('brand'))	{ $search ="AND br.brand_name='".$conn->escapeString(Utils::getValue('brand'))."'"; }
-					if(Utils::getValue('model'))	{ $search ="AND ps.model='".$conn->escapeString(Utils::getValue('model'))."'"; }
+					if(Utils::getValue('model'))	{ $search ="AND m.model='".$conn->escapeString(Utils::getValue('model'))."'"; }
 
 	        	//Table @tbl_pm_machines					
 					$conn->selectQuery('*','tbl_pm_machines WHERE id > 0 AND is_delete="no" AND pm_number="'.$pm_number.'"');
@@ -167,8 +168,9 @@ switch (Utils::getValue('action')) {
 					if( !empty($search) ) { // if there is a search parameter, $requestData['search']['value'] contains search parameter.
 
 						$conn->selectQuery('ps.*',' tbl_pm_machines ps 
-							LEFT JOIN tbl_brands br ON ps.brand = br.id
-							WHERE ps.id > 0 AND ps.pm_number="'.$pm_number.'" '.$search.'');
+							LEFT JOIN tblmif m ON m.serialnumber = ps.serialnumber
+							LEFT JOIN tbl_brands br ON m.brand = br.id
+							WHERE ps.id > 0 AND m.company_id='.$company_id.' AND ps.pm_number="'.$pm_number.'" '.$search.'');
 
 						$conn->fields = null;
 						$totalFiltered  = $conn->getNumRows(); // when there is a search parameter then we have to modify total number filtered rows as per search result. 
@@ -178,10 +180,11 @@ switch (Utils::getValue('action')) {
 					}
 					
 					if(intval($requestData['length']) >= 1 ) { $limit = ' LIMIT '.$requestData['start'].' ,'.$requestData['length'].''; }
-						$conn->selectQuery('ps.id, ps.serialnumber, br.brand_name, ps.model, ps.location_area, ps.department, ps.no_of_user, ps.date_installed, ps.unit_owned, ps.manufacture_date,
+						$conn->selectQuery('ps.id, ps.serialnumber, br.brand_name, m.model, m.location_area, m.department, m.no_of_user, m.date_installed, m.unit_owned_by AS unit_owned, ps.manufacture_date,
 							ps.remarks, ps.page_count, ps.toner_use, ps.time_in, ps.time_out ',' tbl_pm_machines ps 
-							LEFT JOIN tbl_brands br ON ps.brand = br.id
-							WHERE ps.id > 0 AND ps.is_delete="no" AND ps.pm_number="'.$pm_number.'" '.$search.' ORDER BY ps.id DESC '.$limit.' ');
+							LEFT JOIN tblmif m ON m.serialnumber = ps.serialnumber
+							LEFT JOIN tbl_brands br ON m.brand = br.id
+							WHERE ps.id > 0 AND ps.is_delete="no" AND m.company_id='.$company_id.' AND ps.pm_number="'.$pm_number.'" '.$search.' ORDER BY ps.id DESC '.$limit.' ');
 						$row = $conn->getFields(); //Get all rows				
 
 	        	if($conn->getNumRows() > 0 ){
@@ -210,8 +213,6 @@ switch (Utils::getValue('action')) {
 	case 'current-header': //For development, display machines deleted.
 	        	//Table @tblmif	
 				//Do not display machines if the assigned schedule was the same.
-	
-        		$company_id = Utils::getValue('company_id');
 
         		$conn->selectQuery('schedule_date','tbl_pm_schedule WHERE pm_number="'.$pm_number.'"'); //Trap the listing of machines by scheduled date.
         		$resSched = $conn->getFields();

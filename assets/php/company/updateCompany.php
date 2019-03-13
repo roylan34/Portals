@@ -12,22 +12,24 @@ require_once 'misc.php';
 
 
 if(Utils::getIsset('idcompany')){
-$id       = Utils::getValue('idcompany');
-$company  = Utils::getValue('company');
-$category = Utils::getValue('category'); 
-$address  = Utils::getValue('address'); 
-$branch   = Utils::getValue('branch');
-$location  = Utils::getValue('location');
-$contactno= Utils::getValue('contactno'); 
-$id_accmngr    = Utils::getValue('accmngr');
-$id_oldaccmngr = Utils::getValue('oldaccmngr');
-$id_oldbranch  = Utils::getValue('oldbranch');
-$status    = Utils::getValue('status');
-$user_id   = Utils::getValue('user_id');
-$last_visit= Utils::getValue('last_visit');
-$client_service= Utils::getValue('client_service');
-$sap_code= Utils::getValue('sap_code');
-$delsan_comp= Utils::getValue('delsan_comp');
+$id             = Utils::getValue('idcompany');
+$company        = Utils::getValue('company');
+$category       = Utils::getValue('category'); 
+$address        = Utils::getValue('address'); 
+$branch         = Utils::getValue('branch');
+$location       = Utils::getValue('location');
+$contactno      = Utils::getValue('contactno'); 
+$id_accmngr     = Utils::getValue('accmngr');
+$id_oldaccmngr  = Utils::getValue('oldaccmngr');
+$id_oldbranch   = Utils::getValue('oldbranch');
+$status         = Utils::getValue('status');
+$user_id        = Utils::getValue('user_id');
+$last_visit     = Utils::getValue('last_visit');
+$client_service = Utils::getValue('client_service');
+$sap_code       = Utils::getValue('sap_code');
+$delsan_comp    = Utils::getValue('delsan_comp');
+$lat            = Utils::getValue('lat');
+$lng            = Utils::getValue('lng');
 
 
 	//Company branch Adding/Deleting
@@ -54,9 +56,11 @@ $delsan_comp= Utils::getValue('delsan_comp');
 									     id_client_mngr  = "'.(int)$id_accmngr.'",
 									     status  		     = "'.(int)$status.'",
                        main_location   = "'.(int)$location.'",
-                       date_last_visit  = "'.$last_visit.'",
+                       date_last_visit = "'.$last_visit.'",
                        sap_code        = "'.$sap_code.'",
-                       delsan_company  = "'.$delsan_comp.'"'
+                       delsan_company  = "'.$delsan_comp.'",
+                       latitude        = "'.$lat.'",
+                       longitude       = "'.$lng.'"'
 									     ,'id = "'.$id.'"');
 
   companyLogs($id,$user_id,'UPDATE',$conn);//Logs Insert action.

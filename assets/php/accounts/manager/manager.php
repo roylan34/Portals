@@ -25,6 +25,7 @@ if(Utils::getIsset('action')){
 	$companies 	= Utils::getValue('companies');
 	$old_companies = Utils::getValue('old_companies');
 	$status 	   = Utils::getValue('status');
+	$id_emp 	   = Utils::getValue('id_emp');
 	$date_created  = Utils::getSysDate().' '.Utils::getSysTime();  
 	$db         = Database::getInstance();
 
@@ -80,8 +81,9 @@ if(Utils::getIsset('action')){
 							}
 
 								if($acc_flag == 0){
-									$db->insertQuery('tbl_client_accounts','account_id, created_at',
+									$db->insertQuery('tbl_client_accounts','account_id, idemp, created_at',
 										  '"'.$account_id.'",
+										  "'.$id_emp.'",
 										  "'.$date_created.'"');
 									$res = $db->getFields();
 
@@ -102,8 +104,9 @@ if(Utils::getIsset('action')){
 
 
 					}else{
-							$db->insertQuery('tbl_client_accounts','account_id,created_at',
+							$db->insertQuery('tbl_client_accounts','account_id, idemp, created_at',
 								  '"'.$account_id.'",
+								  "'.$id_emp.'",
 								  "'.$date_created.'"');
 							$res = $db->getFields();
 							$res['aaData']['has_value_accmngr'] = 0;
@@ -165,7 +168,7 @@ if(Utils::getIsset('action')){
 
 							$db->updateQuery('tbl_company','id_client_mngr = "'.$id.'"','id IN ('.$companies.')'); //Assign new id_client.
 			        		$db->fields = null;
-			        		$db->updateQuery('tbl_client_accounts','account_id = "'.$account_id.'"','id = "'.$id.'"');
+			        		$db->updateQuery('tbl_client_accounts','account_id = "'.$account_id.'", idemp= "'.$id_emp.'" ','id = "'.$id.'"');
 
 				        	 $res['aaData']['has_value_accmngr'] = 0;
 
@@ -185,7 +188,7 @@ if(Utils::getIsset('action')){
 						}
 
 							$db->fields = null;
-			        		$db->updateQuery('tbl_client_accounts','account_id = "'.$account_id.'"'
+			        		$db->updateQuery('tbl_client_accounts','account_id = "'.$account_id.'", idemp= "'.$id_emp.'"'
 							     ,'id = "'.$id.'"');
 
 							$res['aaData']['has_value_accmngr'] = 0;
@@ -231,7 +234,7 @@ if(Utils::getIsset('action')){
 			
 			break;
 		case 'view-id': 
-				$db->selectQuery('sc.id, sc.account_id, CONVERT(GROUP_CONCAT(com.id SEPARATOR ",") USING "utf8") AS company, sc.created_at',
+				$db->selectQuery('sc.id, sc.idemp, sc.account_id, CONVERT(GROUP_CONCAT(com.id SEPARATOR ",") USING "utf8") AS company, sc.created_at',
 								'tbl_client_accounts sc 
 								LEFT JOIN tbl_company com ON sc.id = com.id_client_mngr
 								WHERE com.id_client_mngr = "'.$id.'"');

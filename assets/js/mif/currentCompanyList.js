@@ -9,7 +9,13 @@ var dtCompany = {
             return this;
     },
     render: function(paramBranch){ 
+        //Load Google Maps
+        if($("#displayMap").children().length == 0){
+            $("#displayMap").load(pages+'company/map.html');
+        }
+
         // document.title = "MIF"; // Change the title tag.
+        // DataTable
         this.dtInstance = $("#dtCompany").DataTable({
                 "dom"       : 'Bl<"FilterMachine col-md-2 col-xs-12"><"DisplayMap">rtip', 
                 "autoWidth" : false,
@@ -34,6 +40,7 @@ var dtCompany = {
                     beforeSend: function(){ $(".dt-buttons a").addClass('disabled'); }, 
                     "data" : function(d){
                            var search_branch = $("#search-company-branch").chosen().val();
+                            delete d.columns;
                             d.company   = $("#search-company-companyname").val();
                             d.category  = $("#search-company-category").val();
                             d.address   = $("#search-company-address").val();
@@ -42,6 +49,7 @@ var dtCompany = {
                             d.accmngr   = $("#search-company-accmngr").chosen().val();
                             d.s_location   = $("#search-company-location").chosen().val();
                             d.delsan_comp  = $("#search-company-delsan option:checked").val();
+                            d.toner_model =  $("#search-company-toner").chosen().val();
 
                             d.action_view = "company";
                             d.branch    = ( paramBranch == '1' ? null : paramBranch);
@@ -139,7 +147,7 @@ var dtCompany = {
                             { data: "number_of_machines"
                             },
                             { data:  null, "width": "20%", render: function( data, type, full, meta ){
-                                    return "<span class='text-center'><a href='#' title='View Map' id='modalMap' data-toggle='modal' data-target='#modalMap'>" + data.address + "</a></span>"; 
+                                    return "<span class='text-center'><a href='#' title='View Map' id='showDtMap' data-idcomp='"+data.id+"' data-lat='"+data.latitude+"' data-lng='"+data.longitude+"'>" + data.address + "</a></span>"; 
                                 }
                             },
                             { data:  null ,render: function( data, type, full, meta ){
@@ -162,31 +170,46 @@ var dtCompany = {
                                 return "<span class='text-center'>" + isEmpty(data.date_last_visit) + "</span>";
                                 }
                             },
-                             { data:  null, render: function( data, type, full, meta ){
-                                    return "<button class='btn btn-xs btn-success btn-flat btnSalesHist' data-sapcode='"+data.sap_code+"'>Sales</button>";
+                            { data:  null, "width": "10%", render: function( data, type, full, meta ){
+                                var action_elem = '';
+                                        action_elem += '<div class="dropdown text-center">';
+                                        action_elem += '<button class="btn btn-success dropdown-toggle btn-sm" type="button" data-toggle="dropdown">Actions'
+                                                         +' <span class="caret"></span></button>'
+                                                          +'<ul class="dropdown-menu">'
+                                                           + '<li><a href="#" class="btnEditComp" data-comp="'+data.id+'"><i class="fa fa-pencil-square" aria-hidden="true"></i>EDIT</a></li>'
+                                                           + '<li>'+ ( data.status == 1 ? '<a href="#" title="View MIF" class=" btnViewPrinter" data-comp="'+data.id+'" data-branch="'+data.id_branch+'" data-status="'+data.status+'" data-compname="'+encodeURIComponent(data.company_name)+'"><i class="fa fa-list"></i>VIEW MIF</a>': "" )+'</li>'
+                                                           + '<li><a href="#" class="btnSalesHist" data-sapcode="'+data.sap_code+'"><i class="fa fa-bar-chart" ></i>SALES</a></li>'
+                                                           + '<li><a href="#" title="Activity Logs" class="viewMifLogs" data-comp="'+data.id+'" data-branch="'+data.id_branch+'">ACTIVITY LOGS</a></li>'
+                                                    +'</ul></div>';
+                                                       
+                                    return action_elem;
                                 }
                             },
-                            { data:  null, render: function( data, type, full, meta ){
-                                    return "<button class='btn btn-xs btn-success btn-flat btnEditComp' data-comp='"+data.id+"'>Edit</button>";
-                                }
-                            },
-                            { data:  null, render: function( data, type, full, meta ){
-                                    var cstatus = data.status;
-                                    if(cstatus == 1 ){
-                                      return '<a title="View MIF" class="btn btn-xs btn-success btn-flat btnViewPrinter" data-comp="'+data.id+'" data-branch="'+data.id_branch+'" data-status="'+cstatus+'" data-compname="'+encodeURIComponent(data.company_name)+'"><i class="fa fa-list"></i></a>';
-                                    }
-                                    return '';
-                                }
-                            },
-                            { data:  null, render: function( data, type, full, meta ){
-                                      return '<a title="Activity Logs" class="btn btn-xs btn-default-logs btn-flat viewMifLogs" data-comp="'+data.id+'" data-branch="'+data.id_branch+'"><i class="fa fa-clock-o"></i></a>';
-                                }
-                            }
+                            //  { data:  null, render: function( data, type, full, meta ){
+                            //         return "<button class='btn btn-xs btn-success btn-flat btnSalesHist' data-sapcode='"+data.sap_code+"'>Sales</button>";
+                            //     }
+                            // },
+                            // { data:  null, render: function( data, type, full, meta ){                                                      
+                            //         return "<button class='btn btn-xs btn-success btn-flat btnEditComp' data-comp='"+data.id+"'>Edit</button>";
+                            //     }
+                            // },
+                            // { data:  null, render: function( data, type, full, meta ){
+                            //         var cstatus = data.status;
+                            //         if(cstatus == 1 ){
+                            //           return '<a title="View MIF" class="btn btn-xs btn-success btn-flat btnViewPrinter" data-comp="'+data.id+'" data-branch="'+data.id_branch+'" data-status="'+cstatus+'" data-compname="'+encodeURIComponent(data.company_name)+'"><i class="fa fa-list"></i></a>';
+                            //         }
+                            //         return '';
+                            //     }
+                            // },
+                            // { data:  null, render: function( data, type, full, meta ){
+                            //           return '<a title="Activity Logs" class="btn btn-xs btn-default-logs btn-flat viewMifLogs" data-comp="'+data.id+'" data-branch="'+data.id_branch+'"><i class="fa fa-clock-o"></i></a>';
+                            //     }
+                            // }
                  ],
                  "columnDefs": [
                             { responsivePriority: 1, target: 0},
                             { responsivePriority: 2, target: 1},
-                            { targets: 15, className: "none" }
+                            // { targets: 15, className: "none" }
 
                  ],
                 "deferRender": true,
@@ -248,12 +271,22 @@ var dtCompany = {
                         }
        
         });
-                $("div.FilterMachine").html('<a href="#" id="filter-machine"><i class="fa fa-filter"></i>Filter Machine</a>'); // DOM toolbarSMachine. 
+                $("div.FilterMachine").html('<a href="#" class="filter-machine"><i class="fa fa-filter"></i>Filter Machine</a>'); // DOM toolbarSMachine. 
             return this;
     },
     modalShow: function(idcompany){ //Show form modal.
           $("#displayFormCompany").load(pages+'company/form.html',function(data,status,xhr){
                      $('#modalEditCompanyList').modal('show');
+                     $("#showfrmMap").on('click',function(e){
+                        e.preventDefault();
+                        $('#modalMap').modal('show');
+                        
+                        var address = $("#txtEditAddress").val();
+                        var idcomp = $("#hdnIdCompany").val();
+                        var lat = intVal($("#hdnLat").val());
+                        var lng = intVal($("#hdnLng").val());
+                        self.dtCompany.view_map_by_address(address, idcomp, {lat: lat, lng: lng});
+                     });
                       var user_branch = Cookies.get('location');
                       autoDrpDown.getBranchNameMulti("#slctCompanyBranch","100%",user_branch,true);
                       autoDrpDown.getBranchNameMulti("#slctCompanyLocation","100%",user_branch,true);
@@ -287,6 +320,8 @@ var dtCompany = {
                                     $("#OldIdBranches").val(res_data.id_branches);    
                                     $("#slctStatus").val(res_data.status);
                                     $("#txtLastVisit").val(res_data.date_last_visit);     
+                                    $("#hdnLat").val(res_data.latitude);     
+                                    $("#hdnLng").val(res_data.longitude);     
                             },
                             error: function(data,xhr,status){ promptMSG('warning','ID Machine not exist.'); },
                             complete: function(){ $btn.button('reset'); }
@@ -298,25 +333,28 @@ var dtCompany = {
               });
     },
     edit: function(){ //Edit record by company id.
-          var $btn     = $("button[type='submit']");
-          var id       = $("#hdnIdCompany").val();
-          var company  = $("#txtEditCompany").val();
-          var category = $("#txtEditCategory").val();
-          var address  = $("#txtEditAddress").val();
-          var branch   = ($("#slctCompanyBranch").chosen().val() ? $("#slctCompanyBranch").chosen().val().toString() : '');
+          var $btn      = $("button[type='submit']");
+          var id        = $("#hdnIdCompany").val();
+          var company   = $("#txtEditCompany").val();
+          var category  = $("#txtEditCategory").val();
+          var address   = $("#txtEditAddress").val();
+          var branch    = ($("#slctCompanyBranch").chosen().val() ? $("#slctCompanyBranch").chosen().val().toString() : '');
           var location  = ($("#slctCompanyLocation").chosen().val() ? $("#slctCompanyLocation").chosen().val().toString() : '');
           var contactno = $("#txtContactNo").val();
           var sap_code  = $("#txtSapCode").val();
           var delsan_comp= $("input[name='delsanCompany']:checked").val();        
           // var client_service =  $("#slctClientTypeService option:selected").val();
-          var accmngr   = $("#slctClientMngr").chosen().val();
+          var accmngr    = $("#slctClientMngr").chosen().val();
           var oldaccmngr = $("#OldhdnClientMngr").val();
           var oldbranch  = $("#OldIdBranches").val();
           var status     = $("#slctStatus option:selected").val();
           var user_id    = Cookies.get('user_id');
           var last_visit = $("#txtLastVisit").val();
+          var lat        = $("#hdnLat").val();
+          var lng        = $("#hdnLng").val();
           var data       = {idcompany:id, company:company, category:category, address:address, location:location, branch: branch, contactno: contactno, accmngr: accmngr, 
-                            oldaccmngr: oldaccmngr, oldbranch:oldbranch ,status: status, user_id: user_id, last_visit: last_visit, sap_code:sap_code, delsan_comp:delsan_comp};
+                            oldaccmngr: oldaccmngr, oldbranch:oldbranch ,status: status, user_id: user_id, last_visit: last_visit, sap_code:sap_code, delsan_comp:delsan_comp,
+                            lat:lat, lng:lng};
            $.ajax({
                 type: 'POST',
                 url: assets+'php/company/updateCompany.php',
@@ -334,22 +372,24 @@ var dtCompany = {
             });
     },
     add: function(){ //Add new Record
-          var $btn     = $("button[type='submit']");
-          var company  = $("#txtEditCompany").val();
-          var category = $("#txtEditCategory").val();
-          var address  = $("#txtEditAddress").val();
-          var branch   = ($("#slctCompanyBranch").chosen().val() ? $("#slctCompanyBranch").chosen().val().toString() : '');
-          var location  = ($("#slctCompanyLocation").chosen().val() ? $("#slctCompanyLocation").chosen().val().toString() : '');
-          var contactno = $("#txtContactNo").val();
-          var sap_code  = $("#txtSapCode").val();
+          var $btn       = $("button[type='submit']");
+          var company    = $("#txtEditCompany").val();
+          var category   = $("#txtEditCategory").val();
+          var address    = $("#txtEditAddress").val();
+          var branch     = ($("#slctCompanyBranch").chosen().val() ? $("#slctCompanyBranch").chosen().val().toString() : '');
+          var location   = ($("#slctCompanyLocation").chosen().val() ? $("#slctCompanyLocation").chosen().val().toString() : '');
+          var contactno  = $("#txtContactNo").val();
+          var sap_code   = $("#txtSapCode").val();
           var delsan_comp= $("input[name='delsanCompany']:checked").val();
           // var client_service =  $("#slctClientTypeService option:selected").val();
-          var accmngr   = $("#slctClientMngr").chosen().val();
-          var status    = $("#slctStatus option:selected").val();
-          var user_id   = Cookies.get('user_id');
+          var accmngr    = $("#slctClientMngr").chosen().val();
+          var status     = $("#slctStatus option:selected").val();
+          var user_id    = Cookies.get('user_id');
           var last_visit = $("#txtLastVisit").val();
-          var data      = {company:company, category:category, address:address, location:location, branch: removeDblQuote(branch), contactno: contactno, accmngr: accmngr, status:status, 
-                            user_id: user_id, last_visit: last_visit, sap_code:sap_code, delsan_comp:delsan_comp};
+          var lat        = $("#hdnLat").val();
+          var lng        = $("#hdnLng").val();
+          var data       = {company:company, category:category, address:address, location:location, branch: removeDblQuote(branch), contactno: contactno, accmngr: accmngr, status:status, 
+                            user_id: user_id, last_visit: last_visit, sap_code:sap_code, delsan_comp:delsan_comp, lat:lat, lng:lng};
           $.ajax({
                 type: 'POST',
                 url: assets+'php/company/addCompany.php',
@@ -390,7 +430,7 @@ var dtCompany = {
                         var company_name = decodeURIComponent(inst.data('compname'));
                         var branches  = inst.data('branch');
                         // var status    = inst.data('status');
-                         dtMachine.render(idcompany, company_name, branches); 
+                         dtMachine.render(idcompany, company_name, branches, "admin"); 
                     }
                     //Show modal MIF activity logs.
                     else if ($(inst[0]).hasClass('viewMifLogs')) {
@@ -410,13 +450,17 @@ var dtCompany = {
                      //Reset button
                    else if(button_label =="reset"){
                         $("#dt-head-search input[type='text'], #search-company-delsan").val('');  //
-                        $("#search-company-branch, #search-company-accmngr, #search-company-location").val(0).trigger('chosen:updated'); //reset
+                        $("#search-company-branch, #search-company-accmngr, #search-company-location, #search-company-toner").val(0).trigger('chosen:updated'); //reset
                         self.dtCompany.dtInstance.ajax.reload(null, true); //Reload DT when closing filter search.
                     }
                      //Google Map
-                    else if ($(inst[0]).is('#modalMap')) { 
+                    else if ($(inst[0]).is('#showDtMap')) { 
+                        $("#modalMap").modal('show');
                         var address_column = inst.text();
-                        self.dtCompany.view_map_by_address(address_column);
+                        var idcomp = inst.data('idcomp');
+                        var lat = intVal(inst.data('lat'));
+                        var lng = intVal(inst.data('lng'));
+                        self.dtCompany.view_map_by_address(address_column, idcomp, {lat: lat, lng: lng});
                     }
                     else if ($(inst[0]).is('#modalSapDetails')) { 
                         var sap_code = inst.text();
@@ -510,17 +554,127 @@ var dtCompany = {
                             });
         return this;
     },
-    view_map_by_address: function(address){
-        // $("#modalMap").modal('show');
-        $("#modalMap").on('shown.bs.modal',function(){
-                $(this).find(".modal-body").html('<div><iframe width="570" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q='+address+'&key=AIzaSyBGYTiq91KR14P14yQJAzIioEbJAl8Y9pQ" allowfullscreen></iframe></div>');
+    view_map_by_address: function(address, id_comp, coord){
+        var markers = [];
+        function clearMarker(){
+            for (var i = 0; i < markers.length; i++) {
+                markers[i].setMap(null);
+            }
+        }
+        function initMap(coords) {
+            var pre_coord, 
+                pre_zoom;
+                if(coords.lat > 0 && coords.lng > 0){
+                    pre_coord = coords; //use existing coordintes.
+                    pre_zoom = 13;
+                }else{
+                    pre_coord = {lat: 11.326683, lng: 122.957248}; //initial coordinates value.
+                    pre_zoom = 6;
+                }
+
+
+                var map = new google.maps.Map(document.getElementById('map-container'), {
+                  zoom: pre_zoom,
+                  center: pre_coord,
+                  gestureHandling: 'greedy',
+                });
+
+                var geocoder = new google.maps.Geocoder();
+
+                document.getElementById('btnGeoCode').addEventListener('click', function() {
+                  geocodeAddress(geocoder, map);
+                     // var address = document.getElementById('address');
+                        // if(address.value != ''){
+                        //      document.getElementById('btnSaveGeocode').disabled = false;
+                        // }  
+                });
+
+                // document.getElementById('btnSaveGeocode').addEventListener('click', function() {
+                //    saveGeoCode();        
+                // });
+
+        }
+        function geocodeAddress(geocoder, resultsMap) {
+            var address = document.getElementById('mapAddress').value;
+            var marker = new google.maps.Marker({
+                  map: resultsMap,
+                });
+            geocoder.geocode({'address': address}, function(results, status) {
+              if (status === 'OK') {
                 
-                //Make Google Maps responsive in smaller screen devices.
-                var $parent_elem_iframe = $(this).find('iframe').closest('div'); //Get the width of parent div element from iframe.
-                $(window).on('resize',function(){ //Change the iframe width base $parent_elem_iframe variable.
-                      var parent_width = $parent_elem_iframe.width();
-                          $(this).find('iframe').width(parent_width);
-                }.bind($(this)));
+                clearMarker();//Clear previous marker.
+                marker.setPosition(results[0].geometry.location);
+                markers.push(marker);
+
+                resultsMap.setCenter(results[0].geometry.location); //Center once marker has been placed
+                resultsMap.setZoom(13);
+                $("#showLat").text(" " +results[0].geometry.location.lat());
+                $("#showLng").text(" " +results[0].geometry.location.lng());
+
+                $("#hdnLat").val(results[0].geometry.location.lat());
+                $("#hdnLng").val(results[0].geometry.location.lng());
+                $("#txtEditAddress").val(address);
+
+              } else {
+                alert('Geocode was not successful for the following reason: ' + status);
+              }
+            });
+        }
+        /*function saveGeoCode(){
+            var lat = $("#showLat").text();
+            var lng = $("#showLng").text();
+            var comp_id = $("#idComp").val();
+            if(comp_id > 0){
+                 $.ajax({
+                    type: 'POST',
+                    url : assets+'php/company/saveGeocode.php',
+                    data: { lat: lat, lng:lng, comp_id:comp_id },
+                    dataType: 'json',
+                    success: function(data){
+                        alert('Successfully save Geocode address.')           
+                    },    
+                    error: function(data,xhr,status){ 
+                         alert("Something went wrong "+status);
+                    },
+                    complete: function(){
+                        $("#btnSaveGeocode").prop('disabled',true);
+                    }
+                   
+                 });
+             }else{
+                alert('Coordinates was not save for the following reason: Empty ID');
+             }
+        }*/
+
+        initMap(coord);
+        $("#modalMap").on('shown.bs.modal',function(){
+
+                $("#mapAddress").val(address); //Fill in the search address.
+                // $("#idComp").val(id_comp);
+                $("#hdnLat").val(coord.lat);
+                $("#hdnLng").val(coord.lng);
+
+                $(this).find("#showLat").text(coord.lat); //Clear values
+                $(this).find("#showLng").text(coord.lng); //Clear values
+                // $(this).find("#map-wrapper").css({'width': '100%'})
+
+                // $(this).find(".modal-body").html('<div><iframe width="570" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q='+address+'&key=AIzaSyBGYTiq91KR14P14yQJAzIioEbJAl8Y9pQ" allowfullscreen></iframe></div>');
+                
+                // //Make Google Maps responsive in smaller screen devices.
+                // var $parent_elem_iframe = $(this).find('iframe').closest('div'); //Get the width of parent div element from iframe.
+                // $(window).on('resize',function(){ //Change the iframe width base $parent_elem_iframe variable.
+                //       var parent_width = $parent_elem_iframe.width();
+                //           $(this).find('iframe').width(parent_width);
+                // }.bind($(this)));
+        });
+        $("#modalMap").on('hidden.bs.modal',function(){
+            $("#showLat, #showLng").text(''); //Clear values
+            $("#mapAddress, #idComp").val(''); 
+
+            if( ($("#modalEditCompanyList").data('bs.modal') || {}).isShown){ //Check if there is still modal shown.
+                $('body').addClass('modal-open');
+            }
+
         });
         return this;
     },

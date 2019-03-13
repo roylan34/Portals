@@ -17,6 +17,7 @@ var autoDrpDown = {
 	cacheOptCategory: [],
 	cacheOptSapCompany: [],
 	cacheOptYear: [],
+	cacheOptTonerModel: [],
 	getBranchName: function(selectedBranch,selectorTarget,excludeBranch){
 		var elem = selectorTarget;
 		$.ajax({
@@ -402,6 +403,33 @@ var autoDrpDown = {
 
 	    return this;
 
+	},
+	getTonerModel: function(elem){
+			if(self.autoDrpDown.cacheOptTonerModel.length != 0){
+				$(elem).html(self.autoDrpDown.cacheOptTonerModel[0]);
+				$(elem).chosen({no_results_text: "No records found.",width:'100%', search_contains:true});
+			}
+			else {
+	         $.ajax({
+					type: 'GET',
+					dataType: 'json',
+					url: assets+'php/company/getTonerModel.php',
+					async: false,
+					success: function(data){
+						var optTonerM = '<option value>---</option>';
+							$.each(data.aaData, function(i, val){
+								console.log(val);
+									optTonerM += "<option value='"+ val.id +"'> "+val.toner_code +"</option>";	
+							});
+							$(elem).html(optTonerM);
+							self.autoDrpDown.cacheOptTonerModel.push(optTonerM);	
+					},
+					complete: function(){
+						$(elem).chosen({no_results_text: "No records found.",width:'100%', search_contains:true});
+					}
+				});
+	     }
+	   return this;
 	},
 };
 

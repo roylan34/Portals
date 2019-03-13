@@ -25,7 +25,19 @@
         </li> -->
         <li id="sidebar-home" class="treeview"><a href="#"><i class="fa fa-home"></i> <span>Home</span> <i class="fa fa-angle-left pull-right"></i></a>
           <ul id="home" class="treeview-menu">
-            <li id='home-mif'><a href="#/dashboard"><i class="fa fa-circle-o"></i>MIF</a></li>
+            <li id='home-mif'>
+                <a href="#">
+                  <i class="fa fa-circle-o"></i>MIF
+                   <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>   
+                  </span>
+                </a>
+
+                <ul class="treeview-menu">
+                  <li><a href="#/mif/dashboard"><i class="fa fa-circle-o"></i> Chart </a></li>
+                  <li><a href="#/mif/maps"><i class="fa fa-circle-o"></i> Maps</a></li>             
+                </ul>
+            </li>
             <li id='home-inventory'><a href="#/inventory/dashboard"><i class="fa fa-circle-o"></i>Inventory</a></li> 
           </ul>
         </li>
@@ -38,7 +50,7 @@
         </li> -->
         <li id="sidebar-current" class="treeview"><a href="#/current"><i class="fa fa-map-marker"></i> <span>Current</span> <i class="fa fa-angle-left pull-right"></i></a>
           <ul id="current" class="treeview-menu">
-            <li id='current-mif'><a href="#/current"><i class="fa fa-circle-o"></i>MIF</a></li>
+            <li id='current-mif'><a href="#/mif/current"><i class="fa fa-circle-o"></i>MIF</a></li>
             <li id='current-pm'><a href="#/pm/current"><i class="fa fa-circle-o"></i>PM</a></li>
             <li id='current-inventory' class="treeview menu-open">
               <a href="#">
@@ -59,7 +71,7 @@
         </li>
         <li id="sidebar-archive" class="treeview"><a href="#/archive"><i class="fa fa-archive"></i> <span>Archive</span> <i class="fa fa-angle-left pull-right"></i></a>
           <ul id="archive" class="treeview-menu">
-            <li id='archive-machine'><a href="#/archive"><i class="fa fa-circle-o"></i>MIF</a></li>
+            <li id='archive-machine'><a href="#/mif/archive"><i class="fa fa-circle-o"></i>MIF</a></li>
             <li id='archive-pm'><a href="#/pm/archive"><i class="fa fa-circle-o"></i>PM</a></li>
             <li id='archive-inventory'><a href="#/inventory/archive"><i class="fa fa-circle-o"></i>Inventory</a></li>
             <li id='archive-mrf'><a href="#/mrf/archive"><i class="fa fa-circle-o"></i>MRF</a></li>
@@ -83,7 +95,7 @@
         </li>
         <li id="sidebar-settings" class="treeview"><a href="#/settings"><i class="fa fa-cogs"></i> <span>Settings</span> <i class="fa fa-angle-left pull-right"></i></a>
           <ul id="settings" class="treeview-menu">
-            <li id='settings-mif'><a href="#/settings"><i class="fa fa-circle-o"></i>MIF</a></li>
+            <li id='settings-mif'><a href="#/mif/settings"><i class="fa fa-circle-o"></i>MIF</a></li>
             <li id='settings-inventory'><a href="#/inventory/settings"><i class="fa fa-circle-o"></i>Inventory</a></li>
             <li id='settings-mrf'><a href="#/mrf/settings"><i class="fa fa-circle-o"></i>MRF</a></li>
           </ul>

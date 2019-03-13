@@ -482,3 +482,18 @@ function toDecimal( f ){
 	}
 	return f;
 }
+
+
+function loadScript(url, classAttr){
+	var isInjected = document.querySelectorAll('.'+classAttr);
+		if(isInjected.length > 0){
+			return false; 
+		}
+
+	var inject_script 	 = document.createElement('script');
+		inject_script.src= url;
+		inject_script.className = classAttr;
+		document.body.appendChild(inject_script);
+		// console.log(classAttr);
+}
+

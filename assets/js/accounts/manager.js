@@ -101,6 +101,7 @@ var dtAccClient = {
                                     $("#txtClientDateCreated").text(val.created_at);
                                     $("#hdnClientOldCompany").val(val.company);
                                     $("#slctClientCompany").val(val.company.split(",")).trigger('chosen:updated');
+                                    $("#txtIDemp").val(val.idemp);
                                     // $("#slctClientCompany").val(convertToObj(val.company)).trigger('chosen:updated');
                                 }); 
                             },
@@ -120,8 +121,9 @@ var dtAccClient = {
             var companies  = ($("#slctClientCompany").chosen().val() ? $("#slctClientCompany").chosen().val().toString() : '');
             var old_companies = $("#hdnClientOldCompany").val();
             var old_account_id = $("#hdnOldSlctAcctMngrName").val();
+            var id_emp = $("#txtIDemp").val();
 
-            var data = {action:'update', idclient:id, account_id:account_id, companies: companies, old_companies:old_companies, old_account_id:old_account_id};
+            var data = {action:'update', idclient:id, account_id:account_id, companies: companies, old_companies:old_companies, old_account_id:old_account_id, id_emp:id_emp};
 
              $.ajax({
                 type: 'POST',
@@ -156,7 +158,8 @@ var dtAccClient = {
             var $btn      = $("button[type='submit']");
             var account_id = ($("#slctAcctMngrName").chosen().val() ? $("#slctAcctMngrName").chosen().val() : null);
             var companies = ($("#slctClientCompany").chosen().val() ? $("#slctClientCompany").chosen().val().toString() : '');
-            var data = {action:'add', account_id: account_id, companies: companies};
+            var id_emp = $("#txtIDemp").val();
+            var data = {action:'add', account_id: account_id, companies: companies, id_emp:id_emp};
               $.ajax({
                     type: 'POST',
                     url: assets+'php/accounts/manager/manager.php',

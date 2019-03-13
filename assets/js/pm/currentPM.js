@@ -322,6 +322,7 @@ var dtCurrentPM = { //For development
                             $("#pm-remarks").val(res.remarks);
                             $("#pm-page").val(res.page_count);
                             $("#pm-toner").val(res.toner_use); 
+                            $("#hdnCurCompId").val(res.company_id); 
                             if (res.manufacture_date != "0000-00-00" && res.manufacture_date != null ) {
                                 $("#pm-manufacture").val(res.manufacture_date);
                             }else{
@@ -429,8 +430,10 @@ var dtCurrentPM = { //For development
               var pm_number   = $("#hdnCurSchedPmNum2").val();
               var time_in     = ($("#pm-date-in").datetimepicker('getDate') ? dateFormat($("#pm-date-in").datetimepicker('getDate'), 'yyyy-mm-dd HH:MM') : "");
               var time_out    = ($("#pm-date-out").datetimepicker('getDate') ? dateFormat($("#pm-date-out").datetimepicker('getDate'), 'yyyy-mm-dd HH:MM') : "");
+              var comp_id     = $("#hdnCurCompId").val();
+              var serialnum   = $("#pm-serialnum").val();
 
-              var data        = {action:'update', pm_id:pm_id, manufacture:manufacture, remarks:remarks, page:page, toner:toner, time_in: time_in, time_out: time_out, pmnumber:pm_number};
+              var data        = {action:'update', pm_id:pm_id, manufacture:manufacture, remarks:remarks, page:page, toner:toner, time_in: time_in, time_out: time_out, pmnumber:pm_number, comp_id:comp_id, serialnum:serialnum};
                $.ajax({
                     type: 'POST',
                     url: assets+'php/pm/pm.php',

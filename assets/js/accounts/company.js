@@ -96,25 +96,38 @@ var dtAccounts = {
 
                          //MIF actions
                         $("input[name='radioMifActions']").click(function(e){
+                           
                             var deptAttr = $("#slctAccountDept option:selected").attr('data-group-mif');
                                if( $(this).val() == 'r'){
                                     if(deptAttr == 'view')
                                         $("#slctAccountLocation").val(1).prop('disabled',true).trigger('chosen:updated');
                                }else{
-                                    $("#slctAccountLocation").val(0).prop('disabled',false).trigger('chosen:updated');
+                                    $("#slctAccountLocation").val(0).prop('disabled',false).trigger('chosen:updated');                                   
                                }
                         });
 
                         $("#slctAccountDept").change(function(e){ //Show/Hide option ALL and --Branch--
                               var deptAttr = $(':selected', this);
-
+                              var disableRead = [2,3]; //2 = sales, 3 = relation offficer
+                              var thisVal = parseInt(deptAttr.val());
                                   //MIF
                                   if(deptAttr.attr('data-group-mif') == 'view'){
-                                     $("input[name='radioMifActions'][value='r']").prop('checked',true);
-                                     $("#slctAccountLocation").val(1).prop('disabled',true).trigger('chosen:updated');  // with plugin
+                                    $("#slctAccountLocation").val(1).prop('disabled',true).trigger('chosen:updated');  // with plugin
+
+                                    if($("#chkAppMif").is(':checked')){ //auto check the Read only radio button if Dept is Sales or RO.
+                                        $("input[name='radioMifActions'][value='r']").prop('checked',true);
+                                    }
+
+                                    if(disableRead.indexOf(thisVal) > -1){ //disable radio button if dept is sales & RO
+                                        $("input[name='radioMifActions']").prop('disabled',true);
+                                    }
                                   }
                                   else{
                                       $("#slctAccountLocation").val(0).prop('disabled',false).trigger('chosen:updated');
+
+                                       if(disableRead.indexOf(thisVal) == -1){
+                                            $("input[name='radioMifActions']").prop('disabled',false);
+                                        }
                                   }
 
                                   //MRF

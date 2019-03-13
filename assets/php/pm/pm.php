@@ -26,6 +26,7 @@ if(Utils::getIsset('action')){
 	$time_in  	= Utils::getValue('time_in');
 	$time_out  	= Utils::getValue('time_out');
 	$is_delete  = Utils::getValue('is_delete');
+	$comp_id    = Utils::getValue('comp_id');
 
 	$date_entered = Utils::getSysDate();
 	$time_entered = Utils::getSysTime();
@@ -38,8 +39,8 @@ if(Utils::getIsset('action')){
 				//Query Insert
 				if($serialnum && array_key_exists('insert', $serialnum) && count($serialnum['insert']) > 0 ){ 
 					$sn_insert = implode('","',$serialnum['insert']);	
-					$db->customQuery('INSERT INTO tbl_pm_machines (pm_number, company_id, brand, model, serialnumber, location_area, no_of_user, date_installed, unit_owned, created_date )
-									 SELECT "'.$pmnumber.'", company_id, brand, model, serialnumber, location_area, no_of_user, IF(date_installed, date_installed, NULL) AS date_installed, unit_owned_by, NOW() FROM tblmif
+					$db->customQuery('INSERT INTO tbl_pm_machines (pm_number, company_id, serialnumber )
+									 SELECT "'.$pmnumber.'", company_id, serialnumber FROM tblmif
 									 WHERE company_id = '.$company_id.' AND serialnumber IN ("'.$sn_insert.'")');
 	                $res = $db->getFields();
 					 		if($res['aaData'][0] == 'success'){ 
@@ -95,25 +96,31 @@ if(Utils::getIsset('action')){
 														time_in  	= "'.$time_in.'",
 														time_out 	= "'.$time_out.'"'
 										    			,'id = "'.$pm_id.'"');
+						//Update page count to tblmif.
+						$db->updateQuery('tblmif','page_count = "'.$page.'"'
+										    			,'company_id = "'.$comp_id.'" AND serialnumber="'.$serialnum.'"');
 				 		$resPM = $db->getFields();
 				 		if($resPM['aaData'][0] == 'success'){ 
 				 			$db->fields = null;
 
 				 				//Update status.
 								$is_done = checkStatus($pmnumber, $db);
-								// print_r($is_done);
 								if($is_done['aaData']['status'] == 'done'){
 									$db->updateQuery('tbl_pm_schedule','status = "done"','pm_number = "'.$pmnumber.'"');
 								}
-						 		
+								else if($is_done['aaData']['status'] == 'in-progress'){
+									$db->updateQuery('tbl_pm_schedule','status = "in-progress"','pm_number = "'.$pmnumber.'"');
+								}
+						 		else{  }
 				 		}
 				 		print Utils::jsonEncode($resPM);	
 				 	}
 			break;
 		case 'view-id':
-					$db->selectQuery("pm.pm_number, pm.id, pm.serialnumber, br.brand_name, pm.model, pm.manufacture_date, pm.remarks, pm.page_count, pm.toner_use, pm.time_in, pm.time_out"," tbl_pm_machines pm
-									LEFT JOIN tbl_brands br ON pm.brand = br.id
-									WHERE pm.id = ".$pm_id."");
+					$db->selectQuery("pm.company_id, pm.pm_number, pm.id, pm.serialnumber, br.brand_name, m.model, pm.manufacture_date, pm.remarks, pm.page_count, pm.toner_use, pm.time_in, pm.time_out"," tbl_pm_machines pm
+									LEFT JOIN tblmif m ON m.serialnumber = pm.serialnumber
+									LEFT JOIN tbl_brands br ON m.brand = br.id
+									WHERE pm.id = ".$pm_id." LIMIT 1");
 					 print Utils::jsonEncode($db->getFields());
 					
 			break;
