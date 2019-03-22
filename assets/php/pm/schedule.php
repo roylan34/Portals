@@ -122,16 +122,16 @@ function checkIsCancel($pm_num,$db){
 		// 	WHERE pm_number = '".$pm_num."' || (time_in = '' AND time_out ='') ");
 		// $res = $db->getFields();
 
-		$db->selectQuery("IF( 
+		$db->selectQuery2("SELECT IF( 
 						(SELECT COUNT(*) FROM tbl_pm_machines WHERE pm_number = '".$pm_num."' ) 
 						= 
 						(SELECT COUNT(*) FROM tbl_pm_machines WHERE pm_number = '".$pm_num."' AND 
 						((time_in = '0000-00-00 00:00:00' AND time_out = '0000-00-00 00:00:00') 
 						|| 
 						(time_in IS NULL AND time_out IS NULL))
-						), 'yes', 'no') AS can_cancel", "tbl_pm_machines  WHERE pm_number = '".$pm_num."' GROUP BY pm_number");
-		$res = $db->getFields();;
-		if($res['aaData'][0]['can_cancel'] == 'yes'){ 
+						), 'yes', 'no') AS can_cancel");
+		$fetchRes = $db->getFields();
+		if($fetchRes['aaData'][0]['can_cancel'] == 'yes'){ 
 
 			$res = array('aaData' => array(
 				'result' =>  'true',
