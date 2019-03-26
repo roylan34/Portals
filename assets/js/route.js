@@ -364,9 +364,10 @@ $(document).ready(function(){
         });
       }
       else if(report_page == 'sap-stock-ho'){
-        $('.view-content').load(pages+'inventory/reports/sap-stock-ho.html',function(data,status){
+        $('.view-content').load(pages+'inventory/reports/all-stocks.html',function(data,status){
           if(status =='success'){
-            reportInvntSapStocks.pageDetails().table_sap_stock();
+            // reportInvntSapStocks.pageDetails().table_sap_stock();
+            reportInvntAlltocks.pageDetails().table_all_stock();
                   
           }
         });
@@ -803,7 +804,7 @@ $(document).ready(function(){
           },500);
         }
       },
-      ':/sap-stock-ho':{
+      ':/all-stocks':{
         before: function(){ 
               var appmodule = JSON.parse(Cookies.get('app_module')); 
             return mifPages.redirect(this,'inventory',appmodule);

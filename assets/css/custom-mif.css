@@ -207,7 +207,10 @@ table#chartlocation .badge{
   	color: #f4f4f4;
   	background-color: #00a65a; 
   }
-
+  .thead-inverse-two thead tr:first-child th{
+    color: #f4f4f4;
+    background-color: #00a65a; 
+  }
   .table-custom-bordered{
   	border: 1px solid #ddd !important;
   }
