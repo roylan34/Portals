@@ -74,7 +74,7 @@ if(Utils::getIsset('action')){
 				}
 				$db->fields = null; //Empty result;
 
-				//Sync in PM module that will remove machine in Current page that has status In-progress and PM Done.
+				//Sync in PM module if machine remove in Current page that has status In-progress and PM Done.
 				$db->selectQuery("GROUP_CONCAT(CONCAT('\"',pm.serialnumber, '\"')) AS serialnumber, pm.company_id","tbl_pm_machines pm LEFT JOIN tbl_pm_schedule ps ON pm.pm_number = ps.pm_number
 					WHERE pm.serialnumber = (SELECT serialnumber FROM tblmif WHERE id = '".$idmachine."' LIMIT 1)
 					AND pm.is_delete ='no' AND ps.status IN ('in-progress', 'done')");
