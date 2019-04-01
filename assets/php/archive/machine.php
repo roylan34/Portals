@@ -72,7 +72,19 @@ if(Utils::getIsset('action')){
 				}else{
 					throw new Exception('Invalid status value: '. $status);
 				}
-				print Utils::jsonEncode($db->getFields()); 
+				$db->fields = null; //Empty result;
+
+				//Sync in PM module that will remove machine in Current page that has status In-progress and PM Done.
+				$db->selectQuery("GROUP_CONCAT(CONCAT('\"',pm.serialnumber, '\"')) AS serialnumber, pm.company_id","tbl_pm_machines pm LEFT JOIN tbl_pm_schedule ps ON pm.pm_number = ps.pm_number
+					WHERE pm.serialnumber = (SELECT serialnumber FROM tblmif WHERE id = '".$idmachine."' LIMIT 1)
+					AND pm.is_delete ='no' AND ps.status IN ('in-progress', 'done')");
+			    $resPM = $db->getFields();
+			    $serialnum = $resPM['aaData'][0]['serialnumber'];
+			    $comp_id   = $resPM['aaData'][0]['company_id'];
+			    if($serialnum != '' && $comp_id != ''){
+			    	$db->updateQuery('tbl_pm_machines','is_delete = "yes"','serialnumber IN ('.$serialnum.') AND company_id='.$comp_id.' '); 
+			    }
+				print Utils::jsonEncode($res); //json result of remove.
 
 			break;
 		case 'view-all': //Merged the table of tblmif and tblmif_archive.
