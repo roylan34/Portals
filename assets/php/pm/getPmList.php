@@ -45,7 +45,7 @@ switch (Utils::getValue('action')) {
 					if(Utils::getValue('model'))	{ $search ="AND m.model='".$conn->escapeString(Utils::getValue('model'))."'"; }
 
 	        	//Table @tbl_pm_machines					
-					$conn->selectQuery('*','tbl_pm_machines WHERE id > 0 AND is_delete="no" AND pm_number="'.$pm_number.'"');
+					$conn->selectQuery('*','tbl_pm_machines WHERE id > 0 AND is_delete="no" AND pm_number="'.$pm_number.'" GROUP BY serialnumber');
 					$totalData = $conn->getNumRows(); //getting total number records without any search.
 					$conn->row_count = 0;
 					$conn->fields = null;
@@ -55,7 +55,7 @@ switch (Utils::getValue('action')) {
 						$conn->selectQuery('ps.*',' tbl_pm_machines ps 
 							LEFT JOIN tblmif m ON m.serialnumber = ps.serialnumber
 							LEFT JOIN tbl_brands br ON m.brand = br.id
-							WHERE ps.id > 0 AND ps.is_delete="no" AND m.company_id='.$company_id.' AND ps.pm_number="'.$pm_number.'" '.$search.'');
+							WHERE ps.id > 0 AND ps.is_delete="no" AND m.company_id='.$company_id.' AND ps.pm_number="'.$pm_number.'" '.$search.' GROUP BY ps.serialnumber');
 
 						$conn->fields = null;
 						$totalFiltered  = $conn->getNumRows(); // when there is a search parameter then we have to modify total number filtered rows as per search result. 
@@ -69,7 +69,7 @@ switch (Utils::getValue('action')) {
 							ps.remarks, ps.page_count, ps.toner_use, ps.time_in, ps.time_out ',' tbl_pm_machines ps 
 							LEFT JOIN tblmif m ON m.serialnumber = ps.serialnumber
 							LEFT JOIN tbl_brands br ON m.brand = br.id
-							WHERE ps.id > 0 AND ps.is_delete="no" AND m.company_id='.$company_id.' AND ps.pm_number="'.$pm_number.'" '.$search.' ORDER BY ps.id DESC '.$limit.' ');
+							WHERE ps.id > 0 AND ps.is_delete="no" AND m.company_id='.$company_id.' AND ps.pm_number="'.$pm_number.'" '.$search.' GROUP BY ps.serialnumber ORDER BY ps.id DESC '.$limit.' ');
 						$row = $conn->getFields(); //Get all rows				
 
 	        } else {
