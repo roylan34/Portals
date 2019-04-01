@@ -20,9 +20,11 @@ $db = Database::getInstance();
 // UNION ALL
 
 $db->selectQuery2('SELECT branch, brand, model, id_branch_sort, SUM(total_model) AS total_model FROM (
-SELECT id_brand AS brand, model, COUNT(*) AS total_model, "MAKATI" AS branch, 2 AS id_branch_sort
- FROM tbl_invnt_machines_auto_import
- GROUP BY model
+SELECT imai.id_brand AS brand, imai.model, COUNT(*) AS total_model, br.branch_name AS branch, br.id AS id_branch_sort
+ FROM tbl_invnt_machines_auto_import imai
+ LEFT JOIN tbl_invnt_machines_saploc ims ON imai.location = ims.branch
+ LEFT JOIN tbl_branch br ON ims.equiv_id_branch = br.id
+ GROUP BY br.id, imai.model
  UNION ALL
 SELECT br.brand_name AS brand, mo.model_name AS model, COUNT(*) AS total_model, brc.branch_name AS branch, brc.id AS id_branch_sort FROM tbl_invnt_machines im
 LEFT JOIN tbl_branch brc ON im.id_branch = brc.id
