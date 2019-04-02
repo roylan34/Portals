@@ -39,8 +39,8 @@ if(Utils::getIsset('action')){
 				//Query Insert
 				if($serialnum && array_key_exists('insert', $serialnum) && count($serialnum['insert']) > 0 ){ 
 					$sn_insert = implode('","',$serialnum['insert']);	
-					$db->customQuery('INSERT INTO tbl_pm_machines (pm_number, company_id, serialnumber )
-									 SELECT "'.$pmnumber.'", company_id, serialnumber FROM tblmif
+					$db->customQuery('INSERT INTO tbl_pm_machines (pm_number, company_id, serialnumber, created_date )
+									 SELECT "'.$pmnumber.'", company_id, serialnumber, NOW() FROM tblmif
 									 WHERE company_id = '.$company_id.' AND serialnumber IN ("'.$sn_insert.'")');
 	                $res = $db->getFields();
 					 		if($res['aaData'][0] == 'success'){ 
@@ -89,6 +89,13 @@ if(Utils::getIsset('action')){
 		case 'update':
 					if($pm_id){
 
+						$brand    = Utils::getValue('brand');
+						$model    = Utils::getValue('model');
+						$location    = Utils::getValue('location');
+						$department  = Utils::getValue('department');
+						$no_of_user  = Utils::getValue('no_of_user');
+						$mif_id  	 = Utils::getValue('mif_id');
+
 						$db->updateQuery('tbl_pm_machines','manufacture_date = "'.$manufacture.'", 
 														remarks 	= "'.$remarks.'",
 														page_count 	= "'.$page.'",
@@ -96,9 +103,15 @@ if(Utils::getIsset('action')){
 														time_in  	= "'.$time_in.'",
 														time_out 	= "'.$time_out.'"'
 										    			,'id = "'.$pm_id.'"');
-						//Update page count to tblmif.
-						$db->updateQuery('tblmif','page_count = "'.$page.'"'
-										    			,'company_id = "'.$comp_id.'" AND serialnumber="'.$serialnum.'"');
+						//Sync update to tblmif.
+						$db->updateQuery('tblmif','page_count 		= "'.$page.'",
+												   brand 			= "'.$brand.'",
+												   model 			= "'.$model.'",
+												   location_area 	= "'.$location.'",
+												   department 		= "'.$department.'",
+												   no_of_user 		= "'.$no_of_user.'",
+												   remarks			= "'.$remarks.'"'
+										  ,'company_id = "'.$comp_id.'" AND id="'.$mif_id.'"');
 				 		$resPM = $db->getFields();
 				 		if($resPM['aaData'][0] == 'success'){ 
 				 			$db->fields = null;
@@ -117,10 +130,9 @@ if(Utils::getIsset('action')){
 				 	}
 			break;
 		case 'view-id':
-					$db->selectQuery("pm.company_id, pm.pm_number, pm.id, pm.serialnumber, br.brand_name, m.model, pm.manufacture_date, pm.remarks, pm.page_count, pm.toner_use, pm.time_in, pm.time_out"," tbl_pm_machines pm
+					$db->selectQuery("pm.company_id, pm.pm_number, pm.id, pm.serialnumber, m.brand, m.model, pm.manufacture_date, pm.remarks, pm.page_count, pm.toner_use, pm.time_in, pm.time_out, m.location_area, m.department, m.no_of_user, m.id AS mif_id "," tbl_pm_machines pm
 									LEFT JOIN tblmif m ON m.serialnumber = pm.serialnumber
-									LEFT JOIN tbl_brands br ON m.brand = br.id
-									WHERE pm.id = ".$pm_id." LIMIT 1");
+									WHERE pm.id = ".$pm_id." AND m.company_id = pm.company_id LIMIT 1");
 					 print Utils::jsonEncode($db->getFields());
 					
 			break;

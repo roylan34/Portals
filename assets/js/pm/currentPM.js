@@ -314,15 +314,19 @@ var dtCurrentPM = { //For development
                     beforeSend: function(){ $btn.button('loading'); },
                     success: function(data){
                         var res = data.aaData[0]; 
+                            $("#hdnCurMifId").val(res.mif_id);
                             $("#hdnCurPMId").val(res.id);
                             $("#hdnCurSchedPmNum2").val(res.pm_number);
                             $("#pm-serialnum").val(res.serialnumber);
-                            $("#pm-brand").val(res.brand_name);
+                            $("#pm-brand").val(res.brand);
                             $("#pm-model").val(res.model);                            
                             $("#pm-remarks").val(res.remarks);
                             $("#pm-page").val(res.page_count);
                             $("#pm-toner").val(res.toner_use); 
                             $("#hdnCurCompId").val(res.company_id); 
+                            $("#pm-location").val(res.location_area); 
+                            $("#pm-department").val(res.department); 
+                            $("#pm-no-user").val(res.no_of_user); 
                             if (res.manufacture_date != "0000-00-00" && res.manufacture_date != null ) {
                                 $("#pm-manufacture").val(res.manufacture_date);
                             }else{
@@ -433,7 +437,15 @@ var dtCurrentPM = { //For development
               var comp_id     = $("#hdnCurCompId").val();
               var serialnum   = $("#pm-serialnum").val();
 
-              var data        = {action:'update', pm_id:pm_id, manufacture:manufacture, remarks:remarks, page:page, toner:toner, time_in: time_in, time_out: time_out, pmnumber:pm_number, comp_id:comp_id, serialnum:serialnum};
+              //MIF Sync updates
+              var brand     = $("#pm-brand").val();
+              var model     = $("#pm-model").val();
+              var loc       = $("#pm-location").val();
+              var depart    = $("#pm-department").val();
+              var no_of_user  = $("#pm-no-user").val();
+              var mif_id      = $("#hdnCurMifId").val();
+
+              var data        = {action:'update', brand:brand, model: model, location:loc, department:depart, no_of_user:no_of_user, mif_id:mif_id, pm_id:pm_id, manufacture:manufacture, remarks:remarks, page:page, toner:toner, time_in: time_in, time_out: time_out, pmnumber:pm_number, comp_id:comp_id, serialnum:serialnum};
                $.ajax({
                     type: 'POST',
                     url: assets+'php/pm/pm.php',
@@ -469,7 +481,7 @@ var dtCurrentPM = { //For development
          // return checkedVals.join('","');
     },
     removeMachine: function(id){
-        promptMSG("custom","Are you sure you want to <strong>Remove</strong> this machine?","Confirmation","yn",false,true,function(){
+        promptMSG("custom","Are you sure you want to <strong>Remove</strong> <br>this machine in maintenance?","Confirmation","yn",false,true,function(){
             var pm_id = id || null;
             if(pm_id){
                 var $btn   = $('button');
@@ -485,7 +497,7 @@ var dtCurrentPM = { //For development
                         success: function(data,xhr){                            
                             setTimeout(function(){
                                  if(data.aaData[0] == 'success'){
-                                    promptMSG("success-custom","Machine Request has been successfully <strong>Remove</strong>.</br>Please view back at Add PM Machine page.",'',null,false,true);
+                                    promptMSG("success-custom","Machine has been successfully <strong>Remove</strong> in maintenance.",'',null,false,true);
                                     $('.mif-modalPromptMSG').on('click','button',function(){//Hide modal Remove Machine.
                                           self.dtCurrentPM.dtInstance.ajax.reload(null, true); //Refresh the page
                                     });

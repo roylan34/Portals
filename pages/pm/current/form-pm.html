@@ -8,47 +8,71 @@
       </div>
         <form id="frmCurrentPM" class="form-horizontal">
         <div class="modal-body">
+              <input type="hidden" name="hdnCurMifId" id='hdnCurMifId' value=''>
               <input type="hidden" name="hdnCurPMId" id='hdnCurPMId' value=''>
               <input type="hidden" name="hdnCurSchedPmNum2" id='hdnCurSchedPmNum2' value=''>
               <input type="hidden" name="hdnCurCompId" id='hdnCurCompId' value=''>
 
               <div class="form-group">
-                <label class="col-sm-4 control-label" for="pm-serialnum">S/N</label>
+                <label class="col-sm-4 control-label" for="pm-serialnum">S/N:</label>
                 <div class="col-sm-6">
-                  <input type="text" class="form-control" id="pm-serialnum" disabled="disabled"/>
+                  <input type="text" class="form-control" id="pm-serialnum" name="pm-serialnum" disabled="disabled" />
                 </div>
               </div>
 
               <div class="form-group">
-                <label class="col-sm-4 control-label" for="pm-brand">Brand</label>
+                <label class="col-sm-4 control-label" for="pm-brand">Brand:</label>
                 <div class="col-sm-6">
-                  <input type="text" class="form-control" id="pm-brand" disabled="disabled"/>
+                  <!-- <input type="text" class="form-control" id="pm-brand" disabled="disabled"/> -->
+                  <select id="pm-brand" class="form-control required" name="pm-brand"></select>
                 </div>
               </div>
 
               <div class="form-group">
-                <label class="col-sm-4 control-label" for="pm-model">Model</label>
+                <label class="col-sm-4 control-label" for="pm-model">Model:</label>
                 <div class="col-sm-6">
-                  <input type="text" class="form-control" id="pm-model" disabled="disabled" />
+                  <input type="text" class="form-control" id="pm-model" name="pm-model"/>
                 </div>
               </div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="pm-location">Location:</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control" id="pm-location" name="pm-location" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="pm-department">Department:</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control" id="pm-department" name="pm-department" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="pm-no-user">No. of User:</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control" id="pm-no-user" name="pm-no-user" />
+                </div>
+              </div>
+
 
                <div class="form-group">
-                <label class="col-sm-4 control-label" for="pm-manufacture">Manufacture date</label>
+                <label class="col-sm-4 control-label" for="pm-manufacture">Manufacture date:</label>
                 <div class="col-sm-6">
                   <input type="text" class="form-control" id="pm-manufacture" name="pm-manufacture" autocomplete="off" />
                 </div>
               </div>
 
                <div class="form-group">
-                <label class="col-sm-4 control-label" for="pm-remarks">Remarks</label>
+                <label class="col-sm-4 control-label" for="pm-remarks">Remarks:</label>
                 <div class="col-sm-6">
                   <textarea class="form-control" id="pm-remarks" name="pm-remarks"></textarea>
                 </div>
               </div>
 
                <div class="form-group">
-                <label class="col-sm-4 control-label" for="pm-page">Page count</label>
+                <label class="col-sm-4 control-label" for="pm-page">Page count:</label>
                 <div class="col-sm-6">
                   <input type="text" class="form-control" id="pm-page" name="pm-page"/>
                 </div>
@@ -62,7 +86,7 @@
               </div>
 
                <div class="form-group">
-                <label class="col-sm-4 control-label" for="pm-date-in">Time in</label>
+                <label class="col-sm-4 control-label" for="pm-date-in">Time in:</label>
                 <div class="col-sm-6">
                   <input type="text" class="form-control" id="pm-date-in" name="pm-date-in" autocomplete="off"/>
                   <!-- <input type="text" class="form-control" id="pm-time-in" name="pm-time-in" autocomplete="off" /> -->
@@ -70,7 +94,7 @@
               </div>
 
                <div class="form-group">
-                <label class="col-sm-4 control-label" for="pm-date-out">Time out</label>
+                <label class="col-sm-4 control-label" for="pm-date-out">Time out:</label>
                 <div class="col-sm-6">
                   <input type="text" class="form-control" id="pm-date-out" name="pm-date-out" autocomplete="off"/>
                   <!-- <input type="text" class="form-control" id="pm-time-out" name="pm-time-out" autocomplete="off" /> -->
@@ -90,6 +114,9 @@
 </div>
 <script type="text/javascript">
 $( document ).ready( function () {
+
+autoDrpDown.getBrandName("#pm-brand");  //Dropdown brand
+
 // Client-side edit form validation.
     $( "#frmCurrentPM" ).validate( {
         onkeyup: false,
@@ -103,6 +130,15 @@ $( document ).ready( function () {
             }
         },
        rules: {
+            "pm-serialnum": {
+              required: true
+            },
+            "pm-brand": {
+              required: true
+            },
+            "pm-model": {
+              required: true
+            },
             "pm-manufacture": {
               required: false
             },
@@ -123,6 +159,15 @@ $( document ).ready( function () {
             }
           },
           messages: {
+            "pm-serialnum": {
+              required: "This field is required.",
+            },
+             "pm-brand": {
+              required: "This field is required.",
+            },
+             "pm-model": {
+              required: "This field is required.",
+            },
             "pm-manufacture": {
               required: "This field is required.",
             },
