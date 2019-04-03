@@ -39,8 +39,8 @@ if(Utils::getIsset('action')){
 				//Query Insert
 				if($serialnum && array_key_exists('insert', $serialnum) && count($serialnum['insert']) > 0 ){ 
 					$sn_insert = implode('","',$serialnum['insert']);	
-					$db->customQuery('INSERT INTO tbl_pm_machines (pm_number, company_id, serialnumber, created_date )
-									 SELECT "'.$pmnumber.'", company_id, serialnumber, NOW() FROM tblmif
+					$db->customQuery('INSERT INTO tbl_pm_machines (pm_number, company_id, serialnumber, mif_id, created_date )
+									 SELECT "'.$pmnumber.'", company_id, serialnumber, id, NOW() FROM tblmif
 									 WHERE company_id = '.$company_id.' AND serialnumber IN ("'.$sn_insert.'")');
 	                $res = $db->getFields();
 					 		if($res['aaData'][0] == 'success'){ 
@@ -130,8 +130,8 @@ if(Utils::getIsset('action')){
 				 	}
 			break;
 		case 'view-id':
-					$db->selectQuery("pm.company_id, pm.pm_number, pm.id, pm.serialnumber, m.brand, m.model, pm.manufacture_date, pm.remarks, pm.page_count, pm.toner_use, pm.time_in, pm.time_out, m.location_area, m.department, m.no_of_user, m.id AS mif_id "," tbl_pm_machines pm
-									LEFT JOIN tblmif m ON m.serialnumber = pm.serialnumber
+					$db->selectQuery("pm.company_id, pm.pm_number, pm.id, m.serialnumber, m.brand, m.model, pm.manufacture_date, pm.remarks, pm.page_count, pm.toner_use, pm.time_in, pm.time_out, m.location_area, m.department, m.no_of_user, m.id AS mif_id "," tbl_pm_machines pm
+									LEFT JOIN tblmif m ON m.id = pm.mif_id
 									WHERE pm.id = ".$pm_id." AND m.company_id = pm.company_id LIMIT 1");
 					 print Utils::jsonEncode($db->getFields());
 					
