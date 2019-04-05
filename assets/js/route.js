@@ -347,15 +347,15 @@ $(document).ready(function(){
     },
     reports: function(report_page){
       var _self = this;
-      if(report_page == 'bn-rf-stock'){
-        $('.view-content').load(pages+'inventory/reports/bn-rf-stock.html',function(data,status){
-          if(status =='success'){
-            reportInvntBnRfTable.pageDetails(_self.branch).table_brand_stock(_self.branch);
+      // if(report_page == 'bn-rf-stock'){
+      //   $('.view-content').load(pages+'inventory/reports/bn-rf-stock.html',function(data,status){
+      //     if(status =='success'){
+      //       reportInvntBnRfTable.pageDetails(_self.branch).table_brand_stock(_self.branch);
                   
-          }
-        });
-      }
-      else if(report_page == 'in-out-stock'){
+      //     }
+      //   });
+      // }
+      if(report_page == 'in-out-stock'){
         $('.view-content').load(pages+'inventory/reports/in-out-stock.html',function(data,status){
           if(status =='success'){
             reportInvntInOutTable.pageDetails(_self.branch).table_in_out_stock(_self.branch);
@@ -772,22 +772,22 @@ $(document).ready(function(){
       },
     },
     '/reports':{
-      ':/bn-rf-stock':{
-        before: function(){ 
-              var appmodule = JSON.parse(Cookies.get('app_module')); 
-            return mifPages.redirect(this,'inventory',appmodule);
-          },
-        on: function(report_page){
-          window.setTimeout(function(){
-            mifPages.reports('bn-rf-stock');
-          },500);
-        },
-        'after': function(){
-          window.setTimeout(function(){
-            mifPages.abortAjaxDataTable();
-          },500);
-        }
-      },
+      // ':/bn-rf-stock':{
+      //   before: function(){ 
+      //         var appmodule = JSON.parse(Cookies.get('app_module')); 
+      //       return mifPages.redirect(this,'inventory',appmodule);
+      //     },
+      //   on: function(report_page){
+      //     window.setTimeout(function(){
+      //       mifPages.reports('bn-rf-stock');
+      //     },500);
+      //   },
+      //   'after': function(){
+      //     window.setTimeout(function(){
+      //       mifPages.abortAjaxDataTable();
+      //     },500);
+      //   }
+      // },
       ':/in-out-stock':{
         before: function(){ 
               var appmodule = JSON.parse(Cookies.get('app_module')); 

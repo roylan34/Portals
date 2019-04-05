@@ -10,13 +10,6 @@ var dtCurrentInvtHq = {
       render: function(){
       				// document.title = "Inventory"; // Change the title tag.
 	                this.dtInstance = $('#dtCurrentInvtHq').DataTable({
-	                	        "initComplete": function(){
-	             //    	        						autoDrpDownInvnt.getType(".search-hq-type");//Search Dropdown
-														// autoDrpDown.getBrandName(".search-hq-brand")
-														// 			.getCategory(".search-hq-category");
-														autoDrpDown.getBrandName(".search-hq-brand");
-
-	                	        				},
 	                            "dom" : "Bl<'dropdown-bulk col-md-3 col-xs-12'>rtip",
 	                            "ordering": false,
 	                            "autoWidth" : false,
@@ -71,12 +64,10 @@ var dtCurrentInvtHq = {
 	                                "dataSrc": "records",
 	                                 data: function(d){	                                		
 	                                 		d.serialnumber = $(".search-hq-serial").filter(':visible').val() || '';
-	                                 		d.brand 	= ($(".search-hq-brand:visible option:selected").val() ?  $(".search-hq-brand:visible option:selected").text() : '');
+	                                 		d.brand 	= $(".search-hq-brand").filter(':visible').val() || '';
 	                                 		d.model 	= $(".search-hq-model").filter(':visible').val() || '';
 	                                 		d.location 	= $(".search-hq-location").filter(':visible').val() || '';
-	                                 		d.date 		= $(".search-hq-date").filter(':visible').val() || '';
-	                                 		// d.category  = $(".search-hq-category:visible option:selected").val() || '';
-	                                 		// d.type 		= $(".search-hq-type:visible option:selected").val() || '';                                	  
+	                                 		d.date 		= $(".search-hq-date").filter(':visible').val() || '';                             	  
 	                                     }
 	                            },	   
 	                            "columns": [
@@ -101,16 +92,6 @@ var dtCurrentInvtHq = {
 	                                		return date_entered;
 	                                	}
 	                            	},
-	                             //    { "data": null , "width": "160px", render: function(data){
-	                             //    		var cat = data.cat_name || "---";
-	                             //    		return cat;
-	                             //    	}
-	                             //    },
-	                             //    { "data": null, "width": "160px", render: function(data){
-	                             //    		var type = data.type_name || "---";
-	                             //    		return type;
-	                             //    	}
-	                            	// },
 	                            	{ "data": null, "width": "160px", render: function(){
 	                            		return '';
 	                            	} }

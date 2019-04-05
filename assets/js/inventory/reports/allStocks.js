@@ -29,18 +29,22 @@ var reportInvntAlltocks = {
 												view += '<table class="table table-all-stocks table-bordered table-custom-bordered thead-inverse-two" id="tableStocks'+brand_key+'">';
 												view += '<thead>';
 												view += '<tr>';
-												view += '<th colspan="2">'+brand_key+'</th>';
+												view += '<th colspan="3">'+brand_key+'</th>';
 												view += '</tr>';
 												view += '<tr>';
 												view += '<th>Model</th>';
-												view += '<th>Total</th>';
+												view += '<th>BN</th>';
+												view += '<th>RF</th>';
+												// view += '<th>Total</th>';
 												view += '</tr>';
 												view += '</thead>';
 												view += '<tbody>';
 													$.each(__result, function (brand_key, result) {
 														view += '<tr>';
 														view += '<td>' + result.model + '</td>';
-														view += '<td>' + result.total_model + '</td>';
+														view += '<td>' + result.total_bn + '</td>';
+														view += '<td>' + result.total_rf + '</td>';
+														// view += '<td>' + result.total_model + '</td>';
 														view += '</tr>';
 													});
 												view += '</tbody>';
