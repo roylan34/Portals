@@ -4,6 +4,9 @@
 var gulp = require('gulp');
 var concat = require('gulp-concat');
 var minify = require('gulp-minify');
+var rev    = require('gulp-rev');
+var rename = require('gulp-rename');
+var del    = require('del');
 
 //To eliminate typing gulp command, rather use this method watcher task.
 // gulp watch command
@@ -21,8 +24,12 @@ gulp.task('watch',function(){
 				'assets/js/mrf/*.js', 
 				'assets/js/mrf/settings/*.js',
 				'assets/js/pm/*.js',],
-				['pack-mif-js','pack-invnt-js','pack-mrf-js','pack-pm-js']);
+				['pack-mif-js','pack-invnt-js','pack-mrf-js','pack-pm-js','rev-clean']); //run all task.
 });
+
+gulp.task('rev-clean', () =>
+  del.sync('build/js/*')
+);
 
 //Merge and Minify Inventory
 gulp.task('pack-mif-js',function(){
@@ -33,14 +40,22 @@ gulp.task('pack-mif-js',function(){
 				'assets/js/settings/*.js',
 				'assets/js/accounts/*.js',
 				'assets/js/mif/reports/*.js' ])
-				.pipe(concat('bundle-mif.min.js'))
+				.pipe(concat('bundle-mif.min.js')) // combine
 				.pipe(minify({
 					ext: {
 						min: '.js'
 					},
 					noSource: true
 				}))
-				.pipe(gulp.dest('build/js'));
+				.pipe(rename({ //base and dest.
+					dirname: 'build/js'
+				}))
+				.pipe(rev()) //rename the files with hashes
+				.pipe(gulp.dest('./')) //save the files with hashes
+				.pipe(rev.manifest('build/js/rev-manifest.json',{
+					merge: true //override the rev-manifest.json if one exists.
+				}))
+				.pipe(gulp.dest('.'));//save the rev-manifest.json
 
 });
 
@@ -57,7 +72,15 @@ gulp.task('pack-invnt-js',function(){
 					},
 					noSource: true
 				}))
-				.pipe(gulp.dest('build/js'));
+				.pipe(rename({ //base and dest.
+					dirname: 'build/js'
+				}))
+				.pipe(rev()) //rename the files with hashes
+				.pipe(gulp.dest('./')) //save the files with hashes
+				.pipe(rev.manifest('build/js/rev-manifest.json',{
+					merge: true //override the rev-manifest.json if one exists.
+				}))
+				.pipe(gulp.dest('.'));//save the rev-manifest.json
 
 });
 //Merge and Minify MRF
@@ -72,7 +95,15 @@ gulp.task('pack-mrf-js',function(){
 					},
 					noSource: true
 				}))
-				.pipe(gulp.dest('build/js'));
+				.pipe(rename({ //base and dest.
+					dirname: 'build/js'
+				}))
+				.pipe(rev()) //rename the files with hashes
+				.pipe(gulp.dest('./')) //save the files with hashes
+				.pipe(rev.manifest('build/js/rev-manifest.json',{
+					merge: true //override the rev-manifest.json if one exists.
+				}))
+				.pipe(gulp.dest('.'));//save the rev-manifest.json
 
 });
 
@@ -87,7 +118,15 @@ gulp.task('pack-pm-js',function(){
 					},
 					noSource: true
 				}))
-				.pipe(gulp.dest('build/js'));
+				.pipe(rename({ //base and dest.
+					dirname: 'build/js'
+				}))
+				.pipe(rev()) //rename the files with hashes
+				.pipe(gulp.dest('./')) //save the files with hashes
+				.pipe(rev.manifest('build/js/rev-manifest.json',{
+					merge: true //override the rev-manifest.json if one exists.
+				}))
+				.pipe(gulp.dest('.'));//save the rev-manifest.json
 
 });
 
