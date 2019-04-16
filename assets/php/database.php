@@ -34,6 +34,11 @@ Class Database{
 			if($this->conn->connect_errno){
 				die("Failed to connect:". $this->conn->connect_error);
 			}
+			//change character set to utf8
+			if(!$this->conn->set_charset('utf8')){
+				printf("Error loading character set utf8 %s\n",$this->conn->connect_error);
+				exit();
+			}
 	}
 
 	static public function getInstance($dbParams = array()){
