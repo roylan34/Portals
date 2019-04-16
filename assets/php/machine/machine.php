@@ -66,24 +66,56 @@ $date_now 	= Utils::getSysDate().' '.Utils::getSysTime();
 			break;
 		case 'update':
 				if(getCompanyStatus($company_id,$db) == 1 ){//Check if company is blocked.
+
+						$santize_sn    = Utils::upperCase(trim($serialnum));
+						$santize_unit  = Utils::upperCase($unit_own);
+						$santize_model = Utils::upperCase($model);
+						$santize_loc   = Utils::upperCase($location);
+						$santize_dept  = Utils::upperCase($department);
 						$db->updateQuery('tblmif','company_id		= "'.$company_id.'",
 												     brand 		 	= "'.$brand.'",
 												     category 		= "'.Utils::upperCase($category).'",
 												     type 		 	= "'.Utils::upperCase($type).'",	
 												     page_count 	= "'.$pagecount.'",				     
-												     model 		 	= "'.Utils::upperCase($model).'",
-												     serialnumber 	= "'.Utils::upperCase(trim($serialnum)).'",
-												     location_area 	= "'.Utils::upperCase($location).'",
-												     department 	= "'.Utils::upperCase($department).'",
+												     model 		 	= "'.$santize_model.'",
+												     serialnumber 	= "'.$santize_sn.'",
+												     location_area 	= "'.$santize_loc.'",
+												     department 	= "'.$santize_dept.'",
 												     no_of_user 	= "'.$nouser.'",
 												     remarks 		= "'.Utils::upperCase($remarks).'",
 												     date_installed = "'.$dateinstalled.'",
 												     billing_type 	= "'.Utils::upperCase($billing).'",
 												     branches  		= "'.$branch.'",
-												     unit_owned_by  = "'.Utils::upperCase($unit_own).'"'
+												     unit_owned_by  = "'.$santize_unit.'"'
 												     ,'id = "'.$id.'"');
 					    $res['aaData'][0]['status'] = 1; // Active
 					    machineLogs($company_id,$id,$serialnum,$user_id,'UPDATE',$db);//Insert machine logs.
+
+					    $db->fields = null; //Clear the previous result from queries.
+					    
+					    //Sync to PM module if machine move to other company then remove the machine in maintenance if the status is in-progress and done.
+					    $db->selectQuery("pm.company_id, GROUP_CONCAT(CONCAT('\"',pm.pm_number, '\"')) AS pm_number","tbl_pm_machines pm 
+					    	LEFT JOIN tbl_pm_schedule ps ON pm.pm_number = ps.pm_number
+							WHERE pm.mif_id = '".$id."' AND pm.is_delete ='no' 
+							AND ps.status IN ('in-progress', 'done') ");
+					    $resPM = $db->getFields();
+					    $pm_comp_id  = $resPM['aaData'][0]['company_id'];
+					    $pm_number   = $resPM['aaData'][0]['pm_number'];
+
+					    if($pm_comp_id != $company_id && $pm_comp_id != '' && $pm_number !=''){ //Update column is_delete=yes if company_id is not equal.
+					    	$db->updateQuery('tbl_pm_machines','is_delete = "yes"','mif_id= '.$id.' AND pm_number IN ('.$pm_number.') '); 
+					    }
+					    
+					    if($pm_comp_id != '' && $pm_number !=''){ //Sync to PM module once details updated.
+							$db->updateQuery('tbl_pm_machines','brand = "'.$brand.'",
+							    model 			= "'.$santize_model.'",
+							    location_area 	= "'.$santize_loc.'",
+							    department 		= "'.$santize_dept.'",
+							    no_of_user 		= "'.$nouser.'",
+							    date_installed  = "'.$dateinstalled.'",
+							    unit_owned      = "'.$santize_unit.'"'
+				    			,'mif_id= '.$id.' AND pm_number IN ('.$pm_number.') ');
+					    }		
 
 				  	}else{
 				  		$res['aaData'][0]['status'] = 0; //Blocked
