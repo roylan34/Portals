@@ -24,11 +24,11 @@ gulp.task('watch',function(){
 				'assets/js/mrf/*.js', 
 				'assets/js/mrf/settings/*.js',
 				'assets/js/pm/*.js',],
-				['pack-mif-js','pack-invnt-js','pack-mrf-js','pack-pm-js','rev-clean']); //run all task.
+				['rev-clean','pack-mif-js','pack-invnt-js','pack-mrf-js','pack-pm-js']); //run all task.
 });
 
 gulp.task('rev-clean', () =>
-  del.sync('build/js/*')
+  del.sync('build/js/*.js')
 );
 
 //Merge and Minify Inventory
