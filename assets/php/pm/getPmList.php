@@ -40,9 +40,9 @@ switch (Utils::getValue('action')) {
 	        		$enabled_add = 'false';
 	        		$enabled_update = 'true';
 
-					if(Utils::getValue('serialnumber'))	{ $search ="AND serialnumber LIKE '%".$conn->escapeString(Utils::getValue('serialnumber'))."%'"; }
+					if(Utils::getValue('serialnumber'))	{ $search ="AND ps.serialnumber LIKE '%".$conn->escapeString(Utils::getValue('serialnumber'))."%'"; }
 					if(Utils::getValue('brand'))	{ $search ="AND br.brand_name='".$conn->escapeString(Utils::getValue('brand'))."'"; }
-					if(Utils::getValue('model'))	{ $search ="AND model='".$conn->escapeString(Utils::getValue('model'))."'"; }
+					if(Utils::getValue('model'))	{ $search ="AND ps.model='".$conn->escapeString(Utils::getValue('model'))."'"; }
 
 	        	//Table @tbl_pm_machines					
 					$conn->selectQuery('*','tbl_pm_machines WHERE id > 0 AND is_delete="no" AND pm_number="'.$pm_number.'" GROUP BY mif_id');
@@ -65,9 +65,12 @@ switch (Utils::getValue('action')) {
 					
 				if(intval($requestData['length']) >= 1 ) { $limit = ' LIMIT '.$requestData['start'].' ,'.$requestData['length'].''; }
 						$conn->selectQuery('ps.id, ps.serialnumber, br.brand_name, ps.model, ps.location_area, ps.department, ps.no_of_user, ps.date_installed, ps.unit_owned AS unit_owned, ps.manufacture_date,
-							ps.remarks, ps.page_count, ps.toner_use, ps.time_in, ps.time_out ',' tbl_pm_machines ps 
+							ps.remarks, ps.page_count, IFNULL(GROUP_CONCAT(tr.toner_code SEPARATOR "<br>")," ") AS toner_use, ps.time_in, ps.time_out ',' tbl_pm_machines ps 
 							LEFT JOIN tbl_brands br ON ps.brand = br.id
-							WHERE ps.id > 0 AND ps.is_delete="no" AND ps.company_id='.$company_id.' AND ps.pm_number="'.$pm_number.'" '.$search.' GROUP BY ps.mif_id ORDER BY ps.id DESC '.$limit.' ');
+							LEFT JOIN tbl_toner_model_use tmu ON (ps.pm_number = tmu.pm_number AND tmu.mif_id = ps.mif_id)
+							LEFT JOIN tbl_toner tr ON tmu.toner_id = tr.id
+							WHERE ps.id > 0 AND ps.is_delete="no" AND ps.company_id='.$company_id.' AND ps.pm_number="'.$pm_number.'" '.$search.' 
+							GROUP BY ps.mif_id ORDER BY ps.id DESC '.$limit.' ');
 						$row = $conn->getFields(); //Get all rows				
 
 	        } else {
@@ -178,9 +181,11 @@ switch (Utils::getValue('action')) {
 					
 					if(intval($requestData['length']) >= 1 ) { $limit = ' LIMIT '.$requestData['start'].' ,'.$requestData['length'].''; }
 						$conn->selectQuery('pm.id, pm.serialnumber, br.brand_name, pm.model, pm.location_area, pm.department, pm.no_of_user, pm.date_installed, pm.unit_owned, pm.manufacture_date,
-							pm.remarks, pm.page_count, pm.toner_use, pm.time_in, pm.time_out ',' tbl_pm_machines pm 
+							pm.remarks, pm.page_count, IFNULL(GROUP_CONCAT(tr.toner_code SEPARATOR "<br>")," ") AS toner_use, pm.time_in, pm.time_out ',' tbl_pm_machines pm 
 							LEFT JOIN tbl_brands br ON pm.brand = br.id
-							WHERE pm.id > 0 AND pm.is_delete="no" AND pm.company_id='.$company_id.' AND pm.pm_number="'.$pm_number.'" '.$search.' ORDER BY pm.id DESC '.$limit.' ');
+							LEFT JOIN tbl_toner_model_use tmu ON (pm.pm_number = tmu.pm_number AND tmu.mif_id = pm.mif_id)
+							LEFT JOIN tbl_toner tr ON tmu.toner_id = tr.id
+							WHERE pm.id > 0 AND pm.is_delete="no" AND pm.company_id='.$company_id.' AND pm.pm_number="'.$pm_number.'" '.$search.' GROUP BY pm.mif_id ORDER BY pm.id DESC '.$limit.' ');
 						$row = $conn->getFields(); //Get all rows				
 
 	        	if($conn->getNumRows() > 0 ){

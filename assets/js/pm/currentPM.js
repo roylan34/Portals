@@ -317,12 +317,13 @@ var dtCurrentPM = { //For development
                             $("#hdnCurMifId").val(res.mif_id);
                             $("#hdnCurPMId").val(res.id);
                             $("#hdnCurSchedPmNum2").val(res.pm_number);
+                            $("#hdnCurOldToner").val(res.toner_use);
                             $("#pm-serialnum").val(res.serialnumber);
                             $("#pm-brand").val(res.brand);
                             $("#pm-model").val(res.model);                            
                             $("#pm-remarks").val(res.remarks);
                             $("#pm-page").val(res.page_count);
-                            $("#pm-toner").val(res.toner_use); 
+                            $("#pm-toner").val(( res.toner_use == null ? null : res.toner_use.split(","))).trigger('chosen:updated');
                             $("#hdnCurCompId").val(res.company_id); 
                             $("#pm-location").val(res.location_area); 
                             $("#pm-department").val(res.department); 
@@ -351,11 +352,11 @@ var dtCurrentPM = { //For development
             } 
     },
     add: function(){
-        var pmnumber    = $("#hdnPmNumber").val() || '';
-        var company_id  = $("#hdnPmCompanyId").val() || '';
+        var pmnumber = $("#hdnPmNumber").val() || '';
+        var comp_id  = $("#hdnPmCompanyId").val() || '';
         var serialnum = self.dtCurrentPM.getMultipleSerial('dtInstance','.chckbox-pm-sn');
 
-            if(pmnumber == '' && company_id == ''){
+            if(pmnumber == '' && comp_id == ''){
                 alert('PM number is empty.');
                 return false;
             }
@@ -364,7 +365,7 @@ var dtCurrentPM = { //For development
                 return false;
             }
              var $btn     = $("button");             
-             var data = {action:'add', serialnum: serialnum, pmnumber: pmnumber, company_id:company_id };
+             var data = {action:'add', serialnum: serialnum, pmnumber: pmnumber, comp_id:comp_id };
 
                 $.ajax({
                     type: 'POST',
@@ -390,10 +391,10 @@ var dtCurrentPM = { //For development
         return this;
     },
     addPM: function(){
-        var pmnumber    = $("#hdnAddPmNumber").val() || '';
-        var company_id  = $("#hdnAddPmCompanyId").val() || '';
+        var pmnumber = $("#hdnAddPmNumber").val() || '';
+        var comp_id  = $("#hdnAddPmCompanyId").val() || '';
         var serialnum = self.dtCurrentPM.getMultipleSerial('dtInstanceAddPm','.chckbox-header-pm-sn');
-            if(pmnumber == '' && company_id == ''){
+            if(pmnumber == '' && comp_id == ''){
                 alert('PM number is empty.');
                 return false;
             }
@@ -402,7 +403,7 @@ var dtCurrentPM = { //For development
                 return false;
             }    
              var $btn      = $("button");
-             var data = {action:'add', serialnum: serialnum, pmnumber: pmnumber, company_id:company_id };
+             var data = {action:'add', serialnum: serialnum, pmnumber: pmnumber, comp_id:comp_id };
                 $.ajax({
                     type: 'POST',
                     url: assets+'php/pm/pm.php',
@@ -430,7 +431,8 @@ var dtCurrentPM = { //For development
               var manufacture = $("#pm-manufacture").val();
               var remarks     = $("#pm-remarks").val();
               var page        = $("#pm-page").val();
-              var toner       = $("#pm-toner").val();
+              var toner       = ($("#pm-toner").chosen().val() ? $("#pm-toner").chosen().val().toString() : '');
+              var toner_old   = $("#hdnCurOldToner").val(); 
               var pm_number   = $("#hdnCurSchedPmNum2").val();
               var time_in     = ($("#pm-date-in").datetimepicker('getDate') ? dateFormat($("#pm-date-in").datetimepicker('getDate'), 'yyyy-mm-dd HH:MM') : "");
               var time_out    = ($("#pm-date-out").datetimepicker('getDate') ? dateFormat($("#pm-date-out").datetimepicker('getDate'), 'yyyy-mm-dd HH:MM') : "");
@@ -445,7 +447,8 @@ var dtCurrentPM = { //For development
               var no_of_user  = $("#pm-no-user").val();
               var mif_id      = $("#hdnCurMifId").val();
 
-              var data        = {action:'update', brand:brand, model: model, location:loc, department:depart, no_of_user:no_of_user, mif_id:mif_id, pm_id:pm_id, manufacture:manufacture, remarks:remarks, page:page, toner:toner, time_in: time_in, time_out: time_out, pmnumber:pm_number, comp_id:comp_id, serialnum:serialnum};
+              var data        = {action:'update', brand:brand, model: model, location:loc, department:depart, no_of_user:no_of_user, mif_id:mif_id, pm_id:pm_id, manufacture:manufacture, 
+                                remarks:remarks, page:page, toner:toner, time_in: time_in, time_out: time_out, pmnumber:pm_number, comp_id:comp_id, serialnum:serialnum, toner_old: toner_old};
                $.ajax({
                     type: 'POST',
                     url: assets+'php/pm/pm.php',
@@ -456,6 +459,7 @@ var dtCurrentPM = { //For development
                             dtCurrentSched.dtInstance.ajax.reload(null, false);
                        }, false); // Reload the data in DataTable.
                        promptMSG('success-update','PM Machine',null,null,true,true);
+                      $("#hdnCurOldToner").val(toner);//Replicate the values of toner.
                     },
                     error: function(xhr,status){ alert("Something went wrong!"); },
                 });

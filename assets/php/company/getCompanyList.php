@@ -24,7 +24,7 @@ if(Utils::getValue('contactno')){ $search .=" AND c.contact_no='".$conn->escapeS
 if(Utils::getValue('accmngr'))  { $search .=" AND c.id_client_mngr ='".$conn->escapeString(Utils::getValue('accmngr'))."'"; }
 if(Utils::getValue('status'))   { $search .=" AND c.status ='".$conn->escapeString(Utils::getValue('status'))."'"; }
 if(Utils::getValue('delsan_comp')) { $search .=" AND c.delsan_company ='".$conn->escapeString(Utils::getValue('delsan_comp'))."'"; }
-if(Utils::getValue('toner_model')) { $search .=" AND tm.toner_id ='".$conn->escapeString(Utils::getValue('toner_model'))."'"; }
+if(Utils::getValue('toner_model')) { $search .=" AND tmu.toner_id ='".$conn->escapeString(Utils::getValue('toner_model'))."'"; }
 
 if(Utils::getValue('branch'))   { 
 	$count_mif_branch =" AND branches IN (".$conn->escapeString(Utils::getValue('branch')).")"; //Condition of counting no of branches.
@@ -46,8 +46,7 @@ switch (Utils::getValue('action_view')) {
 
 			$conn->selectQuery('c.*','tbl_company c 
 						LEFT JOIN tbl_company_branches cbr ON c.id = cbr.id_company
-						LEFT JOIN tblmif m ON c.id = m.company_id
-						LEFT JOIN tbl_toner_model tm ON m.model = tm.model 
+						LEFT JOIN tbl_toner_model_use tmu ON c.id = tmu.company_id
 			  			WHERE c.status = 1 AND c.id > 0 '.$search.' GROUP BY id');
 
 				$conn->fields = null;
@@ -65,8 +64,7 @@ switch (Utils::getValue('action_view')) {
 						LEFT JOIN tbl_company_branches cbr ON c.id = cbr.id_company
 						LEFT JOIN tbl_location br ON cbr.id_branches = br.id
 						LEFT JOIN tbl_location mbr ON c.main_location = mbr.id
-						LEFT JOIN tblmif m ON c.id = m.company_id
-						LEFT JOIN tbl_toner_model tm ON m.model = tm.model 
+						LEFT JOIN tbl_toner_model_use tmu ON c.id = tmu.company_id
 			  			WHERE c.status = 1 AND c.id > 0 '.$search.' GROUP BY c.id ORDER BY IF(c.company_name RLIKE "^[a-z]", 1, 2), c.company_name '.$limit.'');
 			$row = $conn->getFields(); //Get all rows
 

@@ -16,7 +16,7 @@ var dtToner = {
                 "bStateSave": true,                                          //save the pagination #, ordering, show records # and etc
                 "ordering" : false,
                     "ajax" : {
-			                    "url"  : assets+"php/settings/tonerModel.php",
+			                    "url"  : assets+"php/pm/settings/tonerModel.php",
 			                    "type" : "GET",
                                 "data": {action: 'view-all' }                    		 
                   },
@@ -30,11 +30,14 @@ var dtToner = {
                                 }
                             },
                             { data:  null, render: function( data, type, full, meta ){
-                                   return "<span class='text-center'>" + data.type + "</span>";
-                                }
-                            },
-                            { data:  null, render: function( data, type, full, meta ){
-                                   return "<span class='text-left'>" + data.model + "</span>";
+                                    var status = ''
+                                        if(data.status == 1){
+                                            status = 'Active'
+                                        }else{
+                                            status = 'Blocked';
+                                        }
+
+                                   return "<span class='text-center'>" + status + "</span>";
                                 }
                             },
                             { data:  null, render: function( data, type, full, meta ){
@@ -44,8 +47,8 @@ var dtToner = {
                  ],
                  "columnDefs": [
                             { responsivePriority: 1, target: 0},
-                            { responsivePriority: 2, width:"20%", target: 1},
-                            { targets:3, className: "none"}
+                            { responsivePriority: 2, target: 1},
+                            // { targets:3, className: "none"}
                  ],
                 "deferRender": true,
                 "preDrawCallback": function(settings){
@@ -55,72 +58,65 @@ var dtToner = {
         return this;
     },
     modalShow: function(toner){ 
-              $("#displayFormTonerModel").load(pages+'settings/form-toner-model.html',function(data,status,xhr){
+              $("#displayFormTonerModel").load(pages+'pm/settings/form-toner-model.html',function(data,status,xhr){
                  $('#modalFormToner').modal('show');
-                  var $toner_view = $(this);
+                    var $toner_view = $(this);
 
-                  $.when( autoDrpDown.getTonerModel("#slctSettingsModel") ) //Execute the .then callback function when ajax requests are successful, or fail.
-                   .done(function(x){
-                         if(toner != ''){
-                                $toner_view.find(".modal-title").text('Update Toner Model');
-                                $.ajax({
-                                    type: 'GET',
-                                    url : assets+'php/settings/tonerModel.php',
-                                    data: {action:'view-id', toner: toner},
-                                    dataType: 'json',
-                                    success: function(data){
-                                        $.each(data.aaData,function(key,val){
-                                            $("#hdnTonerId").val(val.id);
-                                            $("#txtSettingsToner").val(val.toner_code);
-                                            $("#hdnOldToner").val(val.toner_code); 
-                                            $("#slctSettingsModel").val(( val.model == null ? null : val.model.split(","))).trigger('chosen:updated');
-                                            $("#hdnOldModel").val(val.model);
-                                            $("#slctSettingsType").val(val.type);                                           
-                                        }); 
-                                    },
-                                    error: function(data,xhr,status){ }
-                                 });
-                            }
-                            else{
-                                $toner_view.find("h4.modal-title").text('Add Toner Model');
-                            }
-                   });
+                        if(toner != ''){
+                            $toner_view.find(".modal-title").text('Update Toner Model');
+                            $.ajax({
+                                type: 'GET',
+                                url : assets+'php/pm/settings/tonerModel.php',
+                                data: {action:'view-id', toner: toner},
+                                dataType: 'json',
+                                success: function(data){
+                                    $.each(data.aaData,function(key,val){
+                                        $("#hdnTonerId").val(val.id);
+                                        $("#hdnOldToner").val(val.toner_code); 
+                                        $("#txtSettingsPmToner").val(val.toner_code);
+                                        $("#slctSettingsPmStatus").val(val.status);                                           
+                                    }); 
+                                },
+                                error: function(data,xhr,status){ }
+                             });
+                        }
+                        else{
+                            $toner_view.find("h4.modal-title").text('Add Toner Model');
+                        }
+
                    
              });
     },
     update: function(){
             var tonerid= $("#hdnTonerId").val();
-            var toner  = $("#txtSettingsToner").val();
-            var model  = ($("#slctSettingsModel").chosen().val() ? $("#slctSettingsModel").chosen().val().toString() : '');
-            var old_model = $("#hdnOldModel").val();
-            var type   = $("#slctSettingsType option:selected").val();
-            var data   = {action:'update', tonerid:tonerid, toner: toner, model: model, type: type, old_model: old_model};
+            var toner  = $("#txtSettingsPmToner").val();
+            var status = $("#slctSettingsPmStatus option:selected").val();
+            var data   = {action:'update', tonerid:tonerid, toner: toner, status: status};
                $.ajax({
                     type: 'POST',
-                    url : assets+'php/settings/tonerModel.php',
+                    url : assets+'php/pm/settings/tonerModel.php',
                     data: data,
                     dataType: 'json',
                     success: function(data){
                         self.dtToner.dtInstance.ajax.reload(null, false); // Reload the data in DataTable.
                     },
-                    error: function(data,xhr,status){ console.log(xhr + status); }
+                    error: function(data,xhr,status){ alert(xhr + status); }
                  });
     },
     add: function(){
-            var toner  = $("#txtSettingsToner").val();
-            var model  = ($("#slctSettingsModel").chosen().val() ? $("#slctSettingsModel").chosen().val().toString() : '');
-            var type   = $("#slctSettingsType option:selected").val();
-            var data   = {action:'add', toner: toner, model: model, type: type};
+            var toner  = $("#txtSettingsPmToner").val();
+            var status = $("#slctSettingsPmStatus option:selected").val();
+            var data   = {action:'add', toner: toner, status: status};
                $.ajax({
                     type: 'POST',
-                    url : assets+'php/settings/tonerModel.php',
+                    url : assets+'php/pm/settings/tonerModel.php',
                     data: data,
                     dataType: 'json',
                     success: function(data){
                         self.dtToner.dtInstance.ajax.reload(null, false).page('last'); // Reload the data in DataTable.
                     },
-                    error: function(data,xhr,status){ console.log(xhr + status); },
-                    complete: function(){ $("#txtSettingsToner").val(''); $("#slctSettingsModel").val(0).trigger('chosen:updated'); }
+                    error: function(data,xhr,status){ alert(xhr + status); },
+                    complete: function(){ $("#txtSettingsPmToner").val(''); }
                  });
     },
     actions: function(){ //Show Add/Update Form

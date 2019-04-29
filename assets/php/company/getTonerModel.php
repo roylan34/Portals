@@ -12,5 +12,5 @@ require_once '../utils.php';
 
 
 $toner = Database::getInstance();
-$toner->selectQuery('id, toner_code','tbl_toner');
+$toner->selectQuery('id, toner_code','tbl_toner WHERE status = 1');
 print Utils::jsonEncode($toner->getFields());

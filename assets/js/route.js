@@ -76,7 +76,7 @@ $(document).ready(function(){
 
         if(appmodule != null){
           var nav_url = window.location.hash.slice(2);
-          var blocklist_url = ['account/company','account/manager','mif/settings','inventory/settings', 'mrf/settings','reports/sap-sales-summary']; //Block access url if account type is a User.
+          var blocklist_url = ['account/company','account/manager','mif/settings','inventory/settings', 'mrf/settings', 'pm/settings', 'reports/sap-sales-summary']; //Block access url if account type is a User.
           var blocked_url =  blocklist_url.filter(function(url){
                 return url == nav_url;
               });
@@ -281,7 +281,6 @@ $(document).ready(function(){
           dtBranch.pageDetails().render().actions();
           dtStatus.render().actions();
           dtBrand.render().actions();
-          dtToner.render().actions();
           dtSapCustomer.render();
         }
       });
@@ -388,14 +387,14 @@ $(document).ready(function(){
           }
         });
       }
-      else if(report_page == 'sap-details'){
-        $('.view-content').load(pages+'company/reports/sales-details.html',function(data,status){
-          if(status =='success'){
-              reportSalesDetails.pageDetails().dataTable().actions();
+      // else if(report_page == 'sap-details'){
+      //   $('.view-content').load(pages+'company/reports/sales-details.html',function(data,status){
+      //     if(status =='success'){
+      //         reportSalesDetails.pageDetails().dataTable().actions();
                   
-          }
-        });
-      }
+      //     }
+      //   });
+      // }
       else{ }
     },
     current_mrf: function(){
@@ -448,6 +447,13 @@ $(document).ready(function(){
         }
       });
     },
+    settings_pm: function(){
+      $('.view-content').load(pages+'pm/settings/index.html',function(data,status){
+        if(status =='success'){
+            dtToner.render().actions();
+        }
+      });
+    },
 };
 
 
@@ -465,7 +471,7 @@ $(document).ready(function(){
       },
        after: function(){
         // mifPages.route();
-          }
+      }
     },
     '/mif': { //MIF
       ':/dashboard': { //MIF
@@ -761,12 +767,12 @@ $(document).ready(function(){
         },
         on: function(){
           window.setTimeout(function(){
-            //mifPages.settings_mrf();
+            mifPages.settings_pm();
           },500);
         },
         'after': function(){
           window.setTimeout(function(){
-            //mifPages.abortAjaxDataTable();
+            mifPages.abortAjaxDataTable();
           },500);
         }
       },
@@ -860,30 +866,29 @@ $(document).ready(function(){
           },500);
         }
       },
-      ':/sap-details':{
-        before: function(){ 
-            //Reports SAP - Sales Details viewable only for Sales = 2 and Relation Officer = 3.
-             var allowed_view_sap_sales = [2,3]; //account id
-             if(allowed_view_sap_sales.indexOf(parseInt(Cookies.get('user_type'))) == -1 ){ // -1 not found
-                 return false;
-             }
-             return true;
+      // ':/sap-details':{
+      //   before: function(){ 
+      //       //Reports SAP - Sales Details viewable only for Sales = 2 and Relation Officer = 3.
+      //        var allowed_view_sap_sales = [2,3]; //account id
+      //        if(allowed_view_sap_sales.indexOf(parseInt(Cookies.get('user_type'))) == -1 ){ // -1 not found
+      //            return false;
+      //        }
+      //        return true;
              
-          },
-        on: function(report_page){
-          window.setTimeout(function(){
-            mifPages.reports('sap-details');
-          },500);
-        },
-        'after': function(){
-          window.setTimeout(function(){
-            mifPages.abortAjaxDataTable();
-          },500);
-        }
-      },
+      //     },
+      //   on: function(report_page){
+      //     window.setTimeout(function(){
+      //       mifPages.reports('sap-details');
+      //     },500);
+      //   },
+      //   'after': function(){
+      //     window.setTimeout(function(){
+      //       mifPages.abortAjaxDataTable();
+      //     },500);
+      //   }
+      // }
+    
     }
-
-
   };
 
     var mifRouter = Router(mifRoutes);

@@ -34,9 +34,7 @@ switch (Utils::getValue('department')) {
 									m.client_category,
 									m.brand, 
 									m.model, 
-									(SELECT GROUP_CONCAT(t.toner_code SEPARATOR "<br>") AS toner_code FROM tbl_toner_model tm
-									LEFT JOIN tbl_toner t ON tm.toner_id = t.id
-									WHERE tm.model = m.model) as toner_code, 
+									IFNULL(GROUP_CONCAT(tr.toner_code SEPARATOR "<br>")," ") AS toner_code, 
 									m.category, 
 									m.type, 
 									m.serialnumber, 
@@ -58,7 +56,9 @@ switch (Utils::getValue('department')) {
 										LEFT JOIN tbl_company com ON m.company_id = com.id
 										LEFT JOIN tbl_client_accounts ca ON com.id_client_mngr = ca.id
 										LEFT JOIN tbl_accounts ac ON ca.account_id = ac.id
-										WHERE m.status_machine = 0 '.$search.' ORDER BY com.company_name ASC');
+										LEFT JOIN tbl_toner_model_use tmu ON (m.id = tmu.mif_id AND m.company_id = tmu.company_id)
+										LEFT JOIN tbl_toner tr ON tmu.toner_id = tr.id
+										WHERE m.status_machine = 0 '.$search.' GROUP BY m.id ORDER BY com.company_name ASC');
 
 			$res = $conn->getFields();
 			$data['aaData'] = array();

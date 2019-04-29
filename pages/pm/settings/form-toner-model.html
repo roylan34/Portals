@@ -1,0 +1,115 @@
+<!-- Modal -->
+<div class="modal fade" id="modalFormToner" data-backdrop="static" data-keyboard="true" tabindex="-1" role="dialog" aria-labelledby="modalFormToner">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="modal-header"></h4>
+      </div>
+      <form id="frmSettingsToner" class="form-horizontal">
+          <div class="modal-body">
+
+            <div class="toner-content">
+                    <input type="hidden" name="hdnTonerId"  id="hdnTonerId">
+                    <input type="hidden" name="hdnOldToner" id="hdnOldToner">
+
+                    <div class="form-group">
+                      <label class="col-sm-4 col-md-4 control-label" for="txtSettingsPmToner">Toner:
+                      </label>
+                      <div class="col-sm-5 col-md-7">
+                        <input type="text" class="form-control" id="txtSettingsPmToner" name="txtSettingsPmToner" placeholder="Toner"/>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-4 control-label" for="slctSettingsPmStatus">Status:</label>
+                      <div class="col-sm-5 col-md-7">
+                        <select id="slctSettingsPmStatus" class="form-control">
+                          <option value="1">Active</option>
+                          <option value="0">Blocked</option>
+                        </select>
+                      </div>
+                    </div>
+
+            </div><!--end of content-->
+
+          </div><!--end of modal-body-->
+      <div class="modal-footer">
+        <div class="">
+          <div class="col-sm-6 col-sm-offset-6">
+            <button type="button" class="btn btn-flat btn-danger" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-flat btn-info" name="btnSettingsToner" id="btnSettingsToner">Save</button>
+          </div>
+        </div>
+      </div> <!--end of modal footer-->
+      </form>
+
+  </div>
+</div>
+<script type="text/javascript">
+ $('[data-toggle="popover"]').popover(); //Account Role popover.
+   // Client-side edit form validation.
+  $( document ).ready( function () {
+      $( "#frmSettingsToner" ).validate( {
+        submitHandler: function (form) {
+          var id = $("#hdnTonerId").val();
+          if(id == '' || id == null){
+              dtToner.add();
+              $("#txtSettingsPmToner").removeData("previousValue");//Clear cache of previous value in the 2nd time input of the remote call.
+          }
+          else {
+              dtToner.update();
+              var updated_toner = $("#txtSettingsPmToner").val();
+              $("#hdnOldToner").val(updated_toner);//Replicate the value with the updated.
+          }
+        },
+        rules: {
+          txtSettingsPmToner: {
+            required: true,
+            maxlength: 100,
+            rgxToner: true,
+            remote: {
+              url: assets+'php/pm/settings/tonerModel.php',
+              type: 'POST',
+              data: { 
+                  action_validate: function(){ 
+                        var id = $("#hdnTonerId").val();
+                        return (id == '' || id == null ? 'add' : 'update');
+                  }, 
+                  old_toner: function(){ return $("#hdnOldToner").val(); },
+                  action: 'check_exist'
+                }
+            }
+          }
+        },
+        messages: {
+          txtSettingsPmToner: {
+            required: "This field is required.",
+            maxlength: "Please enter no more than {0} characters",
+            rgxToner: "Only this characters allowed A-Z a-z 0-9 and -"
+          }
+        },
+        errorElement: "em",
+        errorPlacement: function ( error, element ) {
+          // Add the `help-block` class to the error element
+          error.addClass( "help-block" ).css('margin-top','0px');
+          error.css({'font-size':'12px','margin-bottom':'0px'});
+
+          if ( element.prop( "type" ) === "checkbox" ) {
+            error.insertAfter( element.parent( "label" ) );
+          } else {
+            error.insertAfter( element );
+          }
+        },
+        highlight: function ( element, errorClass, validClass ) {
+          $( element ).parents( ".col-sm-5" ).addClass( "has-error" ).removeClass( "has-success" );
+        },
+        unhighlight: function (element, errorClass, validClass) {
+          $( element ).parents( ".col-sm-5" ).addClass( "has-success" ).removeClass( "has-error" );
+        }
+      } );
+  } );
+                       
+</script>
+
+

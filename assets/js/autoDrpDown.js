@@ -289,25 +289,25 @@ var autoDrpDown = {
 	     }
 	     return this;
 	},
-	getTonerModel: function(elem){
-	  return $.ajax({
-				type: 'GET',
-				dataType: 'json',
-				url: assets+'php/settings/tonerModel.php',
-				data: {action: 'view-model'},
-				async: false,
-				success: function(data){
-					var opt = '';
-						$.each(data.aaData, function(i, val){
-								opt += "<option value='"+ val.model +"'> "+val.model+"</option>";	
-						});
-					$(elem).html(opt);	
-				},
-				complete: function(){
-					$(elem).chosen({no_results_text: "No records found.",width: "100%", search_contains:true});
-				}
-			});
-	},
+	// getTonerModel: function(elem){
+	//   return $.ajax({
+	// 			type: 'GET',
+	// 			dataType: 'json',
+	// 			url: assets+'php/settings/tonerModel.php',
+	// 			data: {action: 'view-model'},
+	// 			async: false,
+	// 			success: function(data){
+	// 				var opt = '';
+	// 					$.each(data.aaData, function(i, val){
+	// 							opt += "<option value='"+ val.model +"'> "+val.model+"</option>";	
+	// 					});
+	// 				$(elem).html(opt);	
+	// 			},
+	// 			complete: function(){
+	// 				$(elem).chosen({no_results_text: "No records found.",width: "100%", search_contains:true});
+	// 			}
+	// 		});
+	// },
 	getCategory: function(elem,usePlugin){
 			if(self.autoDrpDown.cacheOptCategory.length != 0){
 				$(elem).html(self.autoDrpDown.cacheOptCategory[0].join(""));
@@ -416,10 +416,9 @@ var autoDrpDown = {
 					url: assets+'php/company/getTonerModel.php',
 					async: false,
 					success: function(data){
-						var optTonerM = '<option value>---</option>';
+						var optTonerM = '<option value="0">---</option>';
 							$.each(data.aaData, function(i, val){
-								console.log(val);
-									optTonerM += "<option value='"+ val.id +"'> "+val.toner_code +"</option>";	
+								optTonerM += "<option value='"+ val.id +"'> "+val.toner_code +"</option>";	
 							});
 							$(elem).html(optTonerM);
 							self.autoDrpDown.cacheOptTonerModel.push(optTonerM);	
@@ -765,32 +764,6 @@ var autoDrpDownMrf = {
 
 	},
 };
-
-
-// var autoDrpDownPM = {
-// 	   cacheOptPM: [],
-// 		getTechnician: function(elem,branch){
-// 			if(this.cacheOptPM.length == 0){
-// 	         	$.ajax({
-// 					type: 'GET',
-// 					dataType: 'json',
-// 					url: assets+'php/pm/misc/getTechnician.php',
-// 					async: false,
-// 					data: { branch: branch },
-// 					success: function(data){
-// 						var optTech = [];
-// 							$.each(data.aaData, function(i, val){
-// 									optTech.push("<option value='"+ val.id +"'> "+val.technician+"</option>");	
-// 							});
-// 							self.autoDrpDownPM.cacheOptPM = optTech;	
-// 					}
-// 				});
-// 	     	}
-// 	     	  //Render elements.
-// 	     	  $(elem).html("<option value=''>---</option>" + this.cacheOptPM.join(""));
-
-// 	},
-// };
 
 
 var autoDrpDownPM = {

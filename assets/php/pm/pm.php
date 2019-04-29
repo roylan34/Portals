@@ -18,18 +18,23 @@ if(Utils::getIsset('action')){
 	$serialnum 		= Utils::getValue('serialnum');
 	$pmnumber 		= Utils::getValue('pmnumber');
 	$pm_id  		= Utils::getValue('pm_id');
-	$company_id  	= Utils::getValue('company_id');
+	$comp_id    	= Utils::getValue('comp_id');
 	$manufacture  	= Utils::getValue('manufacture');
 	$remarks  		= $db->escapeString(Utils::getValue('remarks'));
 	$page  			= Utils::getValue('page');
-	$toner  	= $db->escapeString(Utils::getValue('toner'));
+	$toner  		= $db->escapeString(Utils::getValue('toner'));
+	$toner_old  	= $db->escapeString(Utils::getValue('toner_old'));
 	$time_in  	= Utils::getValue('time_in');
 	$time_out  	= Utils::getValue('time_out');
 	$is_delete  = Utils::getValue('is_delete');
-	$comp_id    = Utils::getValue('comp_id');
+	
 
 	$date_entered = Utils::getSysDate();
 	$time_entered = Utils::getSysTime();
+
+	//Toner Adding/Deleting
+	$expl_selected_toner  = (!empty($toner) 	? explode(',',$toner)     : array());
+	$expl_old_toner	 	  = (!empty($toner_old) ? explode(',',$toner_old) : array());
 
 	$search ="";
 
@@ -41,7 +46,7 @@ if(Utils::getIsset('action')){
 					$sn_insert = implode('","',$serialnum['insert']);	
 					$db->customQuery('INSERT INTO tbl_pm_machines (pm_number, company_id, serialnumber, brand, model, location_area, department, no_of_user, date_installed, unit_owned , mif_id, created_date )
 									 SELECT "'.$pmnumber.'", company_id, serialnumber, brand, model, location_area, department, no_of_user, date_installed, unit_owned_by, id, NOW() FROM tblmif
-									 WHERE company_id = '.$company_id.' AND serialnumber IN ("'.$sn_insert.'")');
+									 WHERE company_id = '.$comp_id.' AND serialnumber IN ("'.$sn_insert.'")');
 	                $res = $db->getFields();
 					 		if($res['aaData'][0] == 'success'){ 
 					 			$db->fields = null;
@@ -104,7 +109,6 @@ if(Utils::getIsset('action')){
 														manufacture_date = "'.$manufacture.'", 
 														remarks 	= "'.$remarks.'",
 														page_count 	= "'.$page.'",
-														toner_use	= "'.$toner.'",
 														time_in  	= "'.$time_in.'",
 														time_out 	= "'.$time_out.'"'
 										    			,'id = "'.$pm_id.'"');
@@ -118,6 +122,29 @@ if(Utils::getIsset('action')){
 												   remarks			= "'.$remarks.'"'
 										  ,'company_id = "'.$comp_id.'" AND id="'.$mif_id.'"');
 				 		$resPM = $db->getFields();
+
+				 		//Add Toner
+						if(count($expl_selected_toner) >= count($expl_old_toner)){
+						    foreach($expl_selected_toner AS $key => $val_selected){
+						        if(!in_array($val_selected, $expl_old_toner)){
+						        	$db->insertQuery('tbl_toner_model_use','pm_number, company_id, mif_id, toner_id',
+															  '"'.$pmnumber.'",
+															  "'.$comp_id.'",
+															  "'.$mif_id.'",
+															  "'.$val_selected.'"');
+						       }
+						    }
+						}
+						//Delete Toner
+						if(count($expl_old_toner) >= count($expl_selected_toner)){
+						      foreach($expl_old_toner AS $key => $val_selected){
+						        if(!in_array($val_selected, $expl_selected_toner)){
+						        	$db->deleteQuery('tbl_toner_model_use','pm_number ="'.$pmnumber.'" AND mif_id = '.$mif_id.' AND toner_id ='.$val_selected.'');
+						       }
+						    }
+						}
+						
+
 				 		if($resPM['aaData'][0] == 'success'){ 
 				 			$db->fields = null;
 
@@ -135,9 +162,12 @@ if(Utils::getIsset('action')){
 				 	}
 			break;
 		case 'view-id':
-					$db->selectQuery("pm.company_id, pm.pm_number, pm.id, pm.serialnumber, pm.brand, pm.model, pm.manufacture_date, pm.remarks, pm.page_count, pm.toner_use, pm.time_in, pm.time_out, pm.location_area, pm.department, pm.no_of_user, m.id AS mif_id "," tbl_pm_machines pm
+					$db->selectQuery("pm.company_id, pm.pm_number, pm.id, pm.serialnumber, pm.brand, pm.model, pm.manufacture_date, pm.remarks, pm.page_count, GROUP_CONCAT(tmu.toner_id) AS toner_use, pm.time_in, pm.time_out, pm.location_area, pm.department, pm.no_of_user, m.id AS mif_id "," tbl_pm_machines pm
 									LEFT JOIN tblmif m ON m.id = pm.mif_id
-									WHERE pm.id = ".$pm_id." AND m.company_id = pm.company_id LIMIT 1");
+									LEFT JOIN tbl_toner_model_use tmu ON pm.pm_number = tmu.pm_number
+									WHERE pm.id = ".$pm_id." AND m.company_id = pm.company_id 
+									AND tmu.pm_number = pm.pm_number AND tmu.mif_id = pm.mif_id
+									LIMIT 1");
 					 print Utils::jsonEncode($db->getFields());
 					
 			break;

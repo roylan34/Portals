@@ -12,6 +12,7 @@
               <input type="hidden" name="hdnCurPMId" id='hdnCurPMId' value=''>
               <input type="hidden" name="hdnCurSchedPmNum2" id='hdnCurSchedPmNum2' value=''>
               <input type="hidden" name="hdnCurCompId" id='hdnCurCompId' value=''>
+              <input type="hidden" name="hdnCurOldToner" id='hdnCurOldToner' value=''>
 
               <div class="form-group">
                 <label class="col-sm-4 control-label" for="pm-serialnum">S/N:</label>
@@ -79,9 +80,10 @@
               </div>
 
                <div class="form-group">
-                <label class="col-sm-4 control-label" for="pm-toner">Toner use:</label>
+                <label class="col-sm-4 control-label" for="pm-toner">Toner model use:</label>
                 <div class="col-sm-6">
-                  <input type="text" class="form-control" id="pm-toner" name="pm-toner"/>
+                  <!-- <input type="text" class="form-control" id="pm-toner" name="pm-toner"/> -->
+                   <select id="pm-toner" class="chosen-select" name="pm-toner" multiple="true" data-placeholder=" " ></select>
                 </div>
               </div>
 
@@ -116,6 +118,7 @@
 $( document ).ready( function () {
 
 autoDrpDown.getBrandName("#pm-brand");  //Dropdown brand
+autoDrpDown.getTonerModel("#pm-toner");   
 
 // Client-side edit form validation.
     $( "#frmCurrentPM" ).validate( {
@@ -149,7 +152,7 @@ autoDrpDown.getBrandName("#pm-brand");  //Dropdown brand
               required: true
             },
             "pm-toner": {
-              required: true
+              required: false
             },
             "pm-date-in": {
               required: true
