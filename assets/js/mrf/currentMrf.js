@@ -496,14 +496,14 @@ var dtCurrentMrf = {
 
 		//Modal Comments.
 		$("#displayComments").load(pages + 'mrf/current/comments.html', function () {
-			var intervalComments = null;
+			// var intervalComments = null;
 
 			$(this).find('#modalComments').on('shown.bs.modal', function () { //Reset form when modal hidden
 				var id_user = Cookies.get('user_id');
 				var id_mrf = $("#hdnIdMRF").val();
-				intervalComments = setInterval(function () { //Auto Refresh messages.
+				// intervalComments = setInterval(function () { //Auto Refresh messages.
 					comment.display(id_mrf, id_user);
-				}, 5000);
+				// }, 5000);
 				// comment.stopAutoRefresh(); //Refresh messages.
 			});
 			//Hide View Modal
@@ -511,7 +511,7 @@ var dtCurrentMrf = {
 				$(this).find("#frmComment").trigger('reset');
 				$(this).find("#frmComment input[type='hidden']").val('');
 				$(".comment-box").empty();
-				clearInterval(intervalComments);
+				// clearInterval(intervalComments);
 
 				if ($("#modalFormCurrentViewMrf").is(':visible')) {//Check if View Request modal still visible and addClass.
 					$("body").addClass('modal-open');
