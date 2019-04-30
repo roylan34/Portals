@@ -54,7 +54,7 @@ var comment = {
 		    	beforeSend: function(){ $btn.button('loading'); }, 
 		    	success: function(response){
 		    		if(response.aaData[0] == "success"){ //Refresh message display and empty the input message.
-		    			self.comment.display(idMRF);
+		    			self.comment.display(idMRF,id_user);
 		    			$("#txtComment").val('');
 		    		}
 		    	},

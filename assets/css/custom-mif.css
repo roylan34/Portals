@@ -300,7 +300,8 @@ input.mrf-material:focus, select.mrf-material:focus {
     max-height: 650px;
     overflow: auto;
     border: 1px solid #428a69;
-    margin-bottom: 20px
+    margin-bottom: 20px;
+    resize: vertical;
   }
   .comment-msg{
     margin: 5px 10px;
