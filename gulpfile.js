@@ -8,6 +8,10 @@ var rev    = require('gulp-rev');
 var rename = require('gulp-rename');
 var del    = require('del');
 
+//inject files to index.html
+var series = require('stream-series'),
+    inject = require('gulp-inject');
+
 //To eliminate typing gulp command, rather use this method watcher task.
 // gulp watch command
 gulp.task('watch',function(){
@@ -23,15 +27,23 @@ gulp.task('watch',function(){
 				'assets/js/inventory/settings/*.js',
 				'assets/js/mrf/*.js', 
 				'assets/js/mrf/settings/*.js',
-				'assets/js/pm/*.js',],
+				'assets/js/pm/*.js',
+				'assets/js/pm/settings/*.js'],
 				['rev-clean','pack-mif-js','pack-invnt-js','pack-mrf-js','pack-pm-js']); //run all task.
+
+	gulp.watch(
+				['build/js/*.js'],
+				['inject-js']
+			);
+
 });
+
 
 gulp.task('rev-clean', () =>
   del.sync('build/js/*.js')
 );
 
-//Merge and Minify Inventory
+//MIF
 gulp.task('pack-mif-js',function(){
 		return gulp.src([
 				'assets/js/charts/*.js',
@@ -56,10 +68,11 @@ gulp.task('pack-mif-js',function(){
 					merge: true //override the rev-manifest.json if one exists.
 				}))
 				.pipe(gulp.dest('.'));//save the rev-manifest.json
+				//.pipe(gulp.dest('build/js'));
 
 });
 
-//Merge and Minify Inventory
+//Inventory
 gulp.task('pack-invnt-js',function(){
 		return gulp.src([
 				'assets/js/inventory/*.js', 
@@ -81,9 +94,10 @@ gulp.task('pack-invnt-js',function(){
 					merge: true //override the rev-manifest.json if one exists.
 				}))
 				.pipe(gulp.dest('.'));//save the rev-manifest.json
+				// .pipe(gulp.dest('build/js'));
 
 });
-//Merge and Minify MRF
+//MRF
 gulp.task('pack-mrf-js',function(){
 		return gulp.src([
 				'assets/js/mrf/*.js', 
@@ -104,13 +118,15 @@ gulp.task('pack-mrf-js',function(){
 					merge: true //override the rev-manifest.json if one exists.
 				}))
 				.pipe(gulp.dest('.'));//save the rev-manifest.json
+				//.pipe(gulp.dest('build/js'));
 
 });
 
-//Merge and Minify MRF
+//PM
 gulp.task('pack-pm-js',function(){
 		return gulp.src([
-				'assets/js/pm/*.js'])
+				'assets/js/pm/*.js',
+				'assets/js/pm/settings/*.js'])
 				.pipe(concat('bundle-pm.min.js'))
 				.pipe(minify({
 					ext: {
@@ -127,6 +143,20 @@ gulp.task('pack-pm-js',function(){
 					merge: true //override the rev-manifest.json if one exists.
 				}))
 				.pipe(gulp.dest('.'));//save the rev-manifest.json
+				//.pipe(gulp.dest('build/js'));
+
+});
+
+//rebuilding index.html with gulp-inject
+gulp.task('inject-js',function(){ 
+	 gulp.src('index.html')
+		  .pipe(inject( 
+		  			gulp.src('build/js/*.js',{read:false}),
+		  				{addRootSlash: false} 
+		  			 )
+		  		) // This will always inject vendor files before app files
+		  .pipe(gulp.dest('.'));
+
 
 });
 

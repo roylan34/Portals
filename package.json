@@ -24,10 +24,12 @@
     "grunt-includes": "^0.4.5",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.1",
+    "gulp-inject": "^5.0.2",
     "gulp-minify": "^2.1.0",
     "gulp-plumber": "^1.2.0",
     "gulp-rename": "^1.4.0",
-    "gulp-rev": "^9.0.0"
+    "gulp-rev": "^9.0.0",
+    "stream-series": "^0.1.1"
   },
   "dependencies": {
     "angular-datatables": "^0.6.0",
