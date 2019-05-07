@@ -20,11 +20,11 @@ function fileUpload($_FILES, $action, $exist_dir){
 				  		  	  	//Get the file datas.
 							  	$tmpFilePath = $_FILES[$key]["tmp_name"];
 							  	$file_size = $_FILES[$key]["size"];
-							  	$file_name = strtolower($_FILES[$key]["name"]);
+							  	$file_name = Utils::normalizeFilename($_FILES[$key]["name"]);
 							  	$file_type = $_FILES[$key]["type"];
 								$file_path = $upload_dir.$file_name;
 
-						    		if(move_uploaded_file($tmpFilePath, $upload_dir.$new_dir_name."/".strtolower($file_name))){
+						    		if(move_uploaded_file($tmpFilePath, $upload_dir.$new_dir_name."/".$file_name)){
 						    			$uploaded_result["attachment_status"] = "true";
 						    			$uploaded_result["attachment_message"] = "Success! file uploaded";
 						    			$uploaded_result["attachment_uploaded"] = $new_dir_name;
@@ -56,9 +56,9 @@ function fileUpload($_FILES, $action, $exist_dir){
 					   		foreach ($_FILES as $key => $value) {		  
 				  		  	  	//Get the file datas.
 							  	$tmpFilePath = $_FILES[$key]["tmp_name"];
-							  	$file_name = strtolower($_FILES[$key]["name"]);
+							  	$file_name = Utils::normalizeFilename($_FILES[$key]["name"]);
 
-						    		if(move_uploaded_file($tmpFilePath, $upload_dir.$filename_exist."/".strtolower($file_name))){
+						    		if(move_uploaded_file($tmpFilePath, $upload_dir.$filename_exist."/".$file_name)){
 						    			$uploaded_result["attachment_status"] = "true";
 						    			$uploaded_result["attachment_message"] = "Success! file uploaded";
 						    			$uploaded_result["attachment_uploaded"] = $filename_exist;

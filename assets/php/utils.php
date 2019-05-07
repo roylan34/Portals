@@ -175,7 +175,7 @@ Class Utils{
 	         $files = scandir($tmp_dir);
 	         $scan_files = array_slice($files,2);
 		         foreach ($scan_files as $key => $value) {
-		         	$array_files[$key]['imagename'] = $value;
+		         	$array_files[$key]['imagename'] = $value; //In case of error use mb_convert_encoding()
 		         	$array_files[$key]['imagepath'] = $imgPath.'/'.rawurlencode($value);
 		         }
 	    }
@@ -185,5 +185,36 @@ Class Utils{
 	static public function getImageServerPath($dirImage){
 		return $_SERVER['DOCUMENT_ROOT'].'/'.self::$appName.'/assets/attachment/'.$dirImage;
 	} 
+
+	/**
+	* Remove empty elements in array.
+	*
+	* @param array $arrElem to filter.
+	* @return filtered array elements.
+	*/
+	static public function filterEmptyArr($arrElem){
+		if(is_array($arrElem)){
+			return array_filter($arrElem, function($v){
+				return $v != '';
+			});
+		}
+		throw new InvalidArgumentException("filterEmptyArr function only accepts array.");
+		
+	}
+
+	static public function normalizeFilename($str = '')
+	{
+	     $str = strip_tags($str); 
+	    $str = preg_replace('/[\r\n\t ]+/', ' ', $str);
+	    $str = preg_replace('/[\"\*\/\:\<\>\?\'\|]+/', ' ', $str);
+	    $str = strtolower($str);
+	    $str = html_entity_decode( $str, ENT_QUOTES, "utf-8" );
+	    $str = htmlentities($str, ENT_QUOTES, "utf-8");
+	    $str = preg_replace("/(&)([a-z])([a-z]+;)/i", '$2', $str);
+	    // $str = str_replace(' ', '-', $str);
+	    // $str = rawurlencode($str);
+	    // $str = str_replace('%', '-', $str);
+	    return $str;
+	}
 }
 
