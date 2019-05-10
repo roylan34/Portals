@@ -179,7 +179,7 @@ var dtCurrentSched = {
 
         $("#displayFormSchedule").load(pages+'pm/current/form.html',function(){
             autoDrpDown.getAllCompany("#sched-company","100%");   //dropdown Company
-            autoDrpDownPM.getTechnician("#sched-technician", Cookies.get('branch_pm'));  //dropdown Technician
+            autoDrpDownPM.getTechnician("#sched-technician", Cookies.get('branch_pm'), true);  //dropdown Technician
             self.dtCurrentSched.update_cancel().update_close();
 
             //Hide Schedule modal
@@ -283,10 +283,11 @@ var dtCurrentSched = {
                         var res_data = data.aaData[0];                             
                             $("#hdnCurSchedId").val(res_data.id);
                             $("#hdnCurSchedPmNum").val(res_data.pm_number);
+                            $("#hdnCurSchedOldTech").val(res_data.technician);
                             $("#sched-number").text(res_data.pm_number);
                             $("#sched-company").val(res_data.company_id).trigger('chosen:updated');
                             $("#sched-schedule").val(res_data.schedule_date);
-                            $("#sched-technician").val(res_data.technician);
+                            $("#sched-technician").val(( res_data.technician == '' ? null : res_data.technician.split(","))).trigger('chosen:updated');
                             $("#sched-date-entered").text(res_data.date_entered);
                             $("#sched-contact-name").val(res_data.contact_name);
                             $("#sched-contact-num").val(res_data.contact_number);
@@ -300,15 +301,17 @@ var dtCurrentSched = {
     },
     edit: function(id){ //Edit record by company id.
           var $btn     = $("button[type='submit']");
+          var pmnumber      = $("#hdnCurSchedPmNum").val();
           var company       = ($("#sched-company").chosen().val() ? $("#sched-company").chosen().val().toString() : '');
           var sched_date    = $("#sched-schedule").val();
-          var technician    = $("#sched-technician option:selected").val();        
+          var technician    = ($("#sched-technician").chosen().val() ? $("#sched-technician").chosen().val().toString() : '');
+          var old_technician= $("#hdnCurSchedOldTech").val();        
           var contact_name  = $("#sched-contact-name").val();
           var contact_no    = $("#sched-contact-num").val();
           var contact_email = $("#sched-contact-email").val();
           var contact_dept  = $("#sched-contact-dept").val();
           var data      = {action:'edit', id_pm:id, company:company, sched_date:sched_date, technician:technician, contact_name:contact_name, contact_no: contact_no, email: contact_email,
-                            department: contact_dept};
+                            department: contact_dept, old_technician:old_technician, pmnumber:pmnumber};
            $.ajax({
                 type: 'POST',
                 url: assets+'php/pm/schedule.php',
@@ -318,6 +321,8 @@ var dtCurrentSched = {
                 success: function(data){
                    self.dtCurrentSched.dtInstance.ajax.reload(null, false); // Reload the data in DataTable.
                    promptMSG('success-update','Schedule',null,null,true,true);
+
+                   $("#hdnCurSchedOldTech").val(technician);//Copy the values of new Technician.
                 },
                 error: function(xhr,status){ alert("Something went wrong!"); },
                 // complete: function(){ $btn.button('reset'); }
@@ -327,8 +332,8 @@ var dtCurrentSched = {
     add: function(){ //Add new Record
           var $btn     = $("button[type='submit']");
           var company       = ($("#sched-company").chosen().val() ? $("#sched-company").chosen().val().toString() : '');
-          var sched_date    = $("#sched-schedule").val();
-          var technician    = $("#sched-technician option:selected").val();        
+          var sched_date    = $("#sched-schedule").val();       
+          var technician    = ($("#sched-technician").chosen().val() ? $("#sched-technician").chosen().val().toString() : '');
           var contact_name  = $("#sched-contact-name").val();
           var contact_no    = $("#sched-contact-num").val();
           var contact_email = $("#sched-contact-email").val();
@@ -348,7 +353,7 @@ var dtCurrentSched = {
                     promptMSG('success-add','Schedule',null,null,true,true);
                 },
                 error: function(xhr,status){ alert("Something went wrong!"); },
-                complete: function(){ resetForm("#frmCurrentSched"); $("#sched-company").val(0).trigger('chosen:updated'); $btn.button('reset'); $("#sched-number").text('...'); }
+                complete: function(){ resetForm("#frmCurrentSched"); $("#sched-company, #sched-technician").val(0).trigger('chosen:updated'); $btn.button('reset'); $("#sched-number").text('...'); }
 
             });
     },

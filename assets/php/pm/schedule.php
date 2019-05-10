@@ -19,6 +19,7 @@ if(Utils::getIsset('action')){
 	$company  		= Utils::getValue('company');
 	$sched_date  	= Utils::getValue('sched_date');
 	$technician 	= Utils::getValue('technician');
+	$old_technician = Utils::getValue('old_technician');
 	$contact_name  	= Utils::getValue('contact_name');
 	$contact_no 	= Utils::getValue('contact_no');
 	$email  		= Utils::getValue('email');
@@ -28,21 +29,23 @@ if(Utils::getIsset('action')){
 	$date_entered = Utils::getSysDate();
 	$time_entered = Utils::getSysTime();
 
+	 //Technician Adding/Deleting
+	$expld_technician  	= (!empty($technician) 	   ? explode(',',$technician)     : array());
+	$expl_old_technician= (!empty($old_technician) ? explode(',',$old_technician) : array());
+
 	$db = Database::getInstance();
 	$search ="";
 
-
 	switch ($action) {
 		case 'add':
-		        $add_pm_no = generatePmNo($db);
+		        $add_pm_no 			= generatePmNo($db);
 				$db->fields = null;
 
-				$db->insertQuery('tbl_pm_schedule','pm_number, company_id, schedule_date, technician, date_entered, time_entered, contact_name, contact_number, email_address,
+				$db->insertQuery('tbl_pm_schedule','pm_number, company_id, schedule_date, date_entered, time_entered, contact_name, contact_number, email_address,
 													department, created_by, branch  ',
 												'"'.$add_pm_no.'",
 												"'.$company.'",
 												"'.$sched_date.'",
-												"'.$technician.'",
 												"'.$date_entered.'",
 												"'.$time_entered.'",
 												"'.$contact_name.'",
@@ -51,25 +54,55 @@ if(Utils::getIsset('action')){
 												"'.$department.'",
 												"'.$user_id.'",
 												"'.$branch.'"');
-                  		print Utils::jsonEncode($db->getFields());
+
+
+				if(count($expld_technician) > 0){
+					$db->insertMultipleByUniqueQuery('tbl_pm_technician','technician, pm_number, created_at', 
+								Utils::filterEmptyArr($expld_technician),
+									  '"'.$add_pm_no.'",
+									  "'.$date_entered.'"'); 
+				}
+
+          		print Utils::jsonEncode($db->getFields());
 			break;
 		case 'edit':
 					if($id_sched){
 						$db->updateQuery('tbl_pm_schedule','company_id = "'.$company.'", 
 														schedule_date = "'.$sched_date.'",
-														technician 	 = "'.$technician.'",
 														contact_name = "'.$contact_name.'",
 														contact_number  = "'.$contact_no.'",
 														email_address = "'.$email.'",
 														department = "'.$department.'"'
 										    			,'id = "'.$id_sched.'"');
+
+						 //Add Technician
+						if(count($expld_technician) >= count($expl_old_technician)){
+						    foreach($expld_technician AS $key => $val_selected){
+						        if(!in_array($val_selected, $expl_old_technician)){
+						        	$db->insertQuery('tbl_pm_technician','pm_number, technician, created_at',
+															  '"'.$pmnumber.'",
+															  "'.$val_selected.'",
+															  "'.$date_entered.'"');
+						       }
+						    }
+						}
+						//Delete Technician
+						if(count($expl_old_technician) >= count($expld_technician)){
+						      foreach($expl_old_technician AS $key => $val_selected){
+						        if(!in_array($val_selected, $expld_technician)){
+						        	$db->deleteQuery('tbl_pm_technician','pm_number ="'.$pmnumber.'" AND technician ='.$val_selected.'');
+						       }
+						    }
+						}
+						
 				 		print Utils::jsonEncode($db->getFields());
 				 	}
 			break;
 		case 'view-id':
-					$db->selectQuery("id, pm_number, company_id, schedule_date, technician, CONCAT(date_entered,' ', time_entered) AS date_entered,
-									  contact_name, contact_number, email_address, department"," tbl_pm_schedule
-									WHERE id = ".$id_sched."");
+					$db->selectQuery("ps.id, ps.pm_number, ps.company_id, ps.schedule_date, GROUP_CONCAT(pt.technician) AS technician, CONCAT(ps.date_entered,' ', ps.time_entered) AS date_entered,
+									  ps.contact_name, ps.contact_number, ps.email_address, ps.department"," tbl_pm_schedule ps
+									  LEFT JOIN tbl_pm_technician pt on ps.pm_number = pt.pm_number
+									WHERE ps.id = ".$id_sched." LIMIT 1");
 					 print Utils::jsonEncode($db->getFields());
 					
 			break;	

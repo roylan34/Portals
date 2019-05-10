@@ -768,7 +768,7 @@ var autoDrpDownMrf = {
 
 var autoDrpDownPM = {
 	   cacheOptPM: {  },
-		getTechnician: function(elem,branch){
+		getTechnician: function(elem,branch,usePlugin){
 			var storeOpt = {
 				set : function(_branch, optElem){
 					if(_branch != undefined && optElem != undefined){
@@ -805,7 +805,11 @@ var autoDrpDownPM = {
 	     	}
 	     	  //Render elements.
 	     	  var opts = ( storeOpt.get(branch) !== null ? storeOpt.get(branch).join("") : '' );
-	     	  	  $(elem).html("<option value=''>---</option>" + opts);
+	     	  	  $(elem).html("<option value='' disabled>---</option>" + opts);
+
+	     	  	  if(usePlugin === true && usePlugin !== undefined){
+	     	  	  	$(elem).chosen({no_results_text: "No records found.", width: '100%', search_contains:true});
+	     	  	  }
 
 	},
 };

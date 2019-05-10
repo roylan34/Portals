@@ -29,8 +29,8 @@ if($pm_type == 'CONTROLLER' || $pm_type == 'MONITOR'){
 	$search .= "AND ps.branch='".$branch."'";
 	$searchBranch .= " AND ps.branch='".$branch."'";
 }else{
-	$search .= "AND ps.technician='".$userid."'";
-	$searchBranch .= " AND ps.technician='".$userid."'";
+	$search .= "AND pt.technician='".$userid."'";
+	$searchBranch .= " AND pt.technician='".$userid."'";
 }
 $requestData= $_REQUEST;
 
@@ -38,7 +38,8 @@ switch (Utils::getValue('action')) {
 	case 'current':
 			// storing  request (ie, get/post) global array to a variable.  
 			$conn->selectQuery('ps.*','tbl_pm_schedule ps 
-				LEFT JOIN tbl_accounts ac ON ps.technician = ac.id
+				LEFT JOIN tbl_pm_technician pt ON ps.pm_number = pt.pm_number
+				LEFT JOIN tbl_accounts ac ON pt.technician = ac.id
 				WHERE (ps.status="pending" || ps.status="in-progress" || ps.status="done") > 0 '.$searchBranch.'');
 			$totalData = $conn->getNumRows(); //getting total number records without any search.
 			$conn->row_count = 0;
@@ -46,10 +47,11 @@ switch (Utils::getValue('action')) {
 
 			if( !empty($search) ) { // if there is a search parameter, $requestData['search']['value'] contains search parameter.
 
-				$conn->selectQuery('ps.id, ps.pm_number, ps.schedule_date, ps.technician, CONCAT(ps.date_entered, " ", ps.time_entered ) AS date_entered, ps.contact_name, ps.email_address, ps.department, com.company_name',' tbl_pm_schedule ps 
+				$conn->selectQuery('ps.id',' tbl_pm_schedule ps 
 					LEFT JOIN tbl_company com ON ps.company_id = com.id
-					LEFT JOIN tbl_accounts ac ON ps.technician = ac.id
-					WHERE ps.id > 0 AND (ps.status="pending" || ps.status="in-progress" || ps.status="done") '.$search.'');
+					LEFT JOIN tbl_pm_technician pt ON ps.pm_number = pt.pm_number
+					LEFT JOIN tbl_accounts ac ON pt.technician = ac.id
+					WHERE ps.id > 0 AND (ps.status="pending" || ps.status="in-progress" || ps.status="done") '.$search.' GROUP BY ps.pm_number');
 
 				$conn->fields = null;
 				$totalFiltered  = $conn->getNumRows(); // when there is a search parameter then we have to modify total number filtered rows as per search result. 
@@ -59,10 +61,11 @@ switch (Utils::getValue('action')) {
 			}
 			
 			if(intval($requestData['length']) >= 1 ) { $limit = ' LIMIT '.$requestData['start'].' ,'.$requestData['length'].''; }
-				$conn->selectQuery('ps.id, ps.company_id, ps.pm_number, ps.schedule_date, CONCAT(ac.firstname," ", ac.lastname) AS technician, CONCAT(ps.date_entered, " ", ps.time_entered) AS date_entered, ps.contact_name, ps.email_address, ps.department, com.company_name, ps.status',' tbl_pm_schedule ps 	
+				$conn->selectQuery('ps.id, ps.company_id, ps.pm_number, ps.schedule_date, GROUP_CONCAT(CONCAT(ac.firstname," ", ac.lastname) SEPARATOR "<br>") AS technician, CONCAT(ps.date_entered, " ", ps.time_entered) AS date_entered, ps.contact_name, ps.email_address, ps.department, com.company_name, ps.status',' tbl_pm_schedule ps 	
 					LEFT JOIN tbl_company com ON ps.company_id = com.id
-					LEFT JOIN tbl_accounts ac ON ps.technician = ac.id
-					WHERE ps.id > 0 AND (ps.status="pending" || ps.status="in-progress" || ps.status="done") '.$search.' ORDER BY ps.id DESC '.$limit.' ');
+					LEFT JOIN tbl_pm_technician pt ON ps.pm_number = pt.pm_number
+					LEFT JOIN tbl_accounts ac ON pt.technician = ac.id
+					WHERE ps.id > 0 AND (ps.status="pending" || ps.status="in-progress" || ps.status="done") '.$search.' GROUP BY ps.id ORDER BY ps.id DESC '.$limit.' ');
 				$row = $conn->getFields(); //Get all rows
 
 			if($conn->getNumRows() > 0 ){
@@ -91,7 +94,8 @@ switch (Utils::getValue('action')) {
 		   // storing  request (ie, get/post) global array to a variable.  
 			$conn->selectQuery('ps.*','tbl_pm_schedule ps 
 				LEFT JOIN tbl_company com ON ps.company_id = com.id
-				LEFT JOIN tbl_accounts ac ON ps.technician = ac.id
+				LEFT JOIN tbl_pm_technician pt ON ps.pm_number = pt.pm_number
+				LEFT JOIN tbl_accounts ac ON pt.technician = ac.id
 				WHERE (ps.status="cancel" || ps.status="close") > 0 '.$search.'');
 			$totalData = $conn->getNumRows(); //getting total number records without any search.
 			$conn->row_count = 0;
@@ -99,10 +103,11 @@ switch (Utils::getValue('action')) {
 
 			if( !empty($search) ) { // if there is a search parameter, $requestData['search']['value'] contains search parameter.
 
-				$conn->selectQuery('ps.id, ps.pm_number, ps.schedule_date, ps.technician, CONCAT(ps.date_entered, " ", ps.time_entered ) AS date_entered, ps.contact_name, ps.email_address, ps.department, com.company_name',' tbl_pm_schedule ps 
+				$conn->selectQuery('ps.id, ps.pm_number, ps.schedule_date, GROUP_CONCAT(CONCAT(ac.firstname," ", ac.lastname) SEPARATOR "<br>") AS technician, CONCAT(ps.date_entered, " ", ps.time_entered ) AS date_entered, ps.contact_name, ps.email_address, ps.department, com.company_name',' tbl_pm_schedule ps 
 					LEFT JOIN tbl_company com ON ps.company_id = com.id
-					LEFT JOIN tbl_accounts ac ON ps.technician = ac.id
-					WHERE ps.id > 0 AND (ps.status="cancel" || ps.status="close") '.$search.'');
+					LEFT JOIN tbl_pm_technician pt ON ps.pm_number = pt.pm_number
+					LEFT JOIN tbl_accounts ac ON pt.technician = ac.id
+					WHERE ps.id > 0 AND (ps.status="cancel" || ps.status="close") '.$search.' GROUP BY ps.pm_number');
 
 				$conn->fields = null;
 				$totalFiltered  = $conn->getNumRows(); // when there is a search parameter then we have to modify total number filtered rows as per search result. 
@@ -112,10 +117,11 @@ switch (Utils::getValue('action')) {
 			}
 			
 			if(intval($requestData['length']) >= 1 ) { $limit = ' LIMIT '.$requestData['start'].' ,'.$requestData['length'].''; }
-				$conn->selectQuery('ps.id, ps.company_id, ps.pm_number, ps.schedule_date, CONCAT(ac.firstname," ", ac.lastname) AS technician, CONCAT(ps.date_entered, " ", ps.time_entered) AS date_entered, ps.contact_name, ps.email_address, ps.department, com.company_name, ps.status',' tbl_pm_schedule ps 	
+				$conn->selectQuery('ps.id, ps.company_id, ps.pm_number, ps.schedule_date, GROUP_CONCAT(CONCAT(ac.firstname," ", ac.lastname) SEPARATOR "<br>") AS technician, CONCAT(ps.date_entered, " ", ps.time_entered) AS date_entered, ps.contact_name, ps.email_address, ps.department, com.company_name, ps.status',' tbl_pm_schedule ps 	
 					LEFT JOIN tbl_company com ON ps.company_id = com.id
-					LEFT JOIN tbl_accounts ac ON ps.technician = ac.id
-					WHERE ps.id > 0 AND (ps.status="cancel" || ps.status="close") '.$search.' ORDER BY ps.id DESC '.$limit.' ');
+					LEFT JOIN tbl_pm_technician pt ON ps.pm_number = pt.pm_number
+					LEFT JOIN tbl_accounts ac ON pt.technician = ac.id
+					WHERE ps.id > 0 AND (ps.status="cancel" || ps.status="close") '.$search.' GROUP BY ps.pm_number ORDER BY ps.id DESC '.$limit.' ');
 				$row = $conn->getFields(); //Get all rows
 
 			if($conn->getNumRows() > 0 ){

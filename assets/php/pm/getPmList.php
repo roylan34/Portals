@@ -42,7 +42,9 @@ switch (Utils::getValue('action')) {
 
 					if(Utils::getValue('serialnumber'))	{ $search ="AND ps.serialnumber LIKE '%".$conn->escapeString(Utils::getValue('serialnumber'))."%'"; }
 					if(Utils::getValue('brand'))	{ $search ="AND br.brand_name='".$conn->escapeString(Utils::getValue('brand'))."'"; }
-					if(Utils::getValue('model'))	{ $search ="AND ps.model='".$conn->escapeString(Utils::getValue('model'))."'"; }
+					if(Utils::getValue('model'))	{ $search ="AND ps.model LIKE '%".$conn->escapeString(Utils::getValue('model'))."%'"; }
+					if(Utils::getValue('location'))	{ $search ="AND ps.location_area LIKE '%".$conn->escapeString(Utils::getValue('location'))."%'"; }
+					if(Utils::getValue('department'))	{ $search ="AND ps.department LIKE '%".$conn->escapeString(Utils::getValue('department'))."%'"; }
 
 	        	//Table @tbl_pm_machines					
 					$conn->selectQuery('*','tbl_pm_machines WHERE id > 0 AND is_delete="no" AND pm_number="'.$pm_number.'" GROUP BY mif_id');
@@ -79,7 +81,9 @@ switch (Utils::getValue('action')) {
 	        		$enabled_update = 'false';
 	        		if(Utils::getValue('serialnumber'))	{ $search ="AND m.serialnumber LIKE '%".$conn->escapeString(Utils::getValue('serialnumber'))."%'"; }
 	        		if(Utils::getValue('brand'))	{ $search ="AND br.brand_name='".$conn->escapeString(Utils::getValue('brand'))."'"; }
-					if(Utils::getValue('model'))	{ $search ="AND m.model='".$conn->escapeString(Utils::getValue('model'))."'"; }
+					if(Utils::getValue('model'))	{ $search ="AND m.model LIKE '%".$conn->escapeString(Utils::getValue('model'))."%'"; }
+					if(Utils::getValue('location'))	{ $search ="AND m.location_area LIKE '%".$conn->escapeString(Utils::getValue('location'))."%'"; }
+					if(Utils::getValue('department'))	{ $search ="AND m.department LIKE '%".$conn->escapeString(Utils::getValue('department'))."%'"; }
 
 					$conn->selectQuery('schedule_date','tbl_pm_schedule WHERE pm_number="'.$pm_number.'"'); //Trap the listing of machines by scheduled date.
         			$resSched = $conn->getFields();
@@ -158,7 +162,7 @@ switch (Utils::getValue('action')) {
 	case 'archive':
 					if(Utils::getValue('serialnumber'))	{ $search ="AND pm.serialnumber LIKE '%".$conn->escapeString(Utils::getValue('serialnumber'))."%'"; }
 					if(Utils::getValue('brand'))	{ $search ="AND br.brand_name='".$conn->escapeString(Utils::getValue('brand'))."'"; }
-					if(Utils::getValue('model'))	{ $search ="AND pm.model='".$conn->escapeString(Utils::getValue('model'))."'"; }
+					if(Utils::getValue('model'))	{ $search ="AND pm.model LIKE '%".$conn->escapeString(Utils::getValue('model'))."%'"; }
 
 	        	//Table @tbl_pm_machines					
 					$conn->selectQuery('*','tbl_pm_machines WHERE id > 0 AND is_delete="no" AND pm_number="'.$pm_number.'"');

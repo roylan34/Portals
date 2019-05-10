@@ -31,6 +31,8 @@ var dtCurrentPM = { //For development
                             d.serialnumber = $("#search-pm-serial").val() || ''; 
                             d.brand = $("#search-pm-brand").val() || '';   
                             d.model = $("#search-pm-model").val() || '';                            
+                            // d.location   = $("#search-pm-loc").val() || '';                            
+                            // d.department = $("#search-pm-dept").val() || '';                            
                     },
                     complete: function(data){ $(".dt-buttons a").removeClass('disabled'); }
                   },
@@ -438,6 +440,7 @@ var dtCurrentPM = { //For development
               var time_out    = ($("#pm-date-out").datetimepicker('getDate') ? dateFormat($("#pm-date-out").datetimepicker('getDate'), 'yyyy-mm-dd HH:MM') : "");
               var comp_id     = $("#hdnCurCompId").val();
               var serialnum   = $("#pm-serialnum").val();
+              var user_id     = Cookies.get('user_id');
 
               //MIF Sync updates
               var brand     = $("#pm-brand").val();
@@ -448,7 +451,8 @@ var dtCurrentPM = { //For development
               var mif_id      = $("#hdnCurMifId").val();
 
               var data        = {action:'update', brand:brand, model: model, location:loc, department:depart, no_of_user:no_of_user, mif_id:mif_id, pm_id:pm_id, manufacture:manufacture, 
-                                remarks:remarks, page:page, toner:toner, time_in: time_in, time_out: time_out, pmnumber:pm_number, comp_id:comp_id, serialnum:serialnum, toner_old: toner_old};
+                                remarks:remarks, page:page, toner:toner, time_in: time_in, time_out: time_out, pmnumber:pm_number, comp_id:comp_id, serialnum:serialnum, toner_old: toner_old,
+                                user_id:user_id};
                $.ajax({
                     type: 'POST',
                     url: assets+'php/pm/pm.php',

@@ -27,6 +27,7 @@ if(Utils::getIsset('action')){
 	$time_in  	= Utils::getValue('time_in');
 	$time_out  	= Utils::getValue('time_out');
 	$is_delete  = Utils::getValue('is_delete');
+	$user_id    = Utils::getValue('user_id');
 	
 
 	$date_entered = Utils::getSysDate();
@@ -107,6 +108,7 @@ if(Utils::getIsset('action')){
 													    department 		= "'.$department.'",
 													    no_of_user 		= "'.$no_of_user.'",
 														manufacture_date = "'.$manufacture.'", 
+														recent_user = "'.$user_id.'", 
 														remarks 	= "'.$remarks.'",
 														page_count 	= "'.$page.'",
 														time_in  	= "'.$time_in.'",
