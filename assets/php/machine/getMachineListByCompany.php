@@ -24,7 +24,7 @@ if(Utils::getIsset('type') && !Utils::isEmpty(Utils::getValue('type')))         
 if(Utils::getIsset('company') && !Utils::isEmpty(Utils::getValue('company')))            { $search .="AND m.company_id ='".$conn->escapeString(Utils::getValue('company'))."'"; } 
 if(Utils::getIsset('brand') && !Utils::isEmpty(Utils::getValue('brand')))    	         { $search .="AND m.brand =".$conn->escapeString(Utils::getValue('brand')).""; } //For searching brand only
 if(Utils::getIsset('model') && !Utils::isEmpty(Utils::getValue('model')))   	         { $search .=" AND m.model ='".$conn->escapeString(Utils::getValue('model'))."'"; } //For searching model only
-
+if(Utils::getIsset('billing') && !Utils::isEmpty(Utils::getValue('billing')))   	     { $search .=" AND m.billing_type ='".$conn->escapeString(Utils::getValue('billing'))."'"; }
 
 switch (Utils::getValue('department')) {
 	case 'admin':

@@ -117,6 +117,7 @@ var dtFilterMachine = {
                               d.branch   = $("#fltr-slctlocation").chosen().val() || null;
                               d.user_id  = Cookies.get('user_id');
                               d.department = deptData;
+                              d.billing  = $("#fltr-slctBillingType option:selected").val() || null;
                     },
                     "type" : "GET",
                     beforeSend: function(){ $btn.button('loading'); }, //Empty the search fields. 
@@ -361,12 +362,19 @@ var dtFilterMachine = {
                         self.dtFilterMachine.getData(idmachine);
                         $("#btnSubmit").text('Update')
                     }
-
                      //Pop-up message for Remove
-                    if ($(this).hasClass('btnRemoveMachine')) {
+                    else if ($(this).hasClass('btnRemoveMachine')) {
                         var idcompany = $(this).data('machine');
                         self.dtFilterMachine.showRemove(idcompany);
                     }
+                    else if($(this).is('#btnFilterReset')){
+                        $("#fltr-serialnum, #fltr-slctbrand, #fltr-model, #fltr-slctcategory, #fltr-slcttype, #fltr-slctBillingType").val('');
+                        $("#fltr-slctcompany, #fltr-slctlocation").val(0).trigger('chosen:updated');
+                        $('#dtFilterMachine').DataTable().destroy(); //Destory datatable
+                        $('#dtFilterMachine thead, #dtFilterMachine tbody').empty(); //Clear table head and body.
+
+                    }
+
               }); 
 
 
