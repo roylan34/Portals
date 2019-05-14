@@ -27,6 +27,8 @@ var dtArchivePM = { //For development
                             d.serialnumber = $("#search-archive-pm-serial").val() || ''; 
                             d.brand = $("#search-archive-pm-brand").val() || '';   
                             d.model = $("#search-archive-pm-model").val() || '';                            
+                            d.location   = $("#search-archive-pm-loc").val() || '';                            
+                            d.department = $("#search-archive-pm-dept").val() || '';                            
                     },
                     complete: function(data){ $(".dt-buttons a").removeClass('disabled'); }
                   },

@@ -31,8 +31,8 @@ var dtCurrentPM = { //For development
                             d.serialnumber = $("#search-pm-serial").val() || ''; 
                             d.brand = $("#search-pm-brand").val() || '';   
                             d.model = $("#search-pm-model").val() || '';                            
-                            // d.location   = $("#search-pm-loc").val() || '';                            
-                            // d.department = $("#search-pm-dept").val() || '';                            
+                            d.location   = $("#search-pm-loc").val() || '';                            
+                            d.department = $("#search-pm-dept").val() || '';                            
                     },
                     complete: function(data){ $(".dt-buttons a").removeClass('disabled'); }
                   },

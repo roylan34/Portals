@@ -163,6 +163,8 @@ switch (Utils::getValue('action')) {
 					if(Utils::getValue('serialnumber'))	{ $search ="AND pm.serialnumber LIKE '%".$conn->escapeString(Utils::getValue('serialnumber'))."%'"; }
 					if(Utils::getValue('brand'))	{ $search ="AND br.brand_name='".$conn->escapeString(Utils::getValue('brand'))."'"; }
 					if(Utils::getValue('model'))	{ $search ="AND pm.model LIKE '%".$conn->escapeString(Utils::getValue('model'))."%'"; }
+					if(Utils::getValue('location'))	{ $search ="AND pm.location_area LIKE '%".$conn->escapeString(Utils::getValue('location'))."%'"; }
+					if(Utils::getValue('department'))	{ $search ="AND pm.department LIKE '%".$conn->escapeString(Utils::getValue('department'))."%'"; }
 
 	        	//Table @tbl_pm_machines					
 					$conn->selectQuery('*','tbl_pm_machines WHERE id > 0 AND is_delete="no" AND pm_number="'.$pm_number.'"');
