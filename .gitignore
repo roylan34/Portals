@@ -1,4 +1,6 @@
-/assets/attachment
-/assets/php/auto_import
+assets/attachment
+assets/php/auto_import
 
-/assets/php/database.php
+build
+node_modules
+
