@@ -12,6 +12,10 @@ body.waiting * {
 	right: 0;
 }
 
+#Loginsubmit{
+  text-transform: uppercase;
+}
+
 .main-header .logo{
 	padding: 0;
 	line-height: 0;

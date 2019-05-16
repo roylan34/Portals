@@ -39,6 +39,14 @@
   #modalCurrentPMList .modal-dialog{
     max-width:100% !important;
   }
+
+  .login-copyright{
+  	font-size:11px;
+  	text-align: center;
+  }
+   .login-copyright div > span{
+   	display: block;
+   }
 }
 
 @media (min-width: 425px) and (max-width: 768px){
@@ -47,6 +55,9 @@
   }
   .total-mif-cointainer{
     margin-left: 0px !important;
+  }
+  .login-copyright{
+  	text-align: center;
   }
 }
 
