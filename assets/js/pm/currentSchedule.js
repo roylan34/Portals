@@ -287,7 +287,7 @@ var dtCurrentSched = {
                             $("#sched-number").text(res_data.pm_number);
                             $("#sched-company").val(res_data.company_id).trigger('chosen:updated');
                             $("#sched-schedule").val(res_data.schedule_date);
-                            $("#sched-technician").val(( res_data.technician == '' ? null : res_data.technician.split(","))).trigger('chosen:updated');
+                            $("#sched-technician").val(( res_data.technician ? res_data.technician.split(",") : null)).trigger('chosen:updated');
                             $("#sched-date-entered").text(res_data.date_entered);
                             $("#sched-contact-name").val(res_data.contact_name);
                             $("#sched-contact-num").val(res_data.contact_number);
