@@ -19,7 +19,7 @@ $db = Database::getInstance();
 // GROUP BY model
 // UNION ALL
 
-$db->selectQuery2('SELECT branch, brand, model, id_branch_sort, SUM(bn) AS total_bn, SUM(rf) AS total_rf, SUM(total_model) AS total_model FROM (
+$db->selectQuery2('SELECT branch, brand, model, id_branch_sort, SUM(bn) AS bn, SUM(rf) AS rf, SUM(total_model) AS total_model FROM (
 SELECT imai.id_brand AS brand, imai.model, COUNT(*) AS total_model, br.branch_name AS branch, br.id AS id_branch_sort,
 COUNT(*) AS bn,
 0 AS rf
@@ -42,16 +42,21 @@ GROUP BY im.id_branch,im.model ORDER BY id_branch_sort, model) X GROUP BY branch
 	$data = array();
 
 
-	   if($db->getNumRows() > 0){
-			foreach ($row['aaData'] as $key => $value) {
-				$data[$value['branch']][$value['brand']][$key]['model'] = $value['model'];
-				$data[$value['branch']][$value['brand']][$key]['total_bn'] = $value['total_bn'];
-				$data[$value['branch']][$value['brand']][$key]['total_rf'] = $value['total_rf'];
-				$data[$value['branch']][$value['brand']][$key]['total_model'] = $value['total_model'];
-			}
-	   }
+	  //  if($db->getNumRows() > 0){
+			// foreach ($row['aaData'] as $key => $value) {
+			// 	$data[$value['branch']][$value['brand']][$key]['model'] = $value['model'];
+			// 	$data[$value['branch']][$value['brand']][$key]['total_bn'] = $value['total_bn'];
+			// 	$data[$value['branch']][$value['brand']][$key]['total_rf'] = $value['total_rf'];
+			// 	$data[$value['branch']][$value['brand']][$key]['total_model'] = $value['total_model'];
+			// }
+	  //  }
+	  	if($db->getNumRows() > 0){
 
-	print Utils::jsonEncode($data); 
-	// echo "<pre>";
-	// print_r($data);
-	// echo "</pre>";
+			foreach ($row['aaData'] as $key => $value) {
+				$data[$value['brand']][$value['model']]['total']['bn'][] = $value['bn'];
+				$data[$value['brand']][$value['model']]['total']['rf'][] = $value['rf'];
+				$data[$value['brand']][$value['model']]['total'][$value['branch']]['bn'] = $value['bn'];
+				$data[$value['brand']][$value['model']]['total'][$value['branch']]['rf'] = $value['rf'];
+			}
+	   	}
+		print Utils::jsonEncode($data); 

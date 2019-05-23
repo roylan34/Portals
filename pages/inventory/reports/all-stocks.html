@@ -4,7 +4,7 @@
           <h3 class="box-title">Inventory Stocks</h3>
         </div><!-- /.box-header -->
         <div class="box-body">
-          <div id="report-all-stock">
+          <div id="report_all_stock">
           </div>
           </div><!--end of box body --> 
          <div class="box-footer"></div><!-- box-footer -->
@@ -12,11 +12,41 @@
 </div>
 
 <style type="text/css">
-	#report-all-stock table{
-		margin-bottom: 10px;
-	}
-	#report-all-stock .panel-heading .row{
-		border: 2px solid #1c88e0;
-    	border-radius: 5px
-	}
+/** Fixed pos column Model **/
+/*.table-all-stocks tbody tr td:first-child{
+  position: sticky;
+  left:0;
+  z-index: 1;
+}*/
+#report_all_stock{
+  height: 500px;
+  overflow: auto;
+  position: relative;
+  width: 100%;
+}
+#table_head_all_stocks{
+  position: sticky;
+  top:0;
+  width: 100%;
+  z-index: 1;
+}
+#table_head_all_stocks table{
+  margin-bottom: 0;
+}
+#table_body_all_stocks{
+  box-sizing: border-box;
+  position: relative;
+  width: 100%;
+}
+#table_body_all_stocks table tr{
+  display: block;
+}
+#table_body_all_stocks table tr td:not(:first-child){
+  text-align: center;
+
+}
+#table_body_all_stocks table tr td:not(:last-child){
+  border-right:1px solid #d4d4d4;
+  
+}
 </style>

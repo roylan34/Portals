@@ -98,6 +98,9 @@
 	table.dtCompany thead tr:nth-child(2){
 		display: none;
 	}
+  #table_head_all_stocks table{
+    width:1024px;
+  }
 }
 
 /** Multi-step indicator **/
