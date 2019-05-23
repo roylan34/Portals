@@ -183,8 +183,7 @@ var dtCurrentSched = {
             self.dtCurrentSched.update_cancel().update_close();
 
             //Hide Schedule modal
-            $(this).find('#modalFormCurrentSched').on('hidden.bs.modal', function() { //Reset form when modal hidden
-                $('body').addClass('modal-open');      
+            $(this).find('#modalFormCurrentSched').on('hidden.bs.modal', function() { //Reset form when modal hidden   
 
                 resetForm("#frmCurrentSched"); 
                 $("#sched-company").val(0).trigger('chosen:updated'); 
