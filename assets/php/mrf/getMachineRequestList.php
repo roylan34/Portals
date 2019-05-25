@@ -23,6 +23,7 @@ if(Utils::getValue('company'))			{ $search .="AND c.company_name LIKE '%".$conn-
 if(Utils::getValue('date_requested'))	{ $search .="AND m.date_requested LIKE '%".$conn->escapeString(Utils::getValue('date_requested'))."%'"; }
 if(Utils::getValue('date_delivery'))	{ $search .="AND mt.5th_delivery_date ='".$conn->escapeString(Utils::getValue('date_delivery'))."'"; }
 if(Utils::getValue('requested_by'))     { $search .="AND (CONCAT_WS(' ',ac.firstname,ac.lastname)) LIKE '%".$conn->escapeString(Utils::getValue('requested_by'))."%' "; }
+if(Utils::getValue('serialnum'))		{ $search .="AND ms1.s1_serialnum = '".$conn->escapeString(Utils::getValue('serialnum'))."'"; }
 
 switch (Utils::getValue('action_view')) {
 	case 'current':
@@ -186,13 +187,13 @@ switch (Utils::getValue('action_view')) {
 
 						if($user_type == "requestor"){ //If requestor get only the user id.
 							$filter  = "AND m.id_user_requestor =".$id_user." AND m.id_branch IN(".$id_branch.")";
-							$search .= "AND m.id_user_requestor =".$id_user." AND m.id_branch IN(".$id_branch.")";
+							$search .= " AND m.id_user_requestor =".$id_user." AND m.id_branch IN(".$id_branch.")";
 							
 						}
 						//HINTS: If Branch ALL selected display all branch has assigned else the selected branch.
 						if($user_type == "approver" || $user_type == "preparer"){ //if approver or preparer, check if user assigned as approver in specific branch.
 							$filter  = "AND m.id_branch IN(".$id_branch.")";
-							$search .= "AND m.id_branch IN(".$id_branch.")";
+							$search .= " AND m.id_branch IN(".$id_branch.")";
 						}
 						// if($user_type == "requestor,preparer" ){ //if approver or preparer, check if user assigned as approver in specific branch.
 						// 	if($id_branch){
@@ -222,6 +223,7 @@ switch (Utils::getValue('action_view')) {
 								LEFT JOIN tbl_accounts ac ON m.id_user_requestor = ac.id
 								LEFT JOIN tbl_mrf_request_tracker mt ON m.id = mt.id_mrf
 								LEFT JOIN tbl_mrf_status ms ON mt.2nd_id_status = ms.id
+								LEFT JOIN tbl_mrf_s1 ms1 ON m.id = ms1.id_mrf
 					  			WHERE m.id > 0 AND (mt.flag_completion ="complete" OR mt.1st_id_status = 3 OR mt.2nd_id_status = 3 OR mt.is_cancel = "yes") '.$search.'');
 
 						$conn->fields = null;
@@ -233,18 +235,19 @@ switch (Utils::getValue('action_view')) {
 					
 					if(intval($requestData['length']) >= 1 ) { $limit = 'LIMIT '.$requestData['start'].' ,'.$requestData['length'].''; }
 
+					// (SELECT COUNT(*) FROM tbl_mrf_comments cm WHERE cm.id_mrf = m.id AND cm.id_user_from != '.$id_user.' ) AS no_received_message,
+					// (SELECT GROUP_CONCAT(DISTINCT CAST(id_user_from AS CHAR(10)) SEPARATOR ",") AS user_from FROM tbl_mrf_comments WHERE id_mrf = m.id) AS id_user_from
 					$conn->selectQuery('m.id, m.form_no, m.id_company, c.company_name, m.date_requested, IFNULL(mt.5th_delivery_date,"") AS delivery_date, CONCAT(ac.firstname," ",ac.lastname) AS requested_by, br.branch_name,
 										(CASE 
 										  WHEN is_cancel = "yes" THEN "cancelled"
 										  WHEN (1st_id_status = 3 OR 2nd_id_status = 3 ) THEN "disapproved"
 										   ELSE mt.flag_completion
-										END) AS status, 
-										(SELECT COUNT(*) FROM tbl_mrf_comments cm WHERE cm.id_mrf = m.id AND cm.id_user_from != '.$id_user.' ) AS no_received_message,
-										(SELECT GROUP_CONCAT(DISTINCT CAST(id_user_from AS CHAR(10)) SEPARATOR ",") AS user_from FROM tbl_mrf_comments WHERE id_mrf = m.id) AS id_user_from','tbl_mrf m 
+										END) AS status','tbl_mrf m 
 										INNER JOIN tbl_company c ON m.id_company = c.id
 										LEFT JOIN tbl_accounts ac ON m.id_user_requestor = ac.id
 										LEFT JOIN tbl_mrf_request_tracker mt ON m.id = mt.id_mrf
 										LEFT JOIN tbl_branch br ON m.id_branch = br.id
+										LEFT JOIN tbl_mrf_s1 ms1 ON m.id = ms1.id_mrf
 					  					WHERE m.id > 0 AND (mt.flag_completion ="complete" OR mt.1st_id_status = 3 OR mt.2nd_id_status = 3 OR mt.is_cancel = "yes") '.$search.' ORDER BY m.id DESC '.$limit.'');
 					$row = $conn->getFields(); //Get all rows
 

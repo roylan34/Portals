@@ -58,6 +58,7 @@ var dtArchiveMrf = {
 	                                 		d.date_delivery = $("#search-mrf-dateDelivery").val() || '';
 	                                 		d.status = $("#search-mrf-status option:selected").val() || '';
 	                                 		d.date_status = $("#search-mrf-date").val() || '';
+	                                 		d.serialnum = $("#search-mrf-sn").val() || '';
 
 	                                 	    d.action_view = "archive";
 	                                 	    d.id_user = Cookies.get('user_id');	  
