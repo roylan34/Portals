@@ -66,7 +66,8 @@ switch (Utils::getValue('action_view')) {
 			}
 
 
-			if(Utils::getValue('id_user')){ 
+			if(Utils::getValue('id_user')){
+				$branch_cur = ""; 
 				$id_user = Utils::getValue('id_user');
 				$id_branch = (Utils::getValue('id_branch') ? Utils::getValue('id_branch') : "NULL" );
 						$conn->selectQuery('acct.acc_mrf_flags','tbl_account_type acct INNER JOIN tbl_accounts ac ON acct.id = ac.account_type WHERE ac.id ='.$id_user.'');
@@ -75,14 +76,11 @@ switch (Utils::getValue('action_view')) {
 						$conn->fields = null;
 
 						if($user_type == "requestor"){ //If requestor get only the user id.
-							$filter  = " AND m.id_user_requestor =".$id_user." AND m.id_branch IN(".$id_branch.")";
-							$search .= " AND m.id_user_requestor =".$id_user." AND m.id_branch IN(".$id_branch.")";
-							
+							$branch_cur  = " AND m.id_user_requestor =".$id_user." AND m.id_branch IN(".$id_branch.")";							
 						}
 						//HINTS: If Branch ALL selected display all branch has assigned else the selected branch.
 						if($user_type == "approver" || $user_type == "preparer"){ //if approver or preparer, check if user assigned as approver in specific branch.
-							$filter  = " AND m.id_branch IN(".$id_branch.")";
-							$search .= " AND m.id_branch IN(".$id_branch.")";
+							$branch_cur  = " AND m.id_branch IN(".$id_branch.")";
 						}
 						// if($user_type == "requestor,preparer" ){ //if approver or preparer, check if user assigned as approver in specific branch.
 						// 	if($id_branch){
@@ -100,7 +98,7 @@ switch (Utils::getValue('action_view')) {
 			 if(!empty($user_type)){
 					 $requestData= $_REQUEST;
 					// storing  request (ie, get/post) global array to a variable  
-					$conn->selectQuery('*','tbl_mrf m LEFT JOIN tbl_mrf_request_tracker mt ON m.id = mt.id_mrf WHERE m.id > 0 AND mt.flag_completion ="not complete" AND (mt.1st_id_status IN(1,2) AND mt.2nd_id_status IN(1,2)) AND mt.is_cancel="no" '.$filter.'');
+					$conn->selectQuery('*','tbl_mrf m LEFT JOIN tbl_mrf_request_tracker mt ON m.id = mt.id_mrf WHERE m.id > 0 AND mt.flag_completion ="not complete" AND (mt.1st_id_status IN(1,2) AND mt.2nd_id_status IN(1,2)) AND mt.is_cancel="no" '.$branch_cur.'');
 					$totalData = $conn->getNumRows(); //getting total number records without any search.
 					$conn->row_count = 0;
 					$conn->fields = null;
@@ -111,7 +109,7 @@ switch (Utils::getValue('action_view')) {
 								INNER JOIN tbl_company c ON m.id_company = c.id
 								LEFT JOIN tbl_accounts ac ON m.id_user_requestor = ac.id
 								LEFT JOIN tbl_mrf_request_tracker mt ON m.id = mt.id_mrf
-					  			WHERE m.id > 0 AND mt.flag_completion ="not complete" AND (mt.1st_id_status IN(1,2) AND mt.2nd_id_status IN(1,2)) AND mt.is_cancel="no" '.$search.' ');
+					  			WHERE m.id > 0 AND mt.flag_completion ="not complete" AND (mt.1st_id_status IN(1,2) AND mt.2nd_id_status IN(1,2)) AND mt.is_cancel="no" '.$branch_cur.' '.$search.' ');
 
 						$conn->fields = null;
 						$totalFiltered  = $conn->getNumRows(); // when there is a search parameter then we have to modify total number filtered rows as per search result. 
@@ -135,7 +133,7 @@ switch (Utils::getValue('action_view')) {
 										LEFT JOIN tbl_accounts ac ON m.id_user_requestor = ac.id
 										LEFT JOIN tbl_mrf_request_tracker mt ON m.id = mt.id_mrf
 										LEFT JOIN tbl_branch br ON m.id_branch = br.id
-					  					WHERE m.id > 0 AND mt.flag_completion ="not complete" AND (mt.1st_id_status IN(1,2) AND mt.2nd_id_status IN(1,2)) AND mt.is_cancel="no" '.$search.' ORDER BY m.id DESC '.$limit.'');
+					  					WHERE m.id > 0 AND mt.flag_completion ="not complete" AND (mt.1st_id_status IN(1,2) AND mt.2nd_id_status IN(1,2)) AND mt.is_cancel="no" '.$branch_cur.' '.$search.' ORDER BY m.id DESC '.$limit.'');
 					$row = $conn->getFields(); //Get all rows
 
 					if($conn->getNumRows() > 0 ){
@@ -167,6 +165,7 @@ switch (Utils::getValue('action_view')) {
 
 	case 'archive':
 			if(Utils::getValue('id_user')){ 
+				$branch_arc = "";
 				$id_user = Utils::getValue('id_user');
 				$status  = Utils::getValue('status');
 				$id_branch = (Utils::getValue('id_branch') ? Utils::getValue('id_branch') : "NULL" );
@@ -186,14 +185,11 @@ switch (Utils::getValue('action_view')) {
 						$conn->fields = null;
 
 						if($user_type == "requestor"){ //If requestor get only the user id.
-							$filter  = "AND m.id_user_requestor =".$id_user." AND m.id_branch IN(".$id_branch.")";
-							$search .= " AND m.id_user_requestor =".$id_user." AND m.id_branch IN(".$id_branch.")";
-							
+							$branch_arc = " AND m.id_user_requestor =".$id_user." AND m.id_branch IN(".$id_branch.")";							
 						}
 						//HINTS: If Branch ALL selected display all branch has assigned else the selected branch.
 						if($user_type == "approver" || $user_type == "preparer"){ //if approver or preparer, check if user assigned as approver in specific branch.
-							$filter  = "AND m.id_branch IN(".$id_branch.")";
-							$search .= " AND m.id_branch IN(".$id_branch.")";
+							$branch_arc = " AND m.id_branch IN(".$id_branch.")";
 						}
 						// if($user_type == "requestor,preparer" ){ //if approver or preparer, check if user assigned as approver in specific branch.
 						// 	if($id_branch){
@@ -211,25 +207,25 @@ switch (Utils::getValue('action_view')) {
 			 if(!empty($user_type)){
 					$requestData= $_REQUEST;
 					// storing  request (ie, get/post) global array to a variable  
-					$conn->selectQuery('*','tbl_mrf m LEFT JOIN tbl_mrf_request_tracker mt ON m.id = mt.id_mrf WHERE m.id > 0 AND (mt.flag_completion ="complete" OR mt.1st_id_status = 3 OR mt.2nd_id_status = 3 OR mt.is_cancel = "yes") '.$filter.'');
+					$conn->selectQuery('*','tbl_mrf m LEFT JOIN tbl_mrf_request_tracker mt ON m.id = mt.id_mrf WHERE m.id > 0 AND (mt.flag_completion ="complete" OR mt.1st_id_status = 3 OR mt.2nd_id_status = 3 OR mt.is_cancel = "yes") '.$branch_arc.'');
 					$totalData = $conn->getNumRows(); //getting total number records without any search.
 					$conn->row_count = 0;
 					$conn->fields = null;
-
 					if( !empty($search) ) { // if there is a search parameter.
-
+						
 					$conn->selectQuery('m.id, m.form_no, m.id_company, c.company_name, m.date_requested','tbl_mrf m 
 								INNER JOIN tbl_company c ON m.id_company = c.id
 								LEFT JOIN tbl_accounts ac ON m.id_user_requestor = ac.id
 								LEFT JOIN tbl_mrf_request_tracker mt ON m.id = mt.id_mrf
 								LEFT JOIN tbl_mrf_status ms ON mt.2nd_id_status = ms.id
 								LEFT JOIN tbl_mrf_s1 ms1 ON m.id = ms1.id_mrf
-					  			WHERE m.id > 0 AND (mt.flag_completion ="complete" OR mt.1st_id_status = 3 OR mt.2nd_id_status = 3 OR mt.is_cancel = "yes") '.$search.'');
+					  			WHERE m.id > 0 AND (mt.flag_completion ="complete" OR mt.1st_id_status = 3 OR mt.2nd_id_status = 3 OR mt.is_cancel = "yes") '.$branch_arc.' '.$search.' GROUP BY ms1.id_mrf');
 
 						$conn->fields = null;
 						$totalFiltered  = $conn->getNumRows(); // when there is a search parameter then we have to modify total number filtered rows as per search result. 
 					}
 					else{
+
 						$totalFiltered = $totalData;
 					}
 					
@@ -248,7 +244,7 @@ switch (Utils::getValue('action_view')) {
 										LEFT JOIN tbl_mrf_request_tracker mt ON m.id = mt.id_mrf
 										LEFT JOIN tbl_branch br ON m.id_branch = br.id
 										LEFT JOIN tbl_mrf_s1 ms1 ON m.id = ms1.id_mrf
-					  					WHERE m.id > 0 AND (mt.flag_completion ="complete" OR mt.1st_id_status = 3 OR mt.2nd_id_status = 3 OR mt.is_cancel = "yes") '.$search.' ORDER BY m.id DESC '.$limit.'');
+					  					WHERE m.id > 0 AND (mt.flag_completion ="complete" OR mt.1st_id_status = 3 OR mt.2nd_id_status = 3 OR mt.is_cancel = "yes") '.$branch_arc.' '.$search.' GROUP BY ms1.id_mrf ORDER BY m.id DESC '.$limit.'');
 					$row = $conn->getFields(); //Get all rows
 
 					if($conn->getNumRows() > 0 ){

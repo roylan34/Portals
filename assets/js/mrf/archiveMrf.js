@@ -13,7 +13,7 @@ var dtArchiveMrf = {
 	                            "ordering": false,
 	                            "autoWidth" : false,
 	                            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-	                            //"pageLength": 25,
+	                            "pageLength": 25,
 	                            "serverSide": true,
 	                            "processing": true,
 	                            "language": {
@@ -52,6 +52,7 @@ var dtArchiveMrf = {
 	                                "type": "GET",
 	                                "dataSrc": "records",
 	                                 data: function(d){
+	                                 	delete d.columns;
 	                                 		d.form_no 	  = $("#search-mrf-formno").val() || '';
 	                                 		d.company 	  = $("#search-mrf-company").val() || '';
 	                                 		d.date_requested = $("#search-mrf-dateRequest").val() || '';
