@@ -76,13 +76,13 @@ var reportInvntAlltocks = {
 		  //Set px width of TABLE container base on TABLE FIXED width
 		  tbody_container.style.width = thead_fixed_container.offsetWidth+'px';
 		  //THEAD Branch
-		  thead_fixed_branch.forEach(function(val, key){
+		  foreach(thead_fixed_branch, function(val, key){
 		    thead_widths.push(val.offsetWidth); //save the th width.
 		      
 		      //Iterate tr
-		      tbody.forEach(function(tb_val, tb_key){
+		      foreach(tbody, function(tb_val, tb_key){
 		        //Set td widths
-		        tb_val.querySelectorAll('td').forEach(function(v,k){
+		        foreach(tb_val.querySelectorAll('td'), function(v,k){
 		          if(k <= 2){
 		            v.style.width = thead_widths[k]+"px";
 		          }
@@ -91,13 +91,13 @@ var reportInvntAlltocks = {
 		      }); 
 		  });
 		  //THEAD Bn/Rf
-		  thead_fixed_bnrf.forEach(function(val, key){
+		  foreach(thead_fixed_bnrf, function(val, key){
 		    thead_widths.push(val.offsetWidth); //save the th width.
 		      
 		      //Iterate tr
-		      tbody.forEach(function(tb_val, tb_key){
+		      foreach(tbody, function(tb_val, tb_key){
 		        //Set td widths
-		        tb_val.querySelectorAll('td').forEach(function(v,k){
+		        foreach(tb_val.querySelectorAll('td'), function(v,k){
 		          if(k > 2){
 		            v.style.width = thead_widths[k]+"px";
 		          }
@@ -125,14 +125,14 @@ var reportInvntAlltocks = {
 									view += '<table class="table table-bordered table-custom-bordered thead-inverse-two">';
 									view += '<thead>';
 									view += '<tr>';
-									thead.forEach(function(item, idx){
+									foreach(thead, function(item, idx){
 										if(idx <= 2)
 											view += '<th '+(idx == 0 ? 'style="width:15%"' : "")+' rowspan="2">'+item+'</th>';
 										else
 											view += '<th colspan="2">'+item+'</th>';
 									});
 									view += '</tr>';
-									thead.forEach(function(item, idx){
+									foreach(thead, function(item, idx){
 										if(idx > 2){
 
 											view += '<th>BN</th>';
@@ -152,21 +152,21 @@ var reportInvntAlltocks = {
 											view += '</tr>';
 											$.each(brand_val, function(model_key, model_val) {
 
+												var sum_bn = model_val.total.bn.reduce(function(total, amount ) { 
+													 return parseInt(total) + parseInt(amount)
+												});
+												var sum_rf =model_val.total.rf.reduce(function(total, amount ) { 
+													 return parseInt(total) + parseInt(amount);
+												});
 												view += '<tr>';
 												view += '<td >'+ model_key +'</td>';
-												view += '<td >' + (model_val.total.bn.reduce(function(total, amount ) { 
-													return parseInt(total) + parseInt(amount)
-
-												})) + '</td>';
-												view += '<td>' + (model_val.total.rf.reduce(function(total, amount ) { 
-													return parseInt(total) + parseInt(amount)
-
-												})) + '</td>';
-
+												view += '<td >' + (sum_bn > 0 ? sum_bn : "") + '</td>';
+												view += '<td >' + (sum_rf > 0 ? sum_rf : "") + '</td>';
+												
 												thead.map(function(cur, idx){
 													if(idx > 2){
-														view += '<td>' +  (model_val.total.hasOwnProperty(cur.toUpperCase()) && model_val.total[cur.toUpperCase()].hasOwnProperty('bn') ? model_val.total[cur.toUpperCase()].bn : 0) + '</td>';
-														view += '<td>' +  (model_val.total.hasOwnProperty(cur.toUpperCase()) && model_val.total[cur.toUpperCase()].hasOwnProperty('rf') ? model_val.total[cur.toUpperCase()].rf : 0) + '</td>';
+														view += '<td>' +  (model_val.total.hasOwnProperty(cur.toUpperCase()) && model_val.total[cur.toUpperCase()].hasOwnProperty('bn') && model_val.total[cur.toUpperCase()].bn > 0 ? model_val.total[cur.toUpperCase()].bn  : "") + '</td>';
+														view += '<td>' +  (model_val.total.hasOwnProperty(cur.toUpperCase()) && model_val.total[cur.toUpperCase()].hasOwnProperty('rf') && model_val.total[cur.toUpperCase()].rf > 0 ? model_val.total[cur.toUpperCase()].rf  : "") + '</td>';
 														
 													}																																									
 												})

@@ -496,4 +496,9 @@ function loadScript(url, classAttr){
 		document.body.appendChild(inject_script);
 		// console.log(classAttr);
 }
-
+//Polyfill for all browser
+function foreach(arr, cb){
+	for (var i = 0; i < arr.length; i++) {
+		cb.call(arr, arr[i], i);
+	}
+};
