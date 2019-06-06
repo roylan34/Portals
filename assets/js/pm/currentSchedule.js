@@ -193,7 +193,7 @@ var dtCurrentSched = {
         });
 
         $("#displayPMList").load(pages+'pm/current/pm.html',function(){
-            dtCurrentPM.actions().actionsAddPm(); //Actions
+            dtCurrentPM.modalShow().actions().actionsAddPm(); //Actions
 
             //When Hidden PM modal.
             $('#modalCurrentPMList').on('hidden.bs.modal', function() { //Reset form when modal hidden     

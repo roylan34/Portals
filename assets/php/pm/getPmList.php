@@ -66,7 +66,7 @@ switch (Utils::getValue('action')) {
 					}
 					
 				if(intval($requestData['length']) >= 1 ) { $limit = ' LIMIT '.$requestData['start'].' ,'.$requestData['length'].''; }
-						$conn->selectQuery('ps.id, ps.serialnumber, br.brand_name, ps.model, ps.location_area, ps.department, ps.no_of_user, ps.date_installed, ps.unit_owned AS unit_owned, ps.manufacture_date,
+						$conn->selectQuery('ps.id, ps.mif_id, ps.serialnumber, br.brand_name, ps.model, ps.location_area, ps.department, ps.no_of_user, ps.date_installed, ps.unit_owned AS unit_owned, ps.manufacture_date,
 							ps.remarks, ps.page_count, IFNULL(GROUP_CONCAT(tr.toner_code SEPARATOR "<br>")," ") AS toner_use, ps.time_in, ps.time_out ',' tbl_pm_machines ps 
 							LEFT JOIN tbl_brands br ON ps.brand = br.id
 							LEFT JOIN tbl_toner_model_use tmu ON (ps.pm_number = tmu.pm_number AND tmu.mif_id = ps.mif_id)

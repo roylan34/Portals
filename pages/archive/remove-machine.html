@@ -11,6 +11,7 @@
 
             <div class="remove-machine-content">
                     <input type="hidden" name="removehdnId" id='removehdnId'>
+                    <input type="hidden" name="removehdnPmId" id='removehdnPmId'>
                     <div class="form-group">
                       <label class="col-sm-4 col-md-4 control-label" for="txtReason">Reason:</label>
                       <div class="col-sm-5 col-md-7">
@@ -75,10 +76,16 @@ $( document ).ready( function () {
               if(modalTitle.data('remove-opt') == 1){
                 dtMachine.remove();
               }
-              else
+              else if(modalTitle.data('remove-opt') == 2)
               {
                 dtFilterMachine.remove();
-              } 
+              }
+              else if(modalTitle.data('remove-opt') == 3) {
+                var mif_id = $("#removehdnId").val();
+                var pm_id  = $("#removehdnPmId").val();
+                dtCurrentPM.removeMachineMif(pm_id, mif_id);
+              }
+              else{ }
         },
         rules: {
           slctMachineStatus: {

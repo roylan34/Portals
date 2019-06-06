@@ -163,11 +163,18 @@ var dtCurrentPM = { //For development
                             }, 
                              { data:  null, render: function( data, type, full, meta ){
                                 var action_edit = JSON.parse(Cookies.get('app_module_action'));
-                                var pm_type = Cookies.get('pm_type');
+                                var pm_type     = Cookies.get('pm_type');
+                                var action_elem = '';
                                     if(action_edit && action_edit.action_pm == "wr" && data.enabled_update == 'true' && pm_type.toLowerCase() == 'controller'){
-                                        return "<button class='btn btn-xs btn-danger btn-flat btnRemovePM' title='Remove' data-id='"+data.id+"' data-toggle='modal' data-target='#'><i class='fa fa-trash-o' aria-hidden='true'></i></button>";
+                                        action_elem += '<div class="dropdown text-center">';
+                                        action_elem += '<button class="btn btn-danger dropdown-toggle btn-xs" type="button" data-toggle="dropdown"><i class="fa fa-trash-o" aria-hidden="true"></i>'
+                                                        + '<span class="caret"></span></button>'
+                                                        + '<ul class="dropdown-menu">'
+                                                        + '<li><a href="#" title="Remove in PM only" class="btnRemovePM" data-id="'+data.id+'">PM</li>'
+                                                        + '<li><a href="#" title="Remove both in PM & MIF" class="btnRemovePmMif" data-id="'+data.id+'" data-mif-id="'+data.mif_id+'">PM & MIF</a></li>'
+                                                    +'</ul></div>';
                                     }
-                                    return '';
+                                    return action_elem;
                                 }
                             }, 
                          
@@ -303,7 +310,11 @@ var dtCurrentPM = { //For development
         return this;
     },
     modalShow: function(){
-
+        $("#displayRemoveMachine").load(pages+'archive/remove-machine.html',function(status){
+                $("#modalRemoveMachine .modal-title").attr('data-remove-opt','3');
+                autoDrpDown.getMachineStatus("#slctMachineStatus");
+        });
+        return this;
     },
     getDataPM: function(pm_id){
             if(pm_id != null){
@@ -489,7 +500,7 @@ var dtCurrentPM = { //For development
          // return checkedVals.join('","');
     },
     removeMachine: function(id){
-        promptMSG("custom","Are you sure you want to <strong>Remove</strong> <br>this machine in maintenance?","Confirmation","yn",false,true,function(){
+        promptMSG("custom","Are you sure you want to <strong>Remove</strong> <br>this machine in PM?","Confirmation","yn",false,true,function(){
             var pm_id = id || null;
             if(pm_id){
                 var $btn   = $('button');
@@ -505,7 +516,7 @@ var dtCurrentPM = { //For development
                         success: function(data,xhr){                            
                             setTimeout(function(){
                                  if(data.aaData[0] == 'success'){
-                                    promptMSG("success-custom","Machine has been successfully <strong>Remove</strong> in maintenance.",'',null,false,true);
+                                    promptMSG("success-custom","Machine has been successfully <strong>Remove</strong> in PM.",'',null,false,true);
                                     $('.mif-modalPromptMSG').on('click','button',function(){//Hide modal Remove Machine.
                                           self.dtCurrentPM.dtInstance.ajax.reload(null, true); //Refresh the page
                                     });
@@ -524,6 +535,53 @@ var dtCurrentPM = { //For development
                 alert('Warning! Empty PM ID.');
             }
         });
+        return this;
+    },
+    removeMachineMif: function(id, mif){
+            var pm_id = id || null;
+            var mif_id = mif || null;
+
+            if(pm_id && mif_id){
+                var $btn   = $('button');                  
+                var reason   = $("#txtReason").val();
+                var status   = $("#slctMachineStatus option:selected").val();
+                var status_action = $("#slctMachineStatus option:selected").data('action');
+                var user_id       = Cookies.get('user_id');
+
+                    $.ajax({
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {action: 'remove-pm-mif',  pm_id: pm_id, mif_id:mif_id, reason:reason, status:status, status_action:status_action, user_id: user_id },
+                          url: assets+'php/pm/pm.php',
+                        beforeSend: function(){ 
+                            $btn.button('loading');
+                            $(".mif-modalPromptMSG").modal('hide');  
+                        },
+                        success: function(data,xhr){                            
+                            setTimeout(function(){
+                                 if(data.aaData[0] == 'success'){
+
+                                    promptMSG("success-custom","Machine has been successfully <br><strong>Remove</strong> both in PM & MIF.",null,null,false,true);
+                                    self.dtCurrentPM.dtInstance.ajax.reload(null, true); //Refresh the page
+                                    $('.mif-modalPromptMSG').on('click','button',function(){//Hide modal Remove Machine.
+                                        $('#modalRemoveMachine').modal('hide');
+                                    });
+                                  
+                                }else{
+                                    alert('Something went wrong!');
+                                }
+                            },300);
+                        },
+                        complete: function(){
+                            resetForm("#frmRemoveMachine");
+                            $btn.button('reset');  
+                        }
+                    });
+                    
+            }
+            else{
+                alert('Warning! Empty PM ID.');
+            }
         return this;
     },
     actions: function(){
@@ -558,6 +616,13 @@ var dtCurrentPM = { //For development
                     }
                     if(inst.hasClass('btnRemovePM')){
                         self.dtCurrentPM.removeMachine(inst.data('id'));
+                    }
+                    if(inst.hasClass('btnRemovePmMif')){
+                        var mif_id = inst.data('mif-id');
+                        var pm_id = inst.data('id');
+                            $("#removehdnId").val(mif_id);
+                            $("#removehdnPmId").val(pm_id);
+                            $("#modalRemoveMachine").modal('show');
                     }
                 } );
         return this;

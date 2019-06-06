@@ -28,7 +28,7 @@ if(Utils::getIsset('action')){
 	$time_out  	= Utils::getValue('time_out');
 	$is_delete  = Utils::getValue('is_delete');
 	$user_id    = Utils::getValue('user_id');
-	
+
 
 	$date_entered = Utils::getSysDate();
 	$time_entered = Utils::getSysTime();
@@ -178,6 +178,26 @@ if(Utils::getIsset('action')){
 										    			,'id = "'.$pm_id.'"');
 				 		$resPM = $db->getFields();
 				 		print Utils::jsonEncode($resPM);	
+			break;
+		case 'remove-pm-mif':
+				$status_action 	= Utils::getValue('status_action');
+				$reason 		= Utils::getValue('reason');
+				$status 		= Utils::getValue('status');	
+				$mif_id 		= Utils::getValue('mif_id');	
+				//Remove in PM
+				$db->updateQuery('tbl_pm_machines','is_delete = "yes"','id = "'.$pm_id.'"');
+
+				//Remove in MIF.
+				$db->updateQuery('tblmif','status_machine = '.$status.', reason= "'.$reason.'", date_in= null, date_out= "'.$date_entered.'", can_retrieve ='.$status_action.'','id = '.$mif_id.'');
+				$db->insertQuery('tblmif_archive_logs','company_id,serialnumber,reason,machine_status,user_id,updated_at', //Archive Logs
+				  '(SELECT company_id  FROM tblmif WHERE id = '.$mif_id.' LIMIT 0,1),
+				   (SELECT serialnumber FROM tblmif WHERE id = '.$mif_id.' LIMIT 0,1), 
+				  "'.$reason.'",
+				  "'.$status.'",
+				  "'.$user_id.'",
+				  "'.$date_entered." ".$time_entered.'"');	
+				 $resPM = $db->getFields();	
+				 print Utils::jsonEncode($resPM);
 			break;			
 		default:
 			 throw new Exception($action." action doesn't exist.");
