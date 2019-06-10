@@ -57,6 +57,14 @@ var dtCurrentPM = { //For development
                                     }
                                 },
                                 {
+                                    extend: "excel",
+                                    className: 'dt-pm-excel hidden-xs',
+                                    exportOptions: { columns: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
+                                        stripNewlines: false
+                                     },
+                                    filename: 'PM Machine ' + getTodayDate()
+                                },
+                                {
                                     text: 'Add PM Machine',
                                     tag: 'a',
                                     className: 'btn-header-add-pm',
@@ -188,7 +196,7 @@ var dtCurrentPM = { //For development
                         $('td:eq(10)',row).addClass('border-left');                                  
                 },
                 "preDrawCallback": function(settings){
-                        $(".dt-button-pmsearch, .dt-pm-print, .dt-button-add, .btn-refresh-pm, .btn-header-add-pm").removeClass("dt-button").addClass("btn btn-primary btn-flat btn-sm").css({"margin-bottom":"0.5em","margin-right":"0.5em"});
+                        $(".dt-button-pmsearch, .dt-pm-print, .dt-button-add, .btn-refresh-pm, .btn-header-add-pm, .dt-pm-excel").removeClass("dt-button").addClass("btn btn-primary btn-flat btn-sm").css({"margin-bottom":"0.5em","margin-right":"0.5em"});
                         $(".dt-pm-print").text('').html("<i class='glyphicon glyphicon-print'></i>").attr('title','Print');
                 },
                 "fnDrawCallback": function(settings){
