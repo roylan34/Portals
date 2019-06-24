@@ -164,7 +164,7 @@ if(Utils::getIsset('action')){
 				 	}
 			break;
 		case 'view-id':
-					$db->selectQuery("pm.company_id, pm.pm_number, pm.id, pm.serialnumber, pm.brand, pm.model, pm.manufacture_date, pm.remarks, pm.page_count, GROUP_CONCAT(tmu.toner_id) AS toner_use, pm.time_in, pm.time_out, pm.location_area, pm.department, pm.no_of_user, m.id AS mif_id "," tbl_pm_machines pm
+					$db->selectQuery("pm.company_id, pm.pm_number, pm.id, m.serialnumber, pm.brand, pm.model, pm.manufacture_date, pm.remarks, pm.page_count, GROUP_CONCAT(tmu.toner_id) AS toner_use, pm.time_in, pm.time_out, pm.location_area, pm.department, pm.no_of_user, m.id AS mif_id "," tbl_pm_machines pm
 									LEFT JOIN tblmif m ON m.id = pm.mif_id
 									LEFT JOIN tbl_toner_model_use tmu ON pm.pm_number = tmu.pm_number
 									WHERE pm.id = ".$pm_id." AND m.company_id = pm.company_id 

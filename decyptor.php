@@ -2,6 +2,7 @@
 
 
 
+
 require './assets/php/database.php';
 require './assets/php/utils.php';
 
@@ -15,6 +16,3 @@ $result = $db->getFields();
 foreach ($result['aaData'] as $key => $value) {
     $db->updateQuery('tbl_accounts', 'password = "'.Utils::encrypt($value['password']).'"', 'id='.$value['id'].'');
 }
-
-
-// echo Utils::decrypt("7g1M/GWlAUBp3Bw+4OI9t+L7rZaMVB9nWke26bdX8r4=");
