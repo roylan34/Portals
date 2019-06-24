@@ -21,23 +21,23 @@ if(Utils::getIsset('action')){
 	$mname   	= Utils::getValue('mname');
 	$lname   	= Utils::getValue('lname');
 	$email   	= Utils::getValue('email');
-	$pm_type   	= Utils::getValue('pm_type');
-	$app_mif    = Utils::getValue('app_mif');  
-	$app_pm     = Utils::getValue('app_pm');  
+	$pm_type   	= (Utils::getValue('pm_type') ? "'".Utils::getValue('pm_type')."'" : 'NULL'); 
+	$app_mif    = (Utils::getValue('app_mif') ? Utils::getValue('app_mif') : 0);  
+	$app_pm     = (Utils::getValue('app_pm')  ? Utils::getValue('app_pm')  : 0);  
 	$location   = Utils::getValue('location');  
-	$app_invt   = Utils::getValue('app_invt');  
-	$branch     = Utils::getValue('branch');  
-	$branch_pm  = Utils::getValue('branch_pm');  
-	$app_mrf    = Utils::getValue('app_mrf');  
-	$branch_mrf = Utils::getValue('branch_mrf');  
+	$app_invt   = (Utils::getValue('app_invt') ? Utils::getValue('app_invt')  : 0);
+	$branch     = (Utils::getValue('branch') ? Utils::getValue('branch') : 0);  
+	$branch_pm  = (Utils::getValue('branch_pm') ? Utils::getValue('branch_pm') : 0);
+	$app_mrf    = (Utils::getValue('app_mrf') ? Utils::getValue('app_mrf') : 0);  
+	$branch_mrf = (Utils::getValue('branch_mrf') ? Utils::getValue('branch_mrf') : 0);
 	$accrole   	= Utils::getValue('accrole');  
 	$status   	= Utils::getValue('status');   	
 	$acc_type_mrf = Utils::getValue('acc_type_mrf');
 
-	$action_mif   = Utils::getValue('action_mif');  
-	$action_pm    = Utils::getValue('action_pm');  
-	$action_invnt = Utils::getValue('action_invnt');  
-	$action_mrf   = Utils::getValue('action_mrf');    
+	$action_mif   = (Utils::getValue('action_mif') ? "'".Utils::getValue('action_mif')."'" : 'NULL');
+	$action_pm    = (Utils::getValue('action_pm') ? "'".Utils::getValue('action_pm')."'" : 'NULL');
+	$action_invnt = (Utils::getValue('action_invnt') ? "'".Utils::getValue('action_invnt')."'" : 'NULL');
+	$action_mrf   = (Utils::getValue('action_mrf') ? "'".Utils::getValue('action_mrf')."'" : 'NULL');
 	 
 	$date_created = Utils::getSysDate().' '.Utils::getSysTime();   
 	$db = Database::getInstance();
@@ -58,30 +58,30 @@ if(Utils::getIsset('action')){
 									  "'.Utils::ucFirstLetter($lname).'",
 									  "'.strtolower($email).'",
 									  "'.$location.'",
-									  "'.$branch.'",
-									  "'.$branch_pm.'",
-									  "'.$branch_mrf.'",
+									  '.$branch.',
+									  '.$branch_pm.',
+									  '.$branch_mrf.',
 									  "'.Utils::ucFirstLetter($accrole).'",
 									  "'.$status.'",
 									  "'.$acc_type_mrf.'",
-									  "'.$pm_type.'",
+									  '.$pm_type.',
 									  "'.$date_created.'"');
                       $last_id = $db->getLastId();
                       //Add to this table to restrict app module can access.
                       $db->insertQuery('tbl_app_module','account_id, app_mif, app_pm, app_inventory, app_mrf',
 									  '"'.$last_id.'",
-									  "'.$app_mif.'",
-									  "'.$app_pm.'",
-									  "'.$app_invt.'",
-									  "'.$app_mrf.'"');
+									  '.$app_mif.',
+									  '.$app_pm.',
+									  '.$app_invt.',
+									  '.$app_mrf.'');
 
                        //Add to this table to restrict adding or updating.
                       $db->insertQuery('tbl_app_action','id_account, app_mif, app_pm, app_invnt, app_mrf',
 									  '"'.$last_id.'",
-									  "'.$action_mif.'",
-									  "'.$action_pm.'",
-									  "'.$action_invnt.'",
-									  "'.$action_mrf.'"');
+									  '.$action_mif.',
+									  '.$action_pm.',
+									  '.$action_invnt.',
+									  '.$action_mrf.'');
 
                       $res = $db->getFields();
 				      $res['aaData']['check_location'] = 0;
@@ -101,10 +101,10 @@ if(Utils::getIsset('action')){
 												     lastname    = "'.$lname.'",
 												     email    	 = "'.$email.'",
 												     location  	 = "'.$location.'",
-												     branches  	 = "'.$branch.'",
-												     branch_pm   = "'.$branch_pm.'",
-												     pm_type     = "'.$pm_type.'",
-												     branches_mrf= "'.$branch_mrf.'",
+												     branches  	 = '.$branch.',
+												     branch_pm   = '.$branch_pm.',
+												     pm_type     = '.$pm_type.',
+												     branches_mrf= '.$branch_mrf.',
 												     accountrole = "'.$accrole.'",
 												     account_type = "'.$acc_type_mrf.'",
 												     status  	 = "'.$status.'"'
@@ -117,27 +117,27 @@ if(Utils::getIsset('action')){
 													     lastname    = "'.$lname.'",
 													     email    	 = "'.$email.'",
 													     location  	 = "'.$location.'",
-													     branches  	 = "'.$branch.'",
-													     pm_type     = "'.$pm_type.'",
-													     branch_pm   = "'.$branch_pm.'",
-													     branches_mrf= "'.$branch_mrf.'",
+													     branches  	 = '.$branch.',
+													     pm_type     = '.$pm_type.',
+													     branch_pm   = '.$branch_pm.',
+													     branches_mrf= '.$branch_mrf.',
 													     accountrole = "'.$accrole.'",
 													     account_type = "'.$acc_type_mrf.'",
 													     status  	 = "'.$status.'"'
 													     ,'id = "'.$id.'"');
 					}
                        //Update to this table to restrict app module can access.
-                       $db->updateQuery('tbl_app_module','app_mif    	= "'.$app_mif.'", 
-													      app_pm        = "'.$app_pm.'",
-													      app_inventory = "'.$app_invt.'",
-													      app_mrf 		= "'.$app_mrf.'"'
+                       $db->updateQuery('tbl_app_module','app_mif    	= '.$app_mif.', 
+													      app_pm        = '.$app_pm.',
+													      app_inventory = '.$app_invt.',
+													      app_mrf 		= '.$app_mrf.''
 													     ,'account_id = "'.$id.'"');
 
                        //Update to this table to restrict adding or updating.
-                       $db->updateQuery('tbl_app_action','app_mif    = "'.$action_mif.'", 
-													      app_pm     = "'.$action_pm.'",
-													      app_invnt  = "'.$action_invnt.'",
-													      app_mrf    = "'.$action_mrf.'"'
+                       $db->updateQuery('tbl_app_action','app_mif    = '.$action_mif.', 
+													      app_pm     = '.$action_pm.',
+													      app_invnt  = '.$action_invnt.',
+													      app_mrf    = '.$action_mrf.''
 													     ,'id_account = "'.$id.'"');
 
 

@@ -15,8 +15,12 @@ $search="";
 $limit = "";
 $totalData =0;
 $totalFiltered =0;
-$conn = Database::getInstance(); //For Searching.
+
+$db = array('db_name' => 'sap_db', 'db_host' => 'localhost', 'db_user' => 'root', 'db_pass' => ''); //Use sap_db.
+$conn = Database::getInstance($db); 
+
 $sap_code = $conn->escapeString(Utils::getValue('sap_code'));
+
 if($sap_code)	{ $search .="AND sap_code ='".$sap_code."'"; }
 if(Utils::getValue('company'))		{ $search .="AND company_name LIKE '%".$conn->escapeString(Utils::getValue('company'))."%'"; }
 if(Utils::getValue('acc_manager'))	{ $search .="AND acc_manager LIKE '%".$conn->escapeString(Utils::getValue('acc_manager'))."%'"; }

@@ -15,7 +15,9 @@ $search="";
 $limit = "";
 $totalData =0;
 $totalFiltered =0;
-$conn = Database::getInstance(); //For Searching.
+
+$db = array('db_name' => 'sap_db', 'db_host' => 'localhost', 'db_user' => 'root', 'db_pass' => ''); //Use sap_db.
+$conn = Database::getInstance($db); //For Searching.
 
 $user_id = $conn->escapeString(Utils::getValue('user_id'));
 

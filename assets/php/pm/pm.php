@@ -19,13 +19,13 @@ if(Utils::getIsset('action')){
 	$pmnumber 		= Utils::getValue('pmnumber');
 	$pm_id  		= Utils::getValue('pm_id');
 	$comp_id    	= Utils::getValue('comp_id');
-	$manufacture  	= Utils::getValue('manufacture');
+	$manufacture  	= (Utils::getValue('manufacture') ? '"'.Utils::getValue('manufacture').'"' : 'NULL');
 	$remarks  		= $db->escapeString(Utils::getValue('remarks'));
 	$page  			= Utils::getValue('page');
 	$toner  		= $db->escapeString(Utils::getValue('toner'));
 	$toner_old  	= $db->escapeString(Utils::getValue('toner_old'));
-	$time_in  	= Utils::getValue('time_in');
-	$time_out  	= Utils::getValue('time_out');
+	$time_in  	= (Utils::getValue('time_in')  ? '"'.Utils::getValue('time_in').'"'  : 'NULL');
+	$time_out  	= (Utils::getValue('time_out') ? '"'.Utils::getValue('time_out').'"' : 'NULL');
 	$is_delete  = Utils::getValue('is_delete');
 	$user_id    = Utils::getValue('user_id');
 
@@ -107,12 +107,12 @@ if(Utils::getIsset('action')){
 													    location_area 	= "'.$location.'",
 													    department 		= "'.$department.'",
 													    no_of_user 		= "'.$no_of_user.'",
-														manufacture_date = "'.$manufacture.'", 
+														manufacture_date = '.$manufacture.', 
 														recent_user = "'.$user_id.'", 
 														remarks 	= "'.$remarks.'",
 														page_count 	= "'.$page.'",
-														time_in  	= "'.$time_in.'",
-														time_out 	= "'.$time_out.'"'
+														time_in  	= '.$time_in.',
+														time_out 	= '.$time_out.''
 										    			,'id = "'.$pm_id.'"');
 						//Sync update to tblmif.
 						$db->updateQuery('tblmif','page_count 		= "'.$page.'",

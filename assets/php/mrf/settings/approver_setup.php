@@ -12,14 +12,14 @@ require_once '../../utils.php';
 if(Utils::getIsset('action')){
 	$action     = Utils::getValue('action');
 	$id         = Utils::getValue('id_setup');
-	$approver_1 = Utils::getValue('approver_1'); 
-	$approver_2 = Utils::getValue('approver_2');
-	$approver_2_2 = Utils::getValue('approver_2_2');
-	$approver_3 = Utils::getValue('approver_3');
-	$approver_4 = Utils::getValue('approver_4');
-	$approver_4_2 = Utils::getValue('approver_4_2');
-	$approver_5 = Utils::getValue('approver_5');
-	$approver_5_2 = Utils::getValue('approver_5_2');
+	$approver_1 = (Utils::getValue('approver_1') ? Utils::getValue('approver_1') : 'NULL'); 
+	$approver_2 = (Utils::getValue('approver_2') ? Utils::getValue('approver_2') : 'NULL'); 
+	$approver_2_2 = (Utils::getValue('approver_2_2') ? Utils::getValue('approver_2_2') : 'NULL'); 
+	$approver_3 = (Utils::getValue('approver_3') ? Utils::getValue('approver_3') : 'NULL'); 
+	$approver_4 = (Utils::getValue('approver_4') ? Utils::getValue('approver_4') : 'NULL'); 
+	$approver_4_2 = (Utils::getValue('approver_4_2') ? Utils::getValue('approver_4_2') : 'NULL'); 
+	$approver_5 = (Utils::getValue('approver_5') ? Utils::getValue('approver_5') : 'NULL'); 
+	$approver_5_2 = (Utils::getValue('approver_5_2') ? Utils::getValue('approver_5_2') : 'NULL'); 
 	$id_user = Utils::getValue('id_user');
 	$id_branch = Utils::getValue('branch');
 
@@ -28,14 +28,14 @@ if(Utils::getIsset('action')){
 	switch ($action) {
 		case 'update':
 
-					$db->updateQuery('tbl_mrf_branch_approver','1st_approver = "'.$approver_1.'",
-															2nd_approver = "'.$approver_2.'",
-															2nd_approver_2 = "'.$approver_2_2.'",
-															3rd_approver = "'.$approver_3.'",
-															4th_approver = "'.$approver_4.'",
-															4th_approver_2 = "'.$approver_4_2.'",
-															5th_approver = "'.$approver_5.'",
-															5th_approver_2 = "'.$approver_5_2.'"',
+					$db->updateQuery('tbl_mrf_branch_approver','1st_approver = '.$approver_1.',
+															2nd_approver = '.$approver_2.',
+															2nd_approver_2 = '.$approver_2_2.',
+															3rd_approver = '.$approver_3.',
+															4th_approver = '.$approver_4.',
+															4th_approver_2 = '.$approver_4_2.',
+															5th_approver = '.$approver_5.',
+															5th_approver_2 = '.$approver_5_2.'',
 												     	  'id = "'.$id.'"');
 				  print Utils::jsonEncode($db->getFields());
 			

@@ -4,7 +4,7 @@ require_once 'utils.php';
 /* Uploading files.
 * @exist_dir = User foldername paramater if has uploaded files.
 */
-function fileUpload($_FILES, $action, $exist_dir){
+function fileUpload($files, $action, $exist_dir){
 	// ############ Edit settings ##############
 	$upload_dir  = "../attachment/"; //specify upload directory ends with / (slash)
 	$uploaded_result = array();
@@ -16,12 +16,12 @@ function fileUpload($_FILES, $action, $exist_dir){
 
 					mkdir($upload_dir.$new_dir_name,0777,true); //Create a new directory if no files uploaded yet.
 
-					  		foreach ($_FILES as $key => $value) {		  
+					  		foreach ($files as $key => $value) {		  
 				  		  	  	//Get the file datas.
-							  	$tmpFilePath = $_FILES[$key]["tmp_name"];
-							  	$file_size = $_FILES[$key]["size"];
-							  	$file_name = Utils::normalizeFilename($_FILES[$key]["name"]);
-							  	$file_type = $_FILES[$key]["type"];
+							  	$tmpFilePath = $files[$key]["tmp_name"];
+							  	$file_size = $files[$key]["size"];
+							  	$file_name = Utils::normalizeFilename($files[$key]["name"]);
+							  	$file_type = $files[$key]["type"];
 								$file_path = $upload_dir.$file_name;
 
 						    		if(move_uploaded_file($tmpFilePath, $upload_dir.$new_dir_name."/".$file_name)){
@@ -53,10 +53,10 @@ function fileUpload($_FILES, $action, $exist_dir){
 					   	}
 
 
-					   		foreach ($_FILES as $key => $value) {		  
+					   		foreach ($files as $key => $value) {		  
 				  		  	  	//Get the file datas.
-							  	$tmpFilePath = $_FILES[$key]["tmp_name"];
-							  	$file_name = Utils::normalizeFilename($_FILES[$key]["name"]);
+							  	$tmpFilePath = $files[$key]["tmp_name"];
+							  	$file_name = Utils::normalizeFilename($files[$key]["name"]);
 
 						    		if(move_uploaded_file($tmpFilePath, $upload_dir.$filename_exist."/".$file_name)){
 						    			$uploaded_result["attachment_status"] = "true";
@@ -80,9 +80,9 @@ function fileUpload($_FILES, $action, $exist_dir){
 }
 
 //Validate files supported.
-function validateFileUpload($_FILES){
-		if(isset($_FILES) && count($_FILES) > 0){
-	 		$total = count($_FILES);
+function validateFileUpload($files){
+		if(isset($files) && count($files) > 0){
+	 		$total = count($files);
 	 		$uploaded_result = array();
 	 		$uploaded_message = "";
 		  	$fileSize = 0;
@@ -90,11 +90,11 @@ function validateFileUpload($_FILES){
 		  	$fileType = "";
 
 			 	// Loop through each file
-		  		  foreach ($_FILES as $key => $value) {				  
+		  		  foreach ($files as $key => $value) {				  
 		  		  	  //Get the temp file path
-					  $fileSize = $_FILES[$key]["size"];
-					  $fileName = $_FILES[$key]["name"];
-					  $fileType = $_FILES[$key]["type"];
+					  $fileSize = $files[$key]["size"];
+					  $fileName = $files[$key]["name"];
+					  $fileType = $files[$key]["type"];
 
 
 					  //allowed file size Server side check

@@ -129,7 +129,7 @@ var dtMachine = {
                                 }
                             },
                             { data:  null, title: "No. of User", render: function( data, type, full, meta ){
-                                return "<span class='text-left'>" + data.no_of_user + "</span>";
+                                return "<span class='text-left'>" + isEmpty(data.no_of_user) + "</span>";
                                 }
                             },
                             { data:  null, title: "Remarks", render: function( data, type, full, meta ){

@@ -13,7 +13,7 @@ require_once '../../utils.php';
 if(Utils::getIsset('action')){
 	$action     = Utils::getValue('action');
 	$id         = Utils::getValue('idclient');
-	$account_id = Utils::getValue('account_id');
+	$account_id = (Utils::getValue('account_id') ? Utils::getValue('account_id') : 0);
 	$old_account_id = Utils::getValue('old_account_id');
 	$user 		= Utils::getValue('username');
 	$pass 		= Utils::getValue('pass');
@@ -82,7 +82,7 @@ if(Utils::getIsset('action')){
 
 								if($acc_flag == 0){
 									$db->insertQuery('tbl_client_accounts','account_id, idemp, created_at',
-										  '"'.$account_id.'",
+										  ''.$account_id.',
 										  "'.$id_emp.'",
 										  "'.$date_created.'"');
 									$res = $db->getFields();
@@ -105,7 +105,7 @@ if(Utils::getIsset('action')){
 
 					}else{
 							$db->insertQuery('tbl_client_accounts','account_id, idemp, created_at',
-								  '"'.$account_id.'",
+								  ''.$account_id.',
 								  "'.$id_emp.'",
 								  "'.$date_created.'"');
 							$res = $db->getFields();
@@ -168,7 +168,7 @@ if(Utils::getIsset('action')){
 
 							$db->updateQuery('tbl_company','id_client_mngr = "'.$id.'"','id IN ('.$companies.')'); //Assign new id_client.
 			        		$db->fields = null;
-			        		$db->updateQuery('tbl_client_accounts','account_id = "'.$account_id.'", idemp= "'.$id_emp.'" ','id = "'.$id.'"');
+			        		$db->updateQuery('tbl_client_accounts','account_id = '.$account_id.', idemp= "'.$id_emp.'" ','id = "'.$id.'"');
 
 				        	 $res['aaData']['has_value_accmngr'] = 0;
 
@@ -188,7 +188,7 @@ if(Utils::getIsset('action')){
 						}
 
 							$db->fields = null;
-			        		$db->updateQuery('tbl_client_accounts','account_id = "'.$account_id.'", idemp= "'.$id_emp.'"'
+			        		$db->updateQuery('tbl_client_accounts','account_id = '.$account_id.', idemp= "'.$id_emp.'"'
 							     ,'id = "'.$id.'"');
 
 							$res['aaData']['has_value_accmngr'] = 0;
@@ -275,7 +275,7 @@ function checkNameExist($old_account_id, $new_account_id, $action_validate, $db)
 	$db->fields = null;
 	$db->selectQuery('ca.account_id','tbl_client_accounts ca 
 						INNER JOIN tbl_accounts ac ON ca.account_id = ac.id 
-						WHERE ca.account_id ="'.$new_account_id.'" AND ac.status = 1');
+						WHERE ca.account_id ='.$new_account_id.' AND ac.status = 1');
 	$resName = $db->getFields();
 	if(count($resName['aaData']) > 0){
 		if ($action_validate == "add"){

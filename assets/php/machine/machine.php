@@ -19,10 +19,10 @@ $brand 		= Utils::getValue('brand');
 $model 		= Utils::getValue('model');
 $category 	= Utils::getValue('category');
 $type 		= Utils::getValue('type');
-$pagecount 	= Utils::getValue('pagecount');
+$pagecount 	= (Utils::getValue('pagecount') ? Utils::getValue('pagecount') : 'NULL');
 $location 	= Utils::getValue('location');
 $department = Utils::getValue('department');
-$nouser 	= Utils::getValue('nouser');
+$nouser 	= (Utils::getValue('nouser') ? Utils::getValue('nouser'): 'NULL');
 $remarks 	= Utils::getValue('remarks');  
 $dateinstalled= Utils::getValue('dateinstall'); 
 $billing	= Utils::getValue('billing'); 
@@ -47,10 +47,10 @@ $date_now 	= Utils::getSysDate().' '.Utils::getSysTime();
 												  "'.Utils::upperCase($model).'",
 												  "'.Utils::upperCase($category).'",
 												  "'.Utils::upperCase($type).'",
-												  "'.$pagecount.'",
+												  '.$pagecount.',
 												  "'.Utils::upperCase($location).'",
 												  "'.Utils::upperCase($department).'",
-												  "'.$nouser.'",
+												  '.$nouser.',
 												  "'.Utils::upperCase($remarks).'",
 												  "'.$dateinstalled.'",
 												  "'.Utils::upperCase($billing).'",
@@ -76,12 +76,12 @@ $date_now 	= Utils::getSysDate().' '.Utils::getSysTime();
 												     brand 		 	= "'.$brand.'",
 												     category 		= "'.Utils::upperCase($category).'",
 												     type 		 	= "'.Utils::upperCase($type).'",	
-												     page_count 	= "'.$pagecount.'",				     
+												     page_count 	= '.$pagecount.',				     
 												     model 		 	= "'.$santize_model.'",
 												     serialnumber 	= "'.$santize_sn.'",
 												     location_area 	= "'.$santize_loc.'",
 												     department 	= "'.$santize_dept.'",
-												     no_of_user 	= "'.$nouser.'",
+												     no_of_user 	= '.$nouser.',
 												     remarks 		= "'.Utils::upperCase($remarks).'",
 												     date_installed = "'.$dateinstalled.'",
 												     billing_type 	= "'.Utils::upperCase($billing).'",
@@ -111,7 +111,7 @@ $date_now 	= Utils::getSysDate().' '.Utils::getSysTime();
 							    model 			= "'.$santize_model.'",
 							    location_area 	= "'.$santize_loc.'",
 							    department 		= "'.$santize_dept.'",
-							    no_of_user 		= "'.$nouser.'",
+							    no_of_user 		= '.$nouser.',
 							    date_installed  = "'.$dateinstalled.'",
 							    unit_owned      = "'.$santize_unit.'"'
 				    			,'mif_id= '.$id.' AND pm_number IN ('.$pm_number.') ');

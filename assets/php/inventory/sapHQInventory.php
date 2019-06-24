@@ -16,8 +16,10 @@ $limit = "";
 $totalData =0;
 $totalFiltered =0;
 
-$conn = Database::getInstance(); //For Searching.
-if(Utils::getValue('serialnumber'))		{ $search ="AND serialnumber ='".$conn->escapeString(Utils::getValue('serialnumber'))."'"; }
+$db = array('db_name' => 'sap_db', 'db_host' => 'localhost', 'db_user' => 'root', 'db_pass' => ''); //Use sap_db.
+$conn = Database::getInstance($db); //For Searching.
+
+if(Utils::getValue('serialnumber'))		{ $search  ="AND serialnumber ='".$conn->escapeString(Utils::getValue('serialnumber'))."'"; }
 if(Utils::getValue('brand'))			{ $search .="AND id_brand = '".$conn->escapeString(Utils::getValue('brand'))."'"; }
 if(Utils::getValue('model'))			{ $search .="AND model LIKE '%".$conn->escapeString(Utils::getValue('model'))."%'"; }
 if(Utils::getValue('location'))			{ $search .="AND location ='".$conn->escapeString(Utils::getValue('location'))."'"; }

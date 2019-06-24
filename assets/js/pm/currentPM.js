@@ -139,7 +139,7 @@ var dtCurrentPM = { //For development
                                 }
                             }, 
                              { data:  null, render: function( data, type, full, meta ){
-                                return "<span class='text-center'>" + data.remarks + "</span>"; 
+                                return "<span class='text-center'>" + isEmpty(data.remarks) + "</span>"; 
                                 }
                             }, 
                              { data:  null, render: function( data, type, full, meta ){

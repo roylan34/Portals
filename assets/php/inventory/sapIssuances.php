@@ -16,7 +16,9 @@ $limit = "";
 $totalData =0;
 $totalFiltered =0;
 
-$conn = Database::getInstance(); //For Searching.
+$db = array('db_name' => 'sap_db', 'db_host' => 'localhost', 'db_user' => 'root', 'db_pass' => ''); //Use sap_db.
+$conn = Database::getInstance($db); //For Searching.
+
 if(Utils::getValue('company_name'))		{ $search ="AND company_name LIKE '%".$conn->escapeString(Utils::getValue('company_name'))."%'"; }
 if(Utils::getValue('ref'))				{ $search .="AND ref_no = '".$conn->escapeString(Utils::getValue('ref'))."'"; }
 if(Utils::getValue('date'))				{ $search .="AND doc_date = '".$conn->escapeString(Utils::getValue('date'))."'"; }

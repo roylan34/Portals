@@ -36,7 +36,7 @@ $lng                 = Utils::getValue('lng');
 									  "'.Utils::uppercase($address).'",
 									  "'.(int)$contactno.'",
 									  "'.(int)$accmngr.'",
-									  "'.$location.'",
+									  "'.(int)$location.'",
 									  "'.$last_visit.'",
 									  "'.$sap_code.'",
 									  "'.$delsan_comp.'",

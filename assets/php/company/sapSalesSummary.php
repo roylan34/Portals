@@ -13,7 +13,9 @@ require_once '../utils.php';
 $year 	= Utils::getValue('year');
 $month 	= Utils::getValue('month');
 $action = Utils::getValue('action');
-$conn 	= Database::getInstance();
+
+$db = array('db_name' => 'sap_db', 'db_host' => 'localhost', 'db_user' => 'root', 'db_pass' => ''); //Use sap_db.
+$conn 	= Database::getInstance($db);
 
 
 switch ($action ) {

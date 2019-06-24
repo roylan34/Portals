@@ -73,7 +73,7 @@ if(Utils::getIsset('action')){
 
 			    //Step 2
 				// if($s2_row_data){
-				if(count($s2_row_data) > 0 && $s2_row_data){
+				if(is_array($s2_row_data) && count($s2_row_data) > 0 && $s2_row_data){
 					$db->insertMultipleQuery("tbl_mrf_s2","id_mrf, s2_id_brand, s2_id_model, s2_serialnum, s2_contact_p, s2_dept_branch", array($last_id_mrf),$s2_row_data);
 				}
 

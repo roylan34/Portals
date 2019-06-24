@@ -64,16 +64,50 @@ Class Utils{
 		return (!preg_match('/<[ \t\n]*script/ui', $html) && !preg_match('/<.*('.$jsEvent.')[ \t\n]*=/ui', $html)  && !preg_match('/.*script\:/ui', $html));
 	}
 
-	static public function encrypt($text) 
+	/*
+	*Deprecated in php 5.6 and removed in 7.0 +
+	*
+	*/
+	static public function unsafe_encrypt($text) 
 	{ 
 		$crypt_key = "@gTSqK82GADBp.1";
 	    return trim(base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $crypt_key, $text, MCRYPT_MODE_ECB, mcrypt_create_iv(mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB), MCRYPT_RAND)))); 
 	} 
-
-	static public function decrypt($text) 
+	/*
+	*Deprecated in php 5.6 and removed in 7.0 +
+	*
+	*/
+	static public function unsafe_decrypt($text) 
 	{ 
 		$crypt_key = "@gTSqK82GADBp.1";
 	    return trim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, $crypt_key, base64_decode($text), MCRYPT_MODE_ECB, mcrypt_create_iv(mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB), MCRYPT_RAND))); 
+	}
+
+	static public function encrypt(string $data)
+	{
+	    $key = '@gTSqK82GADBp.1';
+	    $method = 'AES-256-ECB';
+	    $ivSize = openssl_cipher_iv_length($method);
+	    $iv = openssl_random_pseudo_bytes($ivSize);
+
+	    $encrypted = openssl_encrypt($data, $method, $key, OPENSSL_RAW_DATA, $iv);
+	    
+	    // For storage/transmission, we simply concatenate the IV and cipher text
+	    $encrypted = base64_encode($iv . $encrypted);
+
+	    return $encrypted;
+	}
+
+	static public function decrypt(string $data)
+	{
+	    $key = '@gTSqK82GADBp.1';
+	    $method = 'AES-256-ECB';
+	    $data = base64_decode($data);
+	    $ivSize = openssl_cipher_iv_length($method);
+	    $iv = substr($data, 0, $ivSize);
+	    $decrypted = openssl_decrypt(substr($data, $ivSize), $method, $key, OPENSSL_RAW_DATA, $iv);
+
+	    return $decrypted;
 	}
 
 	static public function jsonEncode($arr)
