@@ -55,6 +55,7 @@ switch (Utils::getValue('action')) {
 					if( !empty($search) ) { // if there is a search parameter, $requestData['search']['value'] contains search parameter.
 
 						$conn->selectQuery('pm.*',' tbl_pm_machines pm 
+							LEFT JOIN tblmif m ON pm.mif_id = m.id
 							LEFT JOIN tbl_brands br ON pm.brand = br.id
 							WHERE pm.id > 0 AND pm.is_delete="no" AND pm.company_id='.$company_id.' AND pm.pm_number="'.$pm_number.'" '.$search.' GROUP BY pm.mif_id');
 
