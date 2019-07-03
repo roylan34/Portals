@@ -1,5 +1,5 @@
 
-#table_body_all_stocks table tr td:not(:last-child){
+.table tr td:not(:last-child), .table>thead>tr>th:not(:last-child){
   border-right:1px solid #d4d4d4;
   
 }
@@ -7,3 +7,6 @@
 .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
 	padding: 4px;
 }
+
+
+
