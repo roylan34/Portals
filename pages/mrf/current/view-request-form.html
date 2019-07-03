@@ -337,7 +337,7 @@
                     <tr>
                       <td>
                         <div class="col-md-4">
-                          <p><label>Machine/s issued by:</label> <span id="3rd_approve_name"></span></p>
+                          <p><label>Serial Number Allocated by:</label> <span id="3rd_approve_name"></span></p>
                           <p><label>Date:</label> <span id="3rd_approve_date"></span></p>
                         </div>
                         <div class="col-md-8 container-edit-sn">
@@ -432,6 +432,37 @@
                   </tfoot>
                 </table>
               </div>
+
+              <div>
+                <table id="tbl_approver_releaseby" class="table tbl_approver_header_bg">
+                  <thead>
+                    <tr>
+                      <th>Engineering</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <div class="col-md-6">
+                          <p><label>Machine Released by:</label> <span id="releaseby_approve_name"></span></p>
+                          <p><label>Date:</label> <span id="releaseby_approve_date"></span></p>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                  <tfoot class="tfoot_releaseby_approver">
+                    <tr>
+                      <td>
+                        <div class="text-right">
+                          <button type="button" onClick="dtCurrentMrf.update_status(this)" data-id-status="2" name="releaseby_approver"
+                            class="btn btn-success btn-xs btn-flat" id="btn_approve_releaseby">DONE</button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+
               <div>
                 <table id="tbl_approver_5" class="table tbl_approver_header_bg">
                   <thead>

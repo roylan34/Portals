@@ -18,6 +18,7 @@ if(Utils::getIsset('action')){
 	$approver_3 = Utils::getValue('approver_3');
 	$approver_4 = Utils::getValue('approver_4');
 	$approver_4_2 = Utils::getValue('approver_4_2');
+	$approver_release = Utils::getValue('approver_release');
 	$approver_5 = Utils::getValue('approver_5');
 	$approver_5_2 = Utils::getValue('approver_5_2');
 	$id_user = Utils::getValue('id_user');
@@ -34,6 +35,7 @@ if(Utils::getIsset('action')){
 															3rd_approver = "'.$approver_3.'",
 															4th_approver = "'.$approver_4.'",
 															4th_approver_2 = "'.$approver_4_2.'",
+															releaseby_approver = "'.$approver_release.'",
 															5th_approver = "'.$approver_5.'",
 															5th_approver_2 = "'.$approver_5_2.'"',
 												     	  'id = "'.$id.'"');
@@ -55,6 +57,7 @@ if(Utils::getIsset('action')){
 								IFNULL(CONCAT(ac3.firstname, " ", ac3.lastname),"N/A") AS 3rd_approver,
 								IFNULL(CONCAT(ac4.firstname, " ", ac4.lastname),"N/A") AS 4th_approver,
 								IFNULL(CONCAT(ac4_2.firstname, " ", ac4_2.lastname),"N/A") AS 4th_approver_2,
+								IFNULL(CONCAT(ra.firstname, " ", ra.lastname),"N/A") AS releaseby_approver,
 								IFNULL(CONCAT(ac5.firstname, " ", ac5.lastname),"N/A") AS 5th_approver,
 								IFNULL(CONCAT(ac5_2.firstname, " ", ac5_2.lastname),"N/A") AS 5th_approver_2',
 					 			'tbl_mrf_branch_approver  m
@@ -64,6 +67,7 @@ if(Utils::getIsset('action')){
 									LEFT JOIN tbl_accounts ac3 ON m.3rd_approver = ac3.id
 									LEFT JOIN tbl_accounts ac4 ON m.4th_approver = ac4.id
 									LEFT JOIN tbl_accounts ac4_2 ON m.4th_approver_2 = ac4_2.id
+									LEFT JOIN tbl_accounts ra ON m.releaseby_approver = ra.id
 									LEFT JOIN tbl_accounts ac5 ON m.5th_approver = ac5.id
 									LEFT JOIN tbl_accounts ac5_2 ON m.5th_approver_2 = ac5_2.id
 									LEFT JOIN tbl_branch br ON m.id_branch = br.id');
@@ -102,7 +106,7 @@ function checkIfAlreadyAssign($id_branch,$id_user,$db){
 	$status = null;
 	if(!Utils::isEmpty($id_branch)){
 		$db->selectQuery("COUNT(*) AS already_approver ","tbl_mrf_branch_approver  
-			WHERE  id_branch = ".$id_branch." AND (1st_approver = ".$id_user." OR 2nd_approver = ".$id_user." OR 2nd_approver_2= ".$id_user." OR 3rd_approver = ".$id_user." OR 4th_approver = ".$id_user." OR 5th_approver = ".$id_user.")");
+			WHERE  id_branch = ".$id_branch." AND (1st_approver = ".$id_user." OR 2nd_approver = ".$id_user." OR 2nd_approver_2= ".$id_user." OR 3rd_approver = ".$id_user." OR 4th_approver = ".$id_user." OR releaseby_approver = ".$id_user." OR 5th_approver = ".$id_user.")");
 		$res = $db->getFields();
 
 		if($res['aaData'][0]['already_approver'] == 0){ // If 0 means not yet approver.

@@ -1222,6 +1222,8 @@ var dtCurrentMrf = {
 								tfoot_selector.push("#tab-form-approve table > tfoot button[name=3rd_approver]");
 							if (val["4th_approver"] != "")
 								tfoot_selector.push("#tab-form-approve table > tfoot button[name=4th_approver], #tab-form-approve table > tfoot button[name=4th_approver_2]");
+							if (val["releaseby_approver"] != "")
+								tfoot_selector.push("#tab-form-approve table > tfoot button[name=releaseby_approver]");
 							if (val["5th_approver"] != "")
 								tfoot_selector.push("#tab-form-approve table > tfoot button[name=5th_approver], #tab-form-approve table > tfoot button[name=5th_approver_2]");
 
@@ -1241,6 +1243,8 @@ var dtCurrentMrf = {
 							$("#4th_dr_number").val(val["4th_dr_number"]);
 							$("#4th_edr_number").val(val["4th_edr_number"]);
 							$("#4th_inv_number").val(val["4th_inv_number"]);
+							$("#releaseby_approve_name").text(val["releaseby_approver"]);
+							$("#releaseby_approve_date").text(val["releaseby_date"]);
 							$("#5th_approve_name").text(val["5th_approver"]);
 							$("#5th_approve_date").text(val["5th_date"]);
 							$("#5th_delivery_date").val(val["5th_delivery_date"])

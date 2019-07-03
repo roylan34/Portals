@@ -366,6 +366,9 @@ input.mrf-material:focus, select.mrf-material:focus {
 .status-blue{
   background-color: #3dadee;
 }
+.status-orange{
+  background-color: #ff9800;
+}
 
 /** View Request Form **/
 #tab-form-request, #tab-form-approve, #tab-form-request > table>thead>tr>th, #tab-form-request > table>tbody>tr>td{

@@ -375,16 +375,18 @@ var dtArchiveMrf = {
 	                	 	var tfoot_selector = [];
 	                	 	$.each(view_data.user_approved, function(i, val){
 	                	 		
-	                	 		if(val["1st_approver"] != "") // push value that has a name.
-	                	 			tfoot_selector.push("#tab-form-approve table > tfoot button[name=1st_approver]");
-	                	 		if(val["2nd_approver"] != "")
-	                	 			tfoot_selector.push("#tab-form-approve table > tfoot button[name=2nd_approver], #tab-form-approve table > tfoot button[name=2nd_approver_2]");
-	                	 		if(val["3rd_approver"] != "")
-	                	 			tfoot_selector.push("#tab-form-approve table > tfoot button[name=3rd_approver]");
-								if(val["4th_approver"] != "")
-	                	 			tfoot_selector.push("#tab-form-approve table > tfoot button[name=4th_approver]");
-								if(val["5th_approver"] != "")
-	                	 			tfoot_selector.push("#tab-form-approve table > tfoot button[name=5th_approver]");
+	       //          	 		if(val["1st_approver"] != "") // push value that has a name.
+	       //          	 			tfoot_selector.push("#tab-form-approve table > tfoot button[name=1st_approver]");
+	       //          	 		if(val["2nd_approver"] != "")
+	       //          	 			tfoot_selector.push("#tab-form-approve table > tfoot button[name=2nd_approver], #tab-form-approve table > tfoot button[name=2nd_approver_2]");
+	       //          	 		if(val["3rd_approver"] != "")
+	       //          	 			tfoot_selector.push("#tab-form-approve table > tfoot button[name=3rd_approver]");
+								// if(val["4th_approver"] != "")
+	       //          	 			tfoot_selector.push("#tab-form-approve table > tfoot button[name=4th_approver]");
+	       //          	 		if (val["releaseby_approver"] != "")
+								// 	tfoot_selector.push("#tab-form-approve table > tfoot button[name=releaseby_approver]");
+								// if(val["5th_approver"] != "")
+	       //          	 			tfoot_selector.push("#tab-form-approve table > tfoot button[name=5th_approver]");
 
 
 	                	 		$("#1st_approve_name").text(val["1st_approver"]);
@@ -397,7 +399,9 @@ var dtArchiveMrf = {
 	                	 		$("#4th_approve_date").text(val["4th_date"]);
 	                	 		$("#4th_dr_number").val(val["4th_dr_number"]);
 	                	 		$("#4th_edr_number").val(val["4th_edr_number"]);	 
-	                	 		$("#4th_inv_number").val(val["4th_inv_number"]);		                	 		
+	                	 		$("#4th_inv_number").val(val["4th_inv_number"]);
+	                	 		$("#releaseby_approve_name").text(val["releaseby_approver"]);
+								$("#releaseby_approve_date").text(val["releaseby_date"]);		                	 		
 	                	 		$("#5th_approve_name").text(val["5th_approver"]);
 	                	 		$("#5th_approve_date").text(val["5th_date"]);
 	                	 		$("#5th_delivery_date").val(val["5th_delivery_date"])

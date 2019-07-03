@@ -64,6 +64,11 @@ var dtMrfApprover = {
                                     }
                                 },
                                 { data:  null, render: function( data, type, full, meta ){
+                                      var releaseby_approver = data["releaseby_approver"];
+                                        return "<span class='text-center'>" + releaseby_approver +"</span>";
+                                    }
+                                },
+                                { data:  null, render: function( data, type, full, meta ){
                                       var fifth_approver = data["5th_approver"];
                                       var fifth_approver_2 = data["5th_approver_2"];
                                         return "<span class='text-center'>" + fifth_approver +"<br>"+ fifth_approver_2 +"</span>";
@@ -90,7 +95,8 @@ var dtMrfApprover = {
                 autoDrpDownMrf.getAccountHasMrf("#slct1stApprover",1); //Executive
                 autoDrpDownMrf.getAccountHasMrf("#slct2ndApprover",1); //Executive
                 autoDrpDownMrf.getAccountHasMrf("#slct2ndApprover_2",1); //Executive
-                autoDrpDownMrf.getAccountHasMrf("#slct3rdApprover",5); //Engineering
+                autoDrpDownMrf.getAccountHasMrf("#slct3rdApprover",5); //Engineering Allocation
+                autoDrpDownMrf.getAccountHasMrf("#slctReleaseApprover",5); //Engineering Release
                 autoDrpDownMrf.getAccountHasMrf("#slct4thApprover",6); //Accounting
                 autoDrpDownMrf.getAccountHasMrf("#slct4thApprover_2",6); //Accounting 2
                 autoDrpDownMrf.getAccountHasMrf("#slct5thApprover",7); //Logistics
@@ -126,6 +132,7 @@ var dtMrfApprover = {
                             $("#slct3rdApprover").val(val['3rd_approver']);                                   
                             $("#slct4thApprover").val(val['4th_approver']);
                             $("#slct4thApprover_2").val(val['4th_approver_2']);                                    
+                            $("#slctReleaseApprover").val(val['releaseby_approver']);                                    
                             $("#slct5thApprover").val(val['5th_approver']);
                             $("#slct5thApprover_2").val(val['5th_approver_2']);                                     
                       
@@ -148,6 +155,7 @@ var dtMrfApprover = {
             var approver_3  = $("#slct3rdApprover option:selected").val();
             var approver_4  = $("#slct4thApprover option:selected").val();
             var approver_4_2  = $("#slct4thApprover_2 option:selected").val();
+            var approver_release  = $("#slctReleaseApprover option:selected").val();
             var approver_5  = $("#slct5thApprover option:selected").val();
             var approver_5_2  = $("#slct5thApprover_2 option:selected").val();
             var id_user = Cookies.get('user_id');
@@ -156,7 +164,7 @@ var dtMrfApprover = {
                $.ajax({
                     type: 'POST',
                     url : assets+'php/mrf/settings/approver_setup.php',
-                    data: {action:'update', id_setup: id, id_user:id_user, branch:branch, approver_1: approver_1, approver_2:approver_2, approver_2_2:approver_2_2, approver_3:approver_3,approver_4:approver_4, approver_4_2:approver_4_2, approver_5:approver_5, approver_5_2:approver_5_2 },
+                    data: {action:'update', id_setup: id, id_user:id_user, branch:branch, approver_1: approver_1, approver_2:approver_2, approver_2_2:approver_2_2, approver_3:approver_3,approver_4:approver_4, approver_4_2:approver_4_2, approver_5:approver_5, approver_5_2:approver_5_2, approver_release:approver_release },
                     dataType: 'json',
                     beforeSend: function(){ $btn.button('loading'); },
                     success: function(data){

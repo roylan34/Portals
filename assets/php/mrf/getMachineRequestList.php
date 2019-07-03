@@ -29,11 +29,12 @@ switch (Utils::getValue('action_view')) {
 	case 'current':
 			if(Utils::getValue('status'))
 			{ 
-				$status = Utils::getValue('status'); // If has status search, query according to given paramater.
+				$status = Utils::getValue('status'); // For searching
 				$qry_status = ' WHEN (mt.1st_approver IS NULL && "1st_approver" = "'.$status.'") THEN CONCAT("APPROVER-1","|","status-gray")
 							WHEN (mt.2nd_approver IS NULL && "2nd_approver" = "'.$status.'") THEN CONCAT("APPROVER-2","|","status-green")
 							WHEN (mt.3rd_approver IS NULL && "3rd_approver" = "'.$status.'") THEN CONCAT("ENGINEERING","|","status-yellow")
 							WHEN (mt.4th_approver IS NULL && "4th_approver" = "'.$status.'") THEN CONCAT("ACCOUNTING","|","status-red")
+							WHEN (mt.releaseby_approver IS NULL && "releaseby_approver" = "'.$status.'") THEN CONCAT("ENGINEERING","|","status-orange")
 							WHEN (mt.5th_approver IS NULL && "5th_approver" = "'.$status.'") THEN CONCAT("LOGISTICS","|","status-blue")';
 				switch ($status) {
 					case '1st_approver':
@@ -48,8 +49,11 @@ switch (Utils::getValue('action_view')) {
 					case '4th_approver':
 						$search .="AND (mt.1st_approver IS NOT NULL && mt.2nd_approver IS NOT NULL && mt.3rd_approver IS NOT NULL && mt.4th_approver IS NULL)"; 
 						break;
+					case 'releaseby_approver':
+						$search .="AND (mt.1st_approver IS NOT NULL && mt.2nd_approver IS NOT NULL && mt.3rd_approver IS NOT NULL && mt.4th_approver IS NOT NULL && mt.releaseby_approver IS NULL)"; 
+						break;
 					case '5th_approver':
-						$search .="AND (mt.1st_approver IS NOT NULL && mt.2nd_approver IS NOT NULL && mt.3rd_approver IS NOT NULL && mt.4th_approver IS NOT NULL && mt.5th_approver IS NULL)"; 
+						$search .="AND (mt.1st_approver IS NOT NULL && mt.2nd_approver IS NOT NULL && mt.3rd_approver IS NOT NULL && mt.4th_approver IS NOT NULL && mt.releaseby_approver IS NOT NULL && mt.5th_approver IS NULL)"; 
 						break;
 					default:
 						throw new Exception($status." not exist.", 1);			
@@ -62,6 +66,7 @@ switch (Utils::getValue('action_view')) {
 							WHEN mt.2nd_approver IS NULL THEN CONCAT("APPROVER-2","|","status-green")
 							WHEN mt.3rd_approver IS NULL THEN CONCAT("ENGINEERING","|","status-yellow")
 							WHEN mt.4th_approver IS NULL THEN CONCAT("ACCOUNTING","|","status-red")
+							WHEN mt.releaseby_approver IS NULL THEN CONCAT("ENGINEERING","|","status-orange")
 							WHEN mt.5th_approver IS NULL THEN CONCAT("LOGISTICS","|","status-blue")';
 			}
 
