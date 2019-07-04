@@ -31,7 +31,18 @@ DECLARE splitted_value VARCHAR(50);
 DECLARE brand VARCHAR(25);
 DECLARE model VARCHAR(25);
 DECLARE delivery_date DATE;
-DECLARE done INT DEFAULT 0; DECLARE cur1 CURSOR FOR SELECT com.company_name, s1.s1_serialnum, br.brand_name, mo.model_name, mt.5th_delivery_date FROM tbl_mrf_s1 s1
+DECLARE purpose VARCHAR(50);
+DECLARE done INT DEFAULT 0; 
+DECLARE cur1 CURSOR FOR SELECT com.company_name, s1.s1_serialnum, br.brand_name, mo.model_name, mt.5th_delivery_date, 
+  (CASE
+  WHEN m.s2_radio_id = 1 THEN "Additional unit"
+  WHEN m.s2_radio_id = 3 THEN CONCAT("Demo / Rental: ",IF(m.s2_radio_nodays > 0, CONCAT(m.s2_radio_nodays," day\'s"), " "))
+  WHEN m.s2_radio_id = 5 THEN "Upgrade unit"
+  WHEN m.s2_radio_id = 6 THEN "Replace unit"
+  WHEN m.s2_radio_id = 4 THEN CONCAT(UPPER(SUBSTRING(m.s2_radio_others,1,1)),LOWER(SUBSTRING(m.s2_radio_others,2)))
+  ELSE " "
+  END) AS purpose
+ FROM tbl_mrf_s1 s1
  LEFT JOIN tbl_mrf m ON s1.id_mrf = m.id
  LEFT JOIN tbl_company com ON m.id_company = com.id
  LEFT JOIN tbl_model mo ON s1.s1_id_model = mo.id
@@ -47,11 +58,12 @@ CREATE TEMPORARY TABLE table2(
 `serialnum` VARCHAR(50) NOT NULL,
 `brand` VARCHAR(50) NOT NULL,
 `model` VARCHAR(50) NOT NULL,
-`delivery_date` DATE DEFAULT NULL
+`delivery_date` DATE DEFAULT NULL,
+`purpose` VARCHAR(50) NULL
 ) ENGINE=MYISAM COLLATE=latin1_general_ci;
 OPEN cur1;
   read_loop: LOOP
-    FETCH cur1 INTO company, VALUE, brand, model, delivery_date;
+    FETCH cur1 INTO company, VALUE, brand, model, delivery_date, purpose;
     IF done THEN
       LEAVE read_loop;
     END IF;
@@ -63,7 +75,7 @@ OPEN cur1;
       SET splitted_value =
       (SELECT REPLACE(SUBSTRING(SUBSTRING_INDEX(VALUE, ",", i),
       LENGTH(SUBSTRING_INDEX(VALUE, ",", i - 1)) + 1), ",", ""));
-      INSERT INTO table2 (company, serialnum, brand, model, delivery_date) VALUES (company, splitted_value, brand, model, delivery_date);
+      INSERT INTO table2 (company, serialnum, brand, model, delivery_date, purpose) VALUES (company, splitted_value, brand, model, delivery_date, purpose);
       SET i = i + 1;
     END WHILE;
   END LOOP;
@@ -88,9 +100,10 @@ $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue('B1', 'Serial Number')
             ->setCellValue('C1', 'Brand')
             ->setCellValue('D1', 'Model')
-            ->setCellValue('E1', 'Date Delivered');
+            ->setCellValue('E1', 'Date Delivered')
+            ->setCellValue('F1', 'Purpose');
 //Bold Column Headers
-$objPHPExcel->getActiveSheet()->getStyle('A1:E1')->getFont()->setBold(true);
+$objPHPExcel->getActiveSheet()->getStyle('A1:F1')->getFont()->setBold(true);
 
 // Miscellaneous glyphs, UTF-8
 for ($i=0; $i < count($data['aaData']) ; $i++) { 
@@ -100,7 +113,8 @@ for ($i=0; $i < count($data['aaData']) ; $i++) {
 	            ->setCellValue('B'.$ii, $data['aaData'][$i]['serialnum'])
 	            ->setCellValue('C'.$ii, $data['aaData'][$i]['brand'])
 	            ->setCellValue('D'.$ii, $data['aaData'][$i]['model'])
-	            ->setCellValue('E'.$ii, $data['aaData'][$i]['delivery_date']);
+	            ->setCellValue('E'.$ii, $data['aaData'][$i]['delivery_date'])
+              ->setCellValue('F'.$ii, $data['aaData'][$i]['purpose']);
 }
 
 // Rename worksheet

@@ -289,9 +289,9 @@ var dtArchiveMrf = {
 
 	                	//Step 2 Form 
 	                	var view_s2_radio = view_data.s2_radio_id;
-	                	var view_radio_others = view_data.s2_radio_others.toLowerCase() || "";
+	                	var view_radio_others = view_data.s2_radio_others || "";
 
-	                	if( view_s2_radio == 3  || (view_s2_radio == 4 && view_radio_others == "service unit") ){ //Show only Recall button if Demo or Others with service unit.
+	                	if( view_s2_radio == 3  || (view_s2_radio == 4 && view_radio_others.toLowerCase() == "service unit") ){ //Show only Recall button if Demo or Others with service unit.
 	                		if(Cookies.get('user_id') == view_data.id_user_requestor)
 	                			$(".recall_demo").show();
 	                		else
