@@ -74,7 +74,7 @@ var dtCompany = {
                                 },
                                 {
                                     extend: "print",
-                                    exportOptions: { columns: [0,1,2,3,4,5,6,7,8,9,10,11,12],
+                                    exportOptions: { columns: [0,1,2,3,5,6,7,8,9,10,11,12],
                                        format: {
                                             body: function ( data, column, row ) {
                                                 return column === 6 ?
@@ -140,7 +140,21 @@ var dtCompany = {
                                     return "<span class='badge badge-"+badge_color+"'>" + comp.toUpperCase() + "</span>";                              
                                 }
                             },
-                            { data: "company_name"
+                            { data: null, render: function(data){
+                                var mark_color = '';
+                                var mark = data.mark || '';
+                                    if(mark == 'ACCURATE'){
+                                        mark_color ='blue';
+                                    }
+                                    else if(mark == 'FOR REVIEW'){
+                                        mark_color ='orange';
+                                    }
+                                    else{ mark_color; }
+                                return "<div class='text-left dt-column-branches'>" + isEmpty(data.company_name) + "</div><div><small class='mark badge badge-"+mark_color+"'>"+isEmpty(mark)+"</small></div>";
+
+                                }
+                            },
+                            { data: "mark"
                             },
                             { data: "client_category"
                             },
@@ -209,7 +223,7 @@ var dtCompany = {
                  "columnDefs": [
                             { responsivePriority: 1, target: 0},
                             { responsivePriority: 2, target: 1},
-                            // { targets: 15, className: "none" }
+                            { targets: 4, className: "none" }
 
                  ],
                 "deferRender": true,
@@ -322,6 +336,7 @@ var dtCompany = {
                                     $("#txtLastVisit").val(res_data.date_last_visit);     
                                     $("#hdnLat").val(res_data.latitude);     
                                     $("#hdnLng").val(res_data.longitude);     
+                                    $("#slctMark").val(res_data.mark);     
                             },
                             error: function(data,xhr,status){ promptMSG('warning','ID Machine not exist.'); },
                             complete: function(){ $btn.button('reset'); }
@@ -352,9 +367,10 @@ var dtCompany = {
           var last_visit = $("#txtLastVisit").val();
           var lat        = $("#hdnLat").val();
           var lng        = $("#hdnLng").val();
+          var mark       = $("#slctMark option:selected").val();
           var data       = {idcompany:id, company:company, category:category, address:address, location:location, branch: branch, contactno: contactno, accmngr: accmngr, 
                             oldaccmngr: oldaccmngr, oldbranch:oldbranch ,status: status, user_id: user_id, last_visit: last_visit, sap_code:sap_code, delsan_comp:delsan_comp,
-                            lat:lat, lng:lng};
+                            lat:lat, lng:lng, mark:mark};
            $.ajax({
                 type: 'POST',
                 url: assets+'php/company/updateCompany.php',
@@ -388,8 +404,9 @@ var dtCompany = {
           var last_visit = $("#txtLastVisit").val();
           var lat        = $("#hdnLat").val();
           var lng        = $("#hdnLng").val();
+          var mark       = $("#slctMark option:selected").val();
           var data       = {company:company, category:category, address:address, location:location, branch: removeDblQuote(branch), contactno: contactno, accmngr: accmngr, status:status, 
-                            user_id: user_id, last_visit: last_visit, sap_code:sap_code, delsan_comp:delsan_comp, lat:lat, lng:lng};
+                            user_id: user_id, last_visit: last_visit, sap_code:sap_code, delsan_comp:delsan_comp, lat:lat, lng:lng, mark:mark};
           $.ajax({
                 type: 'POST',
                 url: assets+'php/company/addCompany.php',
