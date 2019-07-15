@@ -99,6 +99,10 @@ div.scrollToTop{
 .bg-red-active, .mif-modal-danger .modal-header { background-color: #db5646 !important; }
 .bg-yellow-active, .mif-modal-warning .modal-header {background-color: #dca040 !important;}
 
+.dropdown-menu-machine{
+  min-width: 100px;
+}
+
 /** LOGIN PAGE **/
 .submitted .ng-invalid{
     border: 1px solid red;

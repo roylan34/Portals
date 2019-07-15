@@ -161,13 +161,19 @@ var dtMachine = {
                                 }
                             },
                             { data:  null, render: function( data, type, full, meta ){
-                                return "<button class='btn btn-xs btn-success btn-flat btnViewUpdateMachine' data-target='#modalFormMachine' data-toggle='modal' data-machine='"+data.id+"'>Update</button>";
+                                var action_elem = '';
+                                        action_elem += '<div class="dropdown text-center">';
+                                        action_elem += '<button class="btn btn-success dropdown-toggle btn-sm" type="button" data-toggle="dropdown">Actions'
+                                                         +' <span class="caret"></span></button>'
+                                                          +'<ul class="dropdown-menu dropdown-menu-right dropdown-menu-machine">'
+                                                            + '<li><a href="#" class="btnViewUpdateMachine" data-target="#modalFormMachine" data-toggle="modal" data-machine='+data.id+'><i class="fa fa-pencil-square" aria-hidden="true"></i>EDIT</a></li>'
+                                                            + '<li><a href="#" class="btnRemoveMachine" data-machine='+data.id+' title="Remove"><i class="fa fa-trash" aria-hidden="true"></i>REMOVE</a></li>'
+                                                            + '<li><a href="#" class="btnPmHistory" data-machine='+data.id+' title="PM History">PM History</a></li>'
+                                                    +'</ul></div>';
+                                                       
+                                    return action_elem;
                                 }
                             },
-                            { data:  null, render: function( data, type, full, meta ){
-                                    return "<a href='#' class='btn btn-xs btn-warning btn-flat btnRemoveMachine' data-machine='"+data.id+"' title='Remove'><i class='fa fa-trash'></i></a>";
-                                }
-                            }
 
                  ],
                 // "fnCreatedRow": function( row, data ) { //Add attribute id-company in first td element.
@@ -180,7 +186,6 @@ var dtMachine = {
                         { targets: 1, className: "never" },
                         { targets: 15, className: "none" },
                         { targets: 16, className: "none" }
-                        // { targets: 17, className: "none" }
                 ],
                 "deferRender": true,
                 "fnDrawCallback": function(oSettings){
@@ -271,6 +276,7 @@ var dtMachine = {
             return this;                              
     },
     modalShowMachine: function(branch){
+            //Machine Form
             $("#displayFormMachine").load(pages+'machine/modal/form.html',function(){
                      $("#modalFormMachine .modal-title").attr('data-update-opt','1');
                       autoDrpDown.getAllCompany("#slctCompany","60%");   //Auto populated dropdown
@@ -465,17 +471,21 @@ var dtMachine = {
                         inst.closest('tr').addClass('selected');
                     }
 
-                    if($(this).hasClass('btnViewUpdateMachine')){
+                    if($(inst[0]).hasClass('btnViewUpdateMachine')){
                         var idmachine = inst.data('machine');
                         self.dtMachine.getData(idmachine);
-                        $("#btnSubmit").text('Update')
+                        // $("#btnSubmit").text('Save')
                     }
                    
                      //Pop-up message for Remove
-                    if ($(inst[0]).hasClass('btnRemoveMachine')) {
+                    else if ($(inst[0]).hasClass('btnRemoveMachine')) {
                         var idcompany = $(this).data('machine');
                         self.dtMachine.showRemove(idcompany);
                     }
+                   else if ($(inst[0]).hasClass('btnPmHistory')) {
+                        var mif_id = $(inst).data('machine');
+                            dtPmHistory.render(mif_id);
+                   }
               });
         return this;
     }

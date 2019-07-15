@@ -31,8 +31,9 @@ $(document).ready(function(){
                          '<div id="displayPMList"></div>',
                          '<div id="displayRemoveMachine"></div>',
                          '<div id="displayFormPM"></div>',
-                          '<div id="displaySalesHistory"></div>',
-                          '<div id="displaySalesDetails"></div>',
+                         '<div id="displaySalesHistory"></div>',
+                         '<div id="displaySalesDetails"></div>',
+                         '<div id="displayPmHistory"></div>',
                          '<div class="displayPromptMSG"></div>');
 
   var mifPages = {

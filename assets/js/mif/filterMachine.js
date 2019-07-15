@@ -192,14 +192,20 @@ var dtFilterMachine = {
                                 return "<span class='text-left'>" + isEmpty(data.branches) + "</span>";
                                 }
                             },
-                            { data:  null, title: "", render: function( data, type, full, meta ){
-                                return "<button class='btn btn-xs btn-success btn-flat btnViewUpdateMachine' data-target='#modalFormMachine' data-toggle='modal' data-machine='"+data.id+"'>Update</button>";
+                            { data:  null, render: function( data, type, full, meta ){
+                                var action_elem = '';
+                                        action_elem += '<div class="dropdown text-center">';
+                                        action_elem += '<button class="btn btn-success dropdown-toggle btn-sm" type="button" data-toggle="dropdown">Actions'
+                                                         +' <span class="caret"></span></button>'
+                                                          +'<ul class="dropdown-menu dropdown-menu-right dropdown-menu-machine">'
+                                                            + '<li><a href="#" class="btnViewUpdateMachine" data-target="#modalFormMachine" data-toggle="modal" data-machine='+data.id+'><i class="fa fa-pencil-square" aria-hidden="true"></i>EDIT</a></li>'
+                                                            + '<li><a href="#" class="btnRemoveMachine" data-machine='+data.id+' title="Remove"><i class="fa fa-trash" aria-hidden="true"></i>REMOVE</a></li>'
+                                                            + '<li><a href="#" class="btnPmHistory" data-machine='+data.id+' title="PM History">PM History</a></li>'
+                                                    +'</ul></div>';
+                                                       
+                                    return action_elem;
                                 }
                             },
-                            { data:  null, title: "", render: function( data, type, full, meta ){
-                                    return "<a href='#' class='btn btn-xs btn-warning btn-flat btnRemoveMachine' data-machine='"+data.id+"' title='Remove'><i class='fa fa-trash'></i></a>";
-                                }
-                            }
 
                  ],
                 "deferRender" : true,
@@ -374,6 +380,11 @@ var dtFilterMachine = {
                         $('#dtFilterMachine thead, #dtFilterMachine tbody').empty(); //Clear table head and body.
 
                     }
+                    else if ($(this).hasClass('btnPmHistory')) {
+                        var mif_id = $(this).data('machine');
+                            dtPmHistory.render(mif_id);
+                    }
+                    else{ }
 
               }); 
 
