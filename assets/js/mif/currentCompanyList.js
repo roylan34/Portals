@@ -256,7 +256,7 @@ var dtCompany = {
                  
                             //Total of current page
                             var res_total = 0;
-                            res_total =  api.column( 5, { page: 'current'}  )
+                            res_total =  api.column( 6, { page: 'current'}  )
                                             .data()
                                             .reduce( function ( a, b ) {
                                 return intVal(a) + intVal(b);
