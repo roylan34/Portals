@@ -648,7 +648,7 @@
   //Comments in View Request Form
   $('.btn-current-comment-mrf').click(function () {
     var id_mrf = $("#hdnIdCurrentViewMrf").val();
-    var id_user = Cookies.get('user_id');
+    var id_user = jwt.get('user_id');
     $("#hdnIdMRF").val(id_mrf);
     comment.display(id_mrf, id_user);
   });
@@ -712,7 +712,7 @@
 
   //Engineering and accounting can edit entry.
   $(".btn-edit-approve").click(function (e) {
-    var user_type = Cookies.get("user_type");
+    var user_type = jwt.get("user_type");
     var id = $("#hdnIdCurrentViewMrf").val() || null;
 
     if (user_type == 5 && id != null) { // 5 = engineering

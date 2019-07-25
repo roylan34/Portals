@@ -62,7 +62,7 @@ var dtArchiveMrf = {
 	                                 		d.serialnum = $("#search-mrf-sn").val() || '';
 
 	                                 	    d.action_view = "archive";
-	                                 	    d.id_user = Cookies.get('user_id');	  
+	                                 	    d.id_user = jwt.get('user_id');	  
 	                                 	    d.id_branch = $("#archive-mrf-branchlist option:selected").val();              
 	                                     }
 	                            },	
@@ -196,10 +196,10 @@ var dtArchiveMrf = {
 					 	return (result ? convertArrStrToInt(result.split(",")) : null);
 				 }
 				 
-				drpdownBranch = branch_approver(Cookies.get("user_id"));	
+				drpdownBranch = branch_approver(jwt.get("user_id"));	
 	    	}
 	    	else{
-	    		drpdownBranch = convertArrStrToInt(Cookies.get("branch_mrf").split(","));
+	    		drpdownBranch = convertArrStrToInt(jwt.get("branch_mrf").split(","));
 	    	}
 			
 				autoDrpDownMrf.getBranch("#archive-mrf-branchlist",false,drpdownBranch,null,true,true);
@@ -212,8 +212,8 @@ var dtArchiveMrf = {
     getDataViewRequestForm: function(id){
     	    if (id != '' && id != undefined){
     	 		 var step_one, step_two;
-    	 		 var id_user_logged = Cookies.get("user_id");
-    	 		 var app_action = JSON.parse(Cookies.get('app_module_action'));
+    	 		 var id_user_logged = jwt.get("user_id");
+    	 		 var app_action = jwt.get('app_module_action');
 			 	$.ajax({
 	                type: 'POST',
 	                url: assets+'php/mrf/mrf.php',
@@ -292,7 +292,7 @@ var dtArchiveMrf = {
 	                	var view_radio_others = view_data.s2_radio_others || "";
 
 	                	if( view_s2_radio == 3  || (view_s2_radio == 4 && view_radio_others.toLowerCase() == "service unit") ){ //Show only Recall button if Demo or Others with service unit.
-	                		if(Cookies.get('user_id') == view_data.id_user_requestor)
+	                		if(jwt.get('user_id') == view_data.id_user_requestor)
 	                			$(".recall_demo").show();
 	                		else
 	                			$(".recall_demo").hide();
@@ -349,8 +349,8 @@ var dtArchiveMrf = {
 
 	                	//Approver form
 	                	//Show button disapprove/approver if current user logged-in is assigned as approver.
-	                	var id_user_logged = Cookies.get("user_id");
-	                	var user_type = Cookies.get('user_type');
+	                	var id_user_logged = jwt.get("user_id");
+	                	var user_type = jwt.get('user_type');
 	                	 $.each(view_data.is_approver[0],function(i,val){
 	  						
 	                	 	  if(val == id_user_logged){
@@ -414,7 +414,7 @@ var dtArchiveMrf = {
 	                	 }
 
 	                	//Show/Hide upload attachment if not executive.
-	                	if(Cookies.get('user_type') > 1)
+	                	if(jwt.get('user_type') > 1)
 	                		$(".attachment-upload-container").remove();
 
 	                	//Display editing SerialNumber
@@ -587,7 +587,7 @@ var dtArchiveMrf = {
                 //Comments Button
                 // else if(button_label == "comments"){
                 // 	var id_mrf = $(this).data('mrf');
-                // 	var id_user = Cookies.get('user_id');
+                // 	var id_user = jwt.get('user_id');
                 // 		comment.display(id_mrf, id_user);
                 // } 
                 //Export Excel

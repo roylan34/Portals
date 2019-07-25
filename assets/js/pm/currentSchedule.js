@@ -34,8 +34,8 @@ var dtCurrentSched = {
                             d.sched_date   = $("#search-sched-schedule").val() || '';
                             d.technician   = $("#search-sched-technician").val() || '';
                             d.branch       = $("#current-pm-branchlist option:selected").val(); 
-                            d.pm_type      = Cookies.get('pm_type');
-                            d.userid       = Cookies.get('user_id');
+                            d.pm_type      = jwt.get('pm_type');
+                            d.userid       = jwt.get('user_id');
                     },
                     complete: function(){ $(".dt-buttons a").removeClass('disabled'); }
                   },
@@ -130,8 +130,8 @@ var dtCurrentSched = {
                                 }
                             },                            
                             { data:  null, render: function( data, type, full, meta ){
-                                var action_edit = JSON.parse(Cookies.get('app_module_action'));
-                                var pm_type = Cookies.get('pm_type');
+                                var action_edit = jwt.get('app_module_action');
+                                var pm_type = jwt.get('pm_type');
                                     if(action_edit && action_edit.action_pm == "wr" && pm_type.toLowerCase() == 'controller'){
                                         return "<button class='btn btn-xs btn-success btn-flat btnEditPM' data-id='"+data.id+"' data-pmnumber='"+data.pm_number+"' data-toggle='modal' data-target='#modalFormCurrentSched'>Edit</button>";
                                     }
@@ -139,8 +139,8 @@ var dtCurrentSched = {
                                 }
                             }, 
                             { data:  null, render: function( data, type, full, meta ){
-                                  var action_pm = JSON.parse(Cookies.get('app_module_action'));
-                                  var pm_type = Cookies.get('pm_type');
+                                  var action_pm = jwt.get('app_module_action');
+                                  var pm_type = jwt.get('pm_type');
                                     if(action_pm && action_pm.action_pm == "wr" || pm_type.toLowerCase() == 'monitor'){
                                         return "<button class='btn btn-xs btn-success btn-flat btnPM' data-pmnumber='"+data.pm_number+"' data-comp-id='"+data.company_id+"' data-toggle='modal' data-target='#modalCurrentPMList'>PM</button>";
                                     }
@@ -160,7 +160,7 @@ var dtCurrentSched = {
                 },
                 "fnDrawCallback": function(){
                     //Remove add button if pm_type is Technician.
-                    var pm_type = Cookies.get('pm_type');
+                    var pm_type = jwt.get('pm_type');
                         if(pm_type == '' || pm_type.toLowerCase() == 'technician' || pm_type.toLowerCase() == 'monitor'){
                             this.api().buttons('.dt-button-add').nodes().remove();
                             $("#btnAddPm").remove();
@@ -179,7 +179,7 @@ var dtCurrentSched = {
 
         $("#displayFormSchedule").load(pages+'pm/current/form.html',function(){
             autoDrpDown.getAllCompany("#sched-company","100%");   //dropdown Company
-            autoDrpDownPM.getTechnician("#sched-technician", Cookies.get('branch_pm'), true);  //dropdown Technician
+            autoDrpDownPM.getTechnician("#sched-technician", jwt.get('branch_pm'), true);  //dropdown Technician
             self.dtCurrentSched.update_cancel().update_close();
 
             //Hide Schedule modal
@@ -337,8 +337,8 @@ var dtCurrentSched = {
           var contact_no    = $("#sched-contact-num").val();
           var contact_email = $("#sched-contact-email").val();
           var contact_dept  = $("#sched-contact-dept").val();
-          var user_id       = Cookies.get('user_id');
-          var branch        = Cookies.get('branch_pm');
+          var user_id       = jwt.get('user_id');
+          var branch        = jwt.get('branch_pm');
           var data      = {action:'add', company:company, sched_date:sched_date, technician:technician, contact_name:contact_name, contact_no: contact_no, email: contact_email,
                             department: contact_dept, user_id: user_id, branch:branch};
           $.ajax({
@@ -439,8 +439,8 @@ var dtCurrentSched = {
         return this;
     }, 
     selectBranch: function(){ //Display dropdown branch if pm_type is MONITOR.
-            var pm_type = Cookies.get('pm_type');
-            var branch = Cookies.get('branch_pm');
+            var pm_type = jwt.get('pm_type');
+            var branch = jwt.get('branch_pm');
             var reverseBranch = true;
             if(pm_type == "MONITOR"){
                 if(branch == 1)

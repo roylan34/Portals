@@ -138,9 +138,8 @@ var dtArchiveMachine = {
                 ],
                 "deferRender": true,
                 "fnDrawCallback": function(oSettings){
-                    var action = JSON.parse(Cookies.get('app_module_action'));
-                    var is_client = Cookies.get('is_client_user');
-                        if(action == null || is_client == 1 ){
+                    var action = jwt.get('app_module_action');
+                        if(action == null){
                            $(".btn-archive-marchine").remove();
                         }
                         else{
@@ -279,7 +278,7 @@ var dtArchiveMachine = {
             var unit_own    = $("#txtArchiveUnitOwn").val();
 
             //For retrieve action.
-            var user_id  = Cookies.get('user_id');
+            var user_id  = jwt.get('user_id');
             var data = {action:'retrieve', user_id:user_id, id:id, company_id:company_id, serialnum:serialnum, brand:brand, model:model, 
                         category:cat, type:type, pagecount: page_count, location:loc, department:depart, nouser:nouser, remarks:remarks, 
                         dateinstall: dateinstall, billing:billing, branch: branch, unit_own:unit_own};   

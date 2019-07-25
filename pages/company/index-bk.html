@@ -223,7 +223,7 @@
 <script type="text/javascript">
     $(document).ready(function(){
 
-        if(Cookies.get('user_role') === 'Admin'){ //Visible only to Admin role.
+        if(jwt.get('user_role') === 'Admin'){ //Visible only to Admin role.
            datePickerFromTo("#date-from","#date-to"); //Initiliaze datapicker plugin.
            $(".dateInOut").val(getTodayDateStandard()).trigger('change'); //Set default value.
         }
@@ -232,8 +232,8 @@
         }
 
         //Disable/Enable Search Input.
-        var location = convertArrStrToInt(Cookies.get('location')) || [1];
-        var reverseDrpdown = (Cookies.get('location') == '1' ? false : true);
+        var location = convertArrStrToInt(jwt.get('location')) || [1];
+        var reverseDrpdown = (jwt.get('location') == '1' ? false : true);
         autoDrpDown.getBranchNameOne("#search-company-branch","100%",location,reverseDrpdown); // 1 = ALL exclude from the list. Branches
         autoDrpDown.getBranchNameOne("#search-company-location","100%",location,reverseDrpdown); // 1 = ALL exclude from the list. Location
         autoDrpDown.getClientName("#search-company-accmngr","100%");

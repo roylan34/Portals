@@ -8,8 +8,8 @@ var dtFilterMachine = {
           		$("#displayFilterMachine").load(pages+'company/filter-machine.html',function(data,status,xhr){
                 $("#modalFilterMachine").modal('show');
                     if(status == 'success'){
-                         var location = convertArrStrToInt(Cookies.get('location')) || [1]; //Added in 02/12/2017
-                         var reverseDrpdown = (Cookies.get('location') == '1' ? false : true);
+                         var location = convertArrStrToInt(jwt.get('location')) || [1]; //Added in 02/12/2017
+                         var reverseDrpdown = (jwt.get('location') == '1' ? false : true);
 
                          autoDrpDown.getBrandName("#fltr-slctbrand"); //Auto Dropdown and Autocomplete. 
                          autoDrpDown.getAllCompany("#fltr-slctcompany","150px");
@@ -115,7 +115,7 @@ var dtFilterMachine = {
                               d.type     = $("#fltr-slcttype option:selected").val() || '';
                               d.company  = $("#fltr-slctcompany").chosen().val() || null;
                               d.branch   = $("#fltr-slctlocation").chosen().val() || null;
-                              d.user_id  = Cookies.get('user_id');
+                              d.user_id  = jwt.get('user_id');
                               d.department = deptData;
                               d.billing  = $("#fltr-slctBillingType option:selected").val() || null;
                     },
@@ -210,7 +210,7 @@ var dtFilterMachine = {
                  ],
                 "deferRender" : true,
                 "fnDrawCallback": function(oSettings){
-                     var action = JSON.parse(Cookies.get('app_module_action'));
+                     var action = jwt.get('app_module_action');
                         if(action == null){
                             $(".btnViewUpdateMachine, .btnRemoveMachine").remove();
                         }
@@ -232,8 +232,8 @@ var dtFilterMachine = {
     showFormMachine: function(){
                  $("#displayFormMachine").load(pages+'machine/modal/form.html',function(){
                         $("#modalFormMachine .modal-title").attr('data-update-opt','2');  
-                         var location = convertArrStrToInt(Cookies.get('location')) || [1]; //Added in 10/10/2017
-                         var reverseDrpdown = (Cookies.get('location') == '1' ? false : true);
+                         var location = convertArrStrToInt(jwt.get('location')) || [1]; //Added in 10/10/2017
+                         var reverseDrpdown = (jwt.get('location') == '1' ? false : true);
                         autoDrpDown.getBranchNameOne("#txtBranch","100%",location,reverseDrpdown);                        
                         autoDrpDown.getAllCompany("#slctCompany","60%");
                         autoDrpDown.getBrandName("#slctBrands"); 
@@ -295,7 +295,7 @@ var dtFilterMachine = {
             var unit_own    = $("#txtUnitOwn").val();    
             var billing     = $("#slctBilling option:selected").val();    
             var branch      = $("#txtBranch").chosen().val();
-            var user_id     = Cookies.get('user_id');
+            var user_id     = jwt.get('user_id');
             var data = {action:'update', idmachine:id, company_id:company_id, serialnum:serialnum, brand:brand, model:model, 
                         category:cat, type:type, pagecount: page_count, location:loc, department:depart, nouser:nouser, remarks:remarks, 
                         dateinstall: dateinstall, unit_own:unit_own, billing:billing, branch: branch, user_id: user_id};   
@@ -334,7 +334,7 @@ var dtFilterMachine = {
             var reason   = $("#txtReason").val();
             var status   = $("#slctMachineStatus option:selected").val();
             var status_action = $("#slctMachineStatus option:selected").data('action');
-            var user_id  = Cookies.get('user_id');
+            var user_id  = jwt.get('user_id');
             var data = { action:'remove', id:id, reason:reason, status:status, status_action:status_action, user_id: user_id} 
             
             $.ajax({

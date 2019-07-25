@@ -158,7 +158,7 @@ var dtMrfApprover = {
             var approver_release  = $("#slctReleaseApprover option:selected").val();
             var approver_5  = $("#slct5thApprover option:selected").val();
             var approver_5_2  = $("#slct5thApprover_2 option:selected").val();
-            var id_user = Cookies.get('user_id');
+            var id_user = jwt.get('user_id');
             var branch  =  $("#hdnIdMrfSettingsApproverBranch").val();
 
                $.ajax({

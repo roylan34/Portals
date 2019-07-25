@@ -3,7 +3,7 @@
 
 
 // require './assets/php/database.php';
-require './assets/php/utils.php';
+//require './assets/php/utils.php';
 
 
 // $db = Database::getInstance();
@@ -16,4 +16,5 @@ require './assets/php/utils.php';
 //     $db->updateQuery('tbl_accounts', 'password = "'.Utils::decrypt($value['password']).'"', 'id='.$value['id'].'');
 // }
 
-echo Utils::decrypt('ZHhgThLbqTqD0WTKIOqynbwRQWKblea38xf/Lf7mktg=');
+//echo Utils::decrypt('ZHhgThLbqTqD0WTKIOqynbwRQWKblea38xf/Lf7mktg=');
+

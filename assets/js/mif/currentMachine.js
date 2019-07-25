@@ -16,8 +16,8 @@ var dtMachine = {
         return this; 
 	},
     dataTable: function(param_Id, branch, dept){
-        // var set_branch = (Cookies.get('location') == '1' ? null : (branch == null || branch == '' ? null : branch.toString() )); // 1 = mean ALL Branch
-         var set_branch = (Cookies.get('location') == '1' ? null :  Cookies.get('location')); // Fixed display machine by user logged location.
+        // var set_branch = (jwt.get('location') == '1' ? null : (branch == null || branch == '' ? null : branch.toString() )); // 1 = mean ALL Branch
+         var set_branch = (jwt.get('location') == '1' ? null :  jwt.get('location')); // Fixed display machine by user logged location.
         this.dtMInstance = $("#dtMachine").DataTable({
                 "dom"     : 'Blrtip',
                 "autoWidth" : false,
@@ -33,7 +33,7 @@ var dtMachine = {
                 "ordering"  : false,
                     "ajax" : {
                     "url"  : assets+"php/machine/getMachineListByCompany.php",
-                    "data" : {company_id: param_Id, branch:set_branch, department: dept, user_id: Cookies.get('user_id')},
+                    "data" : {company_id: param_Id, branch:set_branch, department: dept, user_id: jwt.get('user_id')},
                     "type" : "GET",
                     beforeSend: function(){ $(".btnViewPrinter").prop('disabled', true); },
                     complete : function(data){ 
@@ -189,9 +189,8 @@ var dtMachine = {
                 ],
                 "deferRender": true,
                 "fnDrawCallback": function(oSettings){
-                    var action = JSON.parse(Cookies.get('app_module_action'));
-                    var is_client = Cookies.get('is_client_user');
-                        if(action == null || is_client == 1 ){
+                    var action = jwt.get('app_module_action');
+                        if(action == null){
                             $(".btnViewUpdateMachine, .dt-button-machineadd, .btnRemoveMachine").remove();
                         }
                         else{
@@ -343,7 +342,7 @@ var dtMachine = {
             var billing     = $("#slctBilling option:selected").val();    
             var branch      = $("#txtBranch").chosen().val();
             var unit_own    = $("#txtUnitOwn").val();
-            var user_id     = Cookies.get('user_id');
+            var user_id     = jwt.get('user_id');
             var data = {action:'update', idmachine:id, company_id:company_id, serialnum:serialnum, brand:brand, model:model, 
                         category:cat, type:type, pagecount: page_count, location:loc, department:depart, nouser:nouser, remarks:remarks, 
                         dateinstall: dateinstall, billing:billing, branch: branch, unit_own:unit_own, user_id: user_id};   
@@ -398,7 +397,7 @@ var dtMachine = {
             var billing     = $("#slctBilling option:selected").val();    
             var branch      = $("#txtBranch").chosen().val();
             var unit_own    = $("#txtUnitOwn").val();
-            var user_id     = Cookies.get('user_id');
+            var user_id     = jwt.get('user_id');
             var data = {action:'add', company_id:company_id, serialnum:serialnum, brand:brand, model:model, 
                         category:cat, type:type, pagecount: page_count, location:loc, department:depart, nouser:nouser, remarks:remarks, 
                         dateinstall: dateinstall, billing:billing, branch: branch, unit_own:unit_own, user_id: user_id};  
@@ -434,7 +433,7 @@ var dtMachine = {
             var reason   = $("#txtReason").val();
             var status   = $("#slctMachineStatus option:selected").val();
             var status_action = $("#slctMachineStatus option:selected").data('action');
-            var user_id  = Cookies.get('user_id');
+            var user_id  = jwt.get('user_id');
             var data = { action:'remove', id:id, reason:reason, status:status, status_action:status_action, user_id: user_id} 
             
             $.ajax({

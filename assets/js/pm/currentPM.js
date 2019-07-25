@@ -162,7 +162,7 @@ var dtCurrentPM = { //For development
                                 }
                             },                              
                             { data:  null, render: function( data, type, full, meta ){
-                                var action_edit = JSON.parse(Cookies.get('app_module_action'));
+                                var action_edit = jwt.get('app_module_action');
                                     if(action_edit && action_edit.action_pm == "wr" && data.enabled_update == 'true'){
                                         return "<button class='btn btn-xs btn-success btn-flat btnUpdatePM' data-id='"+data.id+"' data-toggle='modal' data-target='#modalFormCurrentPM'>Update</button>";
                                     }
@@ -170,8 +170,8 @@ var dtCurrentPM = { //For development
                                 }
                             }, 
                              { data:  null, render: function( data, type, full, meta ){
-                                var action_edit = JSON.parse(Cookies.get('app_module_action'));
-                                var pm_type     = Cookies.get('pm_type');
+                                var action_edit = jwt.get('app_module_action');
+                                var pm_type     = jwt.get('pm_type');
                                 var action_elem = '';
                                     if(action_edit && action_edit.action_pm == "wr" && data.enabled_update == 'true' && pm_type.toLowerCase() == 'controller'){
                                         action_elem += '<div class="dropdown text-center">';
@@ -206,8 +206,8 @@ var dtCurrentPM = { //For development
                             $("#btnAddPm").show();                                
                         }
                          //Remove add button if pm_type is Technician.
-                        var pm_type = Cookies.get('pm_type');
-                        var action_edit = JSON.parse(Cookies.get('app_module_action'));
+                        var pm_type = jwt.get('pm_type');
+                        var action_edit = jwt.get('app_module_action');
                         if(pm_type == '' || pm_type.toLowerCase() == 'technician' || pm_type.toLowerCase() == 'monitor'){
                             this.api().buttons('.btn-header-add-pm').remove();
                         }else{
@@ -459,7 +459,7 @@ var dtCurrentPM = { //For development
               var time_out    = ($("#pm-date-out").datetimepicker('getDate') ? dateFormat($("#pm-date-out").datetimepicker('getDate'), 'yyyy-mm-dd HH:MM') : "");
               var comp_id     = $("#hdnCurCompId").val();
               var serialnum   = $("#pm-serialnum").val();
-              var user_id     = Cookies.get('user_id');
+              var user_id     = jwt.get('user_id');
 
               //MIF Sync updates
               var brand     = $("#pm-brand").val();
@@ -554,7 +554,7 @@ var dtCurrentPM = { //For development
                 var reason   = $("#txtReason").val();
                 var status   = $("#slctMachineStatus option:selected").val();
                 var status_action = $("#slctMachineStatus option:selected").data('action');
-                var user_id       = Cookies.get('user_id');
+                var user_id       = jwt.get('user_id');
 
                     $.ajax({
                         type: 'POST',

@@ -258,12 +258,13 @@ var dtAccounts = {
                     if(data.aaData.check_location == 1){
                         promptMSG('custom','Can\'t update due the <strong>ALL</strong> location can\'t combined.',"<i class='fa fa-warning'></i>",null,false,true);
                     }else{
-                       self.dtAccounts.dtInstance.ajax.reload(function(){
-                            promptMSG('success-update','Company Account',null,'',false,true);
-                            var logged_id = Cookies.get('user_id');
+                        promptMSG('success-update','Company Account',null,'',false,true);
+                        self.dtAccounts.dtInstance.ajax.reload(function(){
+                            var logged_id = jwt.get('user_id');
                                 if(id == logged_id){ //Clear the stored cookies location.
-                                    Cookies.clear('location');
-                                    Cookies.set('location',loc,0.5);
+                                    // Cookies.clear('location');
+                                    // Cookies.set('location',loc,0.5);
+                                    alert('Please log-out your account to reflect the updates.');
                                 }
                        }, false); // Reload the data in DataTable.
                    }

@@ -474,7 +474,7 @@ $('#modalArchiveComments').on('hidden.bs.modal', function() { //Reset form when 
 //Comments in View Request Form
 $('.btn-archive-comment-mrf').click(function(){
   var id_mrf = $("#hdnIdCurrentViewMrf").val();
-  var id_user = Cookies.get('user_id');
+  var id_user = jwt.get('user_id');
       $("#hdnIdMRF").val(id_mrf);
       comment.display(id_mrf, id_user);
 });

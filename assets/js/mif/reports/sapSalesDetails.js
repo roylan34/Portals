@@ -6,7 +6,7 @@ var reportSalesDetails = {
         return this;
     },
     dataTable: function(user_id){
-        var user_id = Cookies.get('user_id');
+        var user_id = jwt.get('user_id');
         this.dtInstance = $("#dtSalesDetails").DataTable({
                 "dom"     : 'Blrtip',
                 "autoWidth" : false,

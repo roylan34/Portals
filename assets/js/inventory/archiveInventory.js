@@ -110,7 +110,7 @@ var dtArchiveInventory = {
 	                                }
 	                            ],
 	                             "fnDrawCallback": function(oSettings){				                           
-				                     var action = JSON.parse(Cookies.get('app_module_action'));
+				                     var action = jwt.get('app_module_action');
 			                            if(action == null){
 			                                 $(".viewInvntStatusLogs, .btn-in-inventory").remove();
 			                            }
@@ -155,7 +155,7 @@ var dtArchiveInventory = {
             var date 	 = $("#txtArchInvntDateIn").val();
             var remarks  = $("#txtArchInvntRemarks").val();
             var serialnum=$("#hdnInvntInSerial").val();
-            var id_user   = Cookies.get('user_id');
+            var id_user   = jwt.get('user_id');
             var data = { action:'update_in', id_machine:id, status:status, company: company, date: date, remarks: remarks, id_user:id_user, serialnum:serialnum} 
 
             $.ajax({
@@ -221,8 +221,8 @@ var dtArchiveInventory = {
    	 	    	   
 		   	 	}   		   	 	
 		   	 	else if ($(inst[0]).hasClass('dt-invnt-refresh')) { // Refresh
-    	   	 		 var branch = Cookies.get('branch');
-    	   	 		 var app_module = JSON.parse(Cookies.get('app_module'));
+    	   	 		 var branch = jwt.get('branch');
+    	   	 		 var app_module = jwt.get('app_module');
    	 					 self.dtArchiveInventory.render(app_module.invnt,branch);   	 	    	   
 		   	 	}
                 else if ($(inst[0]).hasClass('viewInvntStatusLogs')) { //Show modal MIF activity logs.

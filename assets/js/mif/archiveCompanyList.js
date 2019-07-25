@@ -154,7 +154,7 @@ var dtArchiveCompany = {
                                 }
                             },
                             { data:  null, render: function( data, type, full, meta ){
-                                 var action_edit = JSON.parse(Cookies.get('app_module_action'));
+                                 var action_edit = jwt.get('app_module_action');
                                     if(action_edit && action_edit.action_mif == "wr" ){
                                         return "<button class='btn btn-xs btn-success btn-flat btnEditComp' data-comp='"+data.id+"'>Retrieve</button>";
                                     }
@@ -180,7 +180,7 @@ var dtArchiveCompany = {
     modalShow: function(idcompany){ //Show form modal.
           $("#displayFormCompany").load(pages+'archive/retrieve-company.html',function(data,status,xhr){
                      $('#modalArchiveCompanyList').modal('show');
-                      var user_branch = Cookies.get('location');
+                      var user_branch = jwt.get('location');
                       autoDrpDown.getBranchNameMulti("#slctCompanyBranch","100%",user_branch,true);
                       autoDrpDown.getBranchNameMulti("#slctCompanyLocation","100%",user_branch,true);
                       autoDrpDown.getClientName("#slctClientMngr","100%");
@@ -235,7 +235,7 @@ var dtArchiveCompany = {
           var oldaccmngr = $("#OldhdnClientMngr").val();
           var oldbranch  = $("#OldIdBranches").val();
           var status     = $("#slctStatus option:selected").val();
-          var user_id    = Cookies.get('user_id');
+          var user_id    = jwt.get('user_id');
           var last_visit = $("#txtLastVisit").val();
           var data       = {idcompany:id, company:company, category:category, address:address, location:location, branch: branch, contactno: contactno, accmngr: accmngr, 
                             oldaccmngr: oldaccmngr, oldbranch:oldbranch ,status: status, user_id: user_id, last_visit: last_visit, sap_code:sap_code, delsan_comp:delsan_comp};
@@ -277,7 +277,7 @@ var dtArchiveCompany = {
                 //Search button
                 if(button_label == "search"){
                     self.dtArchiveCompany.dtInstance.ajax.reload(null, true);
-                    // var branch = Cookies.get('location');
+                    // var branch = jwt.get('location');
                     // self.dtArchiveCompany.render(branch); 
                 }
                 //Reset button

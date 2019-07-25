@@ -165,7 +165,7 @@ var dtCurrentMrf = {
 					d.status = $("#search-for-approver option:selected").val() || '';
 
 					d.action_view = "current";
-					d.id_user = Cookies.get('user_id');
+					d.id_user = jwt.get('user_id');
 					d.id_branch = $("#current-mrf-branchlist option:selected").val();
 				}
 			},
@@ -222,7 +222,7 @@ var dtCurrentMrf = {
 				{
 					data: null, render: function (data, type, full, meta) {
 						var buttons = "";
-						var user_mrf_flag = Cookies.get("user_mrf_flag");
+						var user_mrf_flag = jwt.get("user_mrf_flag");
 						var status = data.status_approval.split("|") || null;
 
 						var EXEC_ID = [1, 43]; //Executive user id
@@ -268,7 +268,7 @@ var dtCurrentMrf = {
 					$(".btn-add-mrf").remove();
 				}
 
-				var action = JSON.parse(Cookies.get('app_module_action'));
+				var action = jwt.get('app_module_action');
 				if (action == null) {
 					$('.btn-edit-mrf, .btn-comment-mrf, .btn-add-mrf').remove();
 				}
@@ -424,7 +424,7 @@ var dtCurrentMrf = {
 				autoDrpDownInvnt.getModelByBrand("#s1_id_model", true);
 				autoDrpDown.getBrandName('#s2_id_brand', true);
 				autoDrpDownInvnt.getModelByBrand("#s2_id_model", true);
-				autoDrpDownMrf.getBranch("#slctBranchRequest", false, convertArrStrToInt(Cookies.get('branch_mrf')), null, true, false);
+				autoDrpDownMrf.getBranch("#slctBranchRequest", false, convertArrStrToInt(jwt.get('branch_mrf')), null, true, false);
 				// });
 
 				//Reset form when modal hidden
@@ -499,7 +499,7 @@ var dtCurrentMrf = {
 			// var intervalComments = null;
 
 			$(this).find('#modalComments').on('shown.bs.modal', function () { //Reset form when modal hidden
-				var id_user = Cookies.get('user_id');
+				var id_user = jwt.get('user_id');
 				var id_mrf = $("#hdnIdMRF").val();
 				// intervalComments = setInterval(function () { //Auto Refresh messages.
 					comment.display(id_mrf, id_user);
@@ -541,10 +541,10 @@ var dtCurrentMrf = {
 				return (result ? convertArrStrToInt(result.split(",")) : null);
 			}
 
-			drpdownBranch = branch_approver(Cookies.get("user_id"));
+			drpdownBranch = branch_approver(jwt.get("user_id"));
 		}
 		else {
-			drpdownBranch = convertArrStrToInt(Cookies.get("branch_mrf").split(","));
+			drpdownBranch = convertArrStrToInt(jwt.get("branch_mrf").split(","));
 		}
 
 		autoDrpDownMrf.getBranch("#current-mrf-branchlist", false, drpdownBranch, null, true, true);
@@ -575,10 +575,10 @@ var dtCurrentMrf = {
 		var contact_p = $("#txtContactPerson").val();
 		var dept = $("#txtDepartment").val();
 		var tel_no = $("#txtTelNo").val();
-		var id_user = Cookies.get("user_id");
-		var branch = Cookies.get("branch_mrf");
-		var email = Cookies.get("email");
-		var fullname = Cookies.get("fullname");
+		var id_user = jwt.get("user_id");
+		var branch = jwt.get("branch_mrf");
+		var email = jwt.get("email");
+		var fullname = jwt.get("fullname");
 		var files = $("#attachment")[0].files;
 
 
@@ -1010,7 +1010,7 @@ var dtCurrentMrf = {
 			//Comments Button
 			if (button_label == "comments") {
 				var id_mrf = $(this).data('mrf');
-				var id_user = Cookies.get('user_id');
+				var id_user = jwt.get('user_id');
 				$("#hdnIdMRF").val(id_mrf);
 				comment.display(id_mrf, id_user);
 			}
@@ -1072,9 +1072,9 @@ var dtCurrentMrf = {
 		if (id != '' && id != undefined) {
 			var step_one, step_two;
 			var no_data = "<tr ><td colspan='6'><div class='text-center'><span class='label label-info text-center'>No data available in table.</span></div></td></tr>";
-			var app_action = JSON.parse(Cookies.get('app_module_action'));
-			var id_user_logged = Cookies.get("user_id");
-			var user_type = Cookies.get('user_type');
+			var app_action = jwt.get('app_module_action');
+			var id_user_logged = jwt.get("user_id");
+			var user_type = jwt.get('user_type');
 			$.ajax({
 				type: 'POST',
 				url: assets + 'php/mrf/mrf.php',
@@ -1410,7 +1410,7 @@ var dtCurrentMrf = {
 			return false;
 		}
 		promptMSG("custom", "Are you sure you want to <strong>" + _this.text() + "</strong> this request?", "Confirmation", "yn", false, true, function () {
-			var id_user_logged = Cookies.get('user_id');
+			var id_user_logged = jwt.get('user_id');
 			var id_mrf = $("#hdnIdCurrentViewMrf").val();
 			var branch = $("#hdnIdBranchCurrentViewMrf").val();
 			var $btn = $('button[name*="approver"]');

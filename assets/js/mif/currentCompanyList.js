@@ -62,14 +62,17 @@ var dtCompany = {
                                     className: 'dt-company-excel hidden-xs',
                                     exportOptions: { columns: [1,2,3,4,5,6,7,8,9,10,11,12],
                                         stripNewlines: false
-                                       // format: {
-                                        //     body: function ( data, column, row ) {
-                                        //         return column === 5 ?
-                                        //             data.replace(/<br\s*\/?>/ig, "\r\n"):
-                                        //             data;
-                                        //     } 
-                                        // }
                                      },
+                                    customize: function(xlsx) {
+                                        var sheet = xlsx.xl.worksheets['sheet1.xml'];
+                         
+                                        // Loop over the cells in column `C`
+                                        $('row c[r^="C"]', sheet).each( function () {
+                                            // Get the value and replace
+                                            var cellReplace = $('is t', this).text().replace(/(FOR REVIEW|ACCURATE)*/ig,'')
+                                                $('is t', this).text(cellReplace);
+                                        });
+                                    },
                                     filename: 'MIF Customer ' + getTodayDate()
                                 },
                                 {
@@ -228,7 +231,7 @@ var dtCompany = {
                  ],
                 "deferRender": true,
                 "fnDrawCallback": function(oSettings){
-                       var action = JSON.parse(Cookies.get('app_module_action'));
+                       var action = jwt.get('app_module_action');
                             if(action == null){
                                  $(".btnEditComp, .dt-button-add, .viewMifLogs").remove();
                             }
@@ -260,7 +263,7 @@ var dtCompany = {
                                             .data()
                                             .reduce( function ( a, b ) {
                                 return intVal(a) + intVal(b);
-                            }, 0 )
+                            }, 0 );
                             
                             //Total over all pages
                             var res_pagetotal =0;
@@ -278,7 +281,7 @@ var dtCompany = {
                              });
 
                             // Update footer
-                            $( api.column( 4 ).footer() ).html(
+                            $( api.column( 6 ).footer() ).html(
                                 'Page Total:'+ formatNumber(res_total)+' (Overall Total: '+ formatNumber(res_pagetotal)+')'
                             ).css('font-size','12px');
 
@@ -301,7 +304,7 @@ var dtCompany = {
                         var lng = intVal($("#hdnLng").val());
                         self.dtCompany.view_map_by_address(address, idcomp, {lat: lat, lng: lng});
                      });
-                      var user_branch = Cookies.get('location');
+                      var user_branch = jwt.get('location');
                       autoDrpDown.getBranchNameMulti("#slctCompanyBranch","100%",user_branch,true);
                       autoDrpDown.getBranchNameMulti("#slctCompanyLocation","100%",user_branch,true);
                       autoDrpDown.getClientName("#slctClientMngr","100%");
@@ -363,7 +366,7 @@ var dtCompany = {
           var oldaccmngr = $("#OldhdnClientMngr").val();
           var oldbranch  = $("#OldIdBranches").val();
           var status     = $("#slctStatus option:selected").val();
-          var user_id    = Cookies.get('user_id');
+          var user_id    = jwt.get('user_id');
           var last_visit = $("#txtLastVisit").val();
           var lat        = $("#hdnLat").val();
           var lng        = $("#hdnLng").val();
@@ -400,7 +403,7 @@ var dtCompany = {
           // var client_service =  $("#slctClientTypeService option:selected").val();
           var accmngr    = $("#slctClientMngr").chosen().val();
           var status     = $("#slctStatus option:selected").val();
-          var user_id    = Cookies.get('user_id');
+          var user_id    = jwt.get('user_id');
           var last_visit = $("#txtLastVisit").val();
           var lat        = $("#hdnLat").val();
           var lng        = $("#hdnLng").val();
@@ -461,7 +464,7 @@ var dtCompany = {
                     //Search button
                     else if(button_label == "search"){
                         self.dtCompany.dtInstance.ajax.reload(null, true);
-                        // var branch = Cookies.get('location');
+                        // var branch = jwt.get('location');
                         // self.dtCompany.render(branch); 
                     }
                      //Reset button

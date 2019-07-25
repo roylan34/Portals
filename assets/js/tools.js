@@ -7,7 +7,7 @@ var Cookies = {
 			date.setTime(date.getTime()+(days*24*60*60*1000));
 			 expires = "; expires="+date.toGMTString();
 		}
-		//document.cookie = name+"="+ $.base64.encode(value) +expires+"; path=/";
+		//document.cookie = name+"="+ Base64.encode(value) +expires+"; path=/";
 		document.cookie = name+"="+ value +expires+"; path=/";
 	},
 	get: function(name){
@@ -17,7 +17,7 @@ var Cookies = {
 			var c = ca[i];
 			c = c.trim();
 			// while (c.charAt(0)==' ') c = c.substring(1,c.length);
-			//if (c.indexOf(cs) == 0) return $.base64.decode(c.substring(cs.length,c.length));
+			//if (c.indexOf(cs) == 0) return Base64.decode(c.substring(cs.length,c.length));
 			if (c.indexOf(cs) == 0) return c.substring(cs.length,c.length);
 		}
 		return null;
@@ -26,6 +26,59 @@ var Cookies = {
 		this.set(name,"",-1);
 	}
 };
+
+var jwt = (function(){
+	'use strict';
+
+	//Preserve state of cookies token.
+	var c_token = null;
+
+	var get = function(input){
+		//Get cookies.
+		if(!c_token){
+			c_token = Cookies.get('token');
+			//Check if token stored in cookies.
+			if(!c_token){
+				return null;
+			}
+		}
+
+		var token 	= c_token.split('.');
+		var payload = Base64.decode(token[1]);
+		var parsePayload = JSON.parse(payload);
+
+		//Check token name if exist.
+		if(!parsePayload.aaData.hasOwnProperty(input)){
+			throw new Error('Invalid token name');
+		}
+		return parsePayload.aaData[input];	
+	}
+
+	var serverVerify = function(){
+		var xhr = $.ajax({
+			async: false,
+			url: assets+'php/jwtInvokeVerify.php',
+		});
+
+		if(xhr.status == "401"){
+			alert('Access not allowed. \n Please contact the developer to assist you. Thanks!');
+			return false;
+		}
+		return true;
+	}
+
+	var clear = function(){
+		c_token = null;
+		return c_token;
+	}
+
+	return {
+		get: get,
+		clear: clear,
+		serverVerify:serverVerify
+	};		
+
+})();
 
 //====================================== end of Cookies ==================
 //Modal Prompt Messages

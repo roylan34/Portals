@@ -95,8 +95,8 @@
 </div>
 
 <script type="text/javascript">
-    var loc = convertArrStrToInt(Cookies.get('location')) || [1];
-    var reverseDrpdown = (Cookies.get('location') == '1' ? false : true);
+    var loc = convertArrStrToInt(jwt.get('location')) || [1];
+    var reverseDrpdown = (jwt.get('location') == '1' ? false : true);
     autoDrpDown.getBranchNameOne("#search-archive-branch","100%",loc,reverseDrpdown); // 1 = ALL exclude from the list. Branches
     autoDrpDown.getBranchNameOne("#search-archive-location","100%",loc,reverseDrpdown); // 1 = ALL exclude from the list. Location
     autoDrpDown.getClientName("#search-archive-accmngr","100%");
