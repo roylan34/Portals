@@ -22,6 +22,7 @@ if(Utils::getIsset('action')){
 	$lname   	= Utils::getValue('lname');
 	$email   	= Utils::getValue('email');
 	$pm_type   	= Utils::getValue('pm_type');
+	$mrf_type   = Utils::getValue('mrf_type');
 	$app_mif    = Utils::getValue('app_mif');  
 	$app_pm     = Utils::getValue('app_pm');  
 	$location   = Utils::getValue('location');  
@@ -50,7 +51,7 @@ if(Utils::getIsset('action')){
 	switch ($action) {
 		case 'add':
 			  if(hasLocationAll($location) == false){
-				$db->insertQuery('tbl_accounts','username, password, firstname, middlename, lastname, email, location, branches, branch_pm, branches_mrf, accountrole, status, account_type, pm_type, created_at',
+				$db->insertQuery('tbl_accounts','username, password, firstname, middlename, lastname, email, location, branches, branch_pm, branches_mrf, accountrole, status, account_type, pm_type, mrf_type, created_at',
 									  '"'.$username.'",
 									  "'.Utils::encrypt($pass).'",
 									  "'.Utils::ucFirstLetter($fname).'",
@@ -65,6 +66,7 @@ if(Utils::getIsset('action')){
 									  "'.$status.'",
 									  "'.$acc_type_mrf.'",
 									  "'.$pm_type.'",
+									  "'.$mrf_type.'",
 									  "'.$date_created.'"');
                       $last_id = $db->getLastId();
                       //Add to this table to restrict app module can access.
@@ -104,6 +106,7 @@ if(Utils::getIsset('action')){
 												     branches  	 = "'.$branch.'",
 												     branch_pm   = "'.$branch_pm.'",
 												     pm_type     = "'.$pm_type.'",
+												     mrf_type    = "'.$mrf_type.'",
 												     branches_mrf= "'.$branch_mrf.'",
 												     accountrole = "'.$accrole.'",
 												     account_type = "'.$acc_type_mrf.'",
@@ -189,6 +192,7 @@ if(Utils::getIsset('action')){
 												'email' => $val['email'],
 												'accountrole' => Utils::ucFirstLetter($val['accountrole']),
 												'pm_type' => $val['pm_type'],
+												'mrf_type' => $val['mrf_type'],
 												'app_mif' => $val['app_mif'],
 												'app_pm' => $val['app_pm'],
 												'app_inventory' => $val['app_inventory'],

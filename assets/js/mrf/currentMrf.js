@@ -244,7 +244,7 @@ var dtCurrentMrf = {
 							buttons += '<div class="col-md-4"><button title="Comments" class="btn ' + buttonColor + ' btn-xs btn-flat btn-comment-mrf" data-mrf="' + data.id + '"" data-toggle="modal" data-target="#modalComments">COMMENTS</button></div>';
 
 						}
-						if (user_mrf_flag == "approver" || (user_mrf_flag == "requestor" && (status[0] == "ENGINEERING" || status[0] == 'ACCOUNTING' || status[0] == 'LOGISTICS'))) {
+						if ( user_mrf_flag =="monitor" || user_mrf_flag =="approver" || (user_mrf_flag == "requestor" && (status[0] == "ENGINEERING" || status[0] == 'ACCOUNTING' || status[0] == 'LOGISTICS'))) {
 							buttons += '<div class="col-md-4"><a title="View Request" class="btn btn-info btn-xs btn-flat btn-view-mrf" data-mrf="' + data.id + '"" data-toggle="modal" data-target="#modalFormCurrentViewMrf">VIEW</a></div>';
 						}
 
@@ -264,7 +264,7 @@ var dtCurrentMrf = {
 				$(".btn-add-mrf").attr('data-toggle', 'modal');
 				$(".btn-add-mrf").attr('data-target', '#modalFormCurrentMrf');
 
-				if (user_mrf_flag == "approver" || user_mrf_flag == "preparer") { //Approver and preparer can't use the add button.
+				if (user_mrf_flag == "approver" || user_mrf_flag == "monitor") { //Approver and preparer can't use the add button.
 					$(".btn-add-mrf").remove();
 				}
 
@@ -523,31 +523,36 @@ var dtCurrentMrf = {
 
 		return this;
 	},
-	selectBranch: function (user_mrf_flag, branch) { //Display dropdown branch in request form and page.
+	selectBranch: function (user_mrf_flag, user_type) { //Display dropdown branch in request form and page.
 		var drpdownBranch = null;
-		if (user_mrf_flag == "approver" || user_mrf_flag == "preparer" || user_mrf_flag == "requestor,preparer") { //Display only if user is approver or preparer.
+		var isReverse = false;
+		if (user_mrf_flag == "approver") { //Display only if user is approver or preparer.
 			var branch_approver = function (iduser) {
 				var result;
 				$.ajax({
 					type: 'POST',
 					url: assets + 'php/mrf/misc/getBranchApprover.php',
-					data: { id_user: iduser },
+					data: { id_user: iduser, mrf_type: user_mrf_flag },
 					async: false,
 					success: function (data) {
 						result = data.aaData[0].id_branch;
-						//console.log(result);
 					}
 				});
 				return (result ? convertArrStrToInt(result.split(",")) : null);
 			}
 
 			drpdownBranch = branch_approver(jwt.get("user_id"));
+			isReverse = true;
 		}
 		else {
 			drpdownBranch = convertArrStrToInt(jwt.get("branch_mrf").split(","));
+			if(drpdownBranch == 1)
+				isReverse = false;
+			else
+				isReverse = true;
 		}
 
-		autoDrpDownMrf.getBranch("#current-mrf-branchlist", false, drpdownBranch, null, true, true);
+		autoDrpDownMrf.getBranch("#current-mrf-branchlist", false, drpdownBranch, null, isReverse, true);
 
 		$("select#current-mrf-branchlist").change(function () {
 			dtCurrentMrf.dtInstance.ajax.reload();
@@ -1280,7 +1285,8 @@ var dtCurrentMrf = {
 							edit_sn += "</tr>";
 
 						});
-					} else {
+					} 
+					else {
 						edit_sn += no_data;
 					}
 					$("#edit-table-sn tbody").html(edit_sn);
@@ -1308,7 +1314,7 @@ var dtCurrentMrf = {
 					$(".history").html(history);
 
 					//Comments
-					if (app_action.action_mrf == 'r') {
+					if (app_action.action_mrf == 'r' || jwt.get('user_mrf_flag') == 'monitor') {
 						$(".btn-current-comment-mrf").remove();
 					} else {
 						var EXEC_ID = [1, 43]; //Executive user id

@@ -187,6 +187,7 @@ var dtAccounts = {
                                     $("#slctStatus").val(val.status);  
                                     $("#slctAccountRole").val(val.accountrole);
                                     $("#slctPmType").val(val.pm_type);
+                                    $("#slctMrfType").val(val.mrf_type);
                                     $("#txtDateCreated").text(val.created_at);
                                     $("#chkAppMif").prop('checked', (app_mif == null ? false : true));
                                     $("#chkAppPm").prop('checked', (app_pm == null ? false : true));
@@ -229,6 +230,7 @@ var dtAccounts = {
             var email     = $("#txtEmail").val();
             var accrole   = $("#slctAccountRole option:selected").val();
             var pm_type   = $("#slctPmType option:selected").val();
+            var mrf_type  = $("#slctMrfType option:selected").val();
             var status    = $("#slctStatus option:selected").val();
             var app_mif   = $("input[name='chkAppMif']:checked").val() || '';
             var app_pm    = $("input[name='chkAppPm']:checked").val() || ''; 
@@ -246,7 +248,7 @@ var dtAccounts = {
             var action_mrf = $("input[name='radioMrfActions']:checked").val();
             var data = {action: 'update', idaccount:id, username:username, pass:pass, fname:fname, mname:mname, lname:lname, email:email, 
                         app_mif: app_mif, app_pm:app_pm, action_pm:action_pm, location:loc, app_invt:app_invt, branch:branch, branch_pm:branch_pm, app_mrf:app_mrf, branch_mrf:branch_mrf, accrole:accrole, status:status, acc_type_mrf:acc_type_mrf,
-                        action_mif:action_mif, action_invnt: action_invnt, action_mrf:action_mrf, pm_type:pm_type};
+                        action_mif:action_mif, action_invnt: action_invnt, action_mrf:action_mrf, pm_type:pm_type, mrf_type:mrf_type};
 
              $.ajax({
                 type: 'POST',
@@ -294,12 +296,13 @@ var dtAccounts = {
             var action_invnt = $("input[name='radioInvntActions']:checked").val();
             var action_mrf = $("input[name='radioMrfActions']:checked").val();
             var pm_type    = $("#slctPmType option:selected").val();
-            var action_pm   = $("input[name='radioPmActions']:checked").val();
+            var mrf_type   = $("#slctMrfType option:selected").val();
+            var action_pm  = $("input[name='radioPmActions']:checked").val();
             var branch_pm = $("#slctAccountBranchPm option:selected").val();
             var app_pm    = $("input[name='chkAppPm']:checked").val() || ''; 
             var data = {action:'add', username:username, pass:pass, fname:fname, mname:mname, lname:lname, email:email, 
                         app_mif: app_mif, location:loc, app_invt:app_invt, branch:branch, app_mrf:app_mrf, branch_mrf:branch_mrf, accrole:accrole, status:status, acc_type_mrf:acc_type_mrf,
-                        action_mif:action_mif, action_invnt: action_invnt, action_mrf:action_mrf, pm_type:pm_type, action_pm:action_pm, branch_pm:branch_pm, app_pm:app_pm }; 
+                        action_mif:action_mif, action_invnt: action_invnt, action_mrf:action_mrf, pm_type:pm_type, mrf_type:mrf_type, action_pm:action_pm, branch_pm:branch_pm, app_pm:app_pm }; 
             var isResetForm = false;
           $.ajax({
                 type: 'POST',

@@ -180,7 +180,8 @@ var dtArchiveMrf = {
     },
     selectBranch: function(user_mrf_flag,branch){ //Display only branch where to assigned.
     	  	var drpdownBranch = null;
-			if(user_mrf_flag == "approver" || user_mrf_flag == "preparer" || user_mrf_flag =="requestor,preparer"){ //Display only if user is approver or preparer.
+			var isReverse = false;
+			if(user_mrf_flag == "approver"){ //Display only if user is approver
 				 var branch_approver = function(iduser){
 				 	var result;
 				 		$.ajax({
@@ -196,13 +197,18 @@ var dtArchiveMrf = {
 					 	return (result ? convertArrStrToInt(result.split(",")) : null);
 				 }
 				 
-				drpdownBranch = branch_approver(jwt.get("user_id"));	
+				drpdownBranch = branch_approver(jwt.get("user_id"));
+				isReverse = true;	
 	    	}
 	    	else{
 	    		drpdownBranch = convertArrStrToInt(jwt.get("branch_mrf").split(","));
+	    			if(drpdownBranch == 1)
+						isReverse = false;
+					else
+						isReverse = true;
 	    	}
 			
-				autoDrpDownMrf.getBranch("#archive-mrf-branchlist",false,drpdownBranch,null,true,true);
+				autoDrpDownMrf.getBranch("#archive-mrf-branchlist",false,drpdownBranch,null,isReverse,true);
 					 
 				$("select#archive-mrf-branchlist").change(function(){
 				   	dtArchiveMrf.dtInstance.ajax.reload();

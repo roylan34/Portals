@@ -75,28 +75,18 @@ switch (Utils::getValue('action_view')) {
 				$branch_cur = ""; 
 				$id_user = Utils::getValue('id_user');
 				$id_branch = (Utils::getValue('id_branch') ? Utils::getValue('id_branch') : "NULL" );
-						$conn->selectQuery('acct.acc_mrf_flags','tbl_account_type acct INNER JOIN tbl_accounts ac ON acct.id = ac.account_type WHERE ac.id ='.$id_user.'');
+						$conn->selectQuery('mrf_type','tbl_accounts WHERE id ='.$id_user.'');
 						$user_type = $conn->getFields(); // get user type.
-						$user_type = ($conn->getNumRows() > 0  && !Utils::isEmpty($user_type['aaData'][0]['acc_mrf_flags']) ? $user_type['aaData'][0]['acc_mrf_flags'] : '');
+						$user_type = ($conn->getNumRows() > 0  && !Utils::isEmpty($user_type['aaData'][0]['mrf_type']) ? $user_type['aaData'][0]['mrf_type'] : '');
 						$conn->fields = null;
 
 						if($user_type == "requestor"){ //If requestor get only the user id.
 							$branch_cur  = " AND m.id_user_requestor =".$id_user." AND m.id_branch IN(".$id_branch.")";							
 						}
 						//HINTS: If Branch ALL selected display all branch has assigned else the selected branch.
-						if($user_type == "approver" || $user_type == "preparer"){ //if approver or preparer, check if user assigned as approver in specific branch.
+						if($user_type == "approver" || $user_type == "monitor"){ //if approver or monitor, check if user assigned as approver in specific branch.
 							$branch_cur  = " AND m.id_branch IN(".$id_branch.")";
 						}
-						// if($user_type == "requestor,preparer" ){ //if approver or preparer, check if user assigned as approver in specific branch.
-						// 	if($id_branch){
-						// 		$filter  = "AND (m.id_user_requestor = ".$id_user." OR m.id_branch IN(".$id_branch."))";
-						// 		$search .= "AND (m.id_user_requestor = ".$id_user." OR m.id_branch IN(".$id_branch."))";
-						// 	}
-						// 	else{
-						// 		$filter  = "AND m.id_user_requestor =".$id_user."";
-						// 		$search .= "AND m.id_user_requestor =".$id_user."";
-						// 	}
-						// }
 
 			}
 
@@ -184,28 +174,18 @@ switch (Utils::getValue('action_view')) {
 					else
 						return false;
 				}
-						$conn->selectQuery('acct.acc_mrf_flags','tbl_account_type acct INNER JOIN tbl_accounts ac ON acct.id = ac.account_type WHERE ac.id ='.$id_user.'');
+						$conn->selectQuery('mrf_type','tbl_accounts WHERE id ='.$id_user.'');
 						$user_type = $conn->getFields(); // get user type.
-						$user_type = ($conn->getNumRows() > 0  && !Utils::isEmpty($user_type['aaData'][0]['acc_mrf_flags']) ? $user_type['aaData'][0]['acc_mrf_flags'] : '');
+						$user_type = ($conn->getNumRows() > 0  && !Utils::isEmpty($user_type['aaData'][0]['mrf_type']) ? $user_type['aaData'][0]['mrf_type'] : '');
 						$conn->fields = null;
 
 						if($user_type == "requestor"){ //If requestor get only the user id.
 							$branch_arc = " AND m.id_user_requestor =".$id_user." AND m.id_branch IN(".$id_branch.")";							
 						}
 						//HINTS: If Branch ALL selected display all branch has assigned else the selected branch.
-						if($user_type == "approver" || $user_type == "preparer"){ //if approver or preparer, check if user assigned as approver in specific branch.
+						if($user_type == "approver" || $user_type == "monitor"){ //if approver or monitor, check if user assigned as approver in specific branch.
 							$branch_arc = " AND m.id_branch IN(".$id_branch.")";
 						}
-						// if($user_type == "requestor,preparer" ){ //if approver or preparer, check if user assigned as approver in specific branch.
-						// 	if($id_branch){
-						// 		$filter  = "AND (m.id_user_requestor = ".$id_user." OR m.id_branch IN(".$id_branch."))";
-						// 		$search .= "AND (m.id_user_requestor = ".$id_user." OR m.id_branch IN(".$id_branch."))";
-						// 	}
-						// 	else{
-						// 		$filter  = "AND m.id_user_requestor =".$id_user."";
-						// 		$search .= "AND m.id_user_requestor =".$id_user."";
-						// 	}
-						// }
 
 			}
 

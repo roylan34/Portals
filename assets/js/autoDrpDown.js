@@ -749,9 +749,7 @@ var autoDrpDownMrf = {
 						var optDept = [];
 						var optElem = "";
 							$.each(data, function(i, val){
-								$.each(val,function(_i, _val){
-									optElem += "<option value="+_val.id+" data-group="+i+" data-group-mif="+_val.mif_flag+">"+_val.dept+"</option>";
-								});
+								optElem += "<option value="+val.id+" data-group-mif="+val.mif_flag+">"+val.dept+"</option>";
 								// optElem += "</optgroup>";									
 							});
 							 optDept.push(optElem);	

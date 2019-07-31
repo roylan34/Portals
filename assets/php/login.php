@@ -19,7 +19,7 @@ if(Utils::getIsset('username') || Utils::getIsset('password')){
 	if($username && $password){
 		$db->selectQuery('a.id AS user_id,CONCAT(a.firstname," ",a.lastname) AS fullname, a.location, a.branches AS branch, app.app_mif, app.app_inventory, app.app_mrf, app.app_pm,
 								(SELECT CONVERT(GROUP_CONCAT(id SEPARATOR ",") USING "utf8") FROM tbl_company WHERE id_client_mngr = ca.id) AS companies, 
-								a.accountrole AS user_role, a.status, a.branches_mrf AS branch_mrf, a.account_type AS user_type, acct.acc_mrf_flags AS user_mrf_flag, a.email, a.branch_pm,
+								a.accountrole AS user_role, a.status, a.branches_mrf AS branch_mrf, a.account_type AS user_type, a.mrf_type AS user_mrf_flag, a.email, a.branch_pm,
 								tap.app_mif As action_mif, tap.app_invnt As action_invnt, tap.app_mrf As action_mrf, tap.app_pm As action_pm, acct.acc_mif_flags AS user_mif_flag, a.pm_type',
 			                   'tbl_accounts a 
 			                    LEFT JOIN tbl_app_module app ON a.id = app.account_id 

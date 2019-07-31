@@ -237,6 +237,17 @@
                                   </div>
                               </div>
                          </div> 
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" for="slctMrfType">Type:</label>
+                            <div class="col-sm-6">
+                                <select id="slctMrfType" class="form-control" name="slctMrfType"> 
+                                  <option value="">---</option>
+                                  <option value="requestor">REQUESTOR</option>
+                                  <option value="approver">APPROVER</option>
+                                  <option value="monitor">MONITOR</option>
+                                </select>
+                            </div>
+                         </div>
                             <div class="form-group">
                                 <label class="col-sm-4 control-label" for="slctAccountBranchMrf">Branch:</label>
                                 <div class="col-sm-6">
@@ -285,10 +296,10 @@
           }
           else if($(this).is('#chkAppMrf')){
               if($(this).is(':checked')){
-                  $("#slctAccountBranchMrf").prop('disabled',false);
-                  $("#slctAccountDept").trigger('change');
+                  $("#slctAccountBranchMrf, #slctMrfType").prop('disabled',false);
+                  // $("#slctAccountDept").trigger('change');
                }else{
-                  $("#slctAccountBranchMrf").val(0).prop('disabled',true);
+                  $("#slctAccountBranchMrf, #slctMrfType").val('').prop('disabled',true);
                }           
           }
           else if($(this).is('#chkAppPm')){

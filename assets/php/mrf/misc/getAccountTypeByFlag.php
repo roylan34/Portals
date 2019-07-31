@@ -13,13 +13,13 @@ $data = array();
 
 
 	$db = Database::getInstance();
-	$db->selectQuery('*','tbl_account_type ORDER BY acc_mrf_flags');
+	$db->selectQuery('*','tbl_account_type');
 	$res = $db->getFields();
 
 	foreach ($res['aaData'] as $key => $value) {
-		$data[$value['acc_mrf_flags']][$key]['id'] = $value['id'];
-		$data[$value['acc_mrf_flags']][$key]['dept'] = $value['acc_name'];
-		$data[$value['acc_mrf_flags']][$key]['mif_flag'] = $value['acc_mif_flags'];
+		$data[$key]['id'] = $value['id'];
+		$data[$key]['dept'] = $value['acc_name'];
+		$data[$key]['mif_flag'] = $value['acc_mif_flags'];
 	}
 	 
 	print Utils::jsonEncode($data);

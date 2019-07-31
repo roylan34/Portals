@@ -4,7 +4,6 @@
   "main": "dist/js/app.min.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/almasaeed2010/AdminLTE.git"
   },
   "license": "MIT",
   "devDependencies": {
@@ -32,7 +31,6 @@
     "stream-series": "^0.1.1"
   },
   "dependencies": {
-    "angular-datatables": "^0.6.0",
     "datatables.net": "^2.1.1",
     "datatables.net-dt": "^2.1.1",
     "jquery": "^3.1.1"
