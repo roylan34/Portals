@@ -31,6 +31,16 @@ $unit_own   = Utils::getValue('unit_own');
 $user_id    = Utils::getValue('user_id');
 $date_now 	= Utils::getSysDate().' '.Utils::getSysTime();  
 
+$santize_sn = Utils::upperCase(trim($serialnum));
+$santize_unit  = Utils::upperCase($unit_own);
+$santize_model = Utils::upperCase($model);
+$santize_loc   = Utils::upperCase($location);
+$santize_dept  = Utils::upperCase($department);
+$santize_cat   = Utils::upperCase($category);
+$santize_type  = Utils::upperCase($type);
+$santize_remarks  = Utils::upperCase($remarks);
+$santize_bill  = Utils::upperCase($billing);
+
 	$db = Database::getInstance();
 
 	//For action check_exist validation.
@@ -42,24 +52,24 @@ $date_now 	= Utils::getSysDate().' '.Utils::getSysTime();
 		case 'add':
 				$db->insertQuery('tblmif','company_id,serialnumber,brand,model,category,type,page_count,location_area,department,no_of_user,remarks,date_installed,billing_type,branches,unit_owned_by,date_created,date_in',
 												  '"'.$company_id.'",
-												  "'.Utils::upperCase(trim($serialnum)).'",
+												  "'.$santize_sn.'",
 												  "'.$brand.'",
-												  "'.Utils::upperCase($model).'",
-												  "'.Utils::upperCase($category).'",
-												  "'.Utils::upperCase($type).'",
+												  "'.$santize_model.'",
+												  "'.$santize_cat.'",
+												  "'.$santize_type.'",
 												  "'.$pagecount.'",
-												  "'.Utils::upperCase($location).'",
-												  "'.Utils::upperCase($department).'",
+												  "'.$santize_loc.'",
+												  "'.$santize_dept.'",
 												  "'.$nouser.'",
-												  "'.Utils::upperCase($remarks).'",
+												  "'.$santize_remarks.'",
 												  "'.$dateinstalled.'",
-												  "'.Utils::upperCase($billing).'",
+												  "'.$santize_bill.'",
 												  "'.$branch.'",
-												  "'.Utils::upperCase($unit_own).'",
+												  "'.$santize_unit.'",
 												  "'.$date_now.'",
 												  "'.$date_now.'"');
 				 $last_id   = $db->getLastId();
-				 machineLogs($company_id,$last_id,$serialnum,$user_id,'CREATE',$db);//Insert machine logs.
+				 machineLogs($company_id,$last_id,$santize_sn,$user_id,'CREATE',$db);//Insert machine logs.
 				
 				print Utils::jsonEncode($db->getFields());
 
@@ -67,29 +77,24 @@ $date_now 	= Utils::getSysDate().' '.Utils::getSysTime();
 		case 'update':
 				if(getCompanyStatus($company_id,$db) == 1 ){//Check if company is blocked.
 
-						$santize_sn    = Utils::upperCase(trim($serialnum));
-						$santize_unit  = Utils::upperCase($unit_own);
-						$santize_model = Utils::upperCase($model);
-						$santize_loc   = Utils::upperCase($location);
-						$santize_dept  = Utils::upperCase($department);
 						$db->updateQuery('tblmif','company_id		= "'.$company_id.'",
 												     brand 		 	= "'.$brand.'",
-												     category 		= "'.Utils::upperCase($category).'",
-												     type 		 	= "'.Utils::upperCase($type).'",	
+												     category 		= "'.$santize_cat.'",
+												     type 		 	= "'.$santize_type.'",	
 												     page_count 	= "'.$pagecount.'",				     
 												     model 		 	= "'.$santize_model.'",
 												     serialnumber 	= "'.$santize_sn.'",
 												     location_area 	= "'.$santize_loc.'",
 												     department 	= "'.$santize_dept.'",
 												     no_of_user 	= "'.$nouser.'",
-												     remarks 		= "'.Utils::upperCase($remarks).'",
+												     remarks 		= "'.$santize_remarks.'",
 												     date_installed = "'.$dateinstalled.'",
-												     billing_type 	= "'.Utils::upperCase($billing).'",
+												     billing_type 	= "'.$santize_bill.'",
 												     branches  		= "'.$branch.'",
 												     unit_owned_by  = "'.$santize_unit.'"'
 												     ,'id = "'.$id.'"');
 					    $res['aaData'][0]['status'] = 1; // Active
-					    machineLogs($company_id,$id,$serialnum,$user_id,'UPDATE',$db);//Insert machine logs.
+					    machineLogs($company_id,$id,$santize_sn,$user_id,'UPDATE',$db);//Insert machine logs.
 
 					    $db->fields = null; //Clear the previous result from queries.
 					    
