@@ -5,7 +5,7 @@ $con = $conn->connect();
 	
 	//$filepath = "C:/wamp/www/mif/assets/php/auto_import/mif/files/SAP_MIF_Portal.csv";
 	
-	$filepath = "C:/SAP FILES/mif/SAP_MIF_Portal.csv";
+	$filepath = "C:/SAP FILES/mif/Customers_DOSC.csv";
 	
 	$SysDate = SysDate();
 	$SysTime = SysTime();
@@ -14,6 +14,8 @@ $con = $conn->connect();
 	$counter_u = 0;
 	
 	if (($getdata = fopen($filepath, "r")) !== FALSE) {
+			
+		//code to delete on toner order client
 			
 		fgetcsv($getdata);  
 		//$vvv = array();
@@ -144,7 +146,7 @@ $con = $conn->connect();
 				}
 				
 			}		
-			
+			//code to insert on toner order client
 		}
 		
 		// Inserted output text
