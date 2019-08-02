@@ -32,7 +32,29 @@
               <div class="form-group">
                 <label class="col-sm-4 control-label" for="pm-model">Model:</label>
                 <div class="col-sm-6">
-                  <input type="text" class="form-control" id="pm-model" name="pm-model"/>
+                  <select id="pm-model" class="form-control required" name="pm-model"></select>
+                </div>
+              </div>
+
+                <div class="form-group">
+                <label class="col-sm-4 control-label" for="pm-category">Category</label>
+                <div class="col-sm-6">
+                  <select id='pm-category' class='form-control' disabled="disabled">
+                    <option value=""></option>
+                    <option value="1">SFP</option>
+                    <option value="2">MFP</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="pm-type">Type</label>
+                <div class="col-sm-6">
+                  <select id='pm-type' class='form-control' disabled="disabled">
+                    <option value=""></option>
+                    <option value="1">MONOCHROME</option>
+                    <option value="2">COLOR</option>
+                  </select>
                 </div>
               </div>
 

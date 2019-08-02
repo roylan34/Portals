@@ -237,6 +237,11 @@ var dtFilterMachine = {
                         autoDrpDown.getBranchNameOne("#txtBranch","100%",location,reverseDrpdown);                        
                         autoDrpDown.getAllCompany("#slctCompany","60%");
                         autoDrpDown.getBrandName("#slctBrands"); 
+
+                        autoDrpDownInvnt.getModelByBrand("#slctModel",true)
+                      
+                        dtMachine.showModelByBrand()
+                                       .autoFillCatType();
                  });
 
         return this;
@@ -255,7 +260,7 @@ var dtFilterMachine = {
                                 $("#hdnOldSerial").val(val.serialnumber);
                                 $("#txtSerialNum").val(val.serialnumber);
                                 $("#slctBrands").val(val.brand);
-                                $("#txtModel").val(val.model);
+                                $("#slctModel").val(val.model).trigger('chosen:updated');
                                 $("#slctCategory").val(isUpperCase(val.category));
                                 $("#slctType").val(isUpperCase(val.type));
                                 $("#txtPageCount").val(val.page_count);
@@ -283,7 +288,7 @@ var dtFilterMachine = {
             var company_id  = $("#slctCompany").chosen().val();
             var serialnum   = $("#txtSerialNum").val();
             var brand       = $("#slctBrands option:selected").val();
-            var model       = $("#txtModel").val();
+            var model       = $("#slctModel").chosen().val();
             var cat         = $("#slctCategory option:selected").val();
             var type        = $("#slctType option:selected").val();
             var page_count  = $("#txtPageCount").val();

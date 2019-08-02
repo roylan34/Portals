@@ -23,7 +23,7 @@ if(Utils::getIsset('category') && !Utils::isEmpty(Utils::getValue('category'))) 
 if(Utils::getIsset('type') && !Utils::isEmpty(Utils::getValue('type')))                  { $search .="AND m.type ='".$conn->escapeString(Utils::getValue('type'))."'"; } 
 if(Utils::getIsset('company') && !Utils::isEmpty(Utils::getValue('company')))            { $search .="AND m.company_id ='".$conn->escapeString(Utils::getValue('company'))."'"; } 
 if(Utils::getIsset('brand') && !Utils::isEmpty(Utils::getValue('brand')))    	         { $search .="AND m.brand =".$conn->escapeString(Utils::getValue('brand')).""; } //For searching brand only
-if(Utils::getIsset('model') && !Utils::isEmpty(Utils::getValue('model')))   	         { $search .=" AND m.model ='".$conn->escapeString(Utils::getValue('model'))."'"; } //For searching model only
+if(Utils::getIsset('model') && !Utils::isEmpty(Utils::getValue('model')))   	         { $search .=" AND mo.model_name ='".$conn->escapeString(Utils::getValue('model'))."'"; } //For searching model only
 if(Utils::getIsset('billing') && !Utils::isEmpty(Utils::getValue('billing')))   	     { $search .=" AND m.billing_type ='".$conn->escapeString(Utils::getValue('billing'))."'"; }
 
 switch (Utils::getValue('department')) {
@@ -33,10 +33,10 @@ switch (Utils::getValue('department')) {
 									com.company_name,
 									m.client_category,
 									m.brand, 
-									m.model, 
+									mo.model_name AS model, 
 									IFNULL(GROUP_CONCAT(tr.toner_code SEPARATOR "<br>")," ") AS toner_code, 
-									m.category, 
-									m.type, 
+									(SELECT cat_name FROM tbl_category WHERE id = m.category LIMIT 1 ) AS category, 
+									(SELECT type_name FROM tbl_type WHERE id = m.type LIMIT 1 ) AS type, 
 									m.serialnumber, 
 									m.page_count, 
 									m.location_area, 
@@ -51,6 +51,7 @@ switch (Utils::getValue('department')) {
 									br.brand_name AS brand_name,
 									com.date_last_visit,
 									CONCAT(ac.firstname," ",ac.lastname) AS account_manager','tblmif m 
+										LEFT JOIN tbl_model mo ON m.model = mo.id
 										LEFT JOIN tbl_location b ON m.branches = b.id 
 										LEFT JOIN tbl_brands br ON m.brand = br.id
 										LEFT JOIN tbl_company com ON m.company_id = com.id

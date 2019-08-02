@@ -33,19 +33,19 @@
               </div>
 
               <div class="form-group">
-                <label class="col-sm-4 control-label" for="txtModel">Model</label>
+                <label class="col-sm-4 control-label" for="slctModel">Model</label>
                 <div class="col-sm-5">
-                  <input type="text" class="form-control" id="txtModel" name="txtModel" placeholder="Model" />
+                   <select id="slctModel" class="form-control required" name="slctModel"></select>
                 </div>
               </div>
 
               <div class="form-group">
                 <label class="col-sm-4 control-label" for="slctCategory">Category</label>
                 <div class="col-sm-5">
-                  <select id='slctCategory' class='form-control' name="slctCategory">
+                  <select id='slctCategory' class='form-control' name="slctCategory" disabled="disabled">
                     <option value=""></option>
-                    <option value="MFP">MFP</option>
-                    <option value="SFP">SFP</option>
+                    <option value="1">SFP</option>
+                    <option value="2">MFP</option>
                   </select>
                 </div>
               </div>
@@ -53,10 +53,10 @@
               <div class="form-group">
                 <label class="col-sm-4 control-label" for="slctType">Type</label>
                 <div class="col-sm-5">
-                  <select id='slctType' class='form-control' name="slctType">
+                  <select id='slctType' class='form-control' name="slctType" disabled="disabled">
                     <option value=""></option>
-                    <option value="MONOCHROME">MONOCHROME</option>
-                    <option value="COLOR">COLOR</option>
+                    <option value="1">MONOCHROME</option>
+                    <option value="2">COLOR</option>
                   </select>
                 </div>
               </div>

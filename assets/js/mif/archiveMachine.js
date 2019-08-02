@@ -77,15 +77,15 @@ var dtArchiveMachine = {
                                 }
                             },
                             { data:  null, title: "Model", render: function( data, type, full, meta ){
-                                return "<span class='text-left'>" + isEmpty(data.model) + "</span>"; 
+                                return "<span class='text-left'>" + isEmpty(data.model_name) + "</span>"; 
                                 }
                             },
                             { data:  null, title: "Category", render: function( data, type, full, meta ){
-                                return "<span class='text-left'>" + isEmpty(data.category) + "</span>";
+                                return "<span class='text-left'>" + isEmpty(data.category_name) + "</span>";
                                 }
                             },
                             { data:  null, title: "Type", render: function( data, type, full, meta ){
-                                return "<span class='text-left'>" + isEmpty(data.type) + "</span>";
+                                return "<span class='text-left'>" + isEmpty(data.type_name) + "</span>";
                                 }
                             },
                             { data:  null, title: "Page Count", render: function( data, type, full, meta ){
@@ -228,7 +228,7 @@ var dtArchiveMachine = {
                      $.ajax({
                         type: 'GET',
                         url : assets+'php/machine/machine.php',
-                        data: {action:'view_id', idmachine: idmachine},
+                        data: {action:'view_archive_id', idmachine: idmachine},
                         dataType: 'json',
                         beforeSend: function(){ $btn.button('loading'); },
                         success: function(data){
@@ -237,8 +237,8 @@ var dtArchiveMachine = {
                                 $("#txtArchiveSerialNum").val(val.serialnumber);
                                 $("#slctArchiveBrand").val(val.brand);
                                 $("#txtArchiveModel").val(val.model);
-                                $("#slctArchiveCategory").val(isUpperCase(val.category));
-                                $("#slctArchiveType").val(isUpperCase(val.type));
+                                $("#slctArchiveCategory").val(val.category);
+                                $("#slctArchiveType").val(val.type);
                                 $("#txtArchivePageCount").val(val.page_count);
                                 $("#txArchiveLocation").val(val.location_area);
                                 $("#txtArchiveDepartment").val(val.department);
@@ -263,10 +263,10 @@ var dtArchiveMachine = {
             var id          = $("#hdnId").val();
             var company_id  = $("#slctArchiveCompany").chosen().val();
             var serialnum   = $("#txtArchiveSerialNum").val();
-            var brand       = $("#slctArchiveBrand option:selected").val();
-            var model       = $("#txtArchiveModel").val();
-            var cat         = $("#slctArchiveCategory option:selected").val();
-            var type        = $("#slctArchiveType option:selected").val();
+            // var brand       = $("#slctArchiveBrand option:selected").val();
+            // var model       = $("#txtArchiveModel").val();
+            // var cat         = $("#slctArchiveCategory option:selected").val();
+            // var type        = $("#slctArchiveType option:selected").val();
             var page_count  = $("#txtArchivePageCount").val();
             var loc         = $("#txArchiveLocation").val();
             var depart      = $("#txtArchiveDepartment").val();
@@ -279,8 +279,7 @@ var dtArchiveMachine = {
 
             //For retrieve action.
             var user_id  = jwt.get('user_id');
-            var data = {action:'retrieve', user_id:user_id, id:id, company_id:company_id, serialnum:serialnum, brand:brand, model:model, 
-                        category:cat, type:type, pagecount: page_count, location:loc, department:depart, nouser:nouser, remarks:remarks, 
+            var data = {action:'retrieve', user_id:user_id, id:id, company_id:company_id, serialnum:serialnum, pagecount: page_count, location:loc, department:depart, nouser:nouser, remarks:remarks, 
                         dateinstall: dateinstall, billing:billing, branch: branch, unit_own:unit_own};   
 
              $.ajax({

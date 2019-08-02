@@ -266,7 +266,13 @@ var dtCurrentSched = {
                 end: {} // end picker options         
               }
             );*/
+            
+            //Model dropdown
+            autoDrpDownInvnt.getModelByBrand("#pm-model",true)
+            dtCurrentPM.showModelByBrand()
+                       .autoFillCatType();
         });
+
         return this;
     },
     getDataSched: function(id_pm){

@@ -100,7 +100,10 @@ if(Utils::getIsset('action')){
 				// 					WHERE m.status_machine != 0 || m.company_id = 0 ORDER BY id DESC');
 
 				//Only table tblmif
-				$db->selectQuery('m.*,c.company_name,b.branch_name,br.brand_name, ms.set_default AS is_hard_delete','tblmif m
+				$db->selectQuery('m.*,c.company_name,b.branch_name,br.brand_name, ms.set_default AS is_hard_delete, mo.model_name,
+									(SELECT cat_name FROM tbl_category WHERE id = m.category LIMIT 1 ) AS category_name, 
+									(SELECT type_name FROM tbl_type WHERE id = m.type LIMIT 1 ) AS type_name','tblmif m
+									LEFT JOIN tbl_model mo ON m.model = mo.id
 									LEFT JOIN tbl_company c ON m.company_id = c.id
 									LEFT JOIN tbl_location b ON m.branches = b.id
 									LEFT JOIN tbl_brands br ON m.brand = br.id
@@ -122,13 +125,8 @@ if(Utils::getIsset('action')){
 							   "'.$user_id.'",
 							   "'.$date_now.'"');
 
-							$db->updateQuery('tblmif','company_id = "'.$company_id.'",
-							     brand 		 	= "'.$brand.'",
-							     category 		= "'.Utils::upperCase($category).'",
-							     type 		 	= "'.Utils::upperCase($type).'",	
+							$db->updateQuery('tblmif','company_id = "'.$company_id.'",	
 							     page_count 	= "'.$pagecount.'",				     
-							     model 		 	= "'.Utils::upperCase($model).'",
-							     serialnumber 	= "'.Utils::upperCase($serialnum).'",
 							     location_area 	= "'.Utils::upperCase($location).'",
 							     department 	= "'.Utils::upperCase($department).'",
 							     no_of_user 	= "'.$nouser.'",

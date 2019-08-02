@@ -281,7 +281,10 @@ var dtMachine = {
                       autoDrpDown.getAllCompany("#slctCompany","60%");   //Auto populated dropdown
                       autoDrpDown.getBranchNameOne("#txtBranch","100%",branch,true);
                       autoDrpDown.getBrandName("#slctBrands");  
+                      autoDrpDownInvnt.getModelByBrand("#slctModel",true)
                       
+                      self.dtMachine.showModelByBrand()
+                                       .autoFillCatType();
              });
     },      
     getData: function(idmachine){
@@ -299,9 +302,9 @@ var dtMachine = {
                                 $("#hdnId").val(val.id);
                                 $("#hdnOldSerial, #txtSerialNum").val(val.serialnumber);
                                 $("#slctBrands").val(val.brand);
-                                $("#txtModel").val(val.model);
-                                $("#slctCategory").val(isUpperCase(val.category));
-                                $("#slctType").val(isUpperCase(val.type));
+                                $("#slctModel").val(Number(val.model)).trigger('chosen:updated');
+                                $("#slctCategory").val(val.category);
+                                $("#slctType").val(val.type);
                                 $("#txtPageCount").val(val.page_count);
                                 $("#txtLocation").val(val.location_area);
                                 $("#txtDepartment").val(val.department);
@@ -330,7 +333,7 @@ var dtMachine = {
             var company_id  = $("#slctCompany").chosen().val();
             var serialnum   = $("#txtSerialNum").val();
             var brand       = $("#slctBrands option:selected").val();
-            var model       = $("#txtModel").val();
+            var model       = $("#slctModel").chosen().val();
             var cat         = $("#slctCategory option:selected").val();
             var type        = $("#slctType option:selected").val();
             var page_count  = $("#txtPageCount").val();
@@ -385,7 +388,7 @@ var dtMachine = {
             var company_id  = $("#slctCompany").chosen().val();
             var serialnum   = $("#txtSerialNum").val();
             var brand       = $("#slctBrands option:selected").val();
-            var model       = $("#txtModel").val();
+            var model       = $("#slctModel").chosen().val();
             var cat         = $("#slctCategory option:selected").val();
             var type        = $("#slctType option:selected").val();
             var page_count  = $("#txtPageCount").val();
@@ -417,6 +420,53 @@ var dtMachine = {
                 complete: function(){ $btn.button('reset'); $("#frmMachine input ,#frmMachine select:not('#slctCompany')").val(''); $("#txtBranch").val(0).trigger('chosen:updated'); }
 
             });
+    },
+    showModelByBrand: function(){
+             //Dynamically show the list of model by brand selected.
+              $("#slctBrands").change(function(){
+                    var select_brand = $(this).val() || null;
+                    if(select_brand != null){
+                        $.ajax({
+                            type: 'GET',
+                            dataType: 'json',
+                            url: assets+'php/misc/inventory_misc.php',
+                            data: { action: 'model_by_brand', id_brand: select_brand },
+                            beforeSend: function(){ 
+                                $("#slctModel").val(0).trigger('chosen:updated'); //Disabled and reset the value.
+                                $("#slctModel option").hide().trigger('chosen:updated'); 
+                                $("#slctCategory,#slctType").val(''); // Clear category and type.
+                            },
+                            success: function(data){
+                                if(data.aaData[0].id_model != null ){
+                                    var arr_brand = convertArrStrToInt(data.aaData[0].id_model);
+                                    var i = 0;
+                                        for (i = 0; i < arr_brand.length; i++) {
+                                            $("#slctModel").prop('disabled',false).trigger('chosen:updated');
+                                            $("#slctModel option[value='"+arr_brand[i]+"']").show().trigger('chosen:updated');
+                                        }
+                                }
+                            },
+                            error: function(xhr,status){ alert(xhr + status); }
+                        });                                 
+                    }else{
+                        $("#slctModel").prop('disabled',true).val(0).trigger('chosen:updated');
+                    }
+               });
+            return this;
+    },
+    autoFillCatType: function(){
+             //Automatically fill the dropdown Category and Type base in model selected.
+                $("#slctModel").change(function(){
+                    var data_val = convertArrStrToInt($(this).find('option:selected').data('cat-type'));
+                        if(data_val != null){
+                            $("#slctCategory").val(data_val[0]); //data_val[0] = Category
+                            $("#slctType").val(data_val[1]);     //data_val[1] = Type
+                        }
+                        else {
+                            $("#slctCategory,#slctType").val(''); // Clear category and type.
+                        }
+                });
+           return this;
     },
     showRemove: function(idmachine){
         var id = idmachine;

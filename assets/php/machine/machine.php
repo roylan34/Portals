@@ -33,7 +33,6 @@ $date_now 	= Utils::getSysDate().' '.Utils::getSysTime();
 
 $santize_sn = Utils::upperCase(trim($serialnum));
 $santize_unit  = Utils::upperCase($unit_own);
-$santize_model = Utils::upperCase($model);
 $santize_loc   = Utils::upperCase($location);
 $santize_dept  = Utils::upperCase($department);
 $santize_cat   = Utils::upperCase($category);
@@ -54,9 +53,9 @@ $santize_bill  = Utils::upperCase($billing);
 												  '"'.$company_id.'",
 												  "'.$santize_sn.'",
 												  "'.$brand.'",
-												  "'.$santize_model.'",
-												  "'.$santize_cat.'",
-												  "'.$santize_type.'",
+												  "'.$model.'",
+												  "'.$category.'",
+												  "'.$type.'",
 												  "'.$pagecount.'",
 												  "'.$santize_loc.'",
 												  "'.$santize_dept.'",
@@ -79,10 +78,10 @@ $santize_bill  = Utils::upperCase($billing);
 
 						$db->updateQuery('tblmif','company_id		= "'.$company_id.'",
 												     brand 		 	= "'.$brand.'",
-												     category 		= "'.$santize_cat.'",
-												     type 		 	= "'.$santize_type.'",	
+												     category 		= "'.$category.'",
+												     type 		 	= "'.$type.'",	
 												     page_count 	= "'.$pagecount.'",				     
-												     model 		 	= "'.$santize_model.'",
+												     model 		 	= "'.$model.'",
 												     serialnumber 	= "'.$santize_sn.'",
 												     location_area 	= "'.$santize_loc.'",
 												     department 	= "'.$santize_dept.'",
@@ -113,7 +112,7 @@ $santize_bill  = Utils::upperCase($billing);
 					    
 					    if($pm_comp_id != '' && $pm_number !=''){ //Sync to PM module once details updated.
 							$db->updateQuery('tbl_pm_machines','brand = "'.$brand.'",
-							    model 			= "'.$santize_model.'",
+							    model 			= "'.$model.'",
 							    location_area 	= "'.$santize_loc.'",
 							    department 		= "'.$santize_dept.'",
 							    no_of_user 		= "'.$nouser.'",
@@ -157,10 +156,40 @@ $santize_bill  = Utils::upperCase($billing);
 											'branches' => $val['branches']
 					                     );
 				}
-
 			 	print Utils::jsonEncode($data);
-			
-			break;	
+			break;
+		case 'view_archive_id':
+				$db->selectQuery('m.*, mo.model_name','tblmif m
+									LEFT JOIN tbl_model mo ON m.model = mo.id
+									WHERE m.id = "'.$id.'" LIMIT 0,1');
+				$res = $db->getFields();
+				$data = array();
+
+				foreach ($res['aaData'] as $key => $val) {
+					$data['aaData'][] = array(
+											'id' => $val['id'],
+											// 'company_name' => getOnlyCompanyName($val['company_id'],$conn),
+											'company_id' => $val['company_id'],
+											'client_category' => $val['client_category'],
+											// 'address' => $val['address'],
+											'brand' => $val['brand'],
+											'category' => $val['category'],
+											'type' => $val['type'],
+											'model' => $val['model_name'],
+											'serialnumber' => $val['serialnumber'],
+											'page_count' => $val['page_count'],
+											'location_area' => $val['location_area'],
+											'department' => $val['department'],
+											'no_of_user' => $val['no_of_user'],
+											'remarks' => $val['remarks'],
+											'date_installed' => $val['date_installed'],
+											'unit_owned_by' => $val['unit_owned_by'],
+											'billing_type' => $val['billing_type'],
+											'branches' => $val['branches']
+					                     );
+				}
+			 	print Utils::jsonEncode($data);
+			break;		
 		case 'check_exist':
 				$db->selectQuery('serialnumber','tblmif WHERE serialnumber ="'.$new_serial.'" LIMIT 0,1');
 				if($db->getNumRows() > 0){

@@ -284,6 +284,7 @@ $(document).ready(function(){
 			 dtStatus.render().actions();
 			 dtBrand.render().actions();
 			 dtSapCustomer.render();
+			 dtModels.pageDetails().render().actions();
 		  }
 		});
 	 },

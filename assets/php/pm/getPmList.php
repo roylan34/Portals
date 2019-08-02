@@ -42,7 +42,7 @@ switch (Utils::getValue('action')) {
 
 					if(Utils::getValue('serialnumber'))	{ $search ="AND m.serialnumber LIKE '%".$conn->escapeString(Utils::getValue('serialnumber'))."%'"; }
 					if(Utils::getValue('brand'))	{ $search ="AND br.brand_name='".$conn->escapeString(Utils::getValue('brand'))."'"; }
-					if(Utils::getValue('model'))	{ $search ="AND pm.model LIKE '%".$conn->escapeString(Utils::getValue('model'))."%'"; }
+					if(Utils::getValue('model'))	{ $search ="AND mo.model_name LIKE '%".$conn->escapeString(Utils::getValue('model'))."%'"; }
 					if(Utils::getValue('location'))	{ $search ="AND pm.location_area LIKE '%".$conn->escapeString(Utils::getValue('location'))."%'"; }
 					if(Utils::getValue('department'))	{ $search ="AND pm.department LIKE '%".$conn->escapeString(Utils::getValue('department'))."%'"; }
 
@@ -55,6 +55,7 @@ switch (Utils::getValue('action')) {
 					if( !empty($search) ) { // if there is a search parameter, $requestData['search']['value'] contains search parameter.
 
 						$conn->selectQuery('pm.*',' tbl_pm_machines pm 
+							LEFT JOIN tbl_model mo ON pm.model = mo.id
 							LEFT JOIN tblmif m ON pm.mif_id = m.id
 							LEFT JOIN tbl_brands br ON pm.brand = br.id
 							WHERE pm.id > 0 AND pm.is_delete="no" AND pm.company_id='.$company_id.' AND pm.pm_number="'.$pm_number.'" '.$search.' GROUP BY pm.mif_id');
@@ -67,7 +68,7 @@ switch (Utils::getValue('action')) {
 					}
 					
 				if(intval($requestData['length']) >= 1 ) { $limit = ' LIMIT '.$requestData['start'].' ,'.$requestData['length'].''; }
-						$conn->selectQuery('pm.id, pm.mif_id, m.serialnumber, br.brand_name, pm.model, pm.location_area, pm.department, pm.no_of_user, pm.date_installed, pm.unit_owned AS unit_owned, pm.manufacture_date,
+						$conn->selectQuery('pm.id, pm.mif_id, m.serialnumber, br.brand_name, mo.model_name AS model, pm.location_area, pm.department, pm.no_of_user, pm.date_installed, pm.unit_owned AS unit_owned, pm.manufacture_date,
 							pm.remarks, pm.page_count, IFNULL(
 						    (SELECT GROUP_CONCAT(tr.toner_code SEPARATOR "<br>") 
 							    FROM tbl_toner_model_use tmu
@@ -76,6 +77,7 @@ switch (Utils::getValue('action')) {
 							    ,
 							    " "
 						  	) AS toner_use, pm.time_in, pm.time_out ',' tbl_pm_machines pm
+						  	LEFT JOIN tbl_model mo ON pm.model = mo.id
 							LEFT JOIN tblmif m ON pm.mif_id = m.id 
 							LEFT JOIN tbl_brands br ON pm.brand = br.id
 							WHERE pm.id > 0 AND pm.is_delete="no" AND pm.company_id='.$company_id.' AND pm.pm_number="'.$pm_number.'" '.$search.' 
@@ -88,7 +90,7 @@ switch (Utils::getValue('action')) {
 	        		$enabled_update = 'false';
 	        		if(Utils::getValue('serialnumber'))	{ $search ="AND m.serialnumber LIKE '%".$conn->escapeString(Utils::getValue('serialnumber'))."%'"; }
 	        		if(Utils::getValue('brand'))	{ $search ="AND br.brand_name='".$conn->escapeString(Utils::getValue('brand'))."'"; }
-					if(Utils::getValue('model'))	{ $search ="AND m.model LIKE '%".$conn->escapeString(Utils::getValue('model'))."%'"; }
+					if(Utils::getValue('model'))	{ $search ="AND mo.model_name LIKE '%".$conn->escapeString(Utils::getValue('model'))."%'"; }
 					if(Utils::getValue('location'))	{ $search ="AND m.location_area LIKE '%".$conn->escapeString(Utils::getValue('location'))."%'"; }
 					if(Utils::getValue('department'))	{ $search ="AND m.department LIKE '%".$conn->escapeString(Utils::getValue('department'))."%'"; }
 
@@ -96,9 +98,10 @@ switch (Utils::getValue('action')) {
         			$resSched = $conn->getFields();
 
 	        		// $conn->selectQuery('*','tblmif WHERE id > 0 AND status_machine= 0 AND company_id='.$company_id.'');
-	        		$conn->selectQuery('m.id, m.serialnumber, br.brand_name, m.model, m.location_area, m.department, m.no_of_user, m.date_installed, m.unit_owned_by AS unit_owned,
+	        		$conn->selectQuery('m.id, m.serialnumber, br.brand_name, mo.model_name AS model, m.location_area, m.department, m.no_of_user, m.date_installed, m.unit_owned_by AS unit_owned,
 						  	 "" AS manufacture_date, "" AS remarks, "" AS page_count, "" AS toner_use, "" AS time_in, "" AS time_out','tblmif m
 								LEFT JOIN tbl_brands br ON m.brand = br.id
+								LEFT JOIN tbl_model mo ON m.model = mo.id
 								WHERE NOT EXISTS (SELECT pm.mif_id FROM tbl_pm_machines pm 
 								LEFT JOIN tbl_pm_schedule ps ON pm.pm_number = ps.pm_number
 								WHERE pm.company_id = '.$company_id.' AND ps.schedule_date = "'.$resSched['aaData'][0]['schedule_date'].'" AND pm.mif_id = m.id AND pm.is_delete ="no" AND ps.status NOT IN ("cancel")) AND m.status_machine= 0 AND m.company_id = '.$company_id.'');
@@ -112,9 +115,10 @@ switch (Utils::getValue('action')) {
 						// 	LEFT JOIN tbl_brands br ON m.brand = br.id
 						// 	WHERE m.id > 0 AND m.status_machine= 0 AND m.company_id='.$company_id.' '.$search.'');
 
-						$conn->selectQuery('m.id, m.serialnumber, br.brand_name, m.model, m.location_area, m.department, m.no_of_user, m.date_installed, m.unit_owned_by AS unit_owned,
+						$conn->selectQuery('m.id, m.serialnumber, br.brand_name, mo.model_name AS model, m.location_area, m.department, m.no_of_user, m.date_installed, m.unit_owned_by AS unit_owned,
 						  	 "" AS manufacture_date, "" AS remarks, "" AS page_count, "" AS toner_use, "" AS time_in, "" AS time_out','tblmif m
 								LEFT JOIN tbl_brands br ON m.brand = br.id
+								LEFT JOIN tbl_model mo ON m.model = mo.id
 								WHERE NOT EXISTS (SELECT pm.serialnumber FROM tbl_pm_machines pm 
 								LEFT JOIN tbl_pm_schedule ps ON pm.pm_number = ps.pm_number
 								WHERE pm.company_id = '.$company_id.' AND ps.schedule_date = "'.$resSched['aaData'][0]['schedule_date'].'" AND pm.serialnumber = m.serialnumber AND pm.is_delete ="no" AND ps.status NOT IN ("cancel")) AND m.status_machine= 0 AND m.company_id = '.$company_id.' '.$search.'');
@@ -132,9 +136,10 @@ switch (Utils::getValue('action')) {
 					// 		LEFT JOIN tbl_brands br ON m.brand = br.id
 					// 		WHERE m.id > 0 AND m.status_machine= 0 AND m.company_id='.$company_id.' '.$search.' ORDER BY m.id DESC '.$limit.' ');
 
-						$conn->selectQuery('m.id, m.serialnumber, br.brand_name, m.model, m.location_area, m.department, m.no_of_user, m.date_installed, m.unit_owned_by AS unit_owned,
+						$conn->selectQuery('m.id, m.serialnumber, br.brand_name, mo.model_name AS model, m.location_area, m.department, m.no_of_user, m.date_installed, m.unit_owned_by AS unit_owned,
 						  	 "" AS manufacture_date, "" AS remarks, "" AS page_count, "" AS toner_use, "" AS time_in, "" AS time_out','tblmif m
 								LEFT JOIN tbl_brands br ON m.brand = br.id
+								LEFT JOIN tbl_model mo ON m.model = mo.id
 								WHERE NOT EXISTS (SELECT pm.mif_id FROM tbl_pm_machines pm 
 								LEFT JOIN tbl_pm_schedule ps ON pm.pm_number = ps.pm_number
 								WHERE pm.company_id = '.$company_id.' AND ps.schedule_date = "'.$resSched['aaData'][0]['schedule_date'].'" AND pm.mif_id = m.id AND pm.is_delete ="no" AND ps.status NOT IN ("cancel")) AND m.status_machine= 0 AND m.company_id = '.$company_id.' '.$search.' ORDER BY m.id DESC '.$limit.' ');
@@ -169,7 +174,7 @@ switch (Utils::getValue('action')) {
 	case 'archive':
 					if(Utils::getValue('serialnumber'))	{ $search ="AND m.serialnumber LIKE '%".$conn->escapeString(Utils::getValue('serialnumber'))."%'"; }
 					if(Utils::getValue('brand'))	{ $search ="AND br.brand_name='".$conn->escapeString(Utils::getValue('brand'))."'"; }
-					if(Utils::getValue('model'))	{ $search ="AND pm.model LIKE '%".$conn->escapeString(Utils::getValue('model'))."%'"; }
+					if(Utils::getValue('model'))	{ $search ="AND mo.model_name LIKE '%".$conn->escapeString(Utils::getValue('model'))."%'"; }
 					if(Utils::getValue('location'))	{ $search ="AND pm.location_area LIKE '%".$conn->escapeString(Utils::getValue('location'))."%'"; }
 					if(Utils::getValue('department'))	{ $search ="AND pm.department LIKE '%".$conn->escapeString(Utils::getValue('department'))."%'"; }
 
@@ -184,6 +189,7 @@ switch (Utils::getValue('action')) {
 						$conn->selectQuery('pm.*',' tbl_pm_machines pm 
 							LEFT JOIN tblmif m ON pm.mif_id = m.id
 							LEFT JOIN tbl_brands br ON pm.brand = br.id
+							LEFT JOIN tbl_model mo ON pm.model = mo.id
 							WHERE pm.id > 0 AND pm.company_id='.$company_id.' AND pm.pm_number="'.$pm_number.'" '.$search.'');
 
 						$conn->fields = null;
@@ -194,7 +200,7 @@ switch (Utils::getValue('action')) {
 					}
 					
 					if(intval($requestData['length']) >= 1 ) { $limit = ' LIMIT '.$requestData['start'].' ,'.$requestData['length'].''; }
-						$conn->selectQuery('pm.id, m.serialnumber, br.brand_name, pm.model, pm.location_area, pm.department, pm.no_of_user, pm.date_installed, pm.unit_owned, pm.manufacture_date,
+						$conn->selectQuery('pm.id, m.serialnumber, br.brand_name, mo.model_name AS model, pm.location_area, pm.department, pm.no_of_user, pm.date_installed, pm.unit_owned, pm.manufacture_date,
 							pm.remarks, pm.page_count, IFNULL(
 						    (SELECT GROUP_CONCAT(tr.toner_code SEPARATOR "<br>") 
 							    FROM tbl_toner_model_use tmu
@@ -205,6 +211,7 @@ switch (Utils::getValue('action')) {
 						  	) AS toner_use, pm.time_in, pm.time_out ',' tbl_pm_machines pm 
 							LEFT JOIN tblmif m ON pm.mif_id = m.id
 							LEFT JOIN tbl_brands br ON pm.brand = br.id
+							LEFT JOIN tbl_model mo ON pm.model = mo.id
 							WHERE pm.id > 0 AND pm.is_delete="no" AND pm.company_id='.$company_id.' AND pm.pm_number="'.$pm_number.'" '.$search.' GROUP BY pm.mif_id ORDER BY pm.id DESC '.$limit.' ');
 						$row = $conn->getFields(); //Get all rows				
 
@@ -241,8 +248,9 @@ switch (Utils::getValue('action')) {
 
 	        	if($conn->getNumRows() > 0 ){
 
-	        		$conn->selectQuery('mif.serialnumber, br.brand_name, mif.model','tblmif mif
+	        		$conn->selectQuery('mif.serialnumber, br.brand_name','tblmif mif
 										LEFT JOIN tbl_brands br ON mif.brand = br.id
+										LEFT JOIN tbl_model mo ON mif.model = mo.id
 										WHERE NOT EXISTS (SELECT pm.mif_id FROM tbl_pm_machines pm 
 										LEFT JOIN tbl_pm_schedule ps ON pm.pm_number = ps.pm_number
 										WHERE pm.company_id = '.$company_id.' AND ps.schedule_date = "'.$resSched['aaData'][0]['schedule_date'].'" AND pm.mif_id = mif.id AND pm.is_delete ="no") AND mif.status_machine= 0 AND mif.company_id = '.$company_id.'');
@@ -253,8 +261,9 @@ switch (Utils::getValue('action')) {
 					$totalFiltered = $totalData;
 					
 					if(intval($requestData['length']) >= 1 ) { $limit = ' LIMIT '.$requestData['start'].' ,'.$requestData['length'].''; }
-		        		$conn->selectQuery('"0" AS id, mif.serialnumber, br.brand_name, mif.model','tblmif mif
+		        		$conn->selectQuery('"0" AS id, mif.serialnumber, br.brand_name, mo.model_name AS model','tblmif mif
 										LEFT JOIN tbl_brands br ON mif.brand = br.id
+										LEFT JOIN tbl_model mo ON mif.model = mo.id
 										WHERE NOT EXISTS (SELECT pm.mif_id FROM tbl_pm_machines pm 
 										LEFT JOIN tbl_pm_schedule ps ON pm.pm_number = ps.pm_number
 										WHERE pm.company_id = '.$company_id.' AND ps.schedule_date = "'.$resSched['aaData'][0]['schedule_date'].'" AND pm.mif_id = mif.id AND pm.is_delete ="no") AND mif.status_machine= 0 AND mif.company_id = '.$company_id.' ORDER BY mif.id DESC '.$limit.'');
