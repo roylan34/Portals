@@ -29,7 +29,7 @@ if(Utils::getIsset('action')){
 
 				$db = Database::getInstance();
 				$db->selectQuery('id, CONCAT(firstname," ",lastname) AS fullname','tbl_accounts 									
-								  WHERE account_type IN (2,3) AND status = 1 ORDER BY id ASC');
+								  WHERE account_type IN (2,3,4) AND status = 1 ORDER BY id ASC');
 				$res = $db->getFields();
 				print Utils::jsonEncode($res);
 
