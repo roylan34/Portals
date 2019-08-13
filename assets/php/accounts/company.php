@@ -69,6 +69,17 @@ if(Utils::getIsset('action')){
 									  "'.$mrf_type.'",
 									  "'.$date_created.'"');
                       $last_id = $db->getLastId();
+
+                      $allow_dept = array(2,3);
+                      if(in_array($acc_type_mrf, $allow_dept)) { // Insert only 2= sales, 3= relation officer
+                      		$db->insertQuery('tbl_client_accounts','account_id, username, firstname, lastname, status, created_at',
+									  '"'.$last_id.'",
+									  "'.$username.'",
+									  "'.Utils::ucFirstLetter($fname).'",
+									  "'.Utils::ucFirstLetter($lname).'",
+									   1,
+									   NOW()');
+                  		}
                       //Add to this table to restrict app module can access.
                       $db->insertQuery('tbl_app_module','account_id, app_mif, app_pm, app_inventory, app_mrf',
 									  '"'.$last_id.'",
@@ -129,6 +140,14 @@ if(Utils::getIsset('action')){
 													     status  	 = "'.$status.'"'
 													     ,'id = "'.$id.'"');
 					}
+						 $allow_dept = array(2,3);
+                      	if(in_array($acc_type_mrf, $allow_dept)) { // Update only 2= sales, 3= relation officer
+							$db->updateQuery('tbl_client_accounts','username    = "'.$username.'", 
+															      firstname     = "'.$fname.'",
+															      lastname 		= "'.$lname.'",
+															      status  	 	= "'.$status.'"'
+															     ,'account_id = "'.$id.'"');
+						}
                        //Update to this table to restrict app module can access.
                        $db->updateQuery('tbl_app_module','app_mif    	= "'.$app_mif.'", 
 													      app_pm        = "'.$app_pm.'",
