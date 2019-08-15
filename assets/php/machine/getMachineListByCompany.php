@@ -59,7 +59,7 @@ switch (Utils::getValue('department')) {
 										LEFT JOIN tbl_accounts ac ON ca.account_id = ac.id
 										LEFT JOIN tbl_toner_model_use tmu ON (m.id = tmu.mif_id AND m.company_id = tmu.company_id)
 										LEFT JOIN tbl_toner tr ON tmu.toner_id = tr.id
-										WHERE m.status_machine = 0 '.$search.' GROUP BY m.id ORDER BY com.company_name ASC');
+										WHERE m.status_machine = 0 '.$search.' GROUP BY m.id');
 
 			$res = $conn->getFields();
 			$data['aaData'] = array();
@@ -98,17 +98,16 @@ switch (Utils::getValue('department')) {
 		 	print Utils::jsonEncode($data);
 		break;
 	case 'sales':
-				$conn->selectQuery('(SELECT GROUP_CONCAT(t.toner_code SEPARATOR "<br>") AS toner_code FROM tbl_toner_model tm
-								LEFT JOIN tbl_toner t ON tm.toner_id = t.id
-								WHERE tm.model = m.model
-								) AS toner_code,
+				$conn->selectQuery('IFNULL(GROUP_CONCAT(tr.toner_code SEPARATOR "<br>")," ") AS toner_code, 
+								mo.model_name AS model, 
+								IFNULL(GROUP_CONCAT(tr.toner_code SEPARATOR "<br>")," ") AS toner_code, 
+								(SELECT cat_name FROM tbl_category WHERE id = m.category LIMIT 1 ) AS category, 
+								(SELECT type_name FROM tbl_type WHERE id = m.type LIMIT 1 ) AS type, 
 								c.company_name, 
 								m.id, 
 								m.client_category, 
-								br.brand_name, 
-								m.model, 
+								br.brand_name,  
 								m.serialnumber, 
-								m.type,
 								m.page_count,
 								m.location_area,
 								m.department,
@@ -118,11 +117,14 @@ switch (Utils::getValue('department')) {
 								m.unit_owned_by,
 								m.billing_type,
 								b.branch_name AS branches','tblmif m
+									LEFT JOIN tbl_model mo ON m.model = mo.id
 									LEFT JOIN tbl_company c ON m.company_id = c.id
 									LEFT JOIN tbl_brands br ON m.brand = br.id
 									LEFT JOIN tbl_location b ON m.branches = b.id
+									LEFT JOIN tbl_toner_model_use tmu ON (m.id = tmu.mif_id AND m.company_id = tmu.company_id)
+									LEFT JOIN tbl_toner tr ON tmu.toner_id = tr.id
 									WHERE c.id_client_mngr = (SELECT id FROM tbl_client_accounts WHERE account_id = '.Utils::getValue('user_id').')
-									AND c.status =1 AND m.status_machine = 0 '.$search.'');
+									AND c.status =1 AND m.status_machine = 0 '.$search.' GROUP BY m.id ORDER BY m.id DESC');
 				$res = $conn->getFields();
 			 	print Utils::jsonEncode($res);
 		break;
