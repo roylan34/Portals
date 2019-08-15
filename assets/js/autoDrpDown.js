@@ -459,7 +459,7 @@ var autoDrpDownInvnt = {
 						    if(data.aaData.length > 0 ){
 								$.each(data.aaData, function(i, val){
 									optModel[0] = "<option value=''>---Model---</option>";
-										optModel[i+1] = "<option value='"+ val.id +"' data-cat-type="+val.id_category +","+val.id_type+">"+val.model_name+"</option>";	
+										optModel[i+1] = "<option value='"+ val.id +"' data-brand="+val.id_brand+" data-cat-type="+val.id_category +","+val.id_type+">"+val.model_name+"</option>";	
 								});
 							}else{
 								optModel[0] = "<option value=''>---No records found---</option>";

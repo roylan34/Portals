@@ -423,33 +423,28 @@ var dtMachine = {
     },
     showModelByBrand: function(){
              //Dynamically show the list of model by brand selected.
+             var $model = $("#slctModel");
+             var $cattype = $("#slctCategory,#slctType");
+             var cache_brand = 0;
               $("#slctBrands").change(function(){
                     var select_brand = $(this).val() || null;
+
                     if(select_brand != null){
-                        $.ajax({
-                            type: 'GET',
-                            dataType: 'json',
-                            url: assets+'php/misc/inventory_misc.php',
-                            data: { action: 'model_by_brand', id_brand: select_brand },
-                            beforeSend: function(){ 
-                                $("#slctModel").val(0).trigger('chosen:updated'); //Disabled and reset the value.
-                                $("#slctModel option").hide().trigger('chosen:updated'); 
-                                $("#slctCategory,#slctType").val(''); // Clear category and type.
-                            },
-                            success: function(data){
-                                if(data.aaData[0].id_model != null ){
-                                    var arr_brand = convertArrStrToInt(data.aaData[0].id_model);
-                                    var i = 0;
-                                        for (i = 0; i < arr_brand.length; i++) {
-                                            $("#slctModel").prop('disabled',false).trigger('chosen:updated');
-                                            $("#slctModel option[value='"+arr_brand[i]+"']").show().trigger('chosen:updated');
-                                        }
-                                }
-                            },
-                            error: function(xhr,status){ alert(xhr + status); }
-                        });                                 
+
+                        //Reset model list
+                        if(cache_brand != select_brand){
+                            console.log(cache_brand);
+                            $model.val(0).trigger('chosen:updated'); //Disabled and reset the value.
+                            $model.find("option").not("[data-brand='"+select_brand+"']").hide().trigger('chosen:updated');
+                            $cattype.val(''); // Clear category and type.
+                        }
+                        //Show corresponding model
+                        $model.prop('disabled',false).trigger('chosen:updated');
+                        $model.find("option[data-brand='"+select_brand+"']").show().trigger('chosen:updated');
+                        cache_brand = select_brand; //cache selected brand
+                                                   
                     }else{
-                        $("#slctModel").prop('disabled',true).val(0).trigger('chosen:updated');
+                        $model.prop('disabled',true).val(0).trigger('chosen:updated');
                     }
                });
             return this;

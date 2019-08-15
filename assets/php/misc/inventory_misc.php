@@ -37,7 +37,7 @@ if(Utils::getIsset('action')){
 		break;
 		case 'models':
 
-				$db->selectQuery('id,model_name,id_category,id_type','tbl_model ORDER BY id DESC');
+				$db->selectQuery('id,id_brand,model_name,id_category,id_type','tbl_model ORDER BY id DESC');
 				print Utils::jsonEncode($db->getFields());
 		break;
 		case 'client_location_by_company':
