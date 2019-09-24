@@ -43,9 +43,7 @@ var dtCompany = {
                             delete d.columns;
                             d.company   = $("#search-company-companyname").val();
                             d.category  = $("#search-company-category").val();
-                            d.address   = $("#search-company-address").val();
                             d.s_branch =  ( paramBranch == 1 ? search_branch :  ( search_branch  ?  search_branch : paramBranch)  );
-                            d.contactno = $("#search-company-contactno").val();
                             d.accmngr   = $("#search-company-accmngr").chosen().val();
                             d.s_location   = $("#search-company-location").chosen().val();
                             d.delsan_comp  = $("#search-company-delsan option:checked").val();
@@ -163,10 +161,10 @@ var dtCompany = {
                             },
                             { data: "number_of_machines"
                             },
-                            { data:  null, "width": "20%", render: function( data, type, full, meta ){
-                                    return "<span class='text-center'><a href='#' title='View Map' id='showDtMap' data-idcomp='"+data.id+"' data-lat='"+data.latitude+"' data-lng='"+data.longitude+"'>" + data.address + "</a></span>"; 
-                                }
-                            },
+                            // { data:  null, "width": "20%", render: function( data, type, full, meta ){
+                            //         return "<span class='text-center'><a href='#' title='View Map' id='showDtMap' data-idcomp='"+data.id+"' data-lat='"+data.latitude+"' data-lng='"+data.longitude+"'>" + data.address + "</a></span>"; 
+                            //     }
+                            // },
                             { data:  null ,render: function( data, type, full, meta ){
                                 return "<div class='text-left dt-column-branches'>" + isEmpty(data.main_location) + "</div>";
                                 }
@@ -175,10 +173,10 @@ var dtCompany = {
                                 return "<div class='text-left dt-column-branches'>" + isEmpty(data.branches) + "</div>";
                                 }
                             },
-                            { data:  null, render: function( data, type, full, meta ){
-                                return "<span class='text-center'>" + isEmpty(data.contact_no) + "</span>";
-                                }
-                            },
+                            // { data:  null, render: function( data, type, full, meta ){
+                            //     return "<span class='text-center'>" + isEmpty(data.contact_no) + "</span>";
+                            //     }
+                            // },
                             { data:  null, render: function( data, type, full, meta ){
                                 return "<span class='text-center'>" + isEmpty(data.account_mngr_name) + "</span>";
                                 }
@@ -282,7 +280,7 @@ var dtCompany = {
 
                             // Update footer
                             $( api.column( 6 ).footer() ).html(
-                                'Page Total:'+ formatNumber(res_total)+' (Overall Total: '+ formatNumber(res_pagetotal)+')'
+                                'Page Total: '+ formatNumber(res_total)+' <br> Overall Total: '+ formatNumber(res_pagetotal)+''
                             ).css('font-size','12px');
 
                         }

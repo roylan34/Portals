@@ -18,10 +18,8 @@ $limit = "";
 $conn = Database::getInstance(); //For Searching.
 if(Utils::getValue('company'))	{ $search .=" AND c.company_name LIKE '%".$conn->escapeString(Utils::getValue('company'))."%'"; }
 if(Utils::getValue('category'))	{ $search .=" AND c.client_category LIKE '%".$conn->escapeString(Utils::getValue('category'))."%'"; }
-if(Utils::getValue('address'))	{ $search .=" AND c.address LIKE '%".$conn->escapeString(Utils::getValue('address'))."%'"; }
 if(Utils::getValue('s_location')) { $search .=" AND c.main_location =".$conn->escapeString(Utils::getValue('s_location'))." "; }
 if(Utils::getValue('s_branch')) { $search .=" AND cbr.id_branches IN (".$conn->escapeString(Utils::getValue('s_branch')).")"; }
-if(Utils::getValue('contactno')){ $search .=" AND c.contact_no='".$conn->escapeString(Utils::getValue('contactno'))."'"; }
 if(Utils::getValue('accmngr'))  { $search .=" AND c.id_client_mngr ='".$conn->escapeString(Utils::getValue('accmngr'))."'"; }
 if(Utils::getValue('status'))   { $search .=" AND c.status ='".$conn->escapeString(Utils::getValue('status'))."'"; }
 if(Utils::getValue('delsan_comp')) { $search .=" AND c.delsan_company ='".$conn->escapeString(Utils::getValue('delsan_comp'))."'"; }

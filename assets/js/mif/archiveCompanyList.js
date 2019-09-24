@@ -29,9 +29,7 @@ var dtArchiveCompany = {
                            var search_branch = $("#search-archive-branch").chosen().val();
                             d.company   = $("#search-archive-companyname").val();
                             d.category  = $("#search-archive-category").val();
-                            d.address   = $("#search-archive-address").val();
                             d.s_branch =  ( paramBranch == 1 ? search_branch :  ( search_branch  ?  search_branch : paramBranch)  );
-                            d.contactno = $("#search-archive-contactno").val();
                             d.accmngr   = $("#search-archive-accmngr").chosen().val();
                             d.s_location   = $("#search-archive-location").chosen().val();
 
@@ -125,10 +123,10 @@ var dtArchiveCompany = {
                                 return "<span class='text-center'>" + data.client_category + "</span>"; 
                                 }
                             },
-                            { data:  null, "width": "20%", render: function( data, type, full, meta ){
-                                    return "<span class='text-center'><a href='#' title='View Map' id='modalMap' data-toggle='modal' data-target='#modalMap'>" + data.address + "</a></span>"; 
-                                }
-                            },
+                            // { data:  null, "width": "20%", render: function( data, type, full, meta ){
+                            //         return "<span class='text-center'><a href='#' title='View Map' id='modalMap' data-toggle='modal' data-target='#modalMap'>" + data.address + "</a></span>"; 
+                            //     }
+                            // },
                             { data:  null ,render: function( data, type, full, meta ){
                                 return "<div class='text-left dt-column-branches'>" + isEmpty(data.main_location) + "</div>";
                                 }
@@ -137,10 +135,10 @@ var dtArchiveCompany = {
                                 return "<div class='text-left dt-column-branches'>" + isEmpty(data.branches) + "</div>";
                                 }
                             },
-                            { data:  null, render: function( data, type, full, meta ){
-                                return "<span class='text-center'>" + isEmpty(data.contact_no) + "</span>";
-                                }
-                            },
+                            // { data:  null, render: function( data, type, full, meta ){
+                            //     return "<span class='text-center'>" + isEmpty(data.contact_no) + "</span>";
+                            //     }
+                            // },
                             { data:  null, render: function( data, type, full, meta ){
                                 return "<span class='text-center'>" + isEmpty(data.account_mngr_name) + "</span>";
                                 }
