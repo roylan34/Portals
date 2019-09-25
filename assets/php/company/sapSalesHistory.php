@@ -15,13 +15,15 @@ $search="";
 $limit = "";
 $totalData =0;
 $totalFiltered =0;
+
 $conn = Database::getInstance(); //For Searching.
+
 $sap_code = $conn->escapeString(Utils::getValue('sap_code'));
-if($sap_code)	{ $search .="AND sap_code ='".$sap_code."'"; }
-if(Utils::getValue('company'))		{ $search .="AND company_name LIKE '%".$conn->escapeString(Utils::getValue('company'))."%'"; }
-if(Utils::getValue('acc_manager'))	{ $search .="AND acc_manager LIKE '%".$conn->escapeString(Utils::getValue('acc_manager'))."%'"; }
-if(Utils::getValue('fiscal_year'))	{ $search .="AND fiscal_year ='".$conn->escapeString(Utils::getValue('fiscal_year'))."'"; }
-if(Utils::getValue('month'))		{ $search .="AND month = '".$conn->escapeString(Utils::getValue('month'))."'"; }
+
+if(Utils::getValue('doc_from') && Utils::getValue('doc_to'))	{ 
+	$search ="AND doc_date BETWEEN '".$conn->escapeString(Utils::getValue('doc_from'))."' AND '".$conn->escapeString(Utils::getValue('doc_to'))."'"; 
+}
+
 
 			$requestData= $_REQUEST;
 

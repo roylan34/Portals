@@ -30,10 +30,9 @@ var dtSalesHistory = {
                     "data" : function(d){
                             delete d.columns;
                             d.sap_code = sapCode;
-                            d.company = $("#search-sales-company").val() || '';
-                            d.acc_manager = $("#search-sales-acctmngr").val() || '';
-                            d.fiscal_year = $("#search-sales-year").val() || '';
-                            d.month = $("#search-sales-month").val() || '';
+                            d.doc_from = $("#search-doc-from").val() || '';
+                            d.doc_to = $("#search-doc-to").val() || '';
+                            
 
                     }
                   },
