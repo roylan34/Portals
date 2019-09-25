@@ -152,7 +152,7 @@ var dtArchiveMrf = {
 	                    });	
 		
 							// Export Excel.
-							 $("div.dt-buttons").prepend('<div class="dropdown" style="display:inline; margin-right:0.5em; vertical-align:bottom"><button style="vertical-align:top;" class="btn btn-primary btn-flat btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Export Excel ' +
+							 $("div.dt-buttons").prepend('<div class="dropdown" style="display:inline; margin-right:0.5em"><button style="vertical-align:top;" class="btn btn-primary btn-flat btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Export Excel ' +
 							    '<span class="caret"></span></button>'+
 								   '<ul class="dropdown-menu dropdown-menu-left custom-export-excel">'+
 								      '<li><a href="#" class="export-machine-delivered">Machine Delivered (APPROVED)</a></li>'+

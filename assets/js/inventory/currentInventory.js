@@ -170,7 +170,7 @@ var dtCurrentInventory = {
 							});
 
 							//Handle Bulk Options.
-							$("div.dt-buttons").prepend('<div class="dropdown btn-bulk" style="display:inline; margin-right:0.5em; vertical-align:bottom"><button style="vertical-align:top;" class="btn btn-primary btn-flat btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Bulk Action ' +
+							$("div.dt-buttons").prepend('<div class="dropdown btn-bulk" style="display:inline; margin-right:0.5em;"><button style="vertical-align:top;" class="btn btn-primary btn-flat btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Bulk Action ' +
 							    '<span class="caret"></span></button>'+
 								   '<ul class="dropdown-menu bulk-action">'+
 								      '<li><a href="#" class="bulk-action-out">OUT MACHINE</a></li>'+
