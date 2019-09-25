@@ -100,9 +100,16 @@ if(Utils::getIsset('action')){
 				// 					WHERE m.status_machine != 0 || m.company_id = 0 ORDER BY id DESC');
 
 				//Only table tblmif
-				$db->selectQuery('m.*,c.company_name,b.branch_name,br.brand_name, ms.set_default AS is_hard_delete, mo.model_name,
+				$db->selectQuery('m.id, m.company_id, m.serialnumber, m.page_count, m.location_area, m.department, m.no_of_user, m.remarks,
+									m.date_installed, m.confirmed, m.billing_type, m.status_machine, m.can_retrieve, c.company_name, b.branch_name, br.brand_name, ms.set_default AS is_hard_delete, mo.model_name,
 									(SELECT cat_name FROM tbl_category WHERE id = m.category LIMIT 1 ) AS category_name, 
-									(SELECT type_name FROM tbl_type WHERE id = m.type LIMIT 1 ) AS type_name','tblmif m
+									(SELECT 
+										CASE 
+											WHEN LCASE(type_name) = "monochrome" THEN "M"
+										 	WHEN LCASE(type_name) = "color" THEN "C"
+										ELSE ""
+										END
+									FROM tbl_type WHERE id = m.type LIMIT 1 ) AS type_name','tblmif m
 									LEFT JOIN tbl_model mo ON m.model = mo.id
 									LEFT JOIN tbl_company c ON m.company_id = c.id
 									LEFT JOIN tbl_location b ON m.branches = b.id

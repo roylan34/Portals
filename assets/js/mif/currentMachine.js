@@ -50,12 +50,12 @@ var dtMachine = {
                                 {
                                     extend: "excel",
                                     className: 'dt-company-excel hidden-xs',
-                                    exportOptions: {columns: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18 ]},
+                                    exportOptions: {columns: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16 ]},
                                     filename: 'MIF ' + getTodayDate()
                                 },
                                 {
                                     extend: 'print',
-                                    exportOptions: { columns: [0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18 ]},
+                                    exportOptions: { columns: [0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]},
                                     className: 'dt-machine-print hidden-xs',
                                     // autoPrint: false, // For debugging
                                     customize: function ( win ) {
@@ -140,20 +140,12 @@ var dtMachine = {
                                 return "<span class='text-left'>" + isEmpty(data.date_installed) + "</span>";
                                 }
                             },
-                            { data:  null, title: "Unit Owned", render: function( data, type, full, meta ){
-                                return "<span class='text-left'>" + isEmpty(data.unit_owned_by) + "</span>";
-                                }
-                            },
-                            { data:  null, title: "Account Manager", render: function( data, type, full, meta ){
-                                return "<span class='text-left'>" + isEmpty(data.account_manager) + "</span>";
-                                }
-                            },
-                             { data:  null, title: "Date last visit", render: function( data, type, full, meta ){
-                                return "<span class='text-left'>" + isEmpty(data.date_last_visit) + "</span>";
-                                }
-                            },
                             { data:  null, title: "Billing Type", render: function( data, type, full, meta ){
                                 return "<span class='text-left'>" + isEmpty(data.billing_type) + "</span>";
+                                }
+                            },
+                            { data:  null, title: "Date last visit", render: function( data, type, full, meta ){
+                                return "<span class='text-left'>" + isEmpty(data.date_last_visit) + "</span>";
                                 }
                             },
                             { data:  null, title: "Location", render: function( data, type, full, meta ){
@@ -176,16 +168,9 @@ var dtMachine = {
                             },
 
                  ],
-                // "fnCreatedRow": function( row, data ) { //Add attribute id-company in first td element.
-                //         $('td:eq(1)',row).addClass("never") //Hide column company name.                                 
-                // },
-                // "headerCallback": function(thead,data){
-                //         $(thead).find('th').eq(1).addClass("never"); //Class never is used to fully hide column in all screen size.
-                // },
                 "columnDefs": [
-                        { targets: 1, className: "never" },
-                        { targets: 15, className: "none" },
-                        { targets: 16, className: "none" }
+                        { targets: 1, className: "never" }
+                        // { targets: 15, className: "none" }
                 ],
                 "deferRender": true,
                 "fnDrawCallback": function(oSettings){
@@ -245,8 +230,8 @@ var dtMachine = {
                                              },
                                           7: { html: 'select', type: 'select', width: '90px',  //Type
                                                 values: [
-                                                            { value: 'MONOCHROME',  label: 'MONOCHROME' }, 
-                                                            { value: 'COLOR',  label: 'COLOR'}
+                                                            { value: 'M',  label: 'MONOCHROME' }, 
+                                                            { value: 'C',  label: 'COLOR'}
                                                         ]
                                              },
                                           8: { html: 'input', type: 'text', width: '50px' }, //Page Count
@@ -255,8 +240,7 @@ var dtMachine = {
                                           11: { html: 'input', type: 'text', width: '50px' }, //No of user
                                           12: { html: 'input', type: 'text', width: '50px' }, //Remarks
                                           13: { html: 'input', type: 'text', width: '70px' }, //Date installed
-                                          14: { html: 'input', type: 'text', width: '70px' }, //Unit Owned
-                                          15:{ html: 'select', type: 'select', width: '90px', //Billing type
+                                          14:{ html: 'select', type: 'select', width: '90px', //Billing type
                                                 values: [
                                                             { value: 'METER READING', label: 'METER READING' }, 
                                                             { value: 'PER CARTRIDGE',  label: 'PER CARTRIDGE'},
@@ -265,6 +249,7 @@ var dtMachine = {
                                                             { value: 'OUTRIGHT', label: 'OUTRIGHT' }
                                                         ]
                                              },
+                                           15:  { html: 'input', type: 'text', width: '70px' }, 
                                            16: { html: 'input', type: 'text', width: '70px' }, //Branch
                                         }); 
                                         

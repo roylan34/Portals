@@ -440,11 +440,19 @@ var autoDrpDownInvnt = {
 	cacheOptBranch: [],
 	cacheOptStatus: {'IN': null, 'OUT': null },
 	cacheOptModel: [],
-	getModelByBrand: function(elem,usePlugin){
+	getModelByBrand: function(elem,usePlugin,setWidth){
+		 var _width = null;
+		 	if(setWidth !== undefined && setWidth !== ''){
+		 	 	_width = setWidth;
+		 	}
+		 	else{
+		 	 	_width = '100%';
+		 	}
+
 			if(self.autoDrpDownInvnt.cacheOptModel.length != 0){
 				$(elem).html(self.autoDrpDownInvnt.cacheOptModel[0].join(""));
 				if(usePlugin === true || usePlugin != null){
-					$(elem).chosen({no_results_text: "No records found.", width: '100%', search_contains:true});
+					$(elem).chosen({no_results_text: "No records found.", width: _width, search_contains:true});
 				}
 			}
 			else {				
@@ -469,7 +477,7 @@ var autoDrpDownInvnt = {
 					},
 					complete: function(){
 						if(usePlugin === true || usePlugin != null){
-							$(elem).chosen({no_results_text: "No records found.", width: '100%', search_contains:true});
+							$(elem).chosen({no_results_text: "No records found.", width: _width, search_contains:true});
 						}
 					}
 				});

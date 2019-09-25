@@ -14,7 +14,9 @@ var dtFilterMachine = {
                          autoDrpDown.getBrandName("#fltr-slctbrand"); //Auto Dropdown and Autocomplete. 
                          autoDrpDown.getAllCompany("#fltr-slctcompany","150px");
                          autoDrpDown.getBranchNameOne("#fltr-slctlocation","120px",location,reverseDrpdown); 
-                         self.dtFilterMachine.autoComplete().showFormMachine().actions();                          
+                         autoDrpDownInvnt.getModelByBrand("#fltr-model",true, '150px')
+
+                         self.dtFilterMachine.autoComplete().showModelByBrand().showFormMachine().actions();                          
                          $("#fltr-slctcompany, #fltr-slctlocation").val(0).trigger('chosen:updated'); //reset
 
 
@@ -69,6 +71,31 @@ var dtFilterMachine = {
             });
         return this; 
     },
+    showModelByBrand: function(){
+         //Dynamically show the list of model by brand selected.
+         var $model = $("#fltr-model");
+         var cache_brand = 0;
+          $("#fltr-slctbrand").change(function(){
+                var select_brand = $(this).val() || null;
+
+                if(select_brand != null){
+
+                    //Reset model list
+                    if(cache_brand != select_brand){
+                        $model.val(0).trigger('chosen:updated'); //Disabled and reset the value.
+                        $model.find("option").not("[data-brand='"+select_brand+"']").hide().trigger('chosen:updated');
+                    }
+                    //Show corresponding model
+                    $model.prop('disabled',false).trigger('chosen:updated');
+                    $model.find("option[data-brand='"+select_brand+"']").show().trigger('chosen:updated');
+                    cache_brand = select_brand; //cache selected brand
+                                               
+                }else{
+                    $model.prop('disabled',true).val(0).trigger('chosen:updated');
+                }
+           });
+        return this;
+    },
     render: function(deptData){ //Must check if all field are empty not display the table.
                 var $btn = $("button#btnFilterSearch");
                 this.dtFInstance = $("#dtFilterMachine").DataTable({
@@ -110,14 +137,11 @@ var dtFilterMachine = {
                     "data" : function(d){
                               d.serialnumber = $("#fltr-serialnum").val();
                               d.brand  = $("#fltr-slctbrand option:selected").val() || null;
-                              d.model  = $("#fltr-model").val();
-                              d.category = $("#fltr-slctcategory option:selected").val() || '';
-                              d.type     = $("#fltr-slcttype option:selected").val() || '';
+                              d.model  = $("#fltr-model").chosen().val() || null;
                               d.company  = $("#fltr-slctcompany").chosen().val() || null;
                               d.branch   = $("#fltr-slctlocation").chosen().val() || null;
                               d.user_id  = jwt.get('user_id');
                               d.department = deptData;
-                              d.billing  = $("#fltr-slctBillingType option:selected").val() || null;
                     },
                     "type" : "GET",
                     beforeSend: function(){ $btn.button('loading'); }, //Empty the search fields. 
@@ -178,10 +202,6 @@ var dtFilterMachine = {
                             },
                             { data:  null, title: "Date Installed", render: function( data, type, full, meta ){
                                 return "<span class='text-left'>" + isEmpty(data.date_installed) + "</span>";
-                                }
-                            },
-                             { data:  null, title: "Unit Owned", render: function( data, type, full, meta ){
-                                return "<span class='text-left'>" + isEmpty(data.unit_owned_by) + "</span>";
                                 }
                             },
                             { data:  null, title: "Billing Type", render: function( data, type, full, meta ){
@@ -379,8 +399,8 @@ var dtFilterMachine = {
                         self.dtFilterMachine.showRemove(idcompany);
                     }
                     else if($(this).is('#btnFilterReset')){
-                        $("#fltr-serialnum, #fltr-slctbrand, #fltr-model, #fltr-slctcategory, #fltr-slcttype, #fltr-slctBillingType").val('');
-                        $("#fltr-slctcompany, #fltr-slctlocation").val(0).trigger('chosen:updated');
+                        $("#fltr-serialnum, #fltr-slctbrand, #fltr-slctcategory, #fltr-slcttype, #fltr-slctBillingType").val('');
+                        $("#fltr-slctcompany, #fltr-slctlocation, #fltr-model ").val(0).trigger('chosen:updated');
                         $('#dtFilterMachine').DataTable().destroy(); //Destory datatable
                         $('#dtFilterMachine thead, #dtFilterMachine tbody').empty(); //Clear table head and body.
 

@@ -29,12 +29,12 @@ var dtArchiveMachine = {
                                 {
                                     extend: "excel",
                                     className: 'dt-archMachine-excel hidden-xs',
-                                    exportOptions: {columns: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]},
+                                    exportOptions: {columns: [1,2,3,4,5,6,7,8,9,10,11,12,13,14]},
                                     filename: 'MIF Archive ' + getTodayDate()
                                 },
                                 {
                                     extend: 'print',
-                                    exportOptions: { columns: [0,1,2,3,4,5,6,7,8,9,11,12,13,14,15]},
+                                    exportOptions: { columns: [0,1,2,3,4,5,6,7,8,9,11,12,13,14]},
                                     className: 'dt-archMachine-print hidden-xs',
                                     customize: function ( win ) {
                                             var elem = $(win.document.body);
@@ -110,10 +110,6 @@ var dtArchiveMachine = {
                             },
                             { data:  null, title: "Date Installed", render: function( data, type, full, meta ){
                                 return "<span class='text-left'>" + isEmpty(data.date_installed) + "</span>";
-                                }
-                            },
-                            { data:  null, title: "Unit Owned", render: function( data, type, full, meta ){
-                                return "<span class='text-left'>" + isEmpty(data.unit_owned_by) + "</span>";
                                 }
                             },
                             { data:  null, title: "Billing Type", render: function( data, type, full, meta ){
@@ -193,8 +189,8 @@ var dtArchiveMachine = {
                                              },
                                           6: { html: 'select', type: 'select', width: '90px',  //Type
                                                 values: [
-                                                            { value: 'MONOCHROME',  label: 'MONOCHROME' }, 
-                                                            { value: 'COLOR',  label: 'COLOR'}
+                                                            { value: 'M',  label: 'MONOCHROME' }, 
+                                                            { value: 'C',  label: 'COLOR'}
                                                         ]
                                              },
                                           7: { html: 'input', type: 'text', width: '50px' }, //Page Count
@@ -203,8 +199,7 @@ var dtArchiveMachine = {
                                           10: { html: 'input', type: 'text', width: '50px' }, //No of user
                                           11: { html: 'input', type: 'text', width: '50px' }, //Remarks
                                           12: { html: 'input', type: 'text', width: '70px' }, //Date installed
-                                          13: { html: 'input', type: 'text', width: '70px' }, //Unit Owned
-                                          14:{ html: 'select', type: 'select', width: '90px', //Billing type
+                                          13:{ html: 'select', type: 'select', width: '90px', //Billing type
                                                 values: [
                                                             { value: 'METER READING', label: 'METER READING' }, 
                                                             { value: 'PER CARTRIDGE',  label: 'PER CARTRIDGE'},
@@ -213,7 +208,7 @@ var dtArchiveMachine = {
                                                             { value: 'OUTRIGHT', label: 'OUTRIGHT' }
                                                         ]
                                              },
-                                           15: { html: 'input', type: 'text', width: '70px' }, //Branch
+                                           14: { html: 'input', type: 'text', width: '70px' }, //Branch
                                         }); 
                                         
             var $headerColumnFiltering = columnFiltering.dataTable.table().header(); //Column filter plugin drawback inorder to addClass.
