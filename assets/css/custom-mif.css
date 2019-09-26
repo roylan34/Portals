@@ -300,6 +300,11 @@ input.mrf-material:focus, select.mrf-material:focus {
 	line-height: 2em;
 }*/
 
+.clearfix2::after {
+  content: "";
+  clear: both;
+  display: table;
+}
 
 #modalFormCurrentMrf form input[type=text]:not(.not-full-width) {
     width: 100% !important;
