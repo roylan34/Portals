@@ -58,7 +58,7 @@ var dtCompany = {
                                 {
                                     extend: "excel",
                                     className: 'dt-company-excel hidden-xs',
-                                    exportOptions: { columns: [1,2,3,4,5,6,7,8,9,10,11,12],
+                                    exportOptions: { columns: [1,2,3,4,5,6,7,8,9,10],
                                         stripNewlines: false
                                      },
                                     customize: function(xlsx) {
@@ -75,7 +75,7 @@ var dtCompany = {
                                 },
                                 {
                                     extend: "print",
-                                    exportOptions: { columns: [0,1,2,3,5,6,7,8,9,10,11,12],
+                                    exportOptions: { columns: [0,1,2,3,5,6,7,8,9,10],
                                        format: {
                                             body: function ( data, column, row ) {
                                                 return column === 6 ?
@@ -225,7 +225,7 @@ var dtCompany = {
                  "columnDefs": [
                             { responsivePriority: 1, target: 0},
                             { responsivePriority: 2, target: 1},
-                            { targets: 4, className: "none" }
+                            { targets: 4, className: "never" }
 
                  ],
                 "deferRender": true,
