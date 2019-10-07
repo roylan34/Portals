@@ -192,6 +192,22 @@ table#chartlocation .badge{
 	background-color:#f39c12;
 }
 
+.badge-pulse
+{
+  animation: shadow-pulse 2s 8;
+}
+
+@keyframes shadow-pulse
+{
+  0% {
+    /*box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.1);*/
+    box-shadow: 0 0 0 0px rgba(245, 2, 2, 0.20);
+  }
+  100% {
+    box-shadow: 0 0 0 25px rgba(245, 2, 2, 0);
+  }
+}
+
 .btn-default-logs {
     background-color: #757472;
     color: #fff;
@@ -254,6 +270,29 @@ input[type=checkbox] {
 	transition: all ease 0.3s;
 }
 
+.tool-tip{
+  position: relative;
+  display: inline-block;
+}
+.tool-tip .tool-tip-content{
+  visibility: hidden;
+  content:"";
+  background-color:#3c3c3c;
+  min-width:100px;
+  height:100px;
+  position:absolute;
+  opacity: 0;
+  transition: opacity .50s ease-in-out;
+  -moz-transition: opacity .50s ease-in-out;
+  -webkit-transition: opacity .50s ease-in-out;
+
+}
+.tool-tip:hover .tool-tip-content{
+  visibility: visible;
+  margin-top:5px;
+  z-index: 99999;
+  opacity: 1;
+}
 
 
 /**** MRF *****/

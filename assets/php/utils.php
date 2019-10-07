@@ -216,5 +216,20 @@ Class Utils{
 	    // $str = str_replace('%', '-', $str);
 	    return $str;
 	}
+	static public function chckDuplicateArrayVal($arr_val){
+		if(is_array($arr_val)){
+			$out = array();
+			$count_val_exist = array_count_values($arr_val);
+			$i = 1;
+			 	foreach($count_val_exist as $key => $val){
+			    	if($val > 1){
+			      		$out[$i] = $key;
+			    }
+			    $i++;
+			}
+			return $out;
+		}
+		throw new Exception('Argument must be array');
+	}
 }
 

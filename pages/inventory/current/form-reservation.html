@@ -1,0 +1,134 @@
+<!-- Modal -->
+<div class="modal fade" id="modalFormCurrentRsrv" class="modalFormCurrentRsrv" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="modalFormCurrentRsrv">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title"></h4>
+      </div>
+        <form id="frmCurrentRsrv" class="form-horizontal">
+        <div class="modal-body">
+              <input type="hidden" name="hdnCurRsrvId" id='hdnCurRsrvId' value=''>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="txtCurRsrvSerial">S/N:</label>
+                <div class="col-sm-6 container-multiple-sn" style="height: 100%; max-height: 170px; overflow: auto;">
+                  <input type="text" class="form-control" id="txtCurRsrvSerial" name="txtCurRsrvSerial"/>
+                </div>
+                <div class="col-sm-2 col-xs-2" id="add-multiple-sn"><a href="#" title="Add Multiple S/N"><i class="fa fa-plus-square fa-lg"></i></a></a></div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="slctCurRsrvAcctMngr">Account Manager:</label>
+                <div class="col-sm-6">
+                      <select class="form-control chosen-select" id="slctCurRsrvAcctMngr" name="slctCurRsrvAcctMngr"></select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="slctCurRsrvComp">Company:</label>
+                <div class="col-sm-6">
+                      <select class="form-control chosen-select" id="slctCurRsrvComp" name="slctCurRsrvComp"></select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="txtCurRsrvDateReserve">Date Reserved:</label>
+                <div class="col-sm-6">
+                  <input type='text' class="form-control" id="txtCurRsrvDateReserve" name="txtCurRsrvDateReserve" placeholder="Select Date" />
+                </div>
+              </div>
+
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label">Date Entered:</label>
+                <div class="col-sm-6">
+                  <span id="txtCurRsrvDateEntered" style="line-height: 2.2;"></span>
+                </div>
+              </div>
+          </div><!--end of modal body -->
+              <div class="modal-footer">
+               <div class="col-sm-12 col-xs-12">
+                <button type="button" class="btn btn-md btn-flat btn-danger" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-md btn-flat btn-info">Save</button>
+              </div>
+              </div>
+          </form>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+$( document ).ready( function () {
+  $("#txtCurRsrvDateReserve").datepicker({dateFormat: 'yy-mm-dd', minDate: 0});
+  $("#txtCurRsrvDateReserve").datepicker("setDate", new Date()); //set default current date
+// Client-side edit form validation.
+    $( "#frmCurrentRsrv" ).validate( {
+        onkeyup: false,
+        submitHandler: function (form) {
+          var id = $("#hdnCurRsrvId").val();
+            if(id == '' || id == null){
+                 dtCurrentInvtReservation.add();
+                 //$("#txtCurRsrvSerial").removeData("previousValue");//Clear cache of previous value in the 2nd time input of the remote rules..
+            }
+            else {
+                 dtCurrentInvtReservation.update(id);
+                 //var updated_sn = $("#txtCurRsrvSerial").val();
+                 //$("#hdnOldCurInvntSerial").val(updated_sn);//Replicate the value with the updated.
+            }
+        },
+       rules: {
+            "txtCurRsrvSerial": {
+              isSerialNumber: true,
+              required: true,
+            },
+             "slctCurRsrvAcctMngr": {
+              required: true
+            },
+            "slctCurRsrvComp": {
+              required: true
+            },
+            "txtCurRsrvDateReserve": {
+              required: true
+            }
+          },
+          messages: {
+            "txtCurRsrvSerial": {
+                required: "This field is required.",
+                isSerialNumber: "Please enter only letters and digits."
+            },
+            "slctCurRsrvAcctMngr": {
+              required: "This field is required.",
+            }, 
+            "slctCurRsrvComp": {
+              required: "This field is required.",
+            },
+            "txtCurRsrvDateReserve": {
+              required: "This field is required.",
+            }
+        
+          },
+          errorElement: "em",
+          errorPlacement: function ( error, element ) {
+            // Add the `help-block` class to the error element
+            error.addClass( "help-block" ).css('margin-top','0px');
+            error.css({'font-size':'11px','margin-bottom':'0px'});
+
+            if ( element.prop( "type" ) === "checkbox" ) {
+              error.insertAfter( element.parent( "label" ) );
+            } 
+            else if ( element.prop( "type" ) === "select-one" || element.prop( "type" ) === "select-multiple") {
+              error.insertAfter( element.next('.chosen-container') );
+          } else {
+              error.insertAfter( element );
+            }
+          },
+          highlight: function ( element, errorClass, validClass ) {
+            $( element ).parents( ".col-sm-6" ).addClass( "has-error" ).removeClass( "has-success" );
+          },
+          unhighlight: function (element, errorClass, validClass) {
+            $( element ).parents( ".col-sm-6" ).addClass( "has-success" ).removeClass( "has-error" );
+        }
+      } );
+  } );     
+</script>

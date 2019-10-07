@@ -63,7 +63,7 @@
                 <ul class="treeview-menu">
                   <li><a href="#/inventory/current"><i class="fa fa-circle-o"></i> Refurbished Stocks </a></li>
                   <li><a href="#/inventory/current-ho"><i class="fa fa-circle-o"></i> Brand New Stocks</a></li>
-                  <li><a href="#/inventory/current-issuances"><i class="fa fa-circle-o"></i> SAP - Issuances</a></li>                
+                  <li><a href="#/inventory/reservation"><i class="fa fa-circle-o"></i>Reservation</a></li>                
                 </ul>
             </li>
             <li id='current-mrf'><a href="#/mrf/current"><i class="fa fa-circle-o"></i>MRF</a></li>                    
@@ -73,7 +73,20 @@
           <ul id="archive" class="treeview-menu">
             <li id='archive-machine'><a href="#/mif/archive"><i class="fa fa-circle-o"></i>MIF</a></li>
             <li id='archive-pm'><a href="#/pm/archive"><i class="fa fa-circle-o"></i>PM</a></li>
-            <li id='archive-inventory'><a href="#/inventory/archive"><i class="fa fa-circle-o"></i>Inventory</a></li>
+            <!-- <li id='archive-inventory'><a href="#/inventory/archive"><i class="fa fa-circle-o"></i>Inventory</a></li> -->
+            <li id='archive-inventory' class="treeview menu-open">
+              <a href="#">
+                <i class="fa fa-circle-o"></i>Inventory
+                 <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>   
+                </span>
+              </a>
+
+                <ul class="treeview-menu">
+                  <li id='archive-inventory'><a href="#/inventory/archive"><i class="fa fa-circle-o"></i>Refurbished</a></li>
+                  <li id='archive-reservation'><a href="#/inventory/archive-reservation"><i class="fa fa-circle-o"></i>Reservation</a></li>               
+                </ul>
+            </li>
             <li id='archive-mrf'><a href="#/mrf/archive"><i class="fa fa-circle-o"></i>MRF</a></li>
           </ul>
         </li>

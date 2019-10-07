@@ -34,6 +34,7 @@ $(document).ready(function(){
 								 '<div id="displaySalesHistory"></div>',
 								 '<div id="displaySalesDetails"></div>',
 								 '<div id="displayPmHistory"></div>',
+								 '<div id="displayFormReservation"></div>',
 								 '<div class="displayPromptMSG"></div>');
 
   var mifPages = {
@@ -314,7 +315,15 @@ $(document).ready(function(){
 		var _self = this;
 		$('.view-content').load(pages+'inventory/current/index-hq.html',function(data,status){
 		  if(status =='success'){
-			  dtCurrentInvtHq.pageDetails().render().actions();
+			  dtCurrentInvtHq.pageDetails().modalViewReservation().render().actions();
+		  }
+		});
+	 },
+	current_reservation: function(){
+		var _self = this;
+		$('.view-content').load(pages+'inventory/current/reservation.html',function(data,status){
+		  if(status =='success'){
+			  dtCurrentInvtReservation.pageDetails().render().actions();
 		  }
 		});
 	 },
@@ -335,6 +344,14 @@ $(document).ready(function(){
 			  .render(_self.app_module.app_invnt, _self.branch, _self.user_role)
 			  .modalShowInMachine()
 			  .actions();
+		  }
+		});
+	 },
+	archive_reservation: function(){
+		var _self = this;
+		$('.view-content').load(pages+'inventory/archive/reservation.html',function(data,status){
+		  if(status =='success'){
+		  		dtArchiveReservation.pageDetails().render();
 		  }
 		});
 	 },
@@ -626,14 +643,14 @@ $(document).ready(function(){
 			 },500);
 		  }
 		},      
-		':/current-issuances': {
+		':/reservation': {
 		  before: function(){ 
 			 var appmodule = jwt.get('app_module'); 
 				return mifPages.redirect(this,'inventory',appmodule);
 		  },
 		  on: function(){
 				window.setTimeout(function(){
-				mifPages.current_hq_issuances();
+				mifPages.current_reservation();
 			 },500);
 		  },
 		  'after': function(){
@@ -650,6 +667,22 @@ $(document).ready(function(){
 		  on: function(){
 			  window.setTimeout(function(){
 				mifPages.archive_inventory();
+			 },500);
+		  },
+		  'after': function(){
+			 window.setTimeout(function(){
+				mifPages.abortAjaxDataTable();
+			 },500);
+		  }
+		},
+		':/archive-reservation': {
+		  before: function(){ 
+			 var appmodule = jwt.get('app_module'); 
+				return mifPages.redirect(this,'inventory',appmodule);
+		  },
+		  on: function(){
+			  window.setTimeout(function(){
+				mifPages.archive_reservation();
 			 },500);
 		  },
 		  'after': function(){

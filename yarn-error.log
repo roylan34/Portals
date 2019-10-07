@@ -1,0 +1,69 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js start
+
+PATH: 
+  C:\ProgramData\Oracle\Java\javapath;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\ProgramData\ComposerSetup\bin;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\110\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\120\Tools\Binn\;C:\Program Files\Microsoft SQL Server\120\Tools\Binn\;C:\Program Files\Microsoft SQL Server\120\DTS\Binn\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Git\cmd;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\Microsoft VS Code\bin;C:\Program Files\nodejs\;C:\Program Files\Redis\;C:\Users\DEVELOPER-.NET\AppData\Roaming\npm;%USERPROFILE%\AppData\Local\Microsoft\WindowsApps;
+
+Yarn version: 
+  1.7.0
+
+Node version: 
+  8.11.4
+
+Platform: 
+  win32 x64
+
+Trace: 
+  SyntaxError: C:\wamp\www\machine\package.json: Unexpected token } in JSON at position 118
+      at JSON.parse (<anonymous>)
+      at C:\Program Files (x86)\Yarn\lib\cli.js:1130:59
+      at Generator.next (<anonymous>)
+      at step (C:\Program Files (x86)\Yarn\lib\cli.js:98:30)
+      at C:\Program Files (x86)\Yarn\lib\cli.js:109:13
+      at <anonymous>
+
+npm manifest: 
+  {
+    "name": "admin-lte",
+    "version": "2.3.8",
+    "main": "dist/js/app.min.js",
+    "repository": {
+      "type": "git",
+    },
+    "license": "MIT",
+    "devDependencies": {
+      "R2": "^1.4.3",
+      "del": "^4.1.0",
+      "grunt": "~0.4.5",
+      "grunt-bootlint": "^0.9.1",
+      "grunt-contrib-clean": "^0.6.0",
+      "grunt-contrib-csslint": "^0.5.0",
+      "grunt-contrib-cssmin": "^0.12.2",
+      "grunt-contrib-jshint": "^0.11.2",
+      "grunt-contrib-less": "^0.12.0",
+      "grunt-contrib-uglify": "^0.7.0",
+      "grunt-contrib-watch": "~0.6.1",
+      "grunt-cssjanus": "^0.2.4",
+      "grunt-image": "^1.0.5",
+      "grunt-includes": "^0.4.5",
+      "gulp": "^3.9.1",
+      "gulp-concat": "^2.6.1",
+      "gulp-inject": "^5.0.2",
+      "gulp-minify": "^2.1.0",
+      "gulp-plumber": "^1.2.0",
+      "gulp-rename": "^1.4.0",
+      "gulp-rev": "^9.0.0",
+      "stream-series": "^0.1.1"
+    },
+    "dependencies": {
+      "datatables.net": "^2.1.1",
+      "datatables.net-dt": "^2.1.1",
+      "jquery": "^3.1.1"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

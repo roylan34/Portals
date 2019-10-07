@@ -1,0 +1,84 @@
+<!-- Modal -->
+<div class="modal fade" id="modalRemoveReservation" class="modalRemoveReservation" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="modalRemoveReservation">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="modalRemoveReservation">Move to Archive</h4>
+      </div>
+        <form id="frmCurrentRsrvArchive" class="form-horizontal">
+        <div class="modal-body">
+              <input type="hidden" name="hdnCurRemoveRsvId" id='hdnCurRemoveRsvId' value=''>
+
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="txtCurRsrvDateReserve">Status:</label>
+                <div class="col-sm-8">
+                  <div class="col-md-4">
+                    <label class="radio-inline"><input type="radio" name="optradio" value="remove">Remove</label>
+                  </div>
+                  <div class="col-md-4">
+                     <label class="radio-inline"><input type="radio" name="optradio" value="close">Close</label>
+                  </div>
+
+                </div>
+              </div>
+
+          </div><!--end of modal body -->
+              <div class="modal-footer">
+               <div class="col-sm-12 col-xs-12">
+                <button type="button" class="btn btn-md btn-flat btn-danger" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-md btn-flat btn-info">Save</button>
+              </div>
+              </div>
+          </form>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+$( document ).ready( function () {
+// Client-side edit form validation.
+    $( "#frmCurrentRsrvArchive" ).validate( {
+        onkeyup: false,
+        submitHandler: function (form) {
+          var id = $("#hdnCurRemoveRsvId").val();
+            if(id != '' || id != null){
+                 dtCurrentInvtReservation.updateStatus(id);
+            }
+        },
+       rules: {
+            "txtCurRsrvSerial": {
+              isSerialNumber: true,
+              required: true,
+            }
+          },
+          messages: {
+            "txtCurRsrvSerial": {
+                required: "This field is required.",
+            }
+          },
+          errorElement: "em",
+          errorPlacement: function ( error, element ) {
+            // Add the `help-block` class to the error element
+            error.addClass( "help-block" ).css('margin-top','0px');
+            error.css({'font-size':'11px','margin-bottom':'0px'});
+
+            if ( element.prop( "type" ) === "checkbox" ) {
+              error.insertAfter( element.parent( "label" ) );
+            } 
+            else if ( element.prop( "type" ) === "select-one" || element.prop( "type" ) === "select-multiple") {
+              error.insertAfter( element.next('.chosen-container') );
+          } else {
+              error.insertAfter( element );
+            }
+          },
+          highlight: function ( element, errorClass, validClass ) {
+            $( element ).parents( ".col-sm-6" ).addClass( "has-error" ).removeClass( "has-success" );
+          },
+          unhighlight: function (element, errorClass, validClass) {
+            $( element ).parents( ".col-sm-6" ).addClass( "has-success" ).removeClass( "has-error" );
+        }
+      } );
+  } );     
+</script>

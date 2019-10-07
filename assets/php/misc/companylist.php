@@ -10,10 +10,10 @@ require_once '../database.php';
 require_once '../utils.php';
 
 $search ='';
-if(Utils::getValue('only_active') == 'true') { $search =" WHERE status = 1 ORDER BY company_name"; }
+// if(Utils::getValue('only_active') == 'true') { $search =" WHERE status = 1 ORDER BY company_name"; }
 
 $db = Database::getInstance();
-$db->selectQuery('id,company_name','tbl_company '.$search.'');
+$db->selectQuery('id,company_name','tbl_company WHERE status = 1 ');
 $res = $db->getFields();
 $data = array();
 

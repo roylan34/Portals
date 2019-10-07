@@ -44,8 +44,18 @@ if(Utils::getValue('date'))				{ $search .="AND date_entered ='".$conn->escapeSt
 			
 			if(intval($requestData['length']) >= 1 ) { $limit = ' LIMIT '.$requestData['start'].' ,'.$requestData['length'].''; }
 
-				$conn->selectQuery('*','tbl_invnt_machines_auto_import
-					WHERE id > 0 '.$search.' '.$limit.'');
+				$conn->selectQuery('ma.*, IF((ir.serial_number = ma.serialnumber), "RESERVED", "" ) AS label, 
+						c.company_name, 
+						ir.date_reserved, 
+						CONCAT(ac.firstname," ", ac.lastname) AS acct_mngr','tbl_invnt_machines_auto_import ma
+					LEFT JOIN tbl_invnt_reservation ir ON ma.serialnumber = ir.serial_number
+					LEFT JOIN tbl_company c ON ir.id_company = c.id
+					LEFT JOIN tbl_client_accounts ca ON ir.id_acc_mngr = ca.id
+					LEFT JOIN tbl_accounts ac ON ca.account_id = ac.id
+					WHERE ma.id > 0 AND (ir.status = "" || ir.status IS NULL) '.$search.' '.$limit.'');
+
+				// $conn->selectQuery('ma.*, IF((SELECT serialnumber FROM tbl_invnt_reservation WHERE serial_number = ma.serialnumber AND (status = "" || status IS NULL) ) !="", "RESERVED", "" ) AS label, ','tbl_invnt_machines_auto_import ma
+				// 	WHERE ma.id > 0 '.$search.' '.$limit.'');
 				$row = $conn->getFields(); //Get all rows
 
 			if($conn->getNumRows() > 0 ){
