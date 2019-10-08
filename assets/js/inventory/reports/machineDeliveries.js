@@ -1,16 +1,17 @@
-var reportInvntSapIssuances = {
+var reportInvntMachineDeliver = {
 	pageDetails: function (branch) {
 		$(".content-header h1").text("Machine Inventory");
 		$(".content-header h1").append("<small>Reports</small>");
 		return this;
 	},
-	table_sap_issuances: function (branch) {
+	table_sap_issuances: function (date) {
 		var view = '';
 		$.ajax({
 			type: "GET",
 			url: assets + "php/inventory/reports/sap-issuances.php",
 			cache: false,
 			dataType: 'json',
+			data: {date: date},
 			success: function (data, status, xhr) {
 				if (data.length != 0) {
 					var i = 0;

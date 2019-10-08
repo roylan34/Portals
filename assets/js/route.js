@@ -391,10 +391,10 @@ $(document).ready(function(){
 			 }
 		  });
 		}
-		else if(report_page == 'sap-issuances'){
-		  $('.view-content').load(pages+'inventory/reports/sap-issuances.html',function(data,status){
+		else if(report_page == 'machine-deliveries'){
+		  $('.view-content').load(pages+'inventory/reports/machine-deliveries.html',function(data,status){
 			 if(status =='success'){
-				reportInvntSapIssuances.pageDetails().table_sap_issuances();
+				reportInvntMachineDeliver.pageDetails().table_sap_issuances();
 						
 			 }
 		  });
@@ -861,14 +861,14 @@ $(document).ready(function(){
 			 },500);
 		  }
 		},
-		':/sap-issuances':{
+		':/machine-deliveries':{
 		  before: function(){ 
 				  var appmodule = jwt.get('app_module'); 
 				return mifPages.redirect(this,'inventory',appmodule);
 			 },
 		  on: function(report_page){
 			 window.setTimeout(function(){
-				mifPages.reports('sap-issuances');
+				mifPages.reports('machine-deliveries');
 			 },500);
 		  },
 		  'after': function(){
