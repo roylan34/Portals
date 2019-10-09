@@ -1,6 +1,6 @@
 var reportInvntReceipts = {
 	pageDetails: function (branch) {
-		$(".content-header h1").text("Machine Inventory");
+		$(".content-header h1").text("Receipts");
 		$(".content-header h1").append("<small>Reports</small>");
 		return this;
 	},
