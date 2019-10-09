@@ -1,14 +1,14 @@
-var reportInvntMachineDeliver = {
+var reportInvntReceipts = {
 	pageDetails: function (branch) {
 		$(".content-header h1").text("Machine Inventory");
 		$(".content-header h1").append("<small>Reports</small>");
 		return this;
 	},
-	table_sap_issuances: function (date) {
+	table_receipts: function (date) {
 		var view = '';
 		$.ajax({
 			type: "GET",
-			url: assets + "php/inventory/reports/machine-deliveries.php",
+			url: assets + "php/inventory/reports/machine-receipts.php",
 			cache: false,
 			dataType: 'json',
 			data: {date: date},
@@ -17,7 +17,7 @@ var reportInvntMachineDeliver = {
 					var i = 0;
 					$.each(data, function (_brand_key, _result) {
 						view += '<div class="col-lg-3 col-md-3 col-md-6 ' + (i % 4 === 0 ? "clearFix" : "") + '">';
-						view += '<div class="panel panel-orange" id="panelReportInOutStocks' + _brand_key + '">';
+						view += '<div class="panel panel-orange" id="panelReportReceipts' + _brand_key + '">';
 						view += '<div class="panel-heading">';
 						view += '<div class="row">';
 						view += '<div class="col-xs-3">';
@@ -30,8 +30,8 @@ var reportInvntMachineDeliver = {
 						view += '</div>';
 						view += '</div>';
 						view += '</div>';
-						view += '<div id="reportInOutStocks' + _brand_key + '" class="table-responsive">';
-						view += '<table class="table table-bordered table-custom-bordered thead-inverse" id="tableInOutStocks' + _brand_key + '">';
+						view += '<div id="reportReceipts' + _brand_key + '" class="table-responsive">';
+						view += '<table class="table table-bordered table-custom-bordered thead-inverse" id="tableReceipts' + _brand_key + '">';
 						view += '<thead>';
 						view += '<tr>';
 						view += '<th>Model</th>';
@@ -58,7 +58,7 @@ var reportInvntMachineDeliver = {
 				}
 			},
 			complete: function (data) {
-				$("#report-sap-issuances").html(view);
+				$("#report-receipts").html(view);
 
 			}
 		});

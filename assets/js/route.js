@@ -399,6 +399,14 @@ $(document).ready(function(){
 			 }
 		  });
 		}
+		else if(report_page == 'machine-receipts'){
+		  $('.view-content').load(pages+'inventory/reports/machine-receipts.html',function(data,status){
+			 if(status =='success'){
+				reportInvntReceipts.pageDetails().table_receipts();
+						
+			 }
+		  });
+		}
 		 else if(report_page == 'sap-sales-summary'){
 		  $('.view-content').load(pages+'company/reports/sales-summary.html',function(data,status){
 			 if(status =='success'){
@@ -869,6 +877,22 @@ $(document).ready(function(){
 		  on: function(report_page){
 			 window.setTimeout(function(){
 				mifPages.reports('machine-deliveries');
+			 },500);
+		  },
+		  'after': function(){
+			 window.setTimeout(function(){
+				mifPages.abortAjaxDataTable();
+			 },500);
+		  }
+		},
+		':/machine-receipts':{
+		  before: function(){ 
+				var appmodule = jwt.get('app_module'); 
+					return mifPages.redirect(this,'inventory',appmodule);
+			 },
+		  on: function(report_page){
+			 window.setTimeout(function(){
+				mifPages.reports('machine-receipts');
 			 },500);
 		  },
 		  'after': function(){

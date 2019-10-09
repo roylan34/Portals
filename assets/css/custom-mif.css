@@ -244,6 +244,33 @@ table#chartlocation .badge{
   .table-custom-bordered{
   	border: 1px solid #ddd !important;
   }
+  .m-input-container{
+      border:1px solid rgba(169, 169, 169, 0.8);
+      border-radius: 2px;
+      padding:2px;
+      position: relative;
+  }
+  .m-input{
+      -webkit-appearance: none;
+      background: transparent;
+      border: none;
+      outline: none;
+  }
+  .m-input-suffix{
+      padding: 0 10px;
+      visibility: hidden;
+      transition: opacity .50s ease-in-out;
+      -moz-transition: opacity .50s ease-in-out;
+      -webkit-transition: opacity .50s ease-in-out;
+      opacity: 0;
+      cursor: pointer;
+      position: absolute;
+      right: 0;
+  }
+  .m-input-container:hover .m-input-suffix{
+      visibility: visible;
+      opacity: 1;
+  }
 /** Container **/
 /*.view-content{
 	box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2), 0 4px 20px 0 rgba(0,0,0,0.19)
