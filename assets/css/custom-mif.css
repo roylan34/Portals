@@ -271,6 +271,12 @@ table#chartlocation .badge{
       visibility: visible;
       opacity: 1;
   }
+  #modalSalesMonth .modal-dialog {
+    width: 60%;
+  } 
+  #modalSalesYear .modal-dialog{
+    width: 90%;
+  }
 /** Container **/
 /*.view-content{
 	box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2), 0 4px 20px 0 rgba(0,0,0,0.19)

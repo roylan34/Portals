@@ -410,7 +410,7 @@ $(document).ready(function(){
 		 else if(report_page == 'sap-sales-summary'){
 		  $('.view-content').load(pages+'company/reports/sales-summary.html',function(data,status){
 			 if(status =='success'){
-				  reportSalesPerAccount.pageDetails().table_montly_sales().table_yearly_sales();
+				  reportSalesPerAccount.pageDetails().table_sales_summary().action();
 						
 			 }
 		  });

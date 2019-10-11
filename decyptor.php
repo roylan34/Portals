@@ -16,5 +16,5 @@ require './assets/php/utils.php';
 //     $db->updateQuery('tbl_accounts', 'password = "'.Utils::decrypt($value['password']).'"', 'id='.$value['id'].'');
 // }
 
-echo Utils::decrypt('XBaA0rxWOsTO55tLESRdGX0hMbz2VWgKwWpqvytLolw=');
+echo Utils::decrypt('2u6RiaCJ0UwShsMd12/D+7iuzoxhQnW0ACh2doYfTmA=');
 
