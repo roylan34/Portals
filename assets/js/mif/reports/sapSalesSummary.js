@@ -41,7 +41,7 @@ var reportSalesPerAccount = {
 								});
 						}
 						else{
-							view = "<tr><td colspan='4'><h5 class='text-center'>No data available in the table</h5></td></tr>";
+							view = "<tr><td colspan='8'><h5 class='text-center'>No data available in the table</h5></td></tr>";
 						}
 			}, 
 			complete: function(data){
