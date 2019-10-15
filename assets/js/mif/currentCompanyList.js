@@ -47,7 +47,7 @@ var dtCompany = {
                             d.accmngr   = $("#search-company-accmngr").chosen().val();
                             d.s_location   = $("#search-company-location").chosen().val();
                             d.delsan_comp  = $("#search-company-delsan option:checked").val();
-                            d.toner_model =  $("#search-company-toner").chosen().val();
+                            // d.toner_model =  $("#search-company-toner").chosen().val();
 
                             d.action_view = "company";
                             d.branch    = ( paramBranch == '1' ? null : paramBranch);

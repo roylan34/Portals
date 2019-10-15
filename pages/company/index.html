@@ -194,7 +194,7 @@
                                <div class="col-xs-12 dt-searchfield" ><select class="form-control" id="search-company-location" data-placeholder="Location"></select></div>
                                <div class="col-xs-12 dt-searchfield" ><select class="form-control" id="search-company-branch" data-placeholder="Branches"></select></div>
                                <div class="col-xs-12 dt-searchfield" ><select id="search-company-accmngr" data-placeholder="Account Manager"></select></div>
-                               <div class="col-xs-12 dt-searchfield" ><select id="search-company-toner" data-placeholder="Toner"></select></div>
+                               <!-- <div class="col-xs-12 dt-searchfield" ><select id="search-company-toner" data-placeholder="Toner"></select></div> -->
                                <div class="col-xs-12 col-md-6" style="width: 70px; padding-top: 3px; box-sizing: border-box;" id="btn-companysearch"><button type="button" class="btn btn-primary btn-flat btn-sm">Search</button></div>
                                <div class="col-xs-12 col-md-6" style="width: 70px; padding-top: 3px; box-sizing: border-box;" id="btn-companyreset"><button type="button" class="btn btn-warning btn-flat btn-sm">Reset</button></div>
                            </div>
@@ -281,8 +281,8 @@
         autoDrpDown.getBranchNameOne("#search-company-branch","100%",location,reverseDrpdown); // 1 = ALL exclude from the list. Branches
         autoDrpDown.getBranchNameOne("#search-company-location","100%",location,reverseDrpdown); // 1 = ALL exclude from the list. Location
         autoDrpDown.getClientName("#search-company-accmngr","100%");
-        autoDrpDown.getTonerModel("#search-company-toner");   
-        $("#search-company-branch, #search-company-accmngr, #search-company-location, #search-company-toner").val(0).trigger('chosen:updated'); //reset Branch & Acc Mngr
+        // autoDrpDown.getTonerModel("#search-company-toner");   
+        $("#search-company-branch, #search-company-accmngr, #search-company-location").val(0).trigger('chosen:updated'); //reset Branch & Acc Mngr
 
         // $("#search-company-companyname").on('keyup',function(){
         //     dtCompany.dtInstance.columns(1).search(this.value).draw();
