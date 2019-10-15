@@ -1,6 +1,4 @@
 {
-  "build/js/bundle-invent.min.js": "build/js/bundle-invent-bb0d09a079.min.js",
-  "build/js/bundle-mif.min.js": "build/js/bundle-mif-0beed80b8e.min.js",
-  "build/js/bundle-mrf.min.js": "build/js/bundle-mrf-09c2daa055.min.js",
+  "build/js/bundle-mif.min.js": "build/js/bundle-mif-f7b44e910b.min.js",
   "build/js/bundle-pm.min.js": "build/js/bundle-pm-7a1a9ff85e.min.js"
 }

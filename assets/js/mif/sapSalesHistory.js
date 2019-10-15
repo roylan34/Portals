@@ -40,12 +40,12 @@ var dtSalesHistory = {
                                 {
                                     extend: "excel",
                                     className: 'dt-company-excel hidden-xs',
-                                    exportOptions: {columns: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15 ]},
+                                    exportOptions: {columns: [1,2,3,4,5,6,7,8,9,10,11,12,13,14]},
                                     filename: 'Sales History ' + getTodayDate()
                                 },
                                 {
                                     extend: 'print',
-                                    exportOptions: { columns: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]},
+                                    exportOptions: { columns: [1,2,3,4,5,6,7,8,9,10,11,12,13,14]},
                                     className: 'dt-machine-print hidden-xs',
                                     footer: true,
                                     // autoPrint: false, // For debugging
@@ -77,10 +77,6 @@ var dtSalesHistory = {
                             { data: null, render: function (data, type, row, meta) {
                                         return meta.row + 1;
                                     }       
-                            },
-                            { data:  null,  render: function( data, type, full, meta ){
-                                return  isEmpty(data.company_name);
-                                }
                             },
                             { data:  null,  render: function( data, type, full, meta ){
                                 return isEmpty(data.acc_manager);
@@ -141,21 +137,21 @@ var dtSalesHistory = {
 
                  ],
                   columnDefs: [ 
-                   {
+                    {
                         className: 'min-mobile  ',
-                        targets:   1
+                        targets:   0
                     },
-                   {
+                    {
                         className: 'min-mobile text-right',
-                        targets:   13
+                        targets:   12
                     },
                     {
                         className: 'min-mobile',
-                        targets:   14
+                        targets:   13
                     },
-                     {
+                    {
                         className: 'min-mobile text-right',
-                        targets:   15
+                        targets:   14
                     },
                 ],
                 "deferRender": true,
@@ -168,15 +164,6 @@ var dtSalesHistory = {
                     var api   = this.api();
                     var overall = api.context[0].json.totalSales;
 
-                    //Total per page
-                    // var totalVat = data.reduce( function(a,b){
-                    //     return intVal(a) + intVal(b.vat);
-                    // }, 0 );
-
-                    // var totalGross = data.reduce( function(c,d){
-                    //     return intVal(c) + intVal(d.gross);
-                    // }, 0 );
-
                      var totalNet = data.reduce( function(e,f){
                         return intVal(e) + intVal(f.net);
                     }, 0 );
@@ -185,16 +172,11 @@ var dtSalesHistory = {
                     var footerTrOne = $(footer).children()[0];
                     var footerTrTwo = $(footer).children()[1];
 
-                    // $(footerTrOne).find('td:eq(14)').html('Page Total:');
-                    // $(footerTrOne).find('td:eq(12)').html(formatNumber(toDecimal(totalGross)));
-                    // $(footerTrOne).find('td:eq(13)').html(formatNumber(toDecimal(totalVat)));
-                    $(footerTrOne).find('td:eq(15)').html(formatNumber(toDecimal(totalNet)));
+                    //Page total
+                    $(footerTrOne).find('td:eq(14)').html(formatNumber(toDecimal(totalNet)));
 
-                    //Over all Total
-                    // $(footerTrTwo).find('td:eq(14)').html('Overall Total:');
-                    // $(footerTrTwo).find('td:eq(12)').html(overall.total_gross);
-                    // $(footerTrTwo).find('td:eq(13)').html(overall.total_vat);
-                    $(footerTrTwo).find('td:eq(15)').html(overall.total_net);
+                    //Over all total
+                    $(footerTrTwo).find('td:eq(14)').html(overall.total_net);
 
                 }
 
