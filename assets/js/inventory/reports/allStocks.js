@@ -67,7 +67,7 @@ var reportInvntAlltocks = {
 		  	if(cb !== undefined){
 			  	cb.call(this, thead_fixed_container);
 			  	return;
-			  }
+			}
 
 		  var thead_fixed_branch 	= thead_fixed_container.querySelectorAll("tr:first-child th[rowspan]");
 		  var thead_fixed_bnrf   	= thead_fixed_container.querySelectorAll("tr:nth-child(2) th");
