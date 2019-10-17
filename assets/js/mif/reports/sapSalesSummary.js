@@ -22,21 +22,30 @@ var reportSalesPerAccount = {
 			type: "GET",
 			url: assets+"php/company/sapSalesSummary.php",
 			cache: false,
-			data: {action:"sales-summary", month: selectedMonth, year : selectedYear},
+			data: {action:"sales-summary", month: selectedMonth, year : selectedYear, user_id: jwt.get('user_id'), user_type: jwt.get('user_type')},
 			dataType: 'json',
 			success: function (data, status, xhr) {
 						if(data.length > 0){
 							var i = 1;
 								$.each(data, function(employ_key, employ) {
+									
 									view += '<tr>';
 									view += '<td>'+ (i++) + '</td>';
 									view += '<td>'+ employ.acc_manager+ '</td>';
 									view += '<td>'+ employ.mtd_gross+ '</td>';
 									view += '<td>'+ employ.mtd_vat+ '</td>';
-									view += '<td><a href="#" class="view-month-sales">'+ employ.mtd_net+ '</a></td>';
+									if(employ.id == 1){
+										view += '<td><a href="#" class="view-month-sales" data-doc-year="'+employ.doc_year+'">'+ employ.mtd_net+ '</a></td>';
+									}else{
+										view += '<td>'+ employ.mtd_net+ '</td>';
+									}
 									view += '<td>'+ employ.ytd_gross+ '</td>';
 									view += '<td>'+ employ.ytd_vat+ '</td>';
-									view += '<td><a href="#" class="view-year-sales">'+ employ.ytd_net+ '</a></td>';
+									if(employ.id == 1){
+										view += '<td><a href="#" class="view-year-sales">'+ employ.ytd_net+ '</a></td>';
+									}else{
+										view += '<td>'+ employ.ytd_net+ '</td>';
+									}
 									view += '</tr>';
 								});
 						}
@@ -51,13 +60,13 @@ var reportSalesPerAccount = {
 		});
 		return this;
 	},
-	get_composition_month: function(acc){
+	get_composition_month: function(acc, docYear){
 		var selectedMonth = $("#select-month-sales option:selected").val(); //get the 2nd option value as default branch value.
 		var selectedYear  = $("#select-year-sales option:selected").val(); 
 
-		$("#modalSalesMonth .modal-title").text(acc+" - "+selectedMonth.toUpperCase()+" "+selectedYear);
+		$("#modalSalesMonth .modal-title").text(acc+" - "+selectedMonth.toUpperCase()+" "+docYear);
 		this.dtInstance = $("#dtViewSalesMonth").DataTable({
-                "dom"       : 'flrtip', 
+                "dom"       : 'fBlrtip', 
                 "autoWidth" : false,
                 "responsive": true,
                 "pageLength": 10,
@@ -75,6 +84,18 @@ var reportSalesPerAccount = {
 			                    "type" : "GET",
                                 "data": {action:"month", month: selectedMonth, year: selectedYear, acc_manager:acc}            		 
                   },
+                 "buttons":[
+                 		{
+                            extend: "excelHtml5",
+                            exportOptions: { columns: [1,2,3,4,5,6,7],
+                                stripNewlines: false
+                             },
+                            text: "<i class='fa fa-file-excel-o'></i>",
+                            titleAttr: 'Export to Excel',
+                            className: 'dt-summary-excel',
+                            filename: 'Sales Details ' + selectedMonth.toUpperCase()+"-"+docYear
+                        }
+                 ],
                 "columns"  : [
                             { data: null, render: function (data, type, row, meta) {
                                         return meta.row + 1; //DataTable autoId for sorting.
@@ -89,7 +110,10 @@ var reportSalesPerAccount = {
                             { data:  "net", class: "text-right"},
 
                  ],
-                "deferRender": true
+                "deferRender": true,
+                // "preDrawCallback": function(settings){
+                //            $(".dt-summary-excel").removeClass("dt-button").addClass("btn btn-primary btn-flat btn-sm").css({"margin-right":"0.5em"});
+                // }
         });
 		return this;
 	},
@@ -98,7 +122,7 @@ var reportSalesPerAccount = {
 
 		$("#modalSalesYear .modal-title").text(acc+" - YTD "+selectedYear);
 		this.dtInstance2 = $("#dtViewSalesYear").DataTable({
-                "dom"       : 'flrtip', 
+                "dom"       : 'fBlrtip', 
                 "autoWidth" : false,
                 "responsive": true,
                 "pageLength": 10,
@@ -116,12 +140,26 @@ var reportSalesPerAccount = {
 			                    "type" : "GET",
                                 "data": {action:"year", year: selectedYear, acc_manager:acc}            		 
                   },
+                "buttons":[
+                 		{
+                            extend: "excelHtml5",
+                            exportOptions: { columns: [1,2,3,4,5,6,7,8,9,10,11,12,13],
+                                stripNewlines: false
+                             },
+                            text: "<i class='fa fa-file-excel-o'></i>",
+                            titleAttr: 'Export to Excel',
+                            className: 'dt-summary-details-excel',
+                            filename: 'YTD Sales ' + selectedYear
+                        }
+                 ],
                 "columns"  : [
                             { data: null, render: function (data, type, row, meta) {
-                                        return meta.row + 1; //DataTable autoId for sorting.
-                                    }       
+                                    return meta.row + 1; //DataTable autoId for sorting.
+                                }       
                             },
                             { data:  "customer"},
+                            { data:  "nov",  class: "text-right"},
+                            { data:  "_dec", class: "text-right"},
                             { data:  "jan", class: "text-right"},
                             { data:  "feb", class: "text-right"},
                             { data:  "mar", class: "text-right"},
@@ -131,17 +169,28 @@ var reportSalesPerAccount = {
                             { data:  "jul", class: "text-right"},
                             { data:  "aug", class: "text-right"},
                             { data:  "sep", class: "text-right"},
-                            { data:  "_oct", class: "text-right"},
-                            { data:  "nov",  class: "text-right"},
-                            { data:  "_dec", class: "text-right"}
+                            { data:  "_oct", class: "text-right"}
 
                  ],
                 "deferRender": true
         });
 		return this;
 	},
+	exportExcelRow: function(pmonth, pyear){
+		 var year  = pmonth || '';
+		 var month = pyear || '';
+			if(year != '' && month !=''){
+			    var urlExcel = window.location.origin + window.location.pathname + 'assets/php/company/excelSalesSummary.php?year='+pyear+'&month='+pmonth+'&user_type='+jwt.get('user_type')+'&user_id='+jwt.get('user_id');
+			       	window.open(urlExcel, '_blank');			     
+			}
+			else{
+				alert("Year and Month");
+			}
+
+		return this;
+	},
 	action: function(){
-		$("#reportSales").on('click', 'a.view-month-sales, a.view-year-sales', function(e){
+		$("#container-SapSalesSummary").on('click', 'a.view-month-sales, a.view-year-sales, a.btn-export-summary', function(e){
 			e.preventDefault();
 
 		        var inst = $(this);
@@ -155,12 +204,18 @@ var reportSalesPerAccount = {
 
 				if(inst.hasClass('view-month-sales')){
 					$("#modalSalesMonth").modal('show');
-					self.reportSalesPerAccount.get_composition_month(acc);
+					var doc_year = inst.data('doc-year');
+					self.reportSalesPerAccount.get_composition_month(acc, doc_year);
 				}
 
 				if(inst.hasClass('view-year-sales')){
 					$("#modalSalesYear").modal('show');
 					self.reportSalesPerAccount.get_composition_year(acc);
+				}
+				if(inst.hasClass('btn-export-summary')){
+					var selectedMonth = $("#select-month-sales option:selected").val();
+					var selectedYear  = $("#select-year-sales option:selected").val(); 
+					self.reportSalesPerAccount.exportExcelRow(selectedMonth, selectedYear);
 				}
 	
 		});

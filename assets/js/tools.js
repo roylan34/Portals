@@ -555,3 +555,12 @@ function foreach(arr, cb){
 		cb.call(arr, arr[i], i);
 	}
 };
+
+function sumUp(arrVal){
+	if(Array.isArray(arrVal)){
+		return arrVal.reduce(function(a, b){ 
+			return intVal(a) + intVal(b); 
+		})
+	}
+	throw new TypeError('Argument must be an array.');
+}

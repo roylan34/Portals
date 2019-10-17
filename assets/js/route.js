@@ -158,14 +158,15 @@ $(document).ready(function(){
 				});
 			 $(".view #include-left-sidebar").load(baseApp+'pages/dashboard/left-sidebar.html',function(){
 				 views.find(".user .info p").text(fullname);
-					// Reports SAP - Sales Details viewable only for Sales = 2 and Relation Officer = 3.
-					var allowed_view_sap_sales = [2,3]; //account id
-					if(allowed_view_sap_sales.indexOf(parseInt(jwt.get('user_type'))) == -1 ){
-						 views.find("ul.sidebar-menu li#reports-sap-details").remove();
+
+					// Reports SAP - Sales Summary
+					var allowed_user_type = [1,2,3,4]; //Executive, Sales, Relation Officer, Technical
+					if(allowed_user_type.indexOf(parseInt(jwt.get('user_type'))) == -1){ // -1 not found
+					    views.find("ul.sidebar-menu li#reports-sap-sales-summary").remove();
 					}
 
 				  if( user_role == "User"){
-						views.find("ul.sidebar-menu li#sidebar-accounts, ul.sidebar-menu li#sidebar-settings, ul.sidebar-menu li#reports-sap-sales-summary").remove();
+						views.find("ul.sidebar-menu li#sidebar-accounts, ul.sidebar-menu li#sidebar-settings").remove();
 					 if(app_module.app_mif == 0){
 						views.find("ul.sidebar-menu li#home-mif, ul.sidebar-menu li#current-mif, ul.sidebar-menu li#archive-machine").remove(); //Remove sub-menu of MIF
 					 }
@@ -903,16 +904,11 @@ $(document).ready(function(){
 		},
 		 ':/sap-sales-summary':{
 		  before: function(){ 
-				// //Reports SAP - Sales Summary viewable only for Sir Glenn G. = 1 and Glenn I. = 7.
-				//  var allowed_view_sap_sales = [1,7]; //account id
-				//  if(allowed_view_sap_sales.indexOf(parseInt(jwt.get('user_id'))) == -1 ){ // -1 not found
-				//      return false;
-				//  }
-				//  return true;
-
-				var appmodule = jwt.get('app_module'); 
-				return mifPages.redirect(this,'mif',appmodule);
-				 
+			var allowed_user_type = [1,2,3,4]; //Executive, Sales, Relation Officer, Techinical
+				if(allowed_user_type.indexOf(parseInt(jwt.get('user_type'))) > -1){ // -1 not found
+				    return true;
+				}
+				return false;				 
 			 },
 		  on: function(report_page){
 			 window.setTimeout(function(){
@@ -924,28 +920,7 @@ $(document).ready(function(){
 				mifPages.abortAjaxDataTable();
 			 },500);
 		  }
-		},
-		// ':/sap-details':{
-		//   before: function(){ 
-		//       //Reports SAP - Sales Details viewable only for Sales = 2 and Relation Officer = 3.
-		//        var allowed_view_sap_sales = [2,3]; //account id
-		//        if(allowed_view_sap_sales.indexOf(parseInt(jwt.get('user_type'))) == -1 ){ // -1 not found
-		//            return false;
-		//        }
-		//        return true;
-				 
-		//     },
-		//   on: function(report_page){
-		//     window.setTimeout(function(){
-		//       mifPages.reports('sap-details');
-		//     },500);
-		//   },
-		//   'after': function(){
-		//     window.setTimeout(function(){
-		//       mifPages.abortAjaxDataTable();
-		//     },500);
-		//   }
-		// }
+		}
 	 }
   };
 

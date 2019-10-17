@@ -2,7 +2,7 @@
 <div class="box box-success">
         <div class="box-header with-border">
           <h3 class="box-title">SAP - Sales Summary per Account Manager </h3>
-         
+          <a href="#" title="Export to Excel" class="pull-right btn-flat btn btn-sm btn-primary btn-export-summary"><i class='fa fa-file-excel-o'></i></a>
         </div><!-- /.box-header -->
         <div class="box-body">
 
@@ -12,29 +12,35 @@
           			<tr>
                   <th rowspan="2"></th>
           				<th rowspan="2">Name</th>
-          				<th colspan="3" style="text-align: center;">MONTHLY SALES  
-                    <span> <label class="pull-right"><select id="select-year-sales"></select></label></span>
-                    <span id="dropdwn-monthly-sales">
-                      <label class="pull-right"> 
-                        <select id="select-month-sales">
-                            <option value="" disabled>--Month--</option>
-                            <option value="jan">Jan</option>
-                            <option value="feb">Feb</option>
-                            <option value="mar">Mar</option>
-                            <option value="apr">Apr</option>
-                            <option value="may">May</option>
-                            <option value="jun">Jun</option>
-                            <option value="jul">Jul</option>
-                            <option value="aug">Aug</option>
-                            <option value="sep">Sep</option>
-                            <option value="oct">Oct</option>
-                            <option value="nov">Nov</option>
-                            <option value="dec">Dec</option>
-                        </select>
-                      </label>
-                    </span>                   
+          				<th colspan="3" class="text-center">
+                    <div class="col-md-6">
+                      <div>FISCAL YEAR</div>
+                      <span> <label><select id="select-year-sales"></select></label></span>
+                    </div>
+                    <div class="col-md-6">
+                      <div>MONTH</div>
+                      <span id="dropdwn-monthly-sales">
+                        <label> 
+                          <select id="select-month-sales">
+                              <option value="" disabled>--Month--</option>
+                              <option value="jan">Jan</option>
+                              <option value="feb">Feb</option>
+                              <option value="mar">Mar</option>
+                              <option value="apr">Apr</option>
+                              <option value="may">May</option>
+                              <option value="jun">Jun</option>
+                              <option value="jul">Jul</option>
+                              <option value="aug">Aug</option>
+                              <option value="sep">Sep</option>
+                              <option value="oct">Oct</option>
+                              <option value="nov">Nov</option>
+                              <option value="dec">Dec</option>
+                          </select>
+                        </label>
+                      </span>
+                    </div>                   
                   </th>
-                  <th colspan="4" style="text-align: center;">YTD
+                  <th colspan="4" class="text-center">YTD</th>
           			</tr>
           			<tr>
           				<th class="text-center">Gross</th>
@@ -104,6 +110,8 @@
                   <tr>
                     <th></th>
                     <th>Customer</th>
+                    <th>Nov</th>
+                    <th>Dec</th>
                     <th>Jan</th>
                     <th>Feb</th>
                     <th>Mar</th>
@@ -114,8 +122,6 @@
                     <th>Aug</th>
                     <th>Sep</th>
                     <th>Oct</th>
-                    <th>Nov</th>
-                    <th>Dec</th>
                   </tr>
                 </thead>
               </table>
@@ -149,6 +155,12 @@
   }
   table#reportSales tbody tr.selected{
     background: #a9b7d1;
+  }
+  table#reportSales tbody tr:last-child{
+    font-weight: 700;
+  }
+  table#reportSales tbody tr:last-child > td{
+    text-align: right;
   }
 </style>
 
