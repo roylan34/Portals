@@ -26,12 +26,12 @@ var dtArchiveReservation = {
 	                                        {
 			                                    extend: "excel",
 			                                    className: 'btn-excel-inventory hidden-xs',
-			                                    exportOptions: { columns: [1,2,3,4,5] },
+			                                    exportOptions: { columns: [1,2,3,4,5,6] },
 			                                    filename: 'Inventory Reservation ' + getTodayDate()
 			                                },
 			                               {
 			                                    extend: "print",
-			                                    exportOptions: { columns: [0,1,2,3,4,5] },
+			                                    exportOptions: { columns: [0,1,2,3,4,5,6] },
 			                                    className: 'btn-print-inventory hidden-xs',
 			                                    customize: function(win){
 			                                        var elem = $(win.document.body);
@@ -90,7 +90,8 @@ var dtArchiveReservation = {
                                 		return "<span class='badge badge-"+badge+"'>" + data.status + "</span>";
 
 		                                }
-		                            }
+		                            },
+		                            { "data": "created_at"},
 	                            ],
 	                            "preDrawCallback": function(settings){
 		                           $(".btn-excel-inventory, .btn-print-inventory, .btn-search-inventory, .btn-reserve").removeClass("dt-button").addClass("btn btn-primary btn-flat btn-sm").css({"margin-bottom":"0.5em","margin-right":"0.5em"});

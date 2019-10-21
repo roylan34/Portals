@@ -47,7 +47,7 @@ if(Utils::getValue('date'))				{ $search .="AND date_entered ='".$conn->escapeSt
 				$conn->selectQuery('ma.*, IF((ir.serial_number = ma.serialnumber), "RESERVED", "" ) AS label, 
 						c.company_name, 
 						ir.date_reserved, 
-						CONCAT(ac.firstname," ", ac.lastname) AS acct_mngr','tbl_invnt_machines_auto_import ma
+						CONCAT(ac.firstname," ", ac.lastname) AS acct_mngr, ir.created_at','tbl_invnt_machines_auto_import ma
 					LEFT JOIN tbl_invnt_reservation ir ON ma.serialnumber = ir.serial_number
 					LEFT JOIN tbl_company c ON ir.id_company = c.id
 					LEFT JOIN tbl_client_accounts ca ON ir.id_acc_mngr = ca.id

@@ -47,12 +47,12 @@ var dtCurrentInvtReservation = {
 	                                        {
 			                                    extend: "excel",
 			                                    className: 'btn-excel-inventory hidden-xs',
-			                                    exportOptions: { columns: [1,2,3,4,5] },
+			                                    exportOptions: { columns: [1,2,3,4,5,6] },
 			                                    filename: 'Inventory Reservation ' + getTodayDate()
 			                                },
 			                               {
 			                                    extend: "print",
-			                                    exportOptions: { columns: [0,1,2,3,4,5] },
+			                                    exportOptions: { columns: [0,1,2,3,4,5,6] },
 			                                    // autoPrint: false,
 			                                    className: 'btn-print-inventory hidden-xs',
 			                                    customize: function(win){
@@ -108,19 +108,20 @@ var dtCurrentInvtReservation = {
 	                                { "data": "company_name"},
 	                                { "data": "date_reserved"},
 	                                { "data": null, render: function(data){
-	                                		var badge = "";
-	                                		var aging = (data.aging > 0 ? data.aging : 0);
+												/*var badge = "";
+	                                			var aging = (data.aging > 0 ? data.aging : 0);
 	                                			if(aging > 0){
 	                                				badge = "blue";
 	                                			}
 	                                		 	if(aging <= 3){
-	                                				badge = "orange badge-pulse";
-	                                			}
+	                                				badge = "orange";
+	                                			}*/
 	                                			
-	                                		return "<span class='badge badge-"+badge+"'>" + aging + "</span>";
+	                                		return "<span class='badge badge-orange'>" + data.aging + "</span>";
 
 		                                }
 		                            },
+		                            { "data": "created_at"},
 	                            	{ "data":  null, render: function( data, type, full, meta ){
 		                                var action_elem = '';
 		                                        action_elem += '<div class="dropdown text-center btn-action-reserve">';

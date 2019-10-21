@@ -93,7 +93,7 @@ var dtCurrentInvtHq = {
 	                                	}
 	                            	},
 	                            	{ "data": null, "width": "160px", render: function(data){
-	                            			var details = JSON.stringify({sn: data.serialnumber, comp: data.company_name, date: data.date_reserved, acct: data.acct_mngr});
+	                            			var details = JSON.stringify({sn: data.serialnumber, comp: data.company_name, date: data.date_reserved, acct: data.acct_mngr, date_created: data.created_at});
 	                            			return "<a href='#' class='btnViewReservation' title='View Reservation Details' data-details='"+details+"'>"+data.label+"</a>";
 		                            	} 
 		                            }
@@ -120,7 +120,8 @@ var dtCurrentInvtHq = {
     	var	elem_td = '<tr><td>'+details.sn+'</td>'+
     				   '<td>'+details.acct+'</td>'+
     				   '<td>'+details.comp+'</td>'+
-    				   '<td>'+details.date+'</td></tr>';
+    				   '<td>'+details.date+'</td>'+
+    				   '<td>'+details.date_created+'</td></tr>';
 
     	$(".tbl-view-reservation tbody").append(elem_td);
     },
