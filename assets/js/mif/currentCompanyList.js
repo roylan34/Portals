@@ -195,7 +195,6 @@ var dtCompany = {
                                                            + '<li>'+ ( data.status == 1 ? '<a href="#" title="View MIF" class=" btnViewPrinter" data-comp="'+data.id+'" data-branch="'+data.id_branch+'" data-status="'+data.status+'" data-compname="'+encodeURIComponent(data.company_name)+'"><i class="fa fa-list"></i>VIEW MIF</a>': "" )+'</li>'
                                                            + '<li><a href="#" class="btnSalesHist" data-sapcode="'+data.sap_code+'"><i class="fa fa-bar-chart" ></i>SALES</a></li>'
                                                            + '<li><a href="#" class="viewMifLogs" data-comp="'+data.id+'" data-branch="'+data.id_branch+'">ACTIVITY LOGS</a></li>'
-                                                           + '<li><a href="#" class="serviceHistory">SERVICE HISTORY</a></li>'
                                                     +'</ul></div>';
                                                        
                                     return action_elem;

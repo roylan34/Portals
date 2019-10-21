@@ -160,7 +160,8 @@ var dtMachine = {
                                                           +'<ul class="dropdown-menu dropdown-menu-right dropdown-menu-machine">'
                                                             + '<li><a href="#" class="btnViewUpdateMachine" data-target="#modalFormMachine" data-toggle="modal" data-machine='+data.id+'><i class="fa fa-pencil-square" aria-hidden="true"></i>EDIT</a></li>'
                                                             + '<li><a href="#" class="btnRemoveMachine" data-machine='+data.id+' title="Remove"><i class="fa fa-trash" aria-hidden="true"></i>REMOVE</a></li>'
-                                                            + '<li><a href="#" class="btnPmHistory" data-machine='+data.id+' title="PM History">PM History</a></li>'
+                                                            + '<li><a href="#" class="btnPmHistory" data-machine='+data.id+' title="PM History">PM HISTORY</a></li>'
+                                                            + '<li><a href="#" class="serviceHistory">SERVICE HISTORY</a></li>'
                                                     +'</ul></div>';
                                                        
                                     return action_elem;
