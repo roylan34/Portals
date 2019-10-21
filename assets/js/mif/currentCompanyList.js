@@ -58,7 +58,7 @@ var dtCompany = {
                                 {
                                     extend: "excel",
                                     className: 'dt-company-excel hidden-xs',
-                                    exportOptions: { columns: [1,2,3,4,5,6,7,8,9,10],
+                                    exportOptions: { columns: [1,2,3,4,5,6,7,8,9,10,11],
                                         stripNewlines: false
                                      },
                                     customize: function(xlsx) {
@@ -75,7 +75,7 @@ var dtCompany = {
                                 },
                                 {
                                     extend: "print",
-                                    exportOptions: { columns: [0,1,2,3,5,6,7,8,9,10],
+                                    exportOptions: { columns: [0,1,2,3,5,6,7,8,9,10,11],
                                        format: {
                                             body: function ( data, column, row ) {
                                                 return column === 6 ?
@@ -161,10 +161,10 @@ var dtCompany = {
                             },
                             { data: "number_of_machines"
                             },
-                            // { data:  null, "width": "20%", render: function( data, type, full, meta ){
-                            //         return "<span class='text-center'><a href='#' title='View Map' id='showDtMap' data-idcomp='"+data.id+"' data-lat='"+data.latitude+"' data-lng='"+data.longitude+"'>" + data.address + "</a></span>"; 
-                            //     }
-                            // },
+                            { data:  null, "width": "20%", render: function( data, type, full, meta ){
+                                    return "<span class='text-center'><a href='#' title='View Map' id='showDtMap' data-idcomp='"+data.id+"' data-lat='"+data.latitude+"' data-lng='"+data.longitude+"'>" + data.address + "</a></span>"; 
+                                }
+                            },
                             { data:  null ,render: function( data, type, full, meta ){
                                 return "<div class='text-left dt-column-branches'>" + isEmpty(data.main_location) + "</div>";
                                 }
@@ -200,27 +200,7 @@ var dtCompany = {
                                                        
                                     return action_elem;
                                 }
-                            },
-                            //  { data:  null, render: function( data, type, full, meta ){
-                            //         return "<button class='btn btn-xs btn-success btn-flat btnSalesHist' data-sapcode='"+data.sap_code+"'>Sales</button>";
-                            //     }
-                            // },
-                            // { data:  null, render: function( data, type, full, meta ){                                                      
-                            //         return "<button class='btn btn-xs btn-success btn-flat btnEditComp' data-comp='"+data.id+"'>Edit</button>";
-                            //     }
-                            // },
-                            // { data:  null, render: function( data, type, full, meta ){
-                            //         var cstatus = data.status;
-                            //         if(cstatus == 1 ){
-                            //           return '<a title="View MIF" class="btn btn-xs btn-success btn-flat btnViewPrinter" data-comp="'+data.id+'" data-branch="'+data.id_branch+'" data-status="'+cstatus+'" data-compname="'+encodeURIComponent(data.company_name)+'"><i class="fa fa-list"></i></a>';
-                            //         }
-                            //         return '';
-                            //     }
-                            // },
-                            // { data:  null, render: function( data, type, full, meta ){
-                            //           return '<a title="Activity Logs" class="btn btn-xs btn-default-logs btn-flat viewMifLogs" data-comp="'+data.id+'" data-branch="'+data.id_branch+'"><i class="fa fa-clock-o"></i></a>';
-                            //     }
-                            // }
+                            }
                  ],
                  "columnDefs": [
                             { responsivePriority: 1, target: 0},
