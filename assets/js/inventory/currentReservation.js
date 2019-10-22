@@ -172,6 +172,7 @@ var dtCurrentInvtReservation = {
                 	$.each(data.aaData, function(i,val){
                 		 $("#hdnCurRsrvId").val(val.id);
                 		 $("#txtCurRsrvSerial").val(val.serial_number);
+                		 $("#hdnCurRsrvOldSn").val(val.serial_number);
                 		 $("#txtCurRsrvDateReserve").val(val.date_reserved);
 						 $("#slctCurRsrvAcctMngr").val(val.id_acc_mngr).trigger('chosen:updated');
 						 $("#slctCurRsrvComp").val(val.id_company).trigger('chosen:updated');
@@ -229,11 +230,12 @@ var dtCurrentInvtReservation = {
     	 var $btn     = $("button[type='submit']");
 		 var id_reserve    	= $("#hdnCurRsrvId").val();
 		 var serialnum     	= $("#txtCurRsrvSerial").val();
+		 var serialnum_old  = $("#hdnCurRsrvOldSn").val();
 		 var acct_mgnr 		= $("#slctCurRsrvAcctMngr").chosen().val();
 		 var comp			= $("#slctCurRsrvComp").chosen().val();
 		 var date_reserved 	= $("#txtCurRsrvDateReserve").val();
 		 var create_by		= jwt.get('user_id');
-		 var data = {action:'update', id_reserve:id_reserve, serialnum: serialnum, acct_mgnr: acct_mgnr, comp: comp, date_reserved: date_reserved, create_by:create_by };
+		 var data = {action:'update', id_reserve:id_reserve, serialnum: serialnum, acct_mgnr: acct_mgnr, comp: comp, date_reserved: date_reserved, create_by:create_by, sn_old: serialnum_old };
    	 			if (id != ''){
 			 		$.ajax({
 		                type: 'POST',
@@ -242,8 +244,12 @@ var dtCurrentInvtReservation = {
 		                dataType: 'json',
 		                beforeSend: function(){ $btn.button('loading'); },
 		                success: function(data, xhr, status){
-		                   self.dtCurrentInvtReservation.dtInstance.ajax.reload(null, false); // Reload the data in DataTable.
-		                   promptMSG('success-update','Reservation',null,null,true,true);
+		                    if(data.aaData == "success"){
+			            	 	self.dtCurrentInvtReservation.dtInstance.ajax.reload(null, false); //.page('last'); // Reload the data in DataTable and go to last page.
+			                	promptMSG('success-update','Reservation',null,null,true,true);
+			            	}else{
+			            	 	promptMSG('warning',data.aaData,null,null,false,null);	
+			            	}
 	                	},
 	                	error: function(xhr,status){ alert(xhr + status); },
 	                 	complete: function(){ $btn.button('reset'); }

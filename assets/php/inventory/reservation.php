@@ -30,7 +30,7 @@ if(Utils::getIsset('action')){
 		case 'add':
 	          	$arr_serialnum 	 = explode(',',Utils::uppercase($serialnum));
 		        $is_duplicate_sn = Utils::chckDuplicateArrayVal($arr_serialnum);
-		        $reserved_sn 	 = Utils::chckDuplicateArrayVal(checkSnReserved($arr_serialnum, $db));
+		        $reserved_sn 	 = Utils::chckDuplicateArrayVal(checkSnReserved($arr_serialnum, $db, 'add'));
 		        if(count($is_duplicate_sn) > 0){ //Count if has value mean has duplicate SN.
 		          	$data['aaData'][] = "Duplicate S/N: <em>" . implode(',',$is_duplicate_sn)."</em>";
 		        }
@@ -50,12 +50,22 @@ if(Utils::getIsset('action')){
 			break;
 		case 'update':
 					if($id_reserve){
-						$db->updateQuery('tbl_invnt_reservation','serial_number = "'.Utils::uppercase($serialnum).'", 
-														id_acc_mngr 	= "'.$acct_mgnr.'",
-														id_company 	 	= "'.$comp.'",
-														date_reserved 	= "'.$date_reserved.'"'
-										    			,'id = "'.$id_reserve.'"');
-				 		print Utils::jsonEncode($db->getFields());
+						$sn = Utils::uppercase($serialnum);
+						$reserved_sn = checkSnReserved($sn, $db, 'update');
+
+						if(count($reserved_sn) > 0){
+							$data['aaData'][] = "Already reserved S/N: <em>" . implode(',',$reserved_sn)."</em>";
+						}
+						else{
+							$db->updateQuery('tbl_invnt_reservation','serial_number = "'.$sn.'", 
+															id_acc_mngr 	= "'.$acct_mgnr.'",
+															id_company 	 	= "'.$comp.'",
+															date_reserved 	= "'.$date_reserved.'"'
+											    			,'id = "'.$id_reserve.'"');
+							$data = $db->getFields();
+					 	}
+
+					 	print Utils::jsonEncode($data);
 				 	}
 			break;
 		case 'update_status':
@@ -77,17 +87,47 @@ if(Utils::getIsset('action')){
 
 }
 
-function checkSnReserved($sn, $db){
-	$db->selectQuery("serial_number","tbl_invnt_reservation WHERE (status = '' || status is null) AND serial_number IN ('".implode("','",$sn)."')");
-	$res_sn = $db->getFields();
-	if($db->getNumRows() > 0){
-		 return array_map(function($val){
-					return $val['serial_number'];
-				}, $res_sn['aaData']); //Return as single dimension array.
+function checkSnReserved($sn, $db, $action){
+
+	switch ($action) {
+		case 'add':
+				$db->selectQuery("serial_number","tbl_invnt_reservation WHERE (status = '' || status is null) AND serial_number IN ('".implode("','",$sn)."')");
+				$res_sn = $db->getFields();
+				if($db->getNumRows() > 0){
+					 return array_map(function($val){
+								return $val['serial_number'];
+							}, $res_sn['aaData']); //Return as single dimension array.
+				}
+				else{
+					return array();
+				}
+			
+			break;
+		case 'update':
+				$sn_old = Utils::getValue('sn_old');
+
+				if($sn_old != $sn){
+					$db->selectQuery("serial_number","tbl_invnt_reservation WHERE (status = '' || status is null) AND serial_number ='".$sn."' LIMIT 1");
+					$res_sn = $db->getFields();
+					if($db->getNumRows() > 0){
+						return $res_sn['aaData'][0];
+					}
+					else{
+						return array();
+					}
+				}
+				else{
+					return array();
+				}
+
+
+			break;
+		default:
+			throw new Exception("Action type not found.");
+			
+			break;
 	}
-	else{
-		return array();
-	}
+
 
 }
 
