@@ -12,10 +12,17 @@ require_once '../utils.php';
 
 $year 	= Utils::getValue('year');
 $month 	= Utils::getValue('month');
+$comp 	= Utils::getValue('company');
 $acc_manager = Utils::getValue('acc_manager');
 $action = Utils::getValue('action');
 $conn 	= Database::getInstance();
 
+$searchComp = "";
+$joinSearchComp = "";
+if($comp == "dosc" || $comp == "dbic"){  
+	$searchComp 	= "AND company = '".$comp."'" ;
+	$joinSearchComp = "AND tsh.company = '".$comp."'" ;
+}
 
 switch ($action ) {
 	case 'sales-history-summary':
@@ -34,7 +41,7 @@ switch ($action ) {
 								  FORMAT(SUM(net),2) AS mtd_net 
 								FROM
 								  tbl_sales_history_auto_import tsh
-								WHERE fiscal_year = '.$year.' AND month="'.ucfirst($month).'" 
+								WHERE fiscal_year = '.$year.' AND month="'.ucfirst($month).'" '.$searchComp.'
 								GROUP BY acc_manager 
 								) tsh ON acc.acc_manager = tsh.acc_manager
 								LEFT JOIN (
@@ -45,7 +52,7 @@ switch ($action ) {
 								  FORMAT(SUM(net),2) AS ytd_net
 								FROM
 								  tbl_sales_history_auto_import 
-								  WHERE fiscal_year='.$year.'
+								  WHERE fiscal_year='.$year.' '.$searchComp.'
 								  GROUP BY acc_manager 
 								) tsh2 ON acc.acc_manager = tsh2.acc_manager
 								GROUP BY acc.acc_manager
@@ -70,7 +77,7 @@ switch ($action ) {
 				$conn->fields = null; //empty the previous result.
 
 				//Check if account manager is exist in sales summary table.
-				$conn->selectQuery('*','tbl_sales_summary_auto_import WHERE acc_manager = "'.$acc_mngr.'" LIMIT 1');
+				$conn->selectQuery('*','tbl_sales_summary_auto_import WHERE acc_manager = "'.$acc_mngr.'" '.$searchComp.' LIMIT 1');
 				$isExist  = $conn->getFields();
 
 				if(count($isExist['aaData']) > 0){
@@ -93,11 +100,11 @@ switch ($action ) {
 										    FORMAT(SUM(net), 2) AS ytd_net 
 										  FROM
 										    tbl_sales_summary_auto_import
-										  WHERE fiscal_year = '.$year.' AND acc_manager="'.$acc_mngr.'"
+										  WHERE fiscal_year = '.$year.' AND acc_manager="'.$acc_mngr.'" '.$searchComp.'
 										  ) tsh2 
 										  ON tsh.acc_manager = tsh2.acc_manager 
 										   WHERE tsh.fiscal_year ='.$year.'
-										   AND tsh.month ="'.ucfirst($month).'" AND tsh.acc_manager="'.$acc_mngr.'"');
+										   AND tsh.month ="'.ucfirst($month).'" AND tsh.acc_manager="'.$acc_mngr.'" '.$joinSearchComp.' ');
 						$resSummary = $conn->getFields();
 				}
 				else{
@@ -124,7 +131,7 @@ switch ($action ) {
 								  FORMAT(SUM(net),2) AS mtd_net 
 								FROM
 								  tbl_sales_summary_auto_import tsh
-								WHERE fiscal_year = '.$year.' AND month="'.ucfirst($month).'" 
+								WHERE fiscal_year = '.$year.' AND month="'.ucfirst($month).'" '.$searchComp.'
 								GROUP BY acc_manager 
 								) tsh ON acc.acc_manager = tsh.acc_manager
 								LEFT JOIN (
@@ -135,7 +142,7 @@ switch ($action ) {
 								  FORMAT(SUM(net),2) AS ytd_net
 								FROM
 								  tbl_sales_summary_auto_import 
-								  WHERE fiscal_year='.$year.'
+								  WHERE fiscal_year='.$year.' '.$searchComp.'
 								  GROUP BY acc_manager 
 								) tsh2 ON acc.acc_manager = tsh2.acc_manager
 								GROUP BY acc.acc_manager
@@ -168,7 +175,7 @@ switch ($action ) {
 								    SUM(net) AS mtd_net 
 								  FROM
 								    tbl_sales_summary_auto_import tsh 
-								  WHERE fiscal_year = '.$year.' AND month="'.ucfirst($month).'" 
+								  WHERE fiscal_year = '.$year.' AND month="'.ucfirst($month).'" '.$searchComp.'
 								  GROUP BY acc_manager) tsh 
 								  ON acc.acc_manager = tsh.acc_manager 
 								LEFT JOIN 
@@ -179,7 +186,7 @@ switch ($action ) {
 								    SUM(net) AS ytd_net 
 								  FROM
 								    tbl_sales_summary_auto_import 
-								  WHERE fiscal_year='.$year.'
+								  WHERE fiscal_year='.$year.' '.$searchComp.'
 								  GROUP BY acc_manager) tsh2 
 								  ON acc.acc_manager = tsh2.acc_manager
 								 GROUP BY acc.acc_manager 
@@ -194,7 +201,7 @@ switch ($action ) {
 		break;
 	case 'month':
 			$conn->selectQuery('company, customer, doc_date ,doc_num, FORMAT(gross,2) AS gross, FORMAT(vat,2) AS vat, FORMAT(net,2) AS net','tbl_sales_summary_auto_import 
-								WHERE acc_manager="'.$acc_manager.'" AND fiscal_year = '.$year.' AND month="'.ucfirst($month).'" ');
+								WHERE acc_manager="'.$acc_manager.'" AND fiscal_year = '.$year.' AND month="'.ucfirst($month).'" '.$searchComp.'');
 							 
 							 if($conn->getNumRows() > 0){
 							 	$resMonth = $conn->getFields();
@@ -204,7 +211,7 @@ switch ($action ) {
 							 }
 							 print Utils::jsonEncode($resMonth);
 		break;	
-		case 'year':
+	case 'year':
 				$conn->selectQuery('customer,
 								FORMAT(SUM(CASE WHEN MONTH="Jan" THEN net END), 2) AS jan,
 								FORMAT(SUM(CASE WHEN MONTH="Feb" THEN net END), 2) AS feb,
@@ -218,7 +225,7 @@ switch ($action ) {
 								FORMAT(SUM(CASE WHEN MONTH="Oct" THEN net END), 2) AS _oct,
 								FORMAT(SUM(CASE WHEN MONTH="Nov" THEN net END), 2) AS nov,
 								FORMAT(SUM(CASE WHEN MONTH="Dec" THEN net END), 2) AS _dec','tbl_sales_summary_auto_import 
-								WHERE acc_manager="'.$acc_manager.'" AND fiscal_year = '.$year.' GROUP BY customer');
+								WHERE acc_manager="'.$acc_manager.'" AND fiscal_year = '.$year.' '.$searchComp.' GROUP BY customer');
 
 								 if($conn->getNumRows() > 0){
 								 	$resYear = $conn->getFields();

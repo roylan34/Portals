@@ -14,11 +14,19 @@ require_once '../utils.php';
 /** Include PHPExcel */
 require_once '../phpexcel/PHPExcel-1.8/Classes/PHPExcel.php';
 
+$db = Database::getInstance();
 $year ="";
 $month ="";
-$db = Database::getInstance();
- if(Utils::getValue('year'))		{ $year = $db->escapeString(Utils::getValue('year')); }
- if(Utils::getValue('month'))   { $month = $db->escapeString(Utils::getValue('month')); }
+$comp 	= Utils::getValue('company');
+$searchComp = "";
+$joinSearchComp = "";
+if($comp == "dosc" || $comp == "dbic"){  
+	$searchComp 	= "AND company = '".$comp."'" ;
+	$joinSearchComp = "AND tsh.company = '".$comp."'" ;
+}
+
+if(Utils::getValue('year'))	   { $year = $db->escapeString(Utils::getValue('year')); }
+if(Utils::getValue('month'))   { $month = $db->escapeString(Utils::getValue('month')); }
 
 			$allowed_user_type = array(2,3,4); //Sales, Relation, Techinical
 			if(in_array(Utils::getValue('user_type'), $allowed_user_type)){
@@ -32,7 +40,7 @@ $db = Database::getInstance();
 				$db->fields = null; //empty the previous result.
 
 				//Check if account manager is exist in sales summary table.
-				$db->selectQuery('*','tbl_sales_summary_auto_import WHERE acc_manager = "'.$acc_mngr.'" LIMIT 1');
+				$db->selectQuery('*','tbl_sales_summary_auto_import WHERE acc_manager = "'.$acc_mngr.'" '.$searchComp.' LIMIT 1');
 				$isExist  = $db->getFields();
 
 				if(count($isExist['aaData']) > 0){
@@ -55,11 +63,11 @@ $db = Database::getInstance();
 												FORMAT(SUM(net), 2) AS ytd_net 
 											FROM
 												tbl_sales_summary_auto_import
-											WHERE fiscal_year = '.$year.' AND acc_manager="'.$acc_mngr.'"
+											WHERE fiscal_year = '.$year.' AND acc_manager="'.$acc_mngr.'" '.$searchComp.'
 											) tsh2 
 											ON tsh.acc_manager = tsh2.acc_manager 
 											 WHERE tsh.fiscal_year ='.$year.'
-											 AND tsh.month ="'.ucfirst($month).'" AND tsh.acc_manager="'.$acc_mngr.'"');
+											 AND tsh.month ="'.ucfirst($month).'" AND tsh.acc_manager="'.$acc_mngr.'" '.$joinSearchComp.'');
 						$data = $db->getFields();
 				}
 				else{
@@ -84,7 +92,7 @@ $db = Database::getInstance();
 									FORMAT(SUM(net),2) AS mtd_net 
 								FROM
 									tbl_sales_summary_auto_import tsh
-								WHERE fiscal_year = '.$year.' AND month="'.ucfirst($month).'" 
+								WHERE fiscal_year = '.$year.' AND month="'.ucfirst($month).'" '.$searchComp.'
 								GROUP BY acc_manager 
 								) tsh ON acc.acc_manager = tsh.acc_manager
 								LEFT JOIN (
@@ -95,7 +103,7 @@ $db = Database::getInstance();
 									FORMAT(SUM(net),2) AS ytd_net
 								FROM
 									tbl_sales_summary_auto_import 
-									WHERE fiscal_year='.$year.'
+									WHERE fiscal_year='.$year.' '.$searchComp.'
 									GROUP BY acc_manager 
 								) tsh2 ON acc.acc_manager = tsh2.acc_manager
 								GROUP BY acc.acc_manager
@@ -125,7 +133,7 @@ $db = Database::getInstance();
 										SUM(net) AS mtd_net 
 									FROM
 										tbl_sales_summary_auto_import tsh 
-									WHERE fiscal_year = '.$year.' AND month="'.ucfirst($month).'" 
+									WHERE fiscal_year = '.$year.' AND month="'.ucfirst($month).'" '.$searchComp.'
 									GROUP BY acc_manager) tsh 
 									ON acc.acc_manager = tsh.acc_manager 
 								LEFT JOIN 
@@ -136,7 +144,7 @@ $db = Database::getInstance();
 										SUM(net) AS ytd_net 
 									FROM
 										tbl_sales_summary_auto_import 
-									WHERE fiscal_year='.$year.'
+									WHERE fiscal_year='.$year.' '.$searchComp.'
 									GROUP BY acc_manager) tsh2 
 									ON acc.acc_manager = tsh2.acc_manager
 								 GROUP BY acc.acc_manager 

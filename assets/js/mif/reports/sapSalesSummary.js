@@ -9,20 +9,21 @@ var reportSalesPerAccount = {
 	 },
 	drop_down_sales: function(){
       autoDrpDown.getlistYear("#select-year-sales");
-      $("#select-month-sales, #select-year-sales").on('change',function(){
+      $("#select-month-sales, #select-year-sales, #select-company-sales").on('change',function(){
       		self.reportSalesPerAccount.table_sales_summary();
       });
 
 	},
 	table_sales_summary: function(){
 		var view='';
-		var selectedMonth = $("#select-month-sales option:selected").val(); //get the 2nd option value as default branch value.
-		var selectedYear  = $("#select-year-sales option:selected").val(); //get the 2nd option value as default branch value.
+		var selectedMonth = $("#select-month-sales option:selected").val();
+		var selectedYear  = $("#select-year-sales option:selected").val(); 
+		var selectedComp  = $("#select-company-sales option:selected").val(); 
 		$.ajax({
 			type: "GET",
 			url: assets+"php/company/sapSalesSummary.php",
 			cache: false,
-			data: {action:"sales-summary", month: selectedMonth, year : selectedYear, user_id: jwt.get('user_id'), user_type: jwt.get('user_type')},
+			data: {action:"sales-summary", month: selectedMonth, year: selectedYear, company: selectedComp, user_id: jwt.get('user_id'), user_type: jwt.get('user_type')},
 			dataType: 'json',
 			success: function (data, status, xhr) {
 						if(data.length > 0){
@@ -61,10 +62,12 @@ var reportSalesPerAccount = {
 		return this;
 	},
 	get_composition_month: function(acc, docYear){
-		var selectedMonth = $("#select-month-sales option:selected").val(); //get the 2nd option value as default branch value.
-		var selectedYear  = $("#select-year-sales option:selected").val(); 
+		var selectedMonth = $("#select-month-sales option:selected").val(); 
+		var selectedYear  = $("#select-year-sales option:selected").val();
+		var selectedComp  = $("#select-company-sales option:selected").val();  
+		var compTitleHeader = (selectedComp != 'all' ? " - "+selectedComp.toUpperCase() : "");
 
-		$("#modalSalesMonth .modal-title").text(acc+" - "+selectedMonth.toUpperCase()+" "+docYear);
+		$("#modalSalesMonth .modal-title").text(acc+" - "+selectedMonth.toUpperCase()+" "+docYear+ compTitleHeader);
 		this.dtInstance = $("#dtViewSalesMonth").DataTable({
                 "dom"       : 'fBlrtip', 
                 "autoWidth" : false,
@@ -82,7 +85,7 @@ var reportSalesPerAccount = {
                     "ajax" : {
 			                    "url": assets+"php/company/sapSalesSummary.php",
 			                    "type" : "GET",
-                                "data": {action:"month", month: selectedMonth, year: selectedYear, acc_manager:acc}            		 
+                                "data": {action:"month", month: selectedMonth, year: selectedYear, acc_manager:acc, company: selectedComp}            		 
                   },
                  "buttons":[
                  		{
@@ -93,7 +96,7 @@ var reportSalesPerAccount = {
                             text: "<i class='fa fa-file-excel-o'></i>",
                             titleAttr: 'Export to Excel',
                             className: 'dt-summary-excel',
-                            filename: 'Sales Details ' + selectedMonth.toUpperCase()+"-"+docYear
+                            filename: 'Sales Details ' + selectedMonth.toUpperCase()+"-"+docYear+ compTitleHeader 
                         }
                  ],
                 "columns"  : [
@@ -119,8 +122,10 @@ var reportSalesPerAccount = {
 	},
 	get_composition_year: function(acc){
 		var selectedYear  = $("#select-year-sales option:selected").val(); 
+		var selectedComp  = $("#select-company-sales option:selected").val(); 
+		var compTitleHeader = (selectedComp != 'all' ? " - "+selectedComp.toUpperCase() : "");
 
-		$("#modalSalesYear .modal-title").text(acc+" - YTD "+selectedYear);
+		$("#modalSalesYear .modal-title").text(acc+" - YTD "+selectedYear+compTitleHeader);
 		this.dtInstance2 = $("#dtViewSalesYear").DataTable({
                 "dom"       : 'fBlrtip', 
                 "autoWidth" : false,
@@ -138,7 +143,7 @@ var reportSalesPerAccount = {
                     "ajax" : {
 			                    "url": assets+"php/company/sapSalesSummary.php",
 			                    "type" : "GET",
-                                "data": {action:"year", year: selectedYear, acc_manager:acc}            		 
+                                "data": {action:"year", year: selectedYear, acc_manager:acc, company: selectedComp}            		 
                   },
                 "buttons":[
                  		{
@@ -149,7 +154,7 @@ var reportSalesPerAccount = {
                             text: "<i class='fa fa-file-excel-o'></i>",
                             titleAttr: 'Export to Excel',
                             className: 'dt-summary-details-excel',
-                            filename: 'YTD Sales ' + selectedYear
+                            filename: 'YTD Sales ' + selectedYear +compTitleHeader
                         }
                  ],
                 "columns"  : [
@@ -176,11 +181,11 @@ var reportSalesPerAccount = {
         });
 		return this;
 	},
-	exportExcelRow: function(pmonth, pyear){
+	exportExcelRow: function(pmonth, pyear, comp){
 		 var year  = pmonth || '';
 		 var month = pyear || '';
 			if(year != '' && month !=''){
-			    var urlExcel = window.location.origin + window.location.pathname + 'assets/php/company/excelSalesSummary.php?year='+pyear+'&month='+pmonth+'&user_type='+jwt.get('user_type')+'&user_id='+jwt.get('user_id');
+			    var urlExcel = window.location.origin + window.location.pathname + 'assets/php/company/excelSalesSummary.php?company='+comp+'&year='+pyear+'&month='+pmonth+'&user_type='+jwt.get('user_type')+'&user_id='+jwt.get('user_id');
 			       	window.open(urlExcel, '_blank');			     
 			}
 			else{
@@ -215,7 +220,8 @@ var reportSalesPerAccount = {
 				if(inst.hasClass('btn-export-summary')){
 					var selectedMonth = $("#select-month-sales option:selected").val();
 					var selectedYear  = $("#select-year-sales option:selected").val(); 
-					self.reportSalesPerAccount.exportExcelRow(selectedMonth, selectedYear);
+					var selectedComp  = $("#select-company-sales option:selected").val(); 
+					self.reportSalesPerAccount.exportExcelRow(selectedMonth, selectedYear, selectedComp);
 				}
 	
 		});
