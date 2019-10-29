@@ -87,27 +87,22 @@
                 </tr>
               </thead>
               <thead id="dthead-search-inout" style="display:none;">
-                    <tr >
-                       <th colspan="6">
-                          <div class="row">
-                             <div class="col-xs-12">
-                                 <div class="col-xs-12 col-md-2 dt-head-search" ><input type="text" class="form-control" id="search-inout-serial" placeholder="S/N" ></div>                               
-                                 <div class="col-xs-12 col-md-2 dt-head-search" ><input type="text" class="form-control" id="search-inout-brand" placeholder="Brand" ></div>                      
-                                 <div class="col-xs-12 col-md-2 dt-head-search" ><input type="text" class="form-control" id="search-inout-model" placeholder="Model" ></div>  
-                                 <div class="col-xs-12 col-md-2 dt-head-search" ><input type="text" class="form-control" id="search-inout-company" placeholder="Company" ></div>  
-                                 <div class="col-xs-12 col-md-2 dt-head-search" >
-                                  <select id="search-inout-type" class="form-control">
-                                      <option value="">---</option>
-                                      <option value="in">In</option>
-                                      <option value="out">Out</option>
-                                  </select>
-                                </div>  
-                                 <div class="col-xs-12 col-md-6 dt-head-search" style="width: 70px; padding-top: 3px; box-sizing: border-box;" id="btn-inout-search"><button type="button" class="btn btn-primary btn-flat btn-sm">Search</button></div>
-                                 <div class="col-xs-12 col-md-6" style="width: 70px; padding-top: 3px; box-sizing: border-box;" id="btn-inout-reset"><button type="button" class="btn btn-warning btn-flat btn-sm">Reset</button></div>
-                             </div>
-                          </div>
-                       </th>
-                    </tr>
+                <tr >
+                  <th  colspan="6">
+                    <div class="col-md-2"><input type="text" class="form-control" id="search-inout-serial" placeholder="S/N" ></div>                               
+                    <div class="col-md-2"><input type="text" class="form-control" id="search-inout-brand" placeholder="Brand" ></div>                   
+                    <div class="col-md-2"><input type="text" class="form-control" id="search-inout-model" placeholder="Model" ></div>  
+                    <div class="col-md-4"><input type="text" class="form-control" id="search-inout-company" placeholder="Company" ></div>  
+                    <div class="col-md-2">
+                      <div class="col-xs-12 col-md-6 dt-head-search" style="padding-top: 3px; box-sizing: border-box;" id="btn-inout-search">
+                        <button type="button" class="btn btn-primary btn-flat btn-sm">Search</button>
+                      </div>
+                      <div class="col-xs-12 col-md-6" style="padding-top: 3px; box-sizing: border-box;" id="btn-inout-reset">
+                        <button type="button" class="btn btn-warning btn-flat btn-sm">Reset</button>
+                      </div>
+                    </div>
+                  </th>
+                </tr>
               </thead>
             </table>
 
@@ -129,12 +124,12 @@
                 <div class="small-box bg-light-blue col-sm-12">
                     <div class="inner">
                       <div class="col-sm-6">
-                          <h4 id="total-in"><a href="#" data-toggle="modal" data-target="#modalInOut" data-type="in" onClick="dtCompany.viewInOutMachine(this)">----</a></h4>
+                          <h4 id="total-in"><a href="#" data-toggle="modal" data-target="#modalInOut" data-type="in" onClick="dtCompany.viewInOutMachine(this).actionViewInOut()">----</a></h4>
                           <p>TOTAL IN</p>
                           <span class="date-container">Date From: <input type="text" id="date-from" placeholder="yyyy-mm-dd" class="dateInOut" onChange="dtCompany.countInOutMachine()"></span>
                       </div>                 
                       <div class="col-sm-6">
-                          <h4 id="total-out"><a href="#" data-toggle="modal" data-target="#modalInOut" data-type="out" onClick="dtCompany.viewInOutMachine(this)">----</a></h4>
+                          <h4 id="total-out"><a href="#" data-toggle="modal" data-target="#modalInOut" data-type="out" onClick="dtCompany.viewInOutMachine(this).actionViewInOut()">----</a></h4>
                           <p>TOTAL OUT</p> 
                           <span class="date-container">Date To: <input type="text" id="date-to" placeholder="yyyy-mm-dd" class="dateInOut" onChange="dtCompany.countInOutMachine()"></span>                 
                       </div>

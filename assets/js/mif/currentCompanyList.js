@@ -800,6 +800,21 @@ var dtCompany = {
 
                                                 }
                                             },
+                                            {
+                                                text: 'Open Search Filter',
+                                                className: 'dt-button-search',
+                                                action: function ( e, dt, node, config ) {
+                                                        $("#dthead-search-inout").slideToggle('fast',function(){
+                                                            if($(this).is(':visible')){
+                                                                node[0].innerText = 'Close Search Filter';
+                                                            }else{
+                                                               node[0].innerText = 'Open Search Filter';
+                                                                $("#dthead-search-inout input[type='text']").val(''); 
+                                                                self.dtCompany.dtInstanceInOut.ajax.reload(null, true); //Reload DT when closing filter search.
+                                                            }
+                                                        });
+                                                }
+                                            }
                                 ],
                                 "ajax": {
                                     "url": assets+'php/misc/listInOutMachines.php',
@@ -807,7 +822,7 @@ var dtCompany = {
                                     "dataSrc": "records",
                                      data: function(d){                                         
                                             d.serialnumber = $("#search-inout-serial").val() || '';
-                                            d.brand     = $("#search-inout-brand option:selected").val() || '';
+                                            d.brand     = $("#search-inout-brand").val() || '';
                                             d.model     = $("#search-inout-model").val() || '';
                                             d.company   = $("#search-inout-company").val() || '';
                                             d.type      = _thisElem.getAttribute('data-type');
@@ -820,7 +835,7 @@ var dtCompany = {
                                     { "data": null},
                                     { "data": "serialnumber"},
                                     { "data": "brand_name"},
-                                    { "data": "model"},
+                                    { "data": "model_name"},
                                     { "data": "company_name"},
                                     { "data": "date" }
                                     
@@ -834,7 +849,7 @@ var dtCompany = {
                                     }
                                 ],
                                 "preDrawCallback": function(settings){
-                                   $(".btn-excel-inout, .btn-print-inout").removeClass("dt-button").addClass("btn btn-primary btn-flat btn-sm").css({"margin-bottom":"0.5em","margin-right":"0.5em"});
+                                   $(".btn-excel-inout, .btn-print-inout, .dt-button-search").removeClass("dt-button").addClass("btn btn-primary btn-flat btn-sm").css({"margin-bottom":"0.5em","margin-right":"0.5em"});
                                    $(".btn-print-inout").text('').html("<i class='glyphicon glyphicon-print'></i>").attr('title','Print');
                                    $(".btn-excel-inout").text('').html("<i class='fa fa-file-excel-o'></i>").attr('title','Export to Excel');
                                 }
@@ -842,6 +857,33 @@ var dtCompany = {
               
                 }
         return this;
+    },
+    actionViewInOut: function(){
+         $("table#dtInOut").on('click','button, a',function (e) {
+                    e.preventDefault();
+
+                    var inst = $(this);
+                    var button_label = inst.text().toLowerCase();
+
+                    //Highlight row selected.
+                    if ( !inst.closest('tr').hasClass('selected') ) {  
+                        self.dtCompany.dtInstanceInOut.$('tr.selected').removeClass('selected');
+                        inst.closest('tr').addClass('selected');
+                    }
+                    //Search button
+
+                    if(button_label == "search"){
+                        self.dtCompany.dtInstanceInOut.ajax.reload(null, true);
+                    }
+                     //Reset button
+                    else if(button_label =="reset"){
+                        $("#dthead-search-inout input[type='text']").val(''); 
+                        self.dtCompany.dtInstanceInOut.ajax.reload(null, true); //Reload DT when closing filter search.
+                    }
+                    else{ }
+
+        });
+         return this;
     }
 
 
