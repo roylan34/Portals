@@ -17,11 +17,11 @@ $totalData =0;
 $totalFiltered =0;
 
 $conn = Database::getInstance(); //For Searching.
-if(Utils::getValue('serialnumber'))		{ $search ="AND serialnumber ='".$conn->escapeString(Utils::getValue('serialnumber'))."'"; }
-if(Utils::getValue('brand'))			{ $search .="AND id_brand = '".$conn->escapeString(Utils::getValue('brand'))."'"; }
-if(Utils::getValue('model'))			{ $search .="AND model LIKE '%".$conn->escapeString(Utils::getValue('model'))."%'"; }
-if(Utils::getValue('location'))			{ $search .="AND location ='".$conn->escapeString(Utils::getValue('location'))."'"; }
-if(Utils::getValue('date'))				{ $search .="AND date_entered ='".$conn->escapeString(Utils::getValue('date'))."'"; }
+if(Utils::getValue('serialnumber'))		{ $search ="AND ma.serialnumber ='".$conn->escapeString(Utils::getValue('serialnumber'))."'"; }
+if(Utils::getValue('brand'))			{ $search .="AND ma.id_brand = '".$conn->escapeString(Utils::getValue('brand'))."'"; }
+if(Utils::getValue('model'))			{ $search .="AND ma.model LIKE '%".$conn->escapeString(Utils::getValue('model'))."%'"; }
+if(Utils::getValue('location'))			{ $search .="AND ma.location ='".$conn->escapeString(Utils::getValue('location'))."'"; }
+if(Utils::getValue('date'))				{ $search .="AND ma.date_entered ='".$conn->escapeString(Utils::getValue('date'))."'"; }
 
 			$requestData= $_REQUEST;
 			// storing  request (ie, get/post) global array to a variable  
@@ -32,8 +32,8 @@ if(Utils::getValue('date'))				{ $search .="AND date_entered ='".$conn->escapeSt
 
 			if( !empty($search) ) { // if there is a search parameter, $requestData['search']['value'] contains search parameter.
 
-			$conn->selectQuery('*','tbl_invnt_machines_auto_import 
-					WHERE id > 0 '.$search.'');
+			$conn->selectQuery('ma.*','tbl_invnt_machines_auto_import ma
+					WHERE ma.id > 0 '.$search.'');
 
 				$conn->fields = null;
 				$totalFiltered  = $conn->getNumRows(); // when there is a search parameter then we have to modify total number filtered rows as per search result. 
