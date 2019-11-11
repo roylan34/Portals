@@ -3,7 +3,7 @@
 
 
 // require './assets/php/database.php';
-require './assets/php/utils.php';
+// require './assets/php/utils.php';
 
 
 // $db = Database::getInstance();
@@ -13,8 +13,8 @@ require './assets/php/utils.php';
 
 // //Decrypt each row by updating.
 // foreach ($result['aaData'] as $key => $value) {
-//     $db->updateQuery('tbl_accounts', 'password = "'.Utils::decrypt($value['password']).'"', 'id='.$value['id'].'');
+//     $db->updateQuery('tbl_accounts', 'password = "'.Utils::encrypt($value['password']).'"', 'id='.$value['id'].'');
 // }
 
-echo Utils::decrypt('Tc6SegCyADeSXGJHtuA1P8mJqkVD3YthZoP09NSjQnk=');
+// echo Utils::decrypt('j0EkL3v3xxUalUaKdQUJu8t2sfvV17DbmE3EoTeVb9g=');
 

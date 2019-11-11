@@ -1,4 +1,4 @@
-//Current
+//Archive
 var dtArchiveReservation = {
 	dtInstance: null,
 	selectedBranch: null,
@@ -100,6 +100,30 @@ var dtArchiveReservation = {
 				                }
 	                    });
 	        return this;               
-    }
+    },
+     actions: function(){
+    	$("#dtArchiveReservation").on('click','button',function(e) {
+    		e.preventDefault();
+    		    var inst = $(this);
+    		    var button_label = inst.text().toLowerCase();
+
+		        //Highlight row selected.
+                if(!inst.closest('tr').hasClass('selected') ) {  
+                    self.dtArchiveReservation.dtInstance.$('tr.selected').removeClass('selected');
+                    inst.closest('tr').addClass('selected');
+                }
+                //Search button
+                if(button_label == "search"){
+                    self.dtArchiveReservation.dtInstance.ajax.reload(null, true);
+                }
+                //Reset button
+                else if(button_label =="reset"){
+	                $(".dthead-search-reserve input[type='text']").val('');  //Clear all values;
+	                self.dtArchiveReservation.dtInstance.ajax.reload(null, true); //Reload DT when closing filter search.
+                }
+        
+            });
+    	return this;    	 
+    },
 
 };

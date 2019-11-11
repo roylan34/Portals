@@ -352,7 +352,7 @@ $(document).ready(function(){
 		var _self = this;
 		$('.view-content').load(pages+'inventory/archive/reservation.html',function(data,status){
 		  if(status =='success'){
-		  		dtArchiveReservation.pageDetails().render();
+		  		dtArchiveReservation.pageDetails().render().actions();
 		  }
 		});
 	 },
