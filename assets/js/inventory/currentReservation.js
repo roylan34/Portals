@@ -268,15 +268,13 @@ var dtCurrentInvtReservation = {
 			                url: assets+'php/inventory/reservation.php',
 			                data: data,
 			                dataType: 'json',
-			                beforeSend: function(){ 
-			                	$(".mif-modalPromptMSG").modal("hide");
-			                },
 			                success: function(data){
 			                   	self.dtCurrentInvtReservation.dtInstance.ajax.reload(function(){
-			                        promptMSG('remove','Reservation',null,null,false);
-			                        $('.mif-modalPromptMSG').on('click','button',function(){//Hide modal Remove Machine.
-			                            $('#modalRemoveReservation').modal('hide');
-			                       });
+		                        	promptMSG('remove','Reservation',null,false, true);
+		                        	$('.mif-modalPromptMSG').on('click','button',function(){//Hide modal Remove Machine.
+		                           	 	$('.modal').modal('hide');
+		                            	$('.modal-backdrop').remove();
+		                       		});
 			                    }, true); // Reload the data in DataTable and go to last page.
 		                	},
 		                	error: function(xhr,status){ alert(xhr + status); },
