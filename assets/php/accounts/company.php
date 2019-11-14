@@ -6,6 +6,9 @@
 *
 */ 
 
+
+
+
 require_once '../database.php';
 require_once '../utils.php';
 
@@ -178,20 +181,21 @@ if(Utils::getIsset('action')){
 					$db->selectQuery('m.*, br.branch_name','tbl_accounts m LEFT JOIN tbl_branch br ON m.branches = br.id');
 					$res = $db->getFields();
 					$data = array();
-						foreach ($res['aaData'] as $key => $val){
-							$data['aaData'][] = array(
-													'id' => $val['id'],
-													'username' => $val['username'],
-													'password' => $val['password'],
-													'firstname' => Utils::ucFirstLetter($val['firstname']),
-													'middlename' => Utils::ucFirstLetter($val['middlename']),
-													'lastname' => Utils::ucFirstLetter($val['lastname']),
-													'location' => getListofCompany(strtoupper($val['location']),$db),
-													'branch' => strtoupper($val['branch_name']),
-													'accountrole' => Utils::ucFirstLetter($val['accountrole']),
-													'status' => $val['status'],
-													'created_at' => $val['created_at']);
-						}
+					foreach ($res['aaData'] as $key => $val){
+						$data['aaData'][] = array(
+												'id' => $val['id'],
+												'username' => $val['username'],
+												'password' => $val['password'],
+												'firstname' => Utils::ucFirstLetter($val['firstname']),
+												'middlename' => Utils::ucFirstLetter($val['middlename']),
+												'lastname' => Utils::ucFirstLetter($val['lastname']),
+												'location' => getListofCompany(strtoupper($val['location']),$db),
+												'branch' => strtoupper($val['branch_name']),
+												'accountrole' => Utils::ucFirstLetter($val['accountrole']),
+												'status' => $val['status'],
+												'created_at' => $val['created_at']
+											);
+					}
 					 print Utils::jsonEncode($data);
 			
 			break;
@@ -287,18 +291,19 @@ if(Utils::getIsset('action')){
 
 
  function getListofCompany($strBranches,$db){
+ 	$list = '';
 	if(is_string($strBranches) && !empty($strBranches)){
-		$list = '';
+		 $branch = array();
 		$db->fields = null;
 		$db->selectQuery('branch_name','tbl_location WHERE id IN ('.$strBranches.')');
 		$res = $db->getFields();
 		$countbranch = count($res['aaData']);
 		for ($i=0; $i < $countbranch ; $i++) { 
-			$list .= $res['aaData'][$i]['branch_name'].'<br>';
+			$branch[] = $res['aaData'][$i]['branch_name'];
 		}
-		return $list;
+		$list = implode("<br>", $branch);
 	}
-	return '';
+	return $list;
 }
 
 function hasLocationAll($location){ //Check if location has ALL.

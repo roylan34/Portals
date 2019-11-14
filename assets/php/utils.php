@@ -125,9 +125,9 @@ Class Utils{
 	}
 
 	static public function ucFirstLetter($str){
-		if(!is_string($str))
+		if(!is_string($str) && !empty($str))
 			return false;
-		return ucwords(strtolower($str));
+		return ucfirst($str);
 	}
 
 	static public function upperCase($str){
