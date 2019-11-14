@@ -104,7 +104,7 @@ switch (Utils::getValue('action_view')) {
 								INNER JOIN tbl_company c ON m.id_company = c.id
 								LEFT JOIN tbl_accounts ac ON m.id_user_requestor = ac.id
 								LEFT JOIN tbl_mrf_request_tracker mt ON m.id = mt.id_mrf
-					  			WHERE m.id > 0 AND mt.flag_completion ="not complete" AND (mt.1st_id_status IN(1,2) AND mt.2nd_id_status IN(1,2)) AND mt.is_cancel="no" '.$branch_cur.' '.$search.' ');
+					  			WHERE m.id > 0 AND mt.flag_completion ="not complete" AND (mt.1st_id_status IN(1,2) AND mt.2nd_id_status IN(1,2)) AND mt.is_cancel="no" '.$branch_cur.' '.$search.' GROUP BY m.id');
 
 						$conn->fields = null;
 						$totalFiltered  = $conn->getNumRows(); // when there is a search parameter then we have to modify total number filtered rows as per search result. 
@@ -128,7 +128,7 @@ switch (Utils::getValue('action_view')) {
 										LEFT JOIN tbl_accounts ac ON m.id_user_requestor = ac.id
 										LEFT JOIN tbl_mrf_request_tracker mt ON m.id = mt.id_mrf
 										LEFT JOIN tbl_branch br ON m.id_branch = br.id
-					  					WHERE m.id > 0 AND mt.flag_completion ="not complete" AND (mt.1st_id_status IN(1,2) AND mt.2nd_id_status IN(1,2)) AND mt.is_cancel="no" '.$branch_cur.' '.$search.' ORDER BY m.id DESC '.$limit.'');
+					  					WHERE m.id > 0 AND mt.flag_completion ="not complete" AND (mt.1st_id_status IN(1,2) AND mt.2nd_id_status IN(1,2)) AND mt.is_cancel="no" '.$branch_cur.' '.$search.'GROUP BY m.id ORDER BY m.id DESC '.$limit.'');
 					$row = $conn->getFields(); //Get all rows
 
 					if($conn->getNumRows() > 0 ){
