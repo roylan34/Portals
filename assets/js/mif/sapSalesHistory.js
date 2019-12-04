@@ -142,6 +142,10 @@ var dtSalesHistory = {
                         targets:   0
                     },
                     {
+                        className: 'never',
+                        targets:   7
+                    }, 
+                    {
                         className: 'min-mobile text-right',
                         targets:   12
                     },

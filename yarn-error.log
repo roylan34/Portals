@@ -14,7 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  SyntaxError: C:\wamp\www\machine\package.json: Unexpected token } in JSON at position 118
+  SyntaxError: C:\wamp64\www\machine\package.json: Unexpected token } in JSON at position 118
       at JSON.parse (<anonymous>)
       at C:\Program Files (x86)\Yarn\lib\cli.js:1130:59
       at Generator.next (<anonymous>)
