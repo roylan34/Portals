@@ -62,10 +62,11 @@ var dtArchiveReservation = {
 	                                "dataSrc": "records",
 	                                 data: function(d){
 	                                 		delete d.columns;	                                		
-	                                 		d.serial_no 	= $(".search-reserve-serial").val();
-	                                 		d.acct_mngr 	= $(".search-reserve-acct").val();   
-	                                 		d.comp 			= $(".search-reserve-comp").val();   
-	                                 		d.date_reserved	= $(".search-reserve-date").val();   
+	                                 		d.serial_no 	= $(".dthead-search-reserve tr:visible .search-reserve-serial").val();
+	                                 		d.acct_mngr 	= $(".dthead-search-reserve tr:visible .search-reserve-acct").val();   
+	                                 		d.comp 			= $(".dthead-search-reserve tr:visible .search-reserve-comp").val();   
+	                                 		d.date_reserved	= $(".dthead-search-reserve tr:visible .search-reserve-date").val();   
+	                                 		d.branch		= $(".dthead-search-reserve tr:visible .search-reserve-branch").val();   
 	                                 		d.action_view 	= 'archive';                       	  
 	                                     }
 	                            },	   
@@ -92,6 +93,7 @@ var dtArchiveReservation = {
 		                                }
 		                            },
 		                            { "data": "created_at"},
+		                            { "data": "branch_name"}
 	                            ],
 	                            "preDrawCallback": function(settings){
 		                           $(".btn-excel-inventory, .btn-print-inventory, .btn-search-inventory, .btn-reserve").removeClass("dt-button").addClass("btn btn-primary btn-flat btn-sm").css({"margin-bottom":"0.5em","margin-right":"0.5em"});

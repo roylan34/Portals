@@ -22,6 +22,7 @@ if(Utils::getIsset('action')){
 	$date_reserved 	= Utils::getValue('date_reserved');
 	$create_by 		= Utils::getValue('create_by');
 	$status 		= Utils::getValue('status');
+	$branch 		= Utils::getValue('branch');
 	$date_entered = Utils::getSysDate().' '.Utils::getSysTime();
 
 	$db         = Database::getInstance();
@@ -38,11 +39,12 @@ if(Utils::getIsset('action')){
 		        	$data['aaData'][] = "Already reserved S/N: <em>" . implode(',',$reserved_sn)."</em>";
 		        }
 		        else{
-					$db->insertMultipleByUniqueQuery('tbl_invnt_reservation','serial_number, id_acc_mngr, id_company, date_reserved, id_created_by, created_at', $arr_serialnum,
+					$db->insertMultipleByUniqueQuery('tbl_invnt_reservation','serial_number, id_acc_mngr, id_company, date_reserved, id_created_by, branch, created_at', $arr_serialnum,
 								   '"'.$acct_mgnr.'",
 								  "'.$comp.'",
 								  "'.$date_reserved.'",
 								  "'.$create_by.'", 
+								  "'.$branch.'", 
 								  NOW()');
 					$data = $db->getFields();
 				}
@@ -60,7 +62,8 @@ if(Utils::getIsset('action')){
 							$db->updateQuery('tbl_invnt_reservation','serial_number = "'.$sn.'", 
 															id_acc_mngr 	= "'.$acct_mgnr.'",
 															id_company 	 	= "'.$comp.'",
-															date_reserved 	= "'.$date_reserved.'"'
+															date_reserved 	= "'.$date_reserved.'",
+															branch 			= "'.$branch.'"'
 											    			,'id = "'.$id_reserve.'"');
 							$data = $db->getFields();
 					 	}

@@ -12,8 +12,13 @@ var dtCurrentInvtReservation = {
 	    		$("#modalFormCurrentRsrv").modal('show');
 				autoDrpDown.getAllCompany('#slctCurRsrvComp',"100%");
 				autoDrpDown.getClientName("#slctCurRsrvAcctMngr","100%");
-
+				autoDrpDownInvnt.getBranch("#slctRsrvBranch",null,[1])
 				self.dtCurrentInvtReservation.addMultipleInput();
+
+				var branch = jwt.get('branch');
+				if( branch != 1){ // Disable dropdown branch.s
+					$("#slctRsrvBranch").prop('disabled',true).val(branch);
+				}
 
 				if(id){
     	   	 		 $(this).find("#modalFormCurrentRsrv .modal-title").text('Edit Reservation');
@@ -73,12 +78,12 @@ var dtCurrentInvtReservation = {
 			                                    text: 'Open Search Filter',
 			                                    className: 'btn-search-inventory',
 			                                    action: function ( e, dt, node, config ) {
-		                                            $(".dthead-search-rsrv-reserve").slideToggle('fast',function(){
+		                                            $(".dthead-search-reserve").slideToggle('fast',function(){
 		                                                if($(this).is(':visible')){
 		                                                    node[0].innerText = 'Close Search Filter';
 		                                                }else{
 		                                                   node[0].innerText = 'Open Search Filter';
-		                                                    $(".dthead-search-rsrv-reserve input[type='text']").val('');  //		                                                  
+		                                                    $(".dthead-search-reserve input[type='text']").val('');  //		                                                  
 		                                                    dtCurrentInvtReservation.dtInstance.ajax.reload(null, true);
 		                                                }
 		                                            });
@@ -91,10 +96,11 @@ var dtCurrentInvtReservation = {
 	                                "dataSrc": "records",
 	                                 data: function(d){
 	                                 		delete d.columns;	                                		
-	                                 		d.serial_no 	= $(".search-reserve-serial").val();
-	                                 		d.acct_mngr 	= $(".search-reserve-acct").val();   
-	                                 		d.comp 			= $(".search-reserve-comp").val();   
-	                                 		d.date_reserved	= $(".search-reserve-date").val();   
+	                                 		d.serial_no 	= $(".dthead-search-reserve tr:visible .search-reserve-serial").val();
+	                                 		d.acct_mngr 	= $(".dthead-search-reserve tr:visible .search-reserve-acct").val();   
+	                                 		d.comp 			= $(".dthead-search-reserve tr:visible .search-reserve-comp").val();   
+	                                 		d.date_reserved	= $(".dthead-search-reserve tr:visible .search-reserve-date").val();   
+	                                 		d.branch		= $(".dthead-search-reserve tr:visible .search-reserve-branch").val();   
 	                                 		d.action_view 	= 'current';                       	  
 	                                     }
 	                            },	   
@@ -108,22 +114,15 @@ var dtCurrentInvtReservation = {
 	                                { "data": "company_name"},
 	                                { "data": "date_reserved"},
 	                                { "data": null, render: function(data){
-												/*var badge = "";
-	                                			var aging = (data.aging > 0 ? data.aging : 0);
-	                                			if(aging > 0){
-	                                				badge = "blue";
-	                                			}
-	                                		 	if(aging <= 3){
-	                                				badge = "orange";
-	                                			}*/
-	                                			
 	                                		return "<span class='badge badge-orange'>" + data.aging + "</span>";
-
 		                                }
 		                            },
 		                            { "data": "created_at"},
+		                            { "data": "branch_name"},
 	                            	{ "data":  null, render: function( data, type, full, meta ){
 		                                var action_elem = '';
+		                                var user_branch = jwt.get('branch');
+		                                	if(data.id_branch == user_branch || user_branch == 1 ){ //Have access to all branches.
 		                                        action_elem += '<div class="dropdown text-center btn-action-reserve">';
 		                                        action_elem += '<button class="btn btn-success dropdown-toggle btn-sm" type="button" data-toggle="dropdown">Actions'
 		                                                        +' <span class="caret"></span></button>'
@@ -132,7 +131,7 @@ var dtCurrentInvtReservation = {
 		                                                            + '<li><a href="#" class="btnRemove" data-id='+data.id+' data-status="remove" title="Remove Reservation"><i class="fa fa-trash" aria-hidden="true"></i>REMOVE</a></li>'
 		                                                            + '<li><a href="#" class="btnClose" data-id='+data.id+' data-status="close" title="Close Reservation"><i class="fa fa-window-close" aria-hidden="true"></i>CLOSE</a></li>'
 		                                                    	  +'</ul></div>';
-		                                                       
+		                                    }		                                                       
 		                                    return action_elem;
 		                                }
 		                            },
@@ -177,6 +176,7 @@ var dtCurrentInvtReservation = {
 						 $("#slctCurRsrvAcctMngr").val(val.id_acc_mngr).trigger('chosen:updated');
 						 $("#slctCurRsrvComp").val(val.id_company).trigger('chosen:updated');
 						 $("#txtCurRsrvDateEntered").text(val.created_at);
+						 $("#slctRsrvBranch").val(val.branch);
                 	});
                 },
                 error: function(xhr,status){ alert(xhr + status); },
@@ -199,7 +199,8 @@ var dtCurrentInvtReservation = {
 		 var comp			= $("#slctCurRsrvComp").chosen().val();
 		 var date_reserved 	= $("#txtCurRsrvDateReserve").val();
 		 var create_by		= jwt.get('user_id');
-		 var data = {action:'add', serialnum: serialnum, acct_mgnr: acct_mgnr, comp: comp, date_reserved: date_reserved, create_by:create_by };
+		 var branch         = $("#slctRsrvBranch option:selected").val();
+		 var data = {action:'add', serialnum: serialnum, acct_mgnr: acct_mgnr, comp: comp, date_reserved: date_reserved, create_by:create_by, branch:branch };
 		 	$.ajax({
 	            type: 'POST',
 	            url: assets+'php/inventory/reservation.php',
@@ -235,7 +236,8 @@ var dtCurrentInvtReservation = {
 		 var comp			= $("#slctCurRsrvComp").chosen().val();
 		 var date_reserved 	= $("#txtCurRsrvDateReserve").val();
 		 var create_by		= jwt.get('user_id');
-		 var data = {action:'update', id_reserve:id_reserve, serialnum: serialnum, acct_mgnr: acct_mgnr, comp: comp, date_reserved: date_reserved, create_by:create_by, sn_old: serialnum_old };
+		 var branch         = $("#slctRsrvBranch option:selected").val();
+		 var data = {action:'update', id_reserve:id_reserve, serialnum: serialnum, acct_mgnr: acct_mgnr, comp: comp, date_reserved: date_reserved, create_by:create_by, sn_old: serialnum_old, branch:branch };
    	 			if (id != ''){
 			 		$.ajax({
 		                type: 'POST',

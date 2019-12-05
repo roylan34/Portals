@@ -23,6 +23,7 @@ if(Utils::getValue('comp'))				{ $search .="AND c.company_name LIKE '%".$conn->e
 if(Utils::getValue('date_reserved'))	{ $search .="AND ir.date_reserved LIKE '%".$conn->escapeString(Utils::getValue('date_reserved'))."%'"; }
 if(Utils::getValue('acct_mngr'))		{ $search .="AND CONCAT_WS(' ', ac.firstname, ac.lastname) LIKE '%".$conn->escapeString(Utils::getValue('acct_mngr'))."%'";}
 if(Utils::getValue('status'))			{ $search .="AND ir.status = '".$conn->escapeString(Utils::getValue('status'))."'"; }
+if(Utils::getValue('branch'))			{ $search .="AND br.branch_name LIKE '%".$conn->escapeString(Utils::getValue('branch'))."%'"; }
 
 $requestData= $_REQUEST;
 
@@ -40,6 +41,7 @@ switch (Utils::getValue('action_view')) {
 							LEFT JOIN tbl_company c ON ir.id_company = c.id
 							LEFT JOIN tbl_client_accounts ca ON ir.id_acc_mngr = ca.id
 							LEFT JOIN tbl_accounts ac ON ca.account_id = ac.id
+							LEFT JOIN tbl_branch br ON ir.branch = br.id
 				  			WHERE ir.id > 0 AND (ir.status="" || ir.status is null) '.$search.' ');
 
 					$conn->fields = null;
@@ -52,10 +54,11 @@ switch (Utils::getValue('action_view')) {
 				if(intval($requestData['length']) >= 1 ) { $limit = 'LIMIT '.$requestData['start'].' ,'.$requestData['length'].''; }
 
 				$conn->selectQuery('ir.id, ir.serial_number, c.company_name, ir.date_reserved, CONCAT(ac.firstname," ", ac.lastname) AS acct_mngr, ir.status,
-									DATEDIFF(NOW(), DATE_FORMAT(ir.created_at, "%y-%m-%d")) AS aging, ir.created_at','tbl_invnt_reservation ir 
+									DATEDIFF(NOW(), DATE_FORMAT(ir.created_at, "%y-%m-%d")) AS aging, ir.created_at, ir.branch AS id_branch, br.branch_name','tbl_invnt_reservation ir 
 									LEFT JOIN tbl_company c ON ir.id_company = c.id
 									LEFT JOIN tbl_client_accounts ca ON ir.id_acc_mngr = ca.id
 									LEFT JOIN tbl_accounts ac ON ca.account_id = ac.id
+									LEFT JOIN tbl_branch br ON ir.branch = br.id
 						  			WHERE ir.id > 0 AND (ir.status="" || ir.status is null) '.$search.' ORDER BY ir.id DESC '.$limit.'');
 				$row = $conn->getFields(); //Get all rows
 
@@ -95,6 +98,7 @@ switch (Utils::getValue('action_view')) {
 							LEFT JOIN tbl_company c ON ir.id_company = c.id
 							LEFT JOIN tbl_client_accounts ca ON ir.id_acc_mngr = ca.id
 							LEFT JOIN tbl_accounts ac ON ca.account_id = ac.id
+							LEFT JOIN tbl_branch br ON ir.branch = br.id
 				  			WHERE ir.id > 0 AND ir.status IN ("REMOVE", "CLOSE") '.$search.' ');
 
 					$conn->fields = null;
@@ -106,10 +110,11 @@ switch (Utils::getValue('action_view')) {
 				
 				if(intval($requestData['length']) >= 1 ) { $limit = 'LIMIT '.$requestData['start'].' ,'.$requestData['length'].''; }
 
-				$conn->selectQuery('ir.id, ir.serial_number, c.company_name, ir.date_reserved, CONCAT(ac.firstname," ", ac.lastname) AS acct_mngr, ir.status, ir.created_at','tbl_invnt_reservation ir 
+				$conn->selectQuery('ir.id, ir.serial_number, c.company_name, ir.date_reserved, CONCAT(ac.firstname," ", ac.lastname) AS acct_mngr, ir.status, ir.created_at, br.branch_name','tbl_invnt_reservation ir 
 									LEFT JOIN tbl_company c ON ir.id_company = c.id
 									LEFT JOIN tbl_client_accounts ca ON ir.id_acc_mngr = ca.id
 									LEFT JOIN tbl_accounts ac ON ca.account_id = ac.id
+									LEFT JOIN tbl_branch br ON ir.branch = br.id
 						  			WHERE ir.id > 0 AND ir.status IN ("REMOVE", "CLOSE") '.$search.' ORDER BY ir.id DESC '.$limit.'');
 				$row = $conn->getFields(); //Get all rows
 

@@ -40,6 +40,13 @@
                 </div>
               </div>
 
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="slctRsrvBranch">Branch:</label>
+                <div class="col-sm-6">
+                  <select class="form-control" id="slctRsrvBranch" name="slctRsrvBranch"></select>
+                </div>
+              </div>
+
 
               <div class="form-group">
                 <label class="col-sm-4 control-label">Date Entered:</label>
@@ -91,6 +98,9 @@ $( document ).ready( function () {
             },
             "txtCurRsrvDateReserve": {
               required: true
+            },
+            "slctRsrvBranch": {
+              required: true
             }
           },
           messages: {
@@ -105,6 +115,9 @@ $( document ).ready( function () {
               required: "This field is required.",
             },
             "txtCurRsrvDateReserve": {
+              required: "This field is required.",
+            },
+            "slctRsrvBranch": {
               required: "This field is required.",
             }
         
