@@ -123,7 +123,7 @@ switch (Utils::getValue('department')) {
 									LEFT JOIN tbl_location b ON m.branches = b.id
 									LEFT JOIN tbl_toner_model_use tmu ON (m.id = tmu.mif_id AND m.company_id = tmu.company_id)
 									LEFT JOIN tbl_toner tr ON tmu.toner_id = tr.id
-									WHERE c.id_client_mngr = (SELECT id FROM tbl_client_accounts WHERE account_id = '.Utils::getValue('user_id').')
+									WHERE c.id_client_mngr = (SELECT id FROM sap_db.tbl_client_accounts WHERE account_id = '.Utils::getValue('user_id').')
 									AND c.status =1 AND m.status_machine = 0 '.$search.' GROUP BY m.id ORDER BY m.id DESC');
 				$res = $conn->getFields();
 			 	print Utils::jsonEncode($res);

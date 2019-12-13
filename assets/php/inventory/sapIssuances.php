@@ -27,14 +27,14 @@ if(Utils::getValue('trans'))			{ $search .="AND trans_type = '".$conn->escapeStr
 
 			$requestData= $_REQUEST;
 			// storing  request (ie, get/post) global array to a variable  
-			$conn->selectQuery('*',' tbl_invnt_issuances_auto_import');
+			$conn->selectQuery('*','sap_db.tbl_invnt_issuances_auto_import');
 			$totalData = $conn->getNumRows(); //getting total number records without any search.
 			$conn->row_count = 0;
 			$conn->fields = null;
 
 			if( !empty($search) ) { // if there is a search parameter, $requestData['search']['value'] contains search parameter.
 
-			$conn->selectQuery('*','tbl_invnt_issuances_auto_import WHERE id > 0 '.$search.'');
+			$conn->selectQuery('*','sap_db.tbl_invnt_issuances_auto_import WHERE id > 0 '.$search.'');
 
 				$conn->fields = null;
 				$totalFiltered  = $conn->getNumRows(); // when there is a search parameter then we have to modify total number filtered rows as per search result. 
@@ -45,7 +45,7 @@ if(Utils::getValue('trans'))			{ $search .="AND trans_type = '".$conn->escapeStr
 			
 			if(intval($requestData['length']) >= 1 ) { $limit = ' LIMIT '.$requestData['start'].' ,'.$requestData['length'].''; }
 
-				$conn->selectQuery('*','tbl_invnt_issuances_auto_import	WHERE id > 0 '.$search.' ORDER BY doc_date DESC '.$limit.'');
+				$conn->selectQuery('*','sap_db.tbl_invnt_issuances_auto_import	WHERE id > 0 '.$search.' ORDER BY doc_date DESC '.$limit.'');
 				$row = $conn->getFields(); //Get all rows
 
 			if($conn->getNumRows() > 0 ){

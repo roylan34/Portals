@@ -75,7 +75,7 @@ if(Utils::getIsset('action')){
 
                       $allow_dept = array(2,3);
                       if(in_array($acc_type_mrf, $allow_dept)) { // Insert only 2= sales, 3= relation officer
-                      		$db->insertQuery('tbl_client_accounts','account_id, username, firstname, lastname, status, created_at',
+                      		$db->insertQuery('sap_db.tbl_client_accounts','account_id, username, firstname, lastname, status, created_at',
 									  '"'.$last_id.'",
 									  "'.$username.'",
 									  "'.Utils::ucFirstLetter($fname).'",
@@ -145,7 +145,7 @@ if(Utils::getIsset('action')){
 					}
 						 $allow_dept = array(2,3);
                       	if(in_array($acc_type_mrf, $allow_dept)) { // Update only 2= sales, 3= relation officer
-							$db->updateQuery('tbl_client_accounts','username    = "'.$username.'", 
+							$db->updateQuery('sap_db.tbl_client_accounts','username    = "'.$username.'", 
 															      firstname     = "'.$fname.'",
 															      lastname 		= "'.$lname.'",
 															      status  	 	= "'.$status.'"'

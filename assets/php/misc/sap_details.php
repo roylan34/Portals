@@ -19,15 +19,15 @@ $db = Database::getInstance();
 
 	switch ($action) {
 		case 'company_name':
-				$db->selectQuery('sap_code, company_name','tbl_company_auto_import');
+				$db->selectQuery('sap_code, company_name','sap_db.tbl_company_auto_import');
 
 				print Utils::jsonEncode($db->getFields());
 
 			break;
 		case 'all':
-				$db->selectQuery('cai.sap_code, cai.company_name, cai.client_category, cai.address, l.branch_name AS location, cai.contact_no, CONCAT(ac.firstname," ", ac.lastname) AS account_mngr','tbl_company_auto_import cai
+				$db->selectQuery('cai.sap_code, cai.company_name, cai.client_category, cai.address, l.branch_name AS location, cai.contact_no, CONCAT(ac.firstname," ", ac.lastname) AS account_mngr','sap_db.tbl_company_auto_import cai
 					LEFT JOIN tbl_location l ON cai.branches = l.id
-					LEFT JOIN tbl_client_accounts mngr ON cai.id_client_mngr = mngr.id
+					LEFT JOIN sap_db.tbl_client_accounts mngr ON cai.id_client_mngr = mngr.id
 					LEFT JOIN tbl_accounts ac ON mngr.account_id = ac.id
 					WHERE cai.sap_code = "'.$sap_code.'"
 					ORDER BY cai.company_name ASC');

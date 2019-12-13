@@ -14,7 +14,7 @@ $db = Database::getInstance();
 
 	$search = "";
 	if(Utils::getValue('date')){  $search = "WHERE doc_date LIKE '%".Utils::getValue('date')."%'";  }
-	$db->selectQuery("  brand, item_code AS model, COUNT(*) total_model ","tbl_invnt_issuances_auto_import $search
+	$db->selectQuery("  brand, item_code AS model, COUNT(*) total_model ","sap_db.tbl_invnt_issuances_auto_import $search
 						GROUP BY item_code ORDER BY model");
 	$row = $db->getFields(); //Get all rows
 	$data = array();

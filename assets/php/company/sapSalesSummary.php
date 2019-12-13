@@ -32,7 +32,7 @@ switch ($action ) {
 								COALESCE(mtd_net, "") AS mtd_net,
 								COALESCE(ytd_vat, "") AS ytd_vat,
 								COALESCE(ytd_gross, "") AS ytd_gross,
-								COALESCE(ytd_net, "") AS ytd_net','tbl_sales_history_auto_import acc 
+								COALESCE(ytd_net, "") AS ytd_net','sap_db.tbl_sales_history_auto_import acc 
 								 LEFT JOIN (
 								  SELECT 
 								  acc_manager,
@@ -40,7 +40,7 @@ switch ($action ) {
 								  FORMAT(SUM(gross),2) AS mtd_gross,
 								  FORMAT(SUM(net),2) AS mtd_net 
 								FROM
-								  tbl_sales_history_auto_import tsh
+								  sap_db.tbl_sales_history_auto_import tsh
 								WHERE fiscal_year = '.$year.' AND month="'.ucfirst($month).'" '.$searchComp.'
 								GROUP BY acc_manager 
 								) tsh ON acc.acc_manager = tsh.acc_manager
@@ -51,7 +51,7 @@ switch ($action ) {
 								  FORMAT(SUM(gross),2) AS ytd_gross,
 								  FORMAT(SUM(net),2) AS ytd_net
 								FROM
-								  tbl_sales_history_auto_import 
+								  sap_db.tbl_sales_history_auto_import 
 								  WHERE fiscal_year='.$year.' '.$searchComp.'
 								  GROUP BY acc_manager 
 								) tsh2 ON acc.acc_manager = tsh2.acc_manager
@@ -77,7 +77,7 @@ switch ($action ) {
 				$conn->fields = null; //empty the previous result.
 
 				//Check if account manager is exist in sales summary table.
-				$conn->selectQuery('*','tbl_sales_summary_auto_import WHERE acc_manager = "'.$acc_mngr.'" '.$searchComp.' LIMIT 1');
+				$conn->selectQuery('*','sap_db.tbl_sales_summary_auto_import WHERE acc_manager = "'.$acc_mngr.'" '.$searchComp.' LIMIT 1');
 				$isExist  = $conn->getFields();
 
 				if(count($isExist['aaData']) > 0){
@@ -91,7 +91,7 @@ switch ($action ) {
 									    FORMAT(SUM(tsh.net), 2) AS mtd_net,
 									    tsh2.ytd_gross,
 									    tsh2.ytd_vat,
-									    tsh2.ytd_net','tbl_sales_summary_auto_import tsh  
+									    tsh2.ytd_net','sap_db.tbl_sales_summary_auto_import tsh  
 										LEFT JOIN 
 										  (SELECT 
 										    acc_manager,
@@ -99,7 +99,7 @@ switch ($action ) {
 										    FORMAT(SUM(vat), 2) AS ytd_vat,
 										    FORMAT(SUM(net), 2) AS ytd_net 
 										  FROM
-										    tbl_sales_summary_auto_import
+										    sap_db.tbl_sales_summary_auto_import
 										  WHERE fiscal_year = '.$year.' AND acc_manager="'.$acc_mngr.'" '.$searchComp.'
 										  ) tsh2 
 										  ON tsh.acc_manager = tsh2.acc_manager 
@@ -121,7 +121,7 @@ switch ($action ) {
 								COALESCE(mtd_net, "") AS mtd_net,
 								COALESCE(ytd_gross, "") AS ytd_gross,
 								COALESCE(ytd_vat, "") AS ytd_vat,
-								COALESCE(ytd_net, "") AS ytd_net','tbl_sales_summary_auto_import acc 
+								COALESCE(ytd_net, "") AS ytd_net','sap_db.tbl_sales_summary_auto_import acc 
 								 LEFT JOIN (
 								  SELECT 
 								  acc_manager,
@@ -130,7 +130,7 @@ switch ($action ) {
 								  FORMAT(SUM(vat),2) AS mtd_vat,
 								  FORMAT(SUM(net),2) AS mtd_net 
 								FROM
-								  tbl_sales_summary_auto_import tsh
+								  sap_db.tbl_sales_summary_auto_import tsh
 								WHERE fiscal_year = '.$year.' AND month="'.ucfirst($month).'" '.$searchComp.'
 								GROUP BY acc_manager 
 								) tsh ON acc.acc_manager = tsh.acc_manager
@@ -141,7 +141,7 @@ switch ($action ) {
 								  FORMAT(SUM(vat),2) AS ytd_vat,
 								  FORMAT(SUM(net),2) AS ytd_net
 								FROM
-								  tbl_sales_summary_auto_import 
+								  sap_db.tbl_sales_summary_auto_import 
 								  WHERE fiscal_year='.$year.' '.$searchComp.'
 								  GROUP BY acc_manager 
 								) tsh2 ON acc.acc_manager = tsh2.acc_manager
@@ -165,7 +165,7 @@ switch ($action ) {
 								mtd_net,
 								ytd_gross,
 								ytd_vat,
-								ytd_net AS ytd_net FROM tbl_sales_summary_auto_import acc 
+								ytd_net AS ytd_net FROM sap_db.tbl_sales_summary_auto_import acc 
 								LEFT JOIN 
 								  (SELECT 
 								    acc_manager,
@@ -174,7 +174,7 @@ switch ($action ) {
 								    SUM(vat) AS mtd_vat,
 								    SUM(net) AS mtd_net 
 								  FROM
-								    tbl_sales_summary_auto_import tsh 
+								    sap_db.tbl_sales_summary_auto_import tsh 
 								  WHERE fiscal_year = '.$year.' AND month="'.ucfirst($month).'" '.$searchComp.'
 								  GROUP BY acc_manager) tsh 
 								  ON acc.acc_manager = tsh.acc_manager 
@@ -185,7 +185,7 @@ switch ($action ) {
 								    SUM(vat) AS ytd_vat,
 								    SUM(net) AS ytd_net 
 								  FROM
-								    tbl_sales_summary_auto_import 
+								    sap_db.tbl_sales_summary_auto_import 
 								  WHERE fiscal_year='.$year.' '.$searchComp.'
 								  GROUP BY acc_manager) tsh2 
 								  ON acc.acc_manager = tsh2.acc_manager
@@ -200,7 +200,7 @@ switch ($action ) {
 
 		break;
 	case 'month':
-			$conn->selectQuery('company, customer, doc_date ,doc_num, FORMAT(gross,2) AS gross, FORMAT(vat,2) AS vat, FORMAT(net,2) AS net','tbl_sales_summary_auto_import 
+			$conn->selectQuery('company, customer, doc_date ,doc_num, FORMAT(gross,2) AS gross, FORMAT(vat,2) AS vat, FORMAT(net,2) AS net','sap_db.tbl_sales_summary_auto_import 
 								WHERE acc_manager="'.$acc_manager.'" AND fiscal_year = '.$year.' AND month="'.ucfirst($month).'" '.$searchComp.'');
 							 
 							 if($conn->getNumRows() > 0){
@@ -224,7 +224,7 @@ switch ($action ) {
 								FORMAT(SUM(CASE WHEN MONTH="Sep" THEN net END), 2) AS sep,
 								FORMAT(SUM(CASE WHEN MONTH="Oct" THEN net END), 2) AS _oct,
 								FORMAT(SUM(CASE WHEN MONTH="Nov" THEN net END), 2) AS nov,
-								FORMAT(SUM(CASE WHEN MONTH="Dec" THEN net END), 2) AS _dec','tbl_sales_summary_auto_import 
+								FORMAT(SUM(CASE WHEN MONTH="Dec" THEN net END), 2) AS _dec','sap_db.tbl_sales_summary_auto_import 
 								WHERE acc_manager="'.$acc_manager.'" AND fiscal_year = '.$year.' '.$searchComp.' GROUP BY customer');
 
 								 if($conn->getNumRows() > 0){
@@ -236,7 +236,7 @@ switch ($action ) {
 								 print Utils::jsonEncode($resYear);
 		break;
 	case 'list-year':
-			$conn->selectQuery('fiscal_year','tbl_sales_history_auto_import GROUP BY fiscal_year ORDER BY fiscal_year DESC');
+			$conn->selectQuery('fiscal_year','sap_db.tbl_sales_history_auto_import GROUP BY fiscal_year ORDER BY fiscal_year DESC');
 							$listYear = $conn->getFields();
 							 print Utils::jsonEncode($listYear['aaData']);
 		break;

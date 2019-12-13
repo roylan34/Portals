@@ -25,7 +25,7 @@ if(Utils::getIsset('username') || Utils::getIsset('password')){
 			                    LEFT JOIN tbl_app_module app ON a.id = app.account_id 
 			                    LEFT JOIN tbl_account_type acct ON a.account_type = acct.id
 			                    LEFT JOIN tbl_app_action tap ON tap.id_account = a.id
-			                    LEFT JOIN tbl_client_accounts ca ON a.id = ca.account_id
+			                    LEFT JOIN sap_db.tbl_client_accounts ca ON a.id = ca.account_id
 			                    WHERE a.username = "'.$db->escapeString($username).'" && a.password = "'.Utils::encrypt($password).'"');
 		$result = $db->getFields();
 		

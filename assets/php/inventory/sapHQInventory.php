@@ -25,14 +25,14 @@ if(Utils::getValue('date'))				{ $search .="AND ma.date_entered ='".$conn->escap
 
 			$requestData= $_REQUEST;
 			// storing  request (ie, get/post) global array to a variable  
-			$conn->selectQuery('serialnumber,id_brand,model',' tbl_invnt_machines_auto_import');
+			$conn->selectQuery('serialnumber,id_brand,model','sap_db.tbl_invnt_machines_auto_import');
 			$totalData = $conn->getNumRows(); //getting total number records without any search.
 			$conn->row_count = 0;
 			$conn->fields = null;
 
 			if( !empty($search) ) { // if there is a search parameter, $requestData['search']['value'] contains search parameter.
 
-			$conn->selectQuery('ma.*','tbl_invnt_machines_auto_import ma
+			$conn->selectQuery('ma.*','sap_db.tbl_invnt_machines_auto_import ma
 					WHERE ma.id > 0 '.$search.'');
 
 				$conn->fields = null;
@@ -47,14 +47,14 @@ if(Utils::getValue('date'))				{ $search .="AND ma.date_entered ='".$conn->escap
 				$conn->selectQuery('ma.*, IF((ir.serial_number = ma.serialnumber), "RESERVED", "" ) AS label, 
 						c.company_name, 
 						ir.date_reserved, 
-						CONCAT(ac.firstname," ", ac.lastname) AS acct_mngr, ir.created_at','tbl_invnt_machines_auto_import ma
+						CONCAT(ac.firstname," ", ac.lastname) AS acct_mngr, ir.created_at','sap_db.tbl_invnt_machines_auto_import ma
 					LEFT JOIN tbl_invnt_reservation ir ON ma.serialnumber = ir.serial_number
 					LEFT JOIN tbl_company c ON ir.id_company = c.id
-					LEFT JOIN tbl_client_accounts ca ON ir.id_acc_mngr = ca.id
+					LEFT JOIN sap_db.tbl_client_accounts ca ON ir.id_acc_mngr = ca.id
 					LEFT JOIN tbl_accounts ac ON ca.account_id = ac.id
 					WHERE ma.id > 0 AND (ir.status = "" || ir.status IS NULL) '.$search.' '.$limit.'');
 
-				// $conn->selectQuery('ma.*, IF((SELECT serialnumber FROM tbl_invnt_reservation WHERE serial_number = ma.serialnumber AND (status = "" || status IS NULL) ) !="", "RESERVED", "" ) AS label, ','tbl_invnt_machines_auto_import ma
+				// $conn->selectQuery('ma.*, IF((SELECT serialnumber FROM tbl_invnt_reservation WHERE serial_number = ma.serialnumber AND (status = "" || status IS NULL) ) !="", "RESERVED", "" ) AS label, ','sap_db.tbl_invnt_machines_auto_import ma
 				// 	WHERE ma.id > 0 '.$search.' '.$limit.'');
 				$row = $conn->getFields(); //Get all rows
 

@@ -57,7 +57,7 @@ switch (Utils::getValue('action_view')) {
 			if(intval($requestData['length']) >= 1 ) { $limit = 'LIMIT '.$requestData['start'].' ,'.$requestData['length'].''; }
 
 			$conn->selectQuery('c.*, GROUP_CONCAT(br.id) as id_branch, CONCAT(ac.firstname," ",ac.lastname) AS account_mngr_name, GROUP_CONCAT(DISTINCT br.branch_name SEPARATOR "<br>") AS branches, mbr.branch_name AS main_location, (SELECT count(*) FROM tblmif WHERE company_id = c.id AND status_machine = 0 '.$count_mif_branch.' GROUP BY company_id) as number_of_machines','tbl_company c 
-						LEFT JOIN tbl_client_accounts ca ON c.id_client_mngr = ca.id
+						LEFT JOIN sap_db.tbl_client_accounts ca ON c.id_client_mngr = ca.id
 						LEFT JOIN tbl_accounts ac ON ca.account_id = ac.id
 						LEFT JOIN tbl_company_branches cbr ON c.id = cbr.id_company
 						LEFT JOIN tbl_location br ON cbr.id_branches = br.id
@@ -90,7 +90,7 @@ switch (Utils::getValue('action_view')) {
 	case 'account_manager':
 		  if (Utils::getValue('user_id')) {
 		  		// $search .="AND c.id IN (".Utils::getValue('client_company_own').")"; //List of Companies handled.
-		  		 $search .="AND c.id_client_mngr = (SELECT id FROM tbl_client_accounts WHERE account_id = ".Utils::getValue('user_id').")"; //List of Companies handled.
+		  		 $search .="AND c.id_client_mngr = (SELECT id FROM sap_db.tbl_client_accounts WHERE account_id = ".Utils::getValue('user_id').")"; //List of Companies handled.
 
   	  			$conn->selectQuery('c.*, (SELECT count(*) FROM tblmif WHERE company_id = c.id AND status_machine = 0 '.$count_mif_branch.' GROUP BY company_id) as number_of_machines','tbl_company c 
 				LEFT JOIN tbl_company_branches cbr ON c.id = cbr.id_company
@@ -142,7 +142,7 @@ switch (Utils::getValue('action_view')) {
 			if(intval($requestData['length']) >= 1 ) { $limit = 'LIMIT '.$requestData['start'].' ,'.$requestData['length'].''; }
 
 			$conn->selectQuery('c.*, GROUP_CONCAT(br.id) as id_branch, CONCAT(ac.firstname," ",ac.lastname) AS account_mngr_name, GROUP_CONCAT(br.branch_name SEPARATOR "<br>") AS branches, mbr.branch_name AS main_location, (SELECT count(*) FROM tblmif WHERE company_id = c.id AND status_machine = 0 '.$count_mif_branch.' GROUP BY company_id) as number_of_machines','tbl_company c 
-						LEFT JOIN tbl_client_accounts ca ON c.id_client_mngr = ca.id
+						LEFT JOIN sap_db.tbl_client_accounts ca ON c.id_client_mngr = ca.id
 						LEFT JOIN tbl_accounts ac ON ca.account_id = ac.id
 						LEFT JOIN tbl_company_branches cbr ON c.id = cbr.id_company
 						LEFT JOIN tbl_location br ON cbr.id_branches = br.id

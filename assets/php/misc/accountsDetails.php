@@ -18,7 +18,7 @@ if(Utils::getIsset('action')){
 		case 'account_manager':
 				$db = Database::getInstance();
 				$db->selectQuery('ca.id, CONCAT(ac.firstname," ",ac.lastname) AS fullname','tbl_accounts ac
-									INNER JOIN tbl_client_accounts ca ON ca.account_id = ac.id
+									INNER JOIN sap_db.tbl_client_accounts ca ON ca.account_id = ac.id
 									WHERE ac.status = 1 ORDER BY ac.id ASC');
 				$res = $db->getFields();
 

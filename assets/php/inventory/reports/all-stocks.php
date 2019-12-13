@@ -54,7 +54,7 @@ $db = Database::getInstance();
 $db->selectQuery2('SELECT branch, brand, model, id_branch_sort, SUM(id_condition = 1) AS bn, SUM(id_condition = 2) AS rf, COUNT(*) AS total_model FROM (
 SELECT imai.serialnumber, imai.id_brand AS brand, imai.model, br.branch_name AS branch, br.id AS id_branch_sort,
  1 AS id_condition
- FROM tbl_invnt_machines_auto_import imai
+ FROM sap_db.tbl_invnt_machines_auto_import imai
  LEFT JOIN tbl_invnt_machines_saploc ims ON imai.location = ims.branch
  LEFT JOIN tbl_branch br ON ims.equiv_id_branch = br.id) X GROUP BY branch,model ORDER BY brand, model');
 	$row = $db->getFields(); //Get all rows

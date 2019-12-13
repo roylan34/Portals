@@ -40,7 +40,7 @@ if(Utils::getValue('month'))   { $month = $db->escapeString(Utils::getValue('mon
 				$db->fields = null; //empty the previous result.
 
 				//Check if account manager is exist in sales summary table.
-				$db->selectQuery('*','tbl_sales_summary_auto_import WHERE acc_manager = "'.$acc_mngr.'" '.$searchComp.' LIMIT 1');
+				$db->selectQuery('*','sap_db.tbl_sales_summary_auto_import WHERE acc_manager = "'.$acc_mngr.'" '.$searchComp.' LIMIT 1');
 				$isExist  = $db->getFields();
 
 				if(count($isExist['aaData']) > 0){
@@ -54,7 +54,7 @@ if(Utils::getValue('month'))   { $month = $db->escapeString(Utils::getValue('mon
 											FORMAT(SUM(tsh.net), 2) AS mtd_net,
 											tsh2.ytd_gross,
 											tsh2.ytd_vat,
-											tsh2.ytd_net','tbl_sales_summary_auto_import tsh  
+											tsh2.ytd_net','sap_db.tbl_sales_summary_auto_import tsh  
 										LEFT JOIN 
 											(SELECT 
 												acc_manager,
@@ -62,7 +62,7 @@ if(Utils::getValue('month'))   { $month = $db->escapeString(Utils::getValue('mon
 												FORMAT(SUM(vat), 2) AS ytd_vat,
 												FORMAT(SUM(net), 2) AS ytd_net 
 											FROM
-												tbl_sales_summary_auto_import
+												sap_db.tbl_sales_summary_auto_import
 											WHERE fiscal_year = '.$year.' AND acc_manager="'.$acc_mngr.'" '.$searchComp.'
 											) tsh2 
 											ON tsh.acc_manager = tsh2.acc_manager 
@@ -83,7 +83,7 @@ if(Utils::getValue('month'))   { $month = $db->escapeString(Utils::getValue('mon
 								COALESCE(mtd_net, "") AS mtd_net,
 								COALESCE(ytd_gross, "") AS ytd_gross,
 								COALESCE(ytd_vat, "") AS ytd_vat,
-								COALESCE(ytd_net, "") AS ytd_net','tbl_sales_summary_auto_import acc 
+								COALESCE(ytd_net, "") AS ytd_net','sap_db.tbl_sales_summary_auto_import acc 
 								 LEFT JOIN (
 									SELECT 
 									acc_manager,
@@ -91,7 +91,7 @@ if(Utils::getValue('month'))   { $month = $db->escapeString(Utils::getValue('mon
 									FORMAT(SUM(vat),2) AS mtd_vat,
 									FORMAT(SUM(net),2) AS mtd_net 
 								FROM
-									tbl_sales_summary_auto_import tsh
+									sap_db.tbl_sales_summary_auto_import tsh
 								WHERE fiscal_year = '.$year.' AND month="'.ucfirst($month).'" '.$searchComp.'
 								GROUP BY acc_manager 
 								) tsh ON acc.acc_manager = tsh.acc_manager
@@ -102,7 +102,7 @@ if(Utils::getValue('month'))   { $month = $db->escapeString(Utils::getValue('mon
 									FORMAT(SUM(vat),2) AS ytd_vat,
 									FORMAT(SUM(net),2) AS ytd_net
 								FROM
-									tbl_sales_summary_auto_import 
+									sap_db.tbl_sales_summary_auto_import 
 									WHERE fiscal_year='.$year.' '.$searchComp.'
 									GROUP BY acc_manager 
 								) tsh2 ON acc.acc_manager = tsh2.acc_manager
@@ -124,7 +124,7 @@ if(Utils::getValue('month'))   { $month = $db->escapeString(Utils::getValue('mon
 								mtd_net,
 								ytd_gross,
 								ytd_vat,
-								ytd_net AS ytd_net FROM tbl_sales_summary_auto_import acc 
+								ytd_net AS ytd_net FROM sap_db.tbl_sales_summary_auto_import acc 
 								LEFT JOIN 
 									(SELECT 
 										acc_manager,
@@ -132,7 +132,7 @@ if(Utils::getValue('month'))   { $month = $db->escapeString(Utils::getValue('mon
 										SUM(vat) AS mtd_vat,
 										SUM(net) AS mtd_net 
 									FROM
-										tbl_sales_summary_auto_import tsh 
+										sap_db.tbl_sales_summary_auto_import tsh 
 									WHERE fiscal_year = '.$year.' AND month="'.ucfirst($month).'" '.$searchComp.'
 									GROUP BY acc_manager) tsh 
 									ON acc.acc_manager = tsh.acc_manager 
@@ -143,7 +143,7 @@ if(Utils::getValue('month'))   { $month = $db->escapeString(Utils::getValue('mon
 										SUM(vat) AS ytd_vat,
 										SUM(net) AS ytd_net 
 									FROM
-										tbl_sales_summary_auto_import 
+										sap_db.tbl_sales_summary_auto_import 
 									WHERE fiscal_year='.$year.' '.$searchComp.'
 									GROUP BY acc_manager) tsh2 
 									ON acc.acc_manager = tsh2.acc_manager
