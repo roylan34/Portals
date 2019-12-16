@@ -54,7 +54,7 @@ switch (Utils::getValue('action_view')) {
 				if(intval($requestData['length']) >= 1 ) { $limit = 'LIMIT '.$requestData['start'].' ,'.$requestData['length'].''; }
 
 				$conn->selectQuery('ir.id, ir.serial_number, c.company_name, ir.date_reserved, CONCAT(ac.firstname," ", ac.lastname) AS acct_mngr, ir.status,
-									DATEDIFF(NOW(), DATE_FORMAT(ir.created_at, "%y-%m-%d")) AS aging, ir.created_at, ir.branch AS id_branch, br.branch_name','tbl_invnt_reservation ir 
+									DATEDIFF(NOW(), DATE_FORMAT(ir.date_reserved, "%y-%m-%d")) AS aging, ir.created_at, ir.branch AS id_branch, br.branch_name','tbl_invnt_reservation ir 
 									LEFT JOIN tbl_company c ON ir.id_company = c.id
 									LEFT JOIN sap_db.tbl_client_accounts ca ON ir.id_acc_mngr = ca.id
 									LEFT JOIN tbl_accounts ac ON ca.account_id = ac.id

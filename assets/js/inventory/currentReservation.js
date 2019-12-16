@@ -114,7 +114,18 @@ var dtCurrentInvtReservation = {
 	                                { "data": "company_name"},
 	                                { "data": "date_reserved"},
 	                                { "data": null, render: function(data){
-	                                		return "<span class='badge badge-orange'>" + data.aging + "</span>";
+	                                		var aging = (intVal(data.aging) < 0 ? 0 : intVal(data.aging));
+	                                		var badge_color = '';
+	                                			if(aging > 30){
+	                                				badge_color += 'red badge-pulse';
+	                                			}
+	                                			else if(aging == 0){
+	                                				badge_color += 'green';
+	                                			}
+	                                			else if(aging <= 30){
+	                                				badge_color += 'orange';
+	                                			}
+	                                		return "<span class='badge badge-"+badge_color+"'>" + aging + "</span>";
 		                                }
 		                            },
 		                            { "data": "created_at"},
@@ -127,9 +138,9 @@ var dtCurrentInvtReservation = {
 		                                        action_elem += '<button class="btn btn-success dropdown-toggle btn-sm" type="button" data-toggle="dropdown">Actions'
 		                                                        +' <span class="caret"></span></button>'
 		                                                          +'<ul class="dropdown-menu dropdown-menu-right dropdown-menu-machine">'
-		                                                          	+ '<li><a href="#" class="btnEdit" data-id='+data.id+' title="Edit"><i class="fa fa-pencil-square" aria-hidden="true"></i>EDIT</a></li>'
-		                                                            + '<li><a href="#" class="btnRemove" data-id='+data.id+' data-status="remove" title="Remove Reservation"><i class="fa fa-trash" aria-hidden="true"></i>REMOVE</a></li>'
-		                                                            + '<li><a href="#" class="btnClose" data-id='+data.id+' data-status="close" title="Close Reservation"><i class="fa fa-window-close" aria-hidden="true"></i>CLOSE</a></li>'
+		                                                          	+ '<li><a href="#" class="btnEdit" data-id='+data.id+' title="Edit" data-aging="'+data.aging+'"><i class="fa fa-pencil-square" aria-hidden="true"></i>EDIT</a></li>'
+		                                                            + '<li><a href="#" class="btnRemove" data-id='+data.id+' data-status="remove" title="Remove Reservation" data-aging="'+data.aging+'"><i class="fa fa-trash" aria-hidden="true"></i>REMOVE</a></li>'
+		                                                            + '<li><a href="#" class="btnClose" data-id='+data.id+' data-status="close" title="Close Reservation" data-aging="'+data.aging+'"><i class="fa fa-window-close" aria-hidden="true"></i>CLOSE</a></li>'
 		                                                    	  +'</ul></div>';
 		                                    }		                                                       
 		                                    return action_elem;
@@ -332,6 +343,21 @@ var dtCurrentInvtReservation = {
 			});
 		return this;
 	},
+	checkAging: function(aging, id, defaultAction){
+		if(aging > 30){
+			var confr = confirm('This reservation is exceeded in 30 days aging. \n Please click the OK to update the Date needed if reservation is still valid?');
+			if(confr){
+				self.dtCurrentInvtReservation.modalShow(id);
+			}
+			else{
+				defaultAction();
+			}
+		}
+		else{
+			defaultAction();
+		}
+		return this;
+	},
     actions: function(){
     	$("#dtCurrentInvtReservation").on('click','button, a',function(e) {
     		e.preventDefault();
@@ -354,17 +380,26 @@ var dtCurrentInvtReservation = {
                 }
                 else if ($(inst[0]).hasClass('btnEdit')) { //Edit
     	   	 		var id = $(inst[0]).data('id') || '';
-    	   	 			self.dtCurrentInvtReservation.modalShow(id);
+    	   	 		var aging = $(inst[0]).data('aging') || '';
+    	   	 		   	self.dtCurrentInvtReservation.checkAging( aging, id, function(){ 
+    	   	 		   		self.dtCurrentInvtReservation.modalShow(id) 
+    	   	 		   	});
 		   	 	}
 		   	 	else if ($(inst[0]).hasClass('btnRemove')) { //Remove
     	   	 		var id 		= $(inst[0]).data('id') || '';
     	   	 		var status 	= $(inst[0]).data('status') || '';
-    	   	 			self.dtCurrentInvtReservation.updateStatus(id, status);
+    	   	 		var aging 	= $(inst[0]).data('aging') || '';
+    	   	 		 	self.dtCurrentInvtReservation.checkAging(aging, id, function(){
+    	   	 		 		self.dtCurrentInvtReservation.updateStatus(id, status);
+    	   	 		 	});
 		   	 	}
 		   	 	else if ($(inst[0]).hasClass('btnClose')) { //Close
     	   	 		var id 		= $(inst[0]).data('id') || '';
     	   	 		var status 	= $(inst[0]).data('status') || '';
-    	   	 			self.dtCurrentInvtReservation.updateStatus(id, status);
+    	   	 		var aging 	= $(inst[0]).data('aging') || '';
+    	   	 			self.dtCurrentInvtReservation.checkAging(aging, id, function(){
+	    	   	 		 	self.dtCurrentInvtReservation.updateStatus(id, status);
+	    	   	 		 });
 		   	 	}
             });
     	return this;    	 
