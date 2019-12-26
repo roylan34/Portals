@@ -18,7 +18,7 @@ $date_from 	= ( Utils::getValue('dateFrom') ? Utils::getValue('dateFrom') : Util
 $date_to 	= ( Utils::getValue('dateTo')   ? Utils::getValue('dateTo')   : Utils::getSysDate() );
 
 $db = Database::getInstance();
-$db->selectQuery('count(id) as total_mif','tblmif '.$branchMachine.'');
+$db->selectQuery('count(id) as total_mif','tblmif '.$branchMachine.' AND billing_type NOT IN ("OUTRIGHT","TLC")');
 $resMachine = $db->getFields();//Total MIF count.
 $db->fields = null;
 

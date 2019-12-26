@@ -208,7 +208,8 @@ var dtArchiveMachine = {
                                                             { value: 'PER CARTRIDGE',  label: 'PER CARTRIDGE'},
                                                             { value: 'FSMA', label: 'FSMA' },
                                                             { value: 'FIXED MONTHLY', label: 'FIXED MONTHLY' },
-                                                            { value: 'OUTRIGHT', label: 'OUTRIGHT' }
+                                                            { value: 'OUTRIGHT', label: 'OUTRIGHT' },
+                                                            { value: 'TLC', label: 'TLC' }
                                                         ]
                                              },
                                            13: { html: 'input', type: 'text', width: '70px' }, //Branch
