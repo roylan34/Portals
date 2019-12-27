@@ -1,164 +1,85 @@
-/* 
-* Automate task in minification and merging of all js files.
-*/
 var gulp = require('gulp');
+// var cleanCSS = require('gulp-clean-css');
+var rev = require('gulp-rev');
 var concat = require('gulp-concat');
-var minify = require('gulp-minify');
-var rev    = require('gulp-rev');
+var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
-var del    = require('del');
 
-//inject files to index.html
-var series = require('stream-series'),
-    inject = require('gulp-inject');
+var del = require('del');
 
-//To eliminate typing gulp command, rather use this method watcher task.
-// gulp watch command
-gulp.task('watch',function(){
-	gulp.watch([
-				'assets/js/charts/*.js',
-				'assets/js/settings/*.js',
-				'assets/js/accounts/*.js',
-				'assets/js/mif/*.js',
-				'assets/js/manager/*.js',
-				'assets/js/mif/reports/*.js',
-				'assets/js/inventory/*.js', 
-				'assets/js/inventory/reports/*.js',
-				'assets/js/inventory/settings/*.js',
-				'assets/js/mrf/*.js', 
-				'assets/js/mrf/settings/*.js',
-				'assets/js/pm/*.js',
-				'assets/js/pm/settings/*.js'],
-				['rev-clean','pack-mif-js','pack-invnt-js','pack-mrf-js','pack-pm-js']); //run all task.
+var paths = {
+    styles: {
+        src: 'assets/css/*.css',
+        dest: 'build/css'
+    },
+    scripts: {
+        src_mif: [
+            'assets/js/charts/*.js',
+            'assets/js/mif/*.js',
+            'assets/js/manager/*.js',
+            'assets/js/settings/*.js',
+            'assets/js/accounts/*.js',
+            'assets/js/mif/reports/*.js'],
+        dest: 'build/js'
+    }
+};
 
-	gulp.watch(
-				['build/js/*.js'],
-				['inject-js']
-			);
+/* Not all tasks need to use streams, a gulpfile is just another node program
+ * and you can use all packages available on npm, but it must return either a
+ * Promise, a Stream or take a callback and call it
+ */
+function clean() {
+    // You can use multiple globbing patterns as you would with `gulp.src`,
+    // for example if you are using del 2.0 or above, return its promise
+    return del(['build/js/*.js']);
+}
 
-});
+/*
+ * Define our tasks using plain functions
+ */
+function styles() {
+    return gulp.src(paths.styles.src)
+        .pipe(cleanCSS())
+        // pass in options to the stream
+        .pipe(rename({
+            basename: 'main',
+            suffix: '.min'
+        }))
+        .pipe(gulp.dest(paths.styles.dest));
+}
 
+function mif_scripts() {
+    return gulp.src(paths.scripts.src_mif, { sourcemaps: true })
+        .pipe(uglify())
+        .pipe(concat('bundle-mif.min.js'))
+        .pipe(gulp.dest(paths.scripts.dest))
+        .pipe(rev()) //rename the files with hashes
+        .pipe(gulp.dest(paths.scripts.dest)) //save the files with hashes
+        .pipe(rev.manifest('build/js/rev-manifest.json', {
+            merge: true //override the rev-manifest.json if one exists.
+        }))
+        .pipe(gulp.dest(paths.scripts.dest));//save the rev-manifest.json;
+}
 
-gulp.task('rev-clean', () =>
-  del.sync('build/js/*.js')
-);
+function watch() {
+    gulp.watch(paths.scripts.src_mif, mif_scripts);
+    //   gulp.watch(paths.styles.src, styles);
+}
 
-//MIF
-gulp.task('pack-mif-js',function(){
-		return gulp.src([
-				'assets/js/charts/*.js',
-				'assets/js/mif/*.js',
-				'assets/js/manager/*.js',
-				'assets/js/settings/*.js',
-				'assets/js/accounts/*.js',
-				'assets/js/mif/reports/*.js' ])
-				.pipe(concat('bundle-mif.min.js')) // combine
-				.pipe(minify({
-					ext: {
-						min: '.js'
-					},
-					noSource: true
-				}))
-				.pipe(rename({ //base and dest.
-					dirname: 'build/js'
-				}))
-				.pipe(rev()) //rename the files with hashes
-				.pipe(gulp.dest('./')) //save the files with hashes
-				.pipe(rev.manifest('build/js/rev-manifest.json',{
-					merge: true //override the rev-manifest.json if one exists.
-				}))
-				.pipe(gulp.dest('.'));//save the rev-manifest.json
-				//.pipe(gulp.dest('build/js'));
+/*
+ * Specify if tasks run in series or parallel using `gulp.series` and `gulp.parallel`
+ */
+var build = gulp.series(clean, gulp.parallel(mif_scripts));
 
-});
-
-//Inventory
-gulp.task('pack-invnt-js',function(){
-		return gulp.src([
-				'assets/js/inventory/*.js', 
-				'assets/js/inventory/reports/*.js', 
-				'assets/js/inventory/settings/*.js'])
-				.pipe(concat('bundle-invent.min.js'))
-				.pipe(minify({
-					ext: {
-						min: '.js'
-					},
-					noSource: true
-				}))
-				.pipe(rename({ //base and dest.
-					dirname: 'build/js'
-				}))
-				.pipe(rev()) //rename the files with hashes
-				.pipe(gulp.dest('./')) //save the files with hashes
-				.pipe(rev.manifest('build/js/rev-manifest.json',{
-					merge: true //override the rev-manifest.json if one exists.
-				}))
-				.pipe(gulp.dest('.'));//save the rev-manifest.json
-				// .pipe(gulp.dest('build/js'));
-
-});
-//MRF
-gulp.task('pack-mrf-js',function(){
-		return gulp.src([
-				'assets/js/mrf/*.js', 
-				'assets/js/mrf/settings/*.js'])
-				.pipe(concat('bundle-mrf.min.js'))
-				.pipe(minify({
-					ext: {
-						min: '.js'
-					},
-					noSource: true
-				}))
-				.pipe(rename({ //base and dest.
-					dirname: 'build/js'
-				}))
-				.pipe(rev()) //rename the files with hashes
-				.pipe(gulp.dest('./')) //save the files with hashes
-				.pipe(rev.manifest('build/js/rev-manifest.json',{
-					merge: true //override the rev-manifest.json if one exists.
-				}))
-				.pipe(gulp.dest('.'));//save the rev-manifest.json
-				//.pipe(gulp.dest('build/js'));
-
-});
-
-//PM
-gulp.task('pack-pm-js',function(){
-		return gulp.src([
-				'assets/js/pm/*.js',
-				'assets/js/pm/settings/*.js'])
-				.pipe(concat('bundle-pm.min.js'))
-				.pipe(minify({
-					ext: {
-						min: '.js'
-					},
-					noSource: true
-				}))
-				.pipe(rename({ //base and dest.
-					dirname: 'build/js'
-				}))
-				.pipe(rev()) //rename the files with hashes
-				.pipe(gulp.dest('./')) //save the files with hashes
-				.pipe(rev.manifest('build/js/rev-manifest.json',{
-					merge: true //override the rev-manifest.json if one exists.
-				}))
-				.pipe(gulp.dest('.'));//save the rev-manifest.json
-				//.pipe(gulp.dest('build/js'));
-
-});
-
-//rebuilding index.html with gulp-inject
-gulp.task('inject-js',function(){ 
-	 gulp.src('index.html')
-		  .pipe(inject( 
-		  			gulp.src('build/js/*.js',{read:false}),
-		  				{addRootSlash: false} 
-		  			 )
-		  		) // This will always inject vendor files before app files
-		  .pipe(gulp.dest('.'));
-
-
-});
-
-
-gulp.task('default',['watch']);
+/*
+ * You can use CommonJS `exports` module notation to declare tasks
+ */
+exports.clean = clean;
+// exports.styles = styles;
+exports._mif_scripts = mif_scripts;
+exports.watch = watch;
+exports.build = build;
+/*
+ * Define default task that can be called by just running `gulp` from cli
+ */
+exports.default = build;
