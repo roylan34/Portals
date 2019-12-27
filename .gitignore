@@ -1,4 +1,5 @@
-assets/attachment
-build
-node_modules
+/assets/attachment
+/build
+/node_modules
+
 

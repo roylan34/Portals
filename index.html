@@ -1,163 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <link rel="apple-touch-icon" sizes="72x72" href="assets/img/favicon/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon/favicon-16x16.png">
-  <link rel="manifest" href="assets/img/favicon/site.webmanifest">
-  <link rel="mask-icon" href="assets/img/favicon/safari-pinned-tab.svg" color="#5bbad5">
-  <link rel="shortcut icon" href="assets/img/favicon/favicon.ico">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="msapplication-config" content="assets/img/favicon/browserconfig.xml">
-  <meta name="theme-color" content="#ffffff">
-  <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="assets/img/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon/favicon-16x16.png">
+    <link rel="manifest" href="assets/img/favicon/site.webmanifest">
+    <link rel="mask-icon" href="assets/img/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="assets/img/favicon/favicon.ico">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-config" content="assets/img/favicon/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
 
-  <title>Machine Portal</title>
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <noscript><h4 style="text-align: center">JavaScript is disabled, the result web application is not working.</h4></noscript>
-  <link rel="icon" type="image/png" href="assets/img/favicon/favicon.png" sizes="16x16">
-  <!-- Bootstrap 3.3.6 -->
-  <link rel="stylesheet" href="plugins/bootstrap/dist/css/bootstrap.min.css">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
-  <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
+    <title>Machine Portal</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <noscript>
+        <h4 style="text-align: center">JavaScript is disabled, the result web application is not working.</h4>
+    </noscript>
+    <link rel="icon" type="image/png" href="assets/img/favicon/favicon.png" sizes="16x16">
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="plugins/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
         page. However, you can choose any other skin. Make sure you
         apply the skin class to the body tag so the changes take effect.
   -->
-  <link rel="stylesheet" href="dist/css/skins/skin-green.min.css">
-  <!-- Custom style for MIF page -->
-  <link rel="stylesheet" type="text/css" href="plugins/datatables/jquery.dataTables.min.css">
-  <link rel="stylesheet" type="text/css" href="plugins/datatables/extensions/responsive/css/dataTables.responsive.css">
-  <link rel="stylesheet" type="text/css" href="assets/css/datatables/buttons.dataTables.min.css">
-  <link rel="stylesheet" type="text/css" href="plugins/chosen/chosen.min.css">
-  <link rel="stylesheet" type="text/css" href="assets/css/custom-mif.css">
-  <link rel="stylesheet" type="text/css" href="assets/css/media.css" media="screen">
-  <link rel="stylesheet" type="text/css" href="plugins/autocomplete/jquery.autocomplete.css">
-  <link rel="stylesheet" type="text/css" href="plugins/timepicker/dist/jquery-ui-timepicker-addon.min.css">
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> <!--JQuery UI -->
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
+    <link rel="stylesheet" href="dist/css/skins/skin-green.min.css">
+    <!-- Custom style for MIF page -->
+    <link rel="stylesheet" type="text/css" href="plugins/datatables/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="plugins/datatables/extensions/responsive/css/dataTables.responsive.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/datatables/buttons.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="plugins/chosen/chosen.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/custom-mif.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/media.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="plugins/autocomplete/jquery.autocomplete.css">
+    <link rel="stylesheet" type="text/css" href="plugins/timepicker/dist/jquery-ui-timepicker-addon.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!--JQuery UI -->
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
-   <!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGYTiq91KR14P14yQJAzIioEbJAl8Y9pQ&libraries=places"></script> Google Maps API -->
-       <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGYTiq91KR14P14yQJAzIioEbJAl8Y9pQ"></script>
+    <!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGYTiq91KR14P14yQJAzIioEbJAl8Y9pQ&libraries=places"></script> Google Maps API -->
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGYTiq91KR14P14yQJAzIioEbJAl8Y9pQ"></script>
 </head>
 
-<body class="fixed skin-green sidebar-mini"><!-- sidebar-collapse -->
-  
-<div id="machine-backDrop">
-  <div class="text-center backDrop-loader"><i class="fa fa-3x fa-refresh fa-spin"></i>Loading ...</div>
-</div>
-<style type="text/css">
-  #machine-backDrop{
-    position: fixed; /*full width screen **/
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 2050; /* higher value make top from all elements. */
-    background-color: rgba(0,0,0,0.5);
-  }
-  .backDrop-loader{
-    margin: 20% auto; /** center loader **/
-    color: #60fdaf;
-  }
-  .backDrop-loader .fa-refresh{
-     vertical-align: middle;
-    padding: 0px 10px;
-  }
-</style>
+<body class="fixed skin-green sidebar-mini">
+    <!-- sidebar-collapse -->
 
-<div id="modal-container">
-    <div class="view page-login" data-route="login"></div>
-    <div class="view page-home"  data-route=""></div>
-</div> <!--- display all modal here -->
+    <div id="machine-backDrop">
+        <div class="text-center backDrop-loader"><i class="fa fa-3x fa-refresh fa-spin"></i>Loading ...</div>
+    </div>
+    <style type="text/css">
+        #machine-backDrop {
+            position: fixed;
+            /*full width screen **/
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 2050;
+            /* higher value make top from all elements. */
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .backDrop-loader {
+            margin: 20% auto;
+            /** center loader **/
+            color: #60fdaf;
+        }
+
+        .backDrop-loader .fa-refresh {
+            vertical-align: middle;
+            padding: 0px 10px;
+        }
+    </style>
+
+    <div id="modal-container">
+        <div class="view page-login" data-route="login"></div>
+        <div class="view page-home" data-route=""></div>
+    </div>
+    <!--- display all modal here -->
 
 
-<!-- REQUIRED JS SCRIPTS -->
-<!-- jQuery 2.2.3 -->
-<script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
-<script src="plugins/jQueryUI/jquery-ui.min.js"></script>
-<!-- Bootstrap 3.3.6 -->
-<script src="plugins/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- AdminLTE App -->
-<script src="dist/js/app.min.js"></script>
-<script src="plugins/slimscroll/jquery.slimscroll.min.js"></script>
-<script src="https://rawgit.com/flatiron/director/master/build/director.min.js"></script>
-<!-- Optionally, you can add Slimscroll and FastClick plugins.
+    <!-- REQUIRED JS SCRIPTS -->
+    <!-- jQuery 2.2.3 -->
+    <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="plugins/jQueryUI/jquery-ui.min.js"></script>
+    <!-- Bootstrap 3.3.6 -->
+    <script src="plugins/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="dist/js/app.min.js"></script>
+    <script src="plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="https://rawgit.com/flatiron/director/master/build/director.min.js"></script>
+    <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. Slimscroll is required when using the
      fixed layout. -->
-<!--DataTables-->
-<script src="plugins/datatables/v_1.10.16/DataTables-1.10.16/js/jquery.dataTables.min.js"></script>
-<script src="plugins/datatables/extensions/responsive/js/dataTables.responsive.min.js"></script>
-<script src="plugins/datatables/extensions/columnfilter/js/dataTables.columnfilter.js"></script>
-<script src="plugins/datatables/extensions/buttons/dataTables.buttons.min.js"></script>
-<script src="plugins/datatables/extensions/buttons/buttons.print.min.js"></script>
-<script src="plugins/datatables/extensions/buttons/jszip.min.js"></script>
-<script src="plugins/datatables/extensions/buttons/buttons.html5.min.js"></script>
-<!-- Canvas Chart -->
-<script src="plugins/canvas/canvasjs-2.0-beta2/jquery.canvasjs.min.js"></script>
-<!--JQuery Validation -->
-<script src="plugins/jqueryvalidation/dist/jquery.validate.min.js"></script>
-<script src="plugins/jqueryvalidation/dist/additional-methods.min.js"></script>
-<script src="plugins/chosen/chosen.jquery.min.js"></script>
-<script src="plugins/autocomplete/jquery.autocomplete.js"></script>
-<script src="plugins/input-mask/jquery.inputmask.js"></script>
-<script src="plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
-<script src="plugins/base64/base64.min.js"></script>
-<script src="plugins/timepicker/dist/jquery-ui-timepicker-addon.min.js"></script>
+    <!--DataTables-->
+    <script src="plugins/datatables/v_1.10.16/DataTables-1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="plugins/datatables/extensions/responsive/js/dataTables.responsive.min.js"></script>
+    <script src="plugins/datatables/extensions/columnfilter/js/dataTables.columnfilter.js"></script>
+    <script src="plugins/datatables/extensions/buttons/dataTables.buttons.min.js"></script>
+    <script src="plugins/datatables/extensions/buttons/buttons.print.min.js"></script>
+    <script src="plugins/datatables/extensions/buttons/jszip.min.js"></script>
+    <script src="plugins/datatables/extensions/buttons/buttons.html5.min.js"></script>
+    <!-- Canvas Chart -->
+    <script src="plugins/canvas/canvasjs-2.0-beta2/jquery.canvasjs.min.js"></script>
+    <!--JQuery Validation -->
+    <script src="plugins/jqueryvalidation/dist/jquery.validate.min.js"></script>
+    <script src="plugins/jqueryvalidation/dist/additional-methods.min.js"></script>
+    <script src="plugins/chosen/chosen.jquery.min.js"></script>
+    <script src="plugins/autocomplete/jquery.autocomplete.js"></script>
+    <script src="plugins/input-mask/jquery.inputmask.js"></script>
+    <script src="plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+    <script src="plugins/base64/base64.min.js"></script>
+    <script src="plugins/timepicker/dist/jquery-ui-timepicker-addon.min.js"></script>
 
 
-<script src="assets/js/tools.js" defer></script>
-<script src="assets/js/route.js" defer></script>
-<script src="assets/js/authentication.js" defer></script>
-<script src="assets/js/restrictions.js" defer></script>
-<script src="assets/js/autoDrpDown.js" defer></script>
-<script src="assets/js/fileUpload.js" defer></script>
-<script src="assets/js/dateFormatter.js" defer></script>
+    <script src="assets/js/tools.js" defer></script>
+    <script src="assets/js/route.js" defer></script>
+    <script src="assets/js/authentication.js" defer></script>
+    <script src="assets/js/restrictions.js" defer></script>
+    <script src="assets/js/autoDrpDown.js" defer></script>
+    <script src="assets/js/fileUpload.js" defer></script>
+    <script src="assets/js/dateFormatter.js" defer></script>
 
-<!--automatically inject the minified and concatenated js files -->
-<!-- inject:js -->
-<script src="build/js/bundle-invent-f238d0d547.min.js"></script>
-<script src="build/js/bundle-mif-73dd9553bb.min.js"></script>
-<script src="build/js/bundle-mrf-09c2daa055.min.js"></script>
-<script src="build/js/bundle-pm-7a1a9ff85e.min.js"></script>
-<!-- endinject -->
+    <!--automatically inject the minified and concatenated js files -->
+    <!-- inject:js -->
+    <script src="build/js/bundle-invt-09ed49d82a.min.js"></script>
+    <script src="build/js/bundle-mif-149fc0ea09.min.js"></script>
+    <script src="build/js/bundle-mrf-45d92a79c6.min.js"></script>
+    <script src="build/js/bundle-pm-92002b2fcc.min.js"></script>
+    <!-- endinject -->
 
-<script type="text/javascript">
-$(document).ready(function(){
-  
-    $(document).ajaxSend(function(event, xhr, settings) { //Global loader.
-        var mifCounter = RegExp(assets+'php/misc/countmachines.php*','gi'); //For development
-        var mrfComments = assets+'php/mrf/comments.php';
-            
-        if( mrfComments == settings.url) {      
-          //empty
-        }
-        else if (mifCounter.test(settings.url)){
-           //empty
-        }else{
-          $("#machine-backDrop").show();
-        }
-    });
-    $(document).ajaxComplete(function(){
-        $("#machine-backDrop").hide();
-    }); 
-    $( '.modal' ).modal( 'hide' ).data('bs.modal', null );
+    <script type="text/javascript">
+        $(document).ready(function () {
 
-});
-</script>
+            $(document).ajaxSend(function (event, xhr, settings) { //Global loader.
+                var mifCounter = RegExp(assets + 'php/misc/countmachines.php*', 'gi'); //For development
+                var mrfComments = assets + 'php/mrf/comments.php';
+
+                if (mrfComments == settings.url) {
+                    //empty
+                }
+                else if (mifCounter.test(settings.url)) {
+                    //empty
+                } else {
+                    $("#machine-backDrop").show();
+                }
+            });
+            $(document).ajaxComplete(function () {
+                $("#machine-backDrop").hide();
+            });
+            $('.modal').modal('hide').data('bs.modal', null);
+
+        });
+    </script>
 
 </body>
+
 </html>
