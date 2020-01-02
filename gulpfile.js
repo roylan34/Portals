@@ -116,20 +116,12 @@ function inject_files() {
 }
 
 function watch() {
-    gulp.watch([
-        'assets/js/charts/*.js',
-        'assets/js/settings/*.js',
-        'assets/js/accounts/*.js',
-        'assets/js/mif/*.js',
-        'assets/js/manager/*.js',
-        'assets/js/mif/reports/*.js',
-        'assets/js/inventory/*.js',
-        'assets/js/inventory/reports/*.js',
-        'assets/js/inventory/settings/*.js',
-        'assets/js/mrf/*.js',
-        'assets/js/mrf/settings/*.js',
-        'assets/js/pm/*.js',
-        'assets/js/pm/settings/*.js'], gulp.series(clean, gulp.parallel(mif_scripts, invt_scripts, pm_scripts, mrf_scripts), inject_files));
+    gulp.watch(
+        paths.scripts.src_invt.concat(
+            paths.scripts.src_pm,
+            paths.scripts.src_mrf,
+            paths.scripts.src_mif),
+        gulp.series(clean, gulp.parallel(mif_scripts, invt_scripts, pm_scripts, mrf_scripts), inject_files));
     //   gulp.watch(paths.styles.src, styles);
 }
 
