@@ -31,7 +31,7 @@ if(Utils::getIsset('type_chart')){
 
 		break;	
 		case 'location': //Total MIF Location
-				$db->selectQuery('br.branch_name, COUNT( * ) AS total_machine_location','tblmif m LEFT JOIN tbl_location br ON br.id = m.branches WHERE m.status_machine = 0 AND m.company_id != 0  GROUP BY branches');
+				$db->selectQuery('br.branch_name, COUNT( * ) AS total_machine_location','tblmif m LEFT JOIN tbl_location br ON br.id = m.branches WHERE m.status_machine = 0 AND m.company_id != 0 AND m.billing_type NOT IN ("OUTRIGHT","TLC")  GROUP BY branches');
 			    $resLocation = $db->getFields();
 
 				echo Utils::jsonEncode($resLocation); 
