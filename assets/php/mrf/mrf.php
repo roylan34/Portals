@@ -523,7 +523,7 @@ if(Utils::getIsset('action')){
 					}
 
 					//Step 1
-					$db->selectQuery("ms.id, ms.s1_serialnum, IFNULL(ms.s1_quantity,'') AS s1_quantity, IFNULL(mbr.acronym_name_def,'') AS bn_rf , br.brand_name, mo.model_name, ms.s1_accessories ","tbl_mrf_s1 ms
+					$db->selectQuery("ms.id, ms.s1_serialnum, IFNULL(ms.s1_quantity,'') AS s1_quantity, IFNULL(mbr.acronym_name_def,'') AS bn_rf , ms.s1_bn_rf, br.brand_name, mo.model_name, ms.s1_accessories ","tbl_mrf_s1 ms
 						LEFT JOIN tbl_brands br ON ms.s1_id_brand = br.id
 						LEFT JOIN tbl_model mo ON ms.s1_id_model = mo.id
 						LEFT JOIN tbl_invnt_condition mbr ON ms.s1_bn_rf = mbr.id
