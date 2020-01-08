@@ -19,6 +19,8 @@ $status = '';
 $qry_status = '';
 $conn = Database::getInstance(); //For Searching.
 if(Utils::getValue('serial_no'))		{ $search .="AND ir.serial_number ='".$conn->escapeString(Utils::getValue('serial_no'))."'"; }
+if(Utils::getValue('brand'))		    { $search .="AND im.id_brand ='".$conn->escapeString(Utils::getValue('brand'))."'"; }
+if(Utils::getValue('model'))		    { $search .="AND im.model ='".$conn->escapeString(Utils::getValue('model'))."'"; }
 if(Utils::getValue('comp'))				{ $search .="AND c.company_name LIKE '%".$conn->escapeString(Utils::getValue('comp'))."%'"; }
 if(Utils::getValue('date_reserved'))	{ $search .="AND ir.date_reserved LIKE '%".$conn->escapeString(Utils::getValue('date_reserved'))."%'"; }
 if(Utils::getValue('acct_mngr'))		{ $search .="AND CONCAT_WS(' ', ac.firstname, ac.lastname) LIKE '%".$conn->escapeString(Utils::getValue('acct_mngr'))."%'";}
@@ -41,7 +43,8 @@ switch (Utils::getValue('action_view')) {
 							LEFT JOIN tbl_company c ON ir.id_company = c.id
 							LEFT JOIN sap_db.tbl_client_accounts ca ON ir.id_acc_mngr = ca.id
 							LEFT JOIN tbl_accounts ac ON ca.account_id = ac.id
-							LEFT JOIN tbl_branch br ON ir.branch = br.id
+                            LEFT JOIN tbl_branch br ON ir.branch = br.id
+                            LEFT JOIN tbl_invnt_machines_auto_import im ON ir.serial_number = im.serialnumber
 				  			WHERE ir.id > 0 AND (ir.status="" || ir.status is null) '.$search.' ');
 
 					$conn->fields = null;
@@ -53,12 +56,13 @@ switch (Utils::getValue('action_view')) {
 				
 				if(intval($requestData['length']) >= 1 ) { $limit = 'LIMIT '.$requestData['start'].' ,'.$requestData['length'].''; }
 
-				$conn->selectQuery('ir.id, ir.serial_number, c.company_name, ir.date_reserved, CONCAT(ac.firstname," ", ac.lastname) AS acct_mngr, ir.status,
+				$conn->selectQuery('ir.id, im.id_brand, im.model, ir.serial_number, c.company_name, ir.date_reserved, CONCAT(ac.firstname," ", ac.lastname) AS acct_mngr, ir.status,
 									DATEDIFF(NOW(), DATE_FORMAT(ir.date_reserved, "%y-%m-%d")) AS aging, ir.created_at, ir.branch AS id_branch, br.branch_name','tbl_invnt_reservation ir 
 									LEFT JOIN tbl_company c ON ir.id_company = c.id
 									LEFT JOIN sap_db.tbl_client_accounts ca ON ir.id_acc_mngr = ca.id
 									LEFT JOIN tbl_accounts ac ON ca.account_id = ac.id
 									LEFT JOIN tbl_branch br ON ir.branch = br.id
+									LEFT JOIN sap_db.tbl_invnt_machines_auto_import im ON ir.serial_number = im.serialnumber
 						  			WHERE ir.id > 0 AND (ir.status="" || ir.status is null) '.$search.' ORDER BY ir.id DESC '.$limit.'');
 				$row = $conn->getFields(); //Get all rows
 
@@ -98,7 +102,8 @@ switch (Utils::getValue('action_view')) {
 							LEFT JOIN tbl_company c ON ir.id_company = c.id
 							LEFT JOIN sap_db.tbl_client_accounts ca ON ir.id_acc_mngr = ca.id
 							LEFT JOIN tbl_accounts ac ON ca.account_id = ac.id
-							LEFT JOIN tbl_branch br ON ir.branch = br.id
+                            LEFT JOIN tbl_branch br ON ir.branch = br.id
+                            LEFT JOIN sap_db.tbl_invnt_machines_auto_import im ON ir.serial_number = im.serialnumber
 				  			WHERE ir.id > 0 AND ir.status IN ("REMOVE", "CLOSE") '.$search.' ');
 
 					$conn->fields = null;
@@ -110,11 +115,12 @@ switch (Utils::getValue('action_view')) {
 				
 				if(intval($requestData['length']) >= 1 ) { $limit = 'LIMIT '.$requestData['start'].' ,'.$requestData['length'].''; }
 
-				$conn->selectQuery('ir.id, ir.serial_number, c.company_name, ir.date_reserved, CONCAT(ac.firstname," ", ac.lastname) AS acct_mngr, ir.status, ir.created_at, br.branch_name','tbl_invnt_reservation ir 
+				$conn->selectQuery('ir.id, im.id_brand, im.model, ir.serial_number, c.company_name, ir.date_reserved, CONCAT(ac.firstname," ", ac.lastname) AS acct_mngr, ir.status, ir.created_at, br.branch_name','tbl_invnt_reservation ir 
 									LEFT JOIN tbl_company c ON ir.id_company = c.id
 									LEFT JOIN sap_db.tbl_client_accounts ca ON ir.id_acc_mngr = ca.id
 									LEFT JOIN tbl_accounts ac ON ca.account_id = ac.id
-									LEFT JOIN tbl_branch br ON ir.branch = br.id
+                                    LEFT JOIN tbl_branch br ON ir.branch = br.id
+                                    LEFT JOIN sap_db.tbl_invnt_machines_auto_import im ON ir.serial_number = im.serialnumber
 						  			WHERE ir.id > 0 AND ir.status IN ("REMOVE", "CLOSE") '.$search.' ORDER BY ir.id DESC '.$limit.'');
 				$row = $conn->getFields(); //Get all rows
 

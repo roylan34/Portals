@@ -1,69 +1,103 @@
 <div id="currentInventoryReservation">
-<div class="box box-success">
+    <div class="box box-success">
         <div class="box-header with-border">
-          <h3 class="box-title">Reservation</h3>          
+            <h3 class="box-title">Reservation</h3>
         </div><!-- /.box-header -->
         <div class="box-body">
-            
-            <table id="dtCurrentInvtReservation" class="display compact" cellspacing="0">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Serial No.</th>
-                  <th>Account Manager</th>
-                  <th>Company</th>  
-                  <th>Date Needed</th>    
-                  <th>Aging</th>           
-                  <th>Date Entered</th>           
-                  <th>Branch</th>           
-                  <th></th>                     
-                  <th></th>                     
-                </tr>
-              </thead>
-              <thead class="dthead-search-reserve" style="display: none">
-                    <tr class="hidden-xs">
-                       <th></th>                          
-                       <th class="dt-head-search" ><input type="text" class="form-control search-reserve-serial" placeholder="Serial No." ></th>                   
-                       <th class="dt-head-search" ><input type="text" class="form-control search-reserve-acct" placeholder="Account Manager" ></th>                   
-                       <th class="dt-head-search" ><input type="text" class="form-control search-reserve-comp" placeholder="Company" ></th>                   
-                       <th class="dt-head-search" ><input type="text" class="form-control search-reserve-date" placeholder="Date needed" ></th>                 
-                       <th class="dt-head-search" ><input type="text" class="form-control search-reserve-branch" placeholder="Branch" ></th>                 
-                       <th colspan="4">
-                         <div class="col-md-4" id="btn-rsrv-reserve-search"><button type="button" class="btn btn-primary btn-flat btn-sm">Search</button></div>
-                         <div class="col-md-4" id="btn-rsrv-reserve-reset"><button type="button" class="btn btn-warning btn-flat btn-sm">Reset</button></div>
-                       </th>
 
+            <table id="dtCurrentInvtReservation" class="display compact" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Serial No.</th>
+                        <th>Brand</th>
+                        <th>Model</th>
+                        <th>Account Manager</th>
+                        <th>Company</th>
+                        <th>Date Needed</th>
+                        <th>Aging</th>
+                        <th>Date Entered</th>
+                        <th>Branch</th>
+                        <th colspan="2"></th>
                     </tr>
-              </thead>
-              <thead class="dthead-search-reserve">
+                </thead>
+                <thead class="dthead-search-reserve" style="display: none">
+                    <tr class="hidden-xs">
+                        <th colspan="12">
+                            <div class="row">
+                                <div class="col-md-2 dt-head-search"><input type="text"
+                                        class="form-control search-reserve-serial" placeholder="Serial No."></div>
+                                <div class="col-md-2 dt-head-search"><input type="text"
+                                        class="form-control search-reserve-brand" placeholder="Brand"></div>
+                                <div class="col-md-2 dt-head-search"><input type="text"
+                                        class="form-control search-reserve-model" placeholder="Model"></div>
+                                <div class="col-md-2 dt-head-search"><input type="text"
+                                        class="form-control search-reserve-acct" placeholder="Account Manager"></div>
+                            </div>
+                            <div class="row" style="margin-top: 5px;">
+                                <div class="col-md-2 dt-head-search"><input type="text"
+                                        class="form-control search-reserve-comp" placeholder="Company">
+                                </div>
+                                <div class="col-md-2 dt-head-search"><input type="text"
+                                        class="form-control search-reserve-date" placeholder="Date Needed">
+                                </div>
+                                <div class="col-md-2 dt-head-search"><input type="text"
+                                        class="form-control search-reserve-branch" placeholder="Branch">
+                                </div>
+                                <div class="col-md-2 row">
+                                    <div class="col-sm-6 dt-head-search" id="btn-rsrv-reserve-search"><button
+                                            type="button" class="btn btn-primary btn-flat btn-sm">Search</button></div>
+                                    <div class="col-sm-6 dt-head-search" id="btn-rsrv-reserve-reset"><button
+                                            type="button" class="btn btn-warning btn-flat btn-sm">Reset</button></div>
+                                </div>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <thead class="dthead-search-reserve">
                     <tr class="visible-xs">
-                       <th colspan="10">
-                          <div class="row">
-                                 <div class="col-xs-12 dt-head-search" ><input type="text" class="form-control search-reserve-serial" placeholder="Serial No." ></div>                    
-                                 <div class="col-xs-12 dt-head-search" ><input type="text" class="form-control search-reserve-acct" placeholder="Account Manager" ></div>                       
-                                 <div class="col-xs-12 dt-head-search" ><input type="text" class="form-control search-reserve-comp" placeholder="Company" ></div>                      
-                                 <div class="col-xs-12 dt-head-search" ><input type="text" class="form-control search-reserve-date" placeholder="Date needed" ></div>                              
-                                 <div class="col-xs-12 dt-head-search" ><input type="text" class="form-control search-reserve-branch" placeholder="Branch" ></div>                              
-                                <div class="text-center" >
-                                  <div class="col-xs-6" id="btn-rsrv-reserve-search">
-                                    <button type="button" class="btn btn-primary btn-flat btn-sm">Search</button>
-                                  </div>
-                                  <div class="col-xs-6" id="btn-rsrv-reserve-reset">
-                                    <button type="button" class="btn btn-warning btn-flat btn-sm">Reset</button>
-                                  </div>
-                                </div> 
-                          </div>
-                       </th>
+                        <th colspan="12">
+                            <div class="row">
+                                <div class="col-xs-12 dt-head-search"><input type="text"
+                                        class="form-control search-reserve-serial" placeholder="Serial No."></div>
+                                <div class="col-xs-12 dt-head-search">
+                                    <input type="text" class="form-control search-reserve-brand" placeholder="Brand">
+                                </div>
+                                <div class="col-xs-12 dt-head-search">
+                                    <input type="text" class="form-control search-reserve-model" placeholder="Model">
+                                </div>
+                                <div class="col-xs-12 dt-head-search"><input type="text"
+                                        class="form-control search-reserve-acct" placeholder="Account Manager"></div>
+                                <div class="col-xs-12 dt-head-search"><input type="text"
+                                        class="form-control search-reserve-comp" placeholder="Company"></div>
+                                <div class="col-xs-12 dt-head-search"><input type="text"
+                                        class="form-control search-reserve-date" placeholder="Date needed"></div>
+                                <div class="col-xs-12 dt-head-search"><input type="text"
+                                        class="form-control search-reserve-branch" placeholder="Branch"></div>
+                                <div class="text-center">
+                                    <div class="col-xs-6" id="btn-rsrv-reserve-search">
+                                        <button type="button" class="btn btn-primary btn-flat btn-sm">Search</button>
+                                    </div>
+                                    <div class="col-xs-6" id="btn-rsrv-reserve-reset">
+                                        <button type="button" class="btn btn-warning btn-flat btn-sm">Reset</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </th>
                     </tr>
-              </thead>
+                </thead>
             </table>
 
-          </div><!--end of box body --> 
-         <div class="box-footer"></div><!-- box-footer -->
+        </div>
+        <!--end of box body -->
+        <div class="box-footer"></div><!-- box-footer -->
     </div>
 </div>
 <style type="text/css">
-  .dthead-search-rsrv-reserve{
-    display: none;
-  }
+    .dthead-search-rsrv-reserve {
+        display: none;
+    }
 </style>
+<script>
+    $(".search-reserve-date").datepicker({ dateFormat: 'yy-mm-dd' });
+</script>
