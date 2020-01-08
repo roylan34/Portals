@@ -6,6 +6,7 @@ var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var inject = require('gulp-inject');
 var del = require('del');
+var browserSync = require('browser-sync').create();
 
 var paths = {
     styles: {
@@ -115,13 +116,28 @@ function inject_files() {
         .pipe(gulp.dest('.'));
 }
 
+function browser_sync(done) {
+    // use localhost sub directories
+    browserSync.init({
+        proxy: "http://localhost/machine",
+        port: 5050,
+        files: ['build'] //files to watch changes to do full-page reload
+    });
+    done();
+}
+
+function reload(done) {
+    browserSync.reload();
+    done();
+}
+
 function watch() {
     gulp.watch(
         paths.scripts.src_invt.concat(
             paths.scripts.src_pm,
             paths.scripts.src_mrf,
             paths.scripts.src_mif),
-        gulp.series(clean, gulp.parallel(mif_scripts, invt_scripts, pm_scripts, mrf_scripts), inject_files));
+        gulp.series(clean, gulp.parallel(mif_scripts, invt_scripts, pm_scripts, mrf_scripts), inject_files), reload);
     //   gulp.watch(paths.styles.src, styles);
 }
 
@@ -129,7 +145,7 @@ function watch() {
 /*
  * Specify if tasks run in series or parallel using `gulp.series` and `gulp.parallel`
  */
-var build = gulp.series(clean, gulp.parallel(mif_scripts, invt_scripts, pm_scripts, mrf_scripts), inject_files, watch);
+var build = gulp.series(clean, gulp.parallel(mif_scripts, invt_scripts, pm_scripts, mrf_scripts), inject_files, browser_sync, watch);
 
 /*
  * You can use CommonJS `exports` module notation to declare tasks
