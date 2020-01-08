@@ -152,24 +152,32 @@
             </div>
             <div class="col-md-7 col-xs-12 pull-right counter-container-two">
                 <div class="small-box bg-green col-sm-6 total-customer">
-                    <div class="inner">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4 class="total-client-active"></h4>
+                            <p>ACTIVE CUSTOMER</p>
+                        </div>
+                        <div class="col-md-5">
+                            <h4 class="total-client-blocked"></h4>
+                            <p>BLOCKED</p>
+                        </div>
+                    </div>
+                    <!-- <div class="inner">
                         <ul class="list-inline">
                             <li>
                                 <h4 class="total-client-active"></h4>
                             </li>
-                            <!--For Development -->
                             <li>
                                 <h4 class="total-client-blocked"></h4>
                             </li>
                         </ul>
                         <p>CLIENT</p>
-                    </div>
+                    </div> -->
                     <div class="icon"><i class="fa fa-building-o" style="line-height:50px;font-size: 50px;"></i></div>
                 </div>
 
                 <div class="small-box bg-yellow col-sm-5 total-mif-cointainer" style="margin-left:20px">
                     <div class="row">
-                        <!-- <ul class="list-inline"> -->
                         <div class="col-md-5">
                             <h4 class="total-mif"></h4>
                             <p>MIF</p>
@@ -178,9 +186,6 @@
                             <h4 class="total-outright"></h4>
                             <p>OUTRIGHT</p>
                         </div>
-                        <!-- </ul> -->
-                        <!-- <h3 class="total-mif"></h3>
-                        <p>TOTAL MIF</p> -->
                     </div>
                     <div class="icon"><i class="fa fa-print" style="line-height:50px;font-size: 50px;"></i></div>
                     <!--                 <a href="#" class="small-box-footer">More info<i class="fa fa-arrow-circle-right"></i>
@@ -281,7 +286,9 @@
     }*/
 
     .total-mif,
-    .total-outright {
+    .total-outright,
+    .total-client-active,
+    .total-client-blocked {
         font-size: 27px;
         font-weight: bold;
     }

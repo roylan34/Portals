@@ -740,8 +740,8 @@ var dtCompany = {
             // beforeSend: function(){ $(".mif-info-box h3.total-mif").fadeTo('fast',0.33); },
             success: function (data) {
                 $(".mif-info-box  h4.total-mif").text(data[0]);
-                $(".mif-info-box .inner ul li h4.total-client-active").text('ACTIVE: ' + data[1]);
-                $(".mif-info-box .inner ul li h4.total-client-blocked").text('BLOCKED: ' + data[2]);
+                $(".mif-info-box  h4.total-client-active").text(data[1]);
+                $(".mif-info-box  h4.total-client-blocked").text(data[2]);
                 $(".mif-info-box .inner #total-in a").text(data[3]);
                 $(".mif-info-box .inner #total-out a").text(data[4]);
                 $(".mif-info-box  h4.total-outright").text(data[5]);
