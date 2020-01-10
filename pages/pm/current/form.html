@@ -1,190 +1,276 @@
 <!-- Modal -->
-<div class="modal fade" id="modalFormCurrentSched" class="modalFormCurrentSched" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="modalFormCurrentSched">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="modalFormCurrentSched"></h4>
-      </div>
-        <form id="frmCurrentSched" class="form-horizontal">
-        <div class="modal-body">
-              <input type="hidden" name="hdnCurSchedId" id='hdnCurSchedId' value=''>
-              <input type="hidden" name="hdnCurSchedPmNum" id='hdnCurSchedPmNum' value=''>
-              <input type="hidden" name="hdnCurSchedOldTech" id='hdnCurSchedOldTech' value=''>
+<div class="modal fade" id="modalFormCurrentSched" class="modalFormCurrentSched" data-backdrop="static"
+    data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="modalFormCurrentSched">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modalFormCurrentSched"></h4>
+            </div>
+            <form id="frmCurrentSched" class="form-horizontal">
+                <div class="modal-body">
+                    <input type="hidden" name="hdnCurSchedId" id='hdnCurSchedId' value=''>
+                    <input type="hidden" name="hdnCurSchedPmNum" id='hdnCurSchedPmNum' value=''>
+                    <input type="hidden" name="hdnCurSchedOldTech" id='hdnCurSchedOldTech' value=''>
 
-              <fieldset>
-                  <legend style="font-size:15px">PM Report:</legend>
-                  <div class="form-group">
-                    <label class="col-sm-4 control-label">PM number:</label>
-                    <div class="col-sm-6">
-                      <span id="sched-number" style="line-height: 2.2;">...</span>
+                    <fieldset>
+                        <legend style="font-size:15px">PM Report:</legend>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">PM number:</label>
+                            <div class="col-sm-6">
+                                <span id="sched-number" style="line-height: 2.2;">...</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" for="sched-company">Company name:</label>
+                            <div class="col-sm-6">
+                                <select name="sched-company" id="sched-company" class="chosen-select"
+                                    data-placeholder="Select Company"></select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" for="sched-schedule">Date Schedule:</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="sched-schedule" id="sched-schedule" class="form-control"
+                                    autocomplete="off" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" for="sched-technician">Technician:</label>
+                            <div class="col-sm-6">
+                                <select name="sched-technician" id="sched-technician" class="chosen-select" multiple
+                                    data-placeholder=" "></select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" for="sched-date-entered">Date Entered:</label>
+                            <div class="col-sm-6">
+                                <span id="sched-date-entered" style="line-height: 2.2;"></span>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div>
+                        <fieldset>
+                            <legend style="font-size:15px">Contact Person:</legend>
+
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" for="sched-contact-name">Name:</label>
+                                <div class="col-sm-6">
+                                    <input type="text" name="sched-contact-name" id="sched-contact-name"
+                                        class="form-control" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" for="sched-contact-num">Contact #:</label>
+                                <div class="col-sm-6">
+                                    <input type="text" name="sched-contact-num" id="sched-contact-num"
+                                        class="form-control" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" for="sched-contact-email">Email address:</label>
+                                <div class="col-sm-6">
+                                    <input type="text" name="sched-contact-email" id="sched-contact-email"
+                                        class="form-control" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" for="sched-contact-dept">Department:</label>
+                                <div class="col-sm-6">
+                                    <input type="text" name="sched-contact-dept" id="sched-contact-dept"
+                                        class="form-control" />
+                                </div>
+                            </div>
+
+                        </fieldset>
                     </div>
-                  </div>
 
-                  <div class="form-group">
-                    <label class="col-sm-4 control-label" for="sched-company">Company name:</label>
-                    <div class="col-sm-6">
-                      <select  name="sched-company" id="sched-company" class="chosen-select" data-placeholder="Select Company"></select>
+                </div>
+                <!--end of modal body -->
+                <div class="modal-footer">
+                    <div class="col-sm-6 col-xs-11 text-left">
+                        <button type="button" class="btn btn-sm btn-flat btn-warning" data-target="#modalReasonCancelPM"
+                            data-toggle="modal" id="btn_cancel_sched">Cancel
+                            Schedule</button><br>
+                        <button type="button" class="btn btn-sm btn-flat btn-success" id="btn_close_pm">Close
+                            PM</button>
                     </div>
-                  </div>
-
-                  <div class="form-group">
-                    <label class="col-sm-4 control-label" for="sched-schedule">Date Schedule:</label>
-                    <div class="col-sm-6">
-                       <input type="text" name="sched-schedule" id="sched-schedule" class="form-control" autocomplete="off" />
+                    <div class="col-sm-6 col-xs-12">
+                        <button type="button" class="btn btn-sm btn-flat btn-danger" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-sm btn-flat btn-info">Save</button>
                     </div>
-                  </div>
-
-                  <div class="form-group">
-                    <label class="col-sm-4 control-label" for="sched-technician">Technician:</label>
-                    <div class="col-sm-6">
-                       <select  name="sched-technician" id="sched-technician" class="chosen-select" multiple data-placeholder=" "></select>
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <label class="col-sm-4 control-label" for="sched-date-entered">Date Entered:</label>
-                    <div class="col-sm-6">
-                      <span id="sched-date-entered" style="line-height: 2.2;"></span>
-                    </div>
-                  </div>
-              </fieldset>
-              <div>
-                <fieldset>
-                  <legend style="font-size:15px">Contact Person:</legend>
-
-                  <div class="form-group">
-                    <label class="col-sm-4 control-label" for="sched-contact-name">Name:</label>
-                    <div class="col-sm-6">
-                       <input type="text" name="sched-contact-name" id="sched-contact-name" class="form-control" />
-                    </div>
-                  </div>
-
-                   <div class="form-group">
-                    <label class="col-sm-4 control-label" for="sched-contact-num">Contact #:</label>
-                    <div class="col-sm-6">
-                       <input type="text" name="sched-contact-num" id="sched-contact-num" class="form-control" />
-                    </div>
-                  </div>
-
-                   <div class="form-group">
-                    <label class="col-sm-4 control-label" for="sched-contact-email">Email address:</label>
-                    <div class="col-sm-6">
-                       <input type="text" name="sched-contact-email" id="sched-contact-email" class="form-control" />
-                    </div>
-                  </div>
-
-                   <div class="form-group">
-                    <label class="col-sm-4 control-label" for="sched-contact-dept">Department:</label>
-                    <div class="col-sm-6">
-                       <input type="text" name="sched-contact-dept" id="sched-contact-dept" class="form-control" />
-                    </div>
-                  </div>
-
-                </fieldset>
-              </div>
-
-          </div><!--end of modal body -->
-              <div class="modal-footer">
-                <div class="col-sm-6 col-xs-11 text-left"> 
-                  <button type="button" class="btn btn-sm btn-flat btn-warning" id="btn_cancel_sched">Cancel Schedule</button><br>
-                  <button type="button" class="btn btn-sm btn-flat btn-success" id="btn_close_pm">Close PM</button>
-                </div> 
-               <div class="col-sm-6 col-xs-12">
-                  <button type="button" class="btn btn-sm btn-flat btn-danger" data-dismiss="modal">Close</button>
-                  <button type="submit" class="btn btn-sm btn-flat btn-info">Save</button>
-              </div>
-              </div>
-          </form>
+                </div>
+            </form>
+        </div>
     </div>
-  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalReasonCancelPM" data-backdrop="static" data-keyboard="true" tabindex="-1" role="dialog"
+    aria-labelledby="Reason Cancel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header modal-header-warning">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modal-header">Cancel Schedule</h4>
+            </div>
+            <form id="frmReasonCancelPM" class="form-horizontal">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="col-sm-4 col-md-4 control-label" for="txtReason">Reason:</label>
+                        <div class="col-sm-5 col-md-7">
+                            <textarea class="form-control" id="txtReasonCancelPM" name="txtReasonCancelPM"
+                                placeholder="Input reason's here." /></textarea>
+                        </div>
+                    </div>
+                    <!--end of content-->
+                </div>
+                <!--end of modal-body-->
+                <div class="modal-footer">
+                    <div class="">
+                        <div class="col-sm-6 col-sm-offset-6">
+                            <button type="submit" class="btn btn-flat btn-info" id="btnReasonCancelOk">OK</button>
+                            <button type="button" class="btn btn-flat btn-danger" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+                <!--end of modal footer-->
+            </form>
+
+        </div>
+    </div>
 </div>
 
 <script type="text/javascript">
-$("#sched-schedule").datepicker({dateFormat: 'yy-mm-dd' }); //Date schedule picker
+    $("#sched-schedule").datepicker({ dateFormat: 'yy-mm-dd' }); //Date schedule picker
 
-$( document ).ready( function () {
-// Client-side edit form validation.
-    $( "#frmCurrentSched" ).validate( {
-        onkeyup: false,
-        submitHandler: function (form) {
-          var id = $("#hdnCurSchedId").val();
-            if(id == '' || id == null){
-               dtCurrentSched.add();
-            }
-            else {
-              dtCurrentSched.edit(id);              
-            }
-        },
-       rules: {
-            "sched-company": {
-              required: true
-            },
-            "sched-schedule": {
-              required: true
-            },
-            "sched-technician": {
-              required: true
-            },
-            "sched-contact-name": {
-              required: true
-            },
-            "sched-contact-num": {
-              required: true
-            },
-             "sched-contact-email": {
-              required: true
-            }, 
-            "sched-contact-dept": {
-              required: true
-            }
-          },
-          messages: {
-            "sched-company": {
-              required: "This field is required.",
-            },
-            "sched-schedule": {
-              required: "This field is required.",
-            },
-            "sched-technician": {
-              required: "This field is required.",
-            },
-            "sched-contact-name": {
-              required: "This field is required.",
-            } ,
-            "sched-contact-num": {
-              required: "This field is required.",
-            } ,
-            "sched-contact-email": {
-              required: "This field is required.",
-            } ,
-            "sched-contact-dept": {
-              required: "This field is required.",
-            }
-        
-          },
-          errorElement: "em",
-          errorPlacement: function ( error, element ) {
-            // Add the `help-block` class to the error element
-            error.addClass( "help-block" ).css('margin-top','0px');
-            error.css({'font-size':'11px','margin-bottom':'0px'});
+    $(document).ready(function () {
+        //Cancel Validation
+        $("#frmReasonCancelPM").validate({
+            onkeyup: false,
+            submitHandler: function (form) {
+                var id = $("#hdnCurSchedId").val();
+                if (id) {
+                    dtCurrentSched.update_cancel(id);
+                }
 
-            if ( element.prop( "type" ) === "checkbox" ) {
-              error.insertAfter( element.parent( "label" ) );
+            },
+            rules: {
+                "txtReasonCancelPM": {
+                    required: true
+                }
+            },
+            messages: {
+                "txtReasonCancelPM": {
+                    required: "This field is required.",
+                }
+            },
+            errorElement: "em",
+            errorPlacement: function (error, element) {
+                // Add the `help-block` class to the error element
+                error.addClass("help-block").css('margin-top', '0px');
+                error.css({ 'font-size': '11px', 'margin-bottom': '0px' });
+                error.insertAfter(element);
+
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).parents(".col-sm-5").addClass("has-error").removeClass("has-success");
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).parents(".col-sm-5").addClass("has-success").removeClass("has-error");
             }
-            else if ( element.prop( "type" ) === "select-one") {
-              error.insertAfter( element.next('.chosen-container') );
-            }  
-            else {
-              error.insertAfter( element );
+        });
+
+        // Schedule validation.
+        $("#frmCurrentSched").validate({
+            onkeyup: false,
+            submitHandler: function (form) {
+                var id = $("#hdnCurSchedId").val();
+                if (id == '' || id == null) {
+                    dtCurrentSched.add();
+                }
+                else {
+                    dtCurrentSched.edit(id);
+                }
+            },
+            rules: {
+                "sched-company": {
+                    required: true
+                },
+                "sched-schedule": {
+                    required: true
+                },
+                "sched-technician": {
+                    required: true
+                },
+                "sched-contact-name": {
+                    required: true
+                },
+                "sched-contact-num": {
+                    required: true
+                },
+                "sched-contact-email": {
+                    required: true
+                },
+                "sched-contact-dept": {
+                    required: true
+                }
+            },
+            messages: {
+                "sched-company": {
+                    required: "This field is required.",
+                },
+                "sched-schedule": {
+                    required: "This field is required.",
+                },
+                "sched-technician": {
+                    required: "This field is required.",
+                },
+                "sched-contact-name": {
+                    required: "This field is required.",
+                },
+                "sched-contact-num": {
+                    required: "This field is required.",
+                },
+                "sched-contact-email": {
+                    required: "This field is required.",
+                },
+                "sched-contact-dept": {
+                    required: "This field is required.",
+                }
+
+            },
+            errorElement: "em",
+            errorPlacement: function (error, element) {
+                // Add the `help-block` class to the error element
+                error.addClass("help-block").css('margin-top', '0px');
+                error.css({ 'font-size': '11px', 'margin-bottom': '0px' });
+
+                if (element.prop("type") === "checkbox") {
+                    error.insertAfter(element.parent("label"));
+                }
+                else if (element.prop("type") === "select-one") {
+                    error.insertAfter(element.next('.chosen-container'));
+                }
+                else {
+                    error.insertAfter(element);
+                }
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).parents(".col-sm-6").addClass("has-error").removeClass("has-success");
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).parents(".col-sm-6").addClass("has-success").removeClass("has-error");
             }
-          },
-          highlight: function ( element, errorClass, validClass ) {
-            $( element ).parents( ".col-sm-6" ).addClass( "has-error" ).removeClass( "has-success" );
-          },
-          unhighlight: function (element, errorClass, validClass) {
-            $( element ).parents( ".col-sm-6" ).addClass( "has-success" ).removeClass( "has-error" );
-        }
-      } );
-  } );     
+        });
+    });     
 </script>

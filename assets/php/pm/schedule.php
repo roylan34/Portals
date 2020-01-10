@@ -26,6 +26,7 @@ if(Utils::getIsset('action')){
 	$department  	= Utils::getValue('department');
 	$branch  		= Utils::getValue('branch');
 	$user_id  		= Utils::getValue('user_id');
+	$reason  		= Utils::getValue('reason');
 	$date_entered = Utils::getSysDate();
 	$time_entered = Utils::getSysTime();
 
@@ -110,7 +111,7 @@ if(Utils::getIsset('action')){
 					if($id_sched){
 						$is_cancel = checkIsCancel($pmnumber, $db);
 						if($is_cancel['aaData']['result'] == 'true'){
-							$db->updateQuery('tbl_pm_schedule','status = "cancel"','id = "'.$id_sched.'"');
+							$db->updateQuery('tbl_pm_schedule','status = "cancel", reason_cancel="'.$reason.'" ','id = "'.$id_sched.'"');
 						}
 
 				 		print Utils::jsonEncode($is_cancel);	
