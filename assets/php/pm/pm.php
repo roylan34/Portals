@@ -19,13 +19,13 @@ if(Utils::getIsset('action')){
 	$pmnumber 		= Utils::getValue('pmnumber');
 	$pm_id  		= Utils::getValue('pm_id');
 	$comp_id    	= Utils::getValue('comp_id');
-	$manufacture  	= (Utils::getValue('manufacture') ? '"'.Utils::getValue('manufacture').'"' : 'NULL');
+	$manufacture  	= Utils::getValue('manufacture');
 	$remarks  		= $db->escapeString(Utils::getValue('remarks'));
 	$page  			= Utils::getValue('page');
 	$toner  		= $db->escapeString(Utils::getValue('toner'));
 	$toner_old  	= $db->escapeString(Utils::getValue('toner_old'));
-	$time_in  	= (Utils::getValue('time_in')  ? '"'.Utils::getValue('time_in').'"'  : 'NULL');
-	$time_out  	= (Utils::getValue('time_out') ? '"'.Utils::getValue('time_out').'"' : 'NULL');
+	$time_in  	= Utils::getValue('time_in');
+	$time_out  	= Utils::getValue('time_out');
 	$is_delete  = Utils::getValue('is_delete');
 	$user_id    = Utils::getValue('user_id');
 
@@ -97,6 +97,8 @@ if(Utils::getIsset('action')){
 
 						$brand    = Utils::getValue('brand');
 						$model    = Utils::getValue('model');
+						$category = Utils::getValue('category');
+						$type     = Utils::getValue('type');
 						$location    = Utils::getValue('location');
 						$department  = Utils::getValue('department');
 						$no_of_user  = Utils::getValue('no_of_user');
@@ -107,17 +109,19 @@ if(Utils::getIsset('action')){
 													    location_area 	= "'.$location.'",
 													    department 		= "'.$department.'",
 													    no_of_user 		= "'.$no_of_user.'",
-														manufacture_date = '.$manufacture.', 
+														manufacture_date = "'.$manufacture.'", 
 														recent_user = "'.$user_id.'", 
 														remarks 	= "'.$remarks.'",
 														page_count 	= "'.$page.'",
-														time_in  	= '.$time_in.',
-														time_out 	= '.$time_out.''
+														time_in  	= "'.$time_in.'",
+														time_out 	= "'.$time_out.'"'
 										    			,'id = "'.$pm_id.'"');
 						//Sync update to tblmif.
 						$db->updateQuery('tblmif','page_count 		= "'.$page.'",
 												   brand 			= "'.$brand.'",
 												   model 			= "'.$model.'",
+												   category 		= "'.$category.'",
+												   type 			= "'.$type.'",
 												   location_area 	= "'.$location.'",
 												   department 		= "'.$department.'",
 												   no_of_user 		= "'.$no_of_user.'",
@@ -164,7 +168,8 @@ if(Utils::getIsset('action')){
 				 	}
 			break;
 		case 'view-id':
-					$db->selectQuery("pm.company_id, pm.pm_number, pm.id, m.serialnumber, pm.brand, pm.model, pm.manufacture_date, pm.remarks, pm.page_count, GROUP_CONCAT(tmu.toner_id) AS toner_use, pm.time_in, pm.time_out, pm.location_area, pm.department, pm.no_of_user, m.id AS mif_id "," tbl_pm_machines pm
+					$db->selectQuery("pm.company_id, pm.pm_number, pm.id, m.serialnumber, pm.brand, pm.model, pm.manufacture_date, pm.remarks, pm.page_count, GROUP_CONCAT(tmu.toner_id) AS toner_use, pm.time_in, pm.time_out, pm.location_area, pm.department, pm.no_of_user, m.id AS mif_id,
+						m.category, m.type "," tbl_pm_machines pm
 									LEFT JOIN tblmif m ON m.id = pm.mif_id
 									LEFT JOIN tbl_toner_model_use tmu ON pm.pm_number = tmu.pm_number
 									WHERE pm.id = ".$pm_id." AND m.company_id = pm.company_id 

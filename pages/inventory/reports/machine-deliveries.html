@@ -1,0 +1,42 @@
+<div id="reportInventorySapIssuances">
+    <div class="box box-success">
+        <div class="box-header with-border">
+            <h3 class="box-title">Machine Deliveries</h3>
+            <span>
+                <label class="pull-right ">Date: 
+                    <span class="m-input-container">
+                        <input type="text" class="m-input" id="slctreports-deliveries" style="padding:2px 4px" autocomplete="off">
+                        <span class="m-input-suffix">x</span>
+                    </span>
+                </label>
+            </span>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+            <div id="report-sap-issuances">
+            </div>
+        </div>
+        <!--end of box body -->
+        <div class="box-footer"></div><!-- box-footer -->
+    </div>
+</div>
+<script type="text/javascript">
+    $("input#slctreports-deliveries").datepicker({
+        changeYear: true,
+        changeMonth: true,
+        dateFormat: 'yy-mm-dd',
+        onSelect: function (val) {
+            var selectedDate = val;
+                reportInvntMachineDeliver.table_sap_issuances(selectedDate);
+        }
+    });
+
+    $("#reportInventorySapIssuances .m-input-suffix").on('click',function(){
+        if($("#slctreports-deliveries").val()){
+            $("#slctreports-deliveries").val('');
+            reportInvntMachineDeliver.table_sap_issuances();
+        }
+    });
+</script>
+<style type="text/css">
+
+</style>

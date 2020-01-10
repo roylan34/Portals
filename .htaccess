@@ -4,6 +4,13 @@ Options All -Indexes
 #Set default page
 #DirectoryIndex index.php
 
+#Helps reduce XSS risks on modern browsers by declaring, which dynamic resources are allowed to load.
+<IfModule mod_headers.c>
+    Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' *.cloudflare.com rawgit.com code.jquery.com *.googleapis.com; style-src 'self' 'unsafe-inline' *.cloudflare.com code.jquery.com *.googleapis.com; font-src 'self' *.cloudflare.com fonts.gstatic.com;  img-src 'self' data: content: https: *.googleapis.com code.jquery.com; object-src 'self'"	
+
+    Header set X-Content-Type-Options nosniff
+    Header set X-Frame-Options DENY
+</IfModule>
 
 <IfModule mod_deflate.c>
 # Insert filters / compress text, html, javascript, css, xml:

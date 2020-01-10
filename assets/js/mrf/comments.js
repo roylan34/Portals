@@ -42,7 +42,7 @@ var comment = {
 	},
 	send: function(idMRF){
 		 var comments = $("#txtComment").val() || '';
-		 var id_user  = Cookies.get('user_id');
+		 var id_user  = jwt.get('user_id');
 		 var $btn = $("#btnCommentSubmit, #btnCommentClear");
 		 if(idMRF != null && comments != ''){
 

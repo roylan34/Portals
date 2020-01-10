@@ -8,13 +8,15 @@ var dtFilterMachine = {
           		$("#displayFilterMachine").load(pages+'company/filter-machine.html',function(data,status,xhr){
                 $("#modalFilterMachine").modal('show');
                     if(status == 'success'){
-                         var location = convertArrStrToInt(Cookies.get('location')) || [1]; //Added in 02/12/2017
-                         var reverseDrpdown = (Cookies.get('location') == '1' ? false : true);
+                         var location = convertArrStrToInt(jwt.get('location')) || [1]; //Added in 02/12/2017
+                         var reverseDrpdown = (jwt.get('location') == '1' ? false : true);
 
                          autoDrpDown.getBrandName("#fltr-slctbrand"); //Auto Dropdown and Autocomplete. 
                          autoDrpDown.getAllCompany("#fltr-slctcompany","150px");
                          autoDrpDown.getBranchNameOne("#fltr-slctlocation","120px",location,reverseDrpdown); 
-                         self.dtFilterMachine.autoComplete().showFormMachine().actions();                          
+                         autoDrpDownInvnt.getModelByBrand("#fltr-model",true, '150px')
+
+                         self.dtFilterMachine.autoComplete().showModelByBrand().showFormMachine().actions();                          
                          $("#fltr-slctcompany, #fltr-slctlocation").val(0).trigger('chosen:updated'); //reset
 
 
@@ -69,6 +71,31 @@ var dtFilterMachine = {
             });
         return this; 
     },
+    showModelByBrand: function(){
+         //Dynamically show the list of model by brand selected.
+         var $model = $("#fltr-model");
+         var cache_brand = 0;
+          $("#fltr-slctbrand").change(function(){
+                var select_brand = $(this).val() || null;
+
+                if(select_brand != null){
+
+                    //Reset model list
+                    if(cache_brand != select_brand){
+                        $model.val(0).trigger('chosen:updated'); //Disabled and reset the value.
+                        $model.find("option").not("[data-brand='"+select_brand+"']").hide().trigger('chosen:updated');
+                    }
+                    //Show corresponding model
+                    $model.prop('disabled',false).trigger('chosen:updated');
+                    $model.find("option[data-brand='"+select_brand+"']").show().trigger('chosen:updated');
+                    cache_brand = select_brand; //cache selected brand
+                                               
+                }else{
+                    $model.prop('disabled',true).val(0).trigger('chosen:updated');
+                }
+           });
+        return this;
+    },
     render: function(deptData){ //Must check if all field are empty not display the table.
                 var $btn = $("button#btnFilterSearch");
                 this.dtFInstance = $("#dtFilterMachine").DataTable({
@@ -110,14 +137,11 @@ var dtFilterMachine = {
                     "data" : function(d){
                               d.serialnumber = $("#fltr-serialnum").val();
                               d.brand  = $("#fltr-slctbrand option:selected").val() || null;
-                              d.model  = $("#fltr-model").val();
-                              d.category = $("#fltr-slctcategory option:selected").val() || '';
-                              d.type     = $("#fltr-slcttype option:selected").val() || '';
+                              d.model  = $("#fltr-model").chosen().val() || null;
                               d.company  = $("#fltr-slctcompany").chosen().val() || null;
                               d.branch   = $("#fltr-slctlocation").chosen().val() || null;
-                              d.user_id  = Cookies.get('user_id');
+                              d.user_id  = jwt.get('user_id');
                               d.department = deptData;
-                              d.billing  = $("#fltr-slctBillingType option:selected").val() || null;
                     },
                     "type" : "GET",
                     beforeSend: function(){ $btn.button('loading'); }, //Empty the search fields. 
@@ -180,10 +204,6 @@ var dtFilterMachine = {
                                 return "<span class='text-left'>" + isEmpty(data.date_installed) + "</span>";
                                 }
                             },
-                             { data:  null, title: "Unit Owned", render: function( data, type, full, meta ){
-                                return "<span class='text-left'>" + isEmpty(data.unit_owned_by) + "</span>";
-                                }
-                            },
                             { data:  null, title: "Billing Type", render: function( data, type, full, meta ){
                                 return "<span class='text-left'>" + isEmpty(data.billing_type) + "</span>";
                                 }
@@ -192,19 +212,25 @@ var dtFilterMachine = {
                                 return "<span class='text-left'>" + isEmpty(data.branches) + "</span>";
                                 }
                             },
-                            { data:  null, title: "", render: function( data, type, full, meta ){
-                                return "<button class='btn btn-xs btn-success btn-flat btnViewUpdateMachine' data-target='#modalFormMachine' data-toggle='modal' data-machine='"+data.id+"'>Update</button>";
+                            { data:  null, render: function( data, type, full, meta ){
+                                var action_elem = '';
+                                        action_elem += '<div class="dropdown text-center">';
+                                        action_elem += '<button class="btn btn-success dropdown-toggle btn-sm" type="button" data-toggle="dropdown">Actions'
+                                                         +' <span class="caret"></span></button>'
+                                                          +'<ul class="dropdown-menu dropdown-menu-right dropdown-menu-machine">'
+                                                            + '<li><a href="#" class="btnViewUpdateMachine" data-target="#modalFormMachine" data-toggle="modal" data-machine='+data.id+'><i class="fa fa-pencil-square" aria-hidden="true"></i>EDIT</a></li>'
+                                                            + '<li><a href="#" class="btnRemoveMachine" data-machine='+data.id+' title="Remove"><i class="fa fa-trash" aria-hidden="true"></i>REMOVE</a></li>'
+                                                            + '<li><a href="#" class="btnPmHistory" data-machine='+data.id+' title="PM History">PM History</a></li>'
+                                                    +'</ul></div>';
+                                                       
+                                    return action_elem;
                                 }
                             },
-                            { data:  null, title: "", render: function( data, type, full, meta ){
-                                    return "<a href='#' class='btn btn-xs btn-warning btn-flat btnRemoveMachine' data-machine='"+data.id+"' title='Remove'><i class='fa fa-trash'></i></a>";
-                                }
-                            }
 
                  ],
                 "deferRender" : true,
                 "fnDrawCallback": function(oSettings){
-                     var action = JSON.parse(Cookies.get('app_module_action'));
+                     var action = jwt.get('app_module_action');
                         if(action == null){
                             $(".btnViewUpdateMachine, .btnRemoveMachine").remove();
                         }
@@ -226,11 +252,16 @@ var dtFilterMachine = {
     showFormMachine: function(){
                  $("#displayFormMachine").load(pages+'machine/modal/form.html',function(){
                         $("#modalFormMachine .modal-title").attr('data-update-opt','2');  
-                         var location = convertArrStrToInt(Cookies.get('location')) || [1]; //Added in 10/10/2017
-                         var reverseDrpdown = (Cookies.get('location') == '1' ? false : true);
+                         var location = convertArrStrToInt(jwt.get('location')) || [1]; //Added in 10/10/2017
+                         var reverseDrpdown = (jwt.get('location') == '1' ? false : true);
                         autoDrpDown.getBranchNameOne("#txtBranch","100%",location,reverseDrpdown);                        
                         autoDrpDown.getAllCompany("#slctCompany","60%");
                         autoDrpDown.getBrandName("#slctBrands"); 
+
+                        autoDrpDownInvnt.getModelByBrand("#slctModel",true)
+                      
+                        dtMachine.showModelByBrand()
+                                       .autoFillCatType();
                  });
 
         return this;
@@ -249,7 +280,7 @@ var dtFilterMachine = {
                                 $("#hdnOldSerial").val(val.serialnumber);
                                 $("#txtSerialNum").val(val.serialnumber);
                                 $("#slctBrands").val(val.brand);
-                                $("#txtModel").val(val.model);
+                                $("#slctModel").val(val.model).trigger('chosen:updated');
                                 $("#slctCategory").val(isUpperCase(val.category));
                                 $("#slctType").val(isUpperCase(val.type));
                                 $("#txtPageCount").val(val.page_count);
@@ -277,7 +308,7 @@ var dtFilterMachine = {
             var company_id  = $("#slctCompany").chosen().val();
             var serialnum   = $("#txtSerialNum").val();
             var brand       = $("#slctBrands option:selected").val();
-            var model       = $("#txtModel").val();
+            var model       = $("#slctModel").chosen().val();
             var cat         = $("#slctCategory option:selected").val();
             var type        = $("#slctType option:selected").val();
             var page_count  = $("#txtPageCount").val();
@@ -289,7 +320,7 @@ var dtFilterMachine = {
             var unit_own    = $("#txtUnitOwn").val();    
             var billing     = $("#slctBilling option:selected").val();    
             var branch      = $("#txtBranch").chosen().val();
-            var user_id     = Cookies.get('user_id');
+            var user_id     = jwt.get('user_id');
             var data = {action:'update', idmachine:id, company_id:company_id, serialnum:serialnum, brand:brand, model:model, 
                         category:cat, type:type, pagecount: page_count, location:loc, department:depart, nouser:nouser, remarks:remarks, 
                         dateinstall: dateinstall, unit_own:unit_own, billing:billing, branch: branch, user_id: user_id};   
@@ -328,7 +359,7 @@ var dtFilterMachine = {
             var reason   = $("#txtReason").val();
             var status   = $("#slctMachineStatus option:selected").val();
             var status_action = $("#slctMachineStatus option:selected").data('action');
-            var user_id  = Cookies.get('user_id');
+            var user_id  = jwt.get('user_id');
             var data = { action:'remove', id:id, reason:reason, status:status, status_action:status_action, user_id: user_id} 
             
             $.ajax({
@@ -368,12 +399,17 @@ var dtFilterMachine = {
                         self.dtFilterMachine.showRemove(idcompany);
                     }
                     else if($(this).is('#btnFilterReset')){
-                        $("#fltr-serialnum, #fltr-slctbrand, #fltr-model, #fltr-slctcategory, #fltr-slcttype, #fltr-slctBillingType").val('');
-                        $("#fltr-slctcompany, #fltr-slctlocation").val(0).trigger('chosen:updated');
+                        $("#fltr-serialnum, #fltr-slctbrand, #fltr-slctcategory, #fltr-slcttype, #fltr-slctBillingType").val('');
+                        $("#fltr-slctcompany, #fltr-slctlocation, #fltr-model ").val(0).trigger('chosen:updated');
                         $('#dtFilterMachine').DataTable().destroy(); //Destory datatable
                         $('#dtFilterMachine thead, #dtFilterMachine tbody').empty(); //Clear table head and body.
 
                     }
+                    else if ($(this).hasClass('btnPmHistory')) {
+                        var mif_id = $(this).data('machine');
+                            dtPmHistory.render(mif_id);
+                    }
+                    else{ }
 
               }); 
 

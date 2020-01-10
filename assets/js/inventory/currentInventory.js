@@ -147,7 +147,7 @@ var dtCurrentInventory = {
 	                            	$(".btn-add-inventory").attr('data-toggle','modal');
 									$(".btn-add-inventory").attr('data-target','#modalFormCurrentInvnt');
 									
-		                            var action = JSON.parse(Cookies.get('app_module_action'));
+		                            var action = jwt.get('app_module_action');
 			                            if(action == null){
 			                                $(".btn-add-inventory, .btn-edit-inventory, .viewInvntStatusLogs, .btn-out-inventory, .btn-in-inventory, .btn-bulk").remove();
 			                            }
@@ -170,7 +170,7 @@ var dtCurrentInventory = {
 							});
 
 							//Handle Bulk Options.
-							$("div.dt-buttons").prepend('<div class="dropdown btn-bulk" style="display:inline; margin-right:0.5em; vertical-align:bottom"><button style="vertical-align:top;" class="btn btn-primary btn-flat btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Bulk Action ' +
+							$("div.dt-buttons").prepend('<div class="dropdown btn-bulk" style="display:inline; margin-right:0.5em;"><button style="vertical-align:top;" class="btn btn-primary btn-flat btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Bulk Action ' +
 							    '<span class="caret"></span></button>'+
 								   '<ul class="dropdown-menu bulk-action">'+
 								      '<li><a href="#" class="bulk-action-out">OUT MACHINE</a></li>'+
@@ -349,7 +349,7 @@ var dtCurrentInventory = {
             var date 	 = $("#txtCurInvntDateOut").val();
             var remarks  = $("#txtCurInvntRemarks").val();
             var client_loc  = $("#slctCurInvntLocation").chosen().val();
-            var id_user   	= Cookies.get('user_id');
+            var id_user   	= jwt.get('user_id');
             var branch   	= $("#slctCurInvntOutBranch option:selected").val();
             var data = { action:'update_out', id_machine:id, status:status, company: company, date: date, remarks: remarks, client_location: client_loc, id_user:id_user, branch:branch} 
 
@@ -485,8 +485,8 @@ var dtCurrentInventory = {
 		   	 	}   		   	 	
 		   	 	else if ($(inst[0]).hasClass('dt-invnt-refresh')) { // Refresh
 		   	 		 $(".dt-searchfield input[type='text']").val('');  //Clear text
-    	   	 		 var branch = Cookies.get('branch');
-    	   	 		 var app_module = JSON.parse(Cookies.get('app_module'));
+    	   	 		 var branch = jwt.get('branch');
+    	   	 		 var app_module = jwt.get('app_module');
    	 					 self.dtCurrentInventory.render(app_module.invnt,branch);   	 	    	   
 		   	 	}                  
                 else if ($(inst[0]).hasClass('viewInvntStatusLogs')) { //Show modal activity logs.

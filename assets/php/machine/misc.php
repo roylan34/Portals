@@ -49,7 +49,6 @@ function getCompanyStatus($companyId,$db){
 *return boolean.
 */
 function machineLogs($company_id,$machine_id,$serialnumber,$user_id,$action,$conn){
-	$date_now = Utils::getSysDate().' '.Utils::getSysTime();  
 	if(!Utils::isEmpty($company_id)){
 		$conn->insertQuery('tblmif_logs','company_id,machine_id,serialnumber,user_id,action,updated_at',
 									  '"'.$company_id.'",
@@ -57,7 +56,7 @@ function machineLogs($company_id,$machine_id,$serialnumber,$user_id,$action,$con
 									  "'.Utils::uppercase($serialnumber).'",
 									  "'.$user_id.'",
 									  "'.Utils::uppercase($action).'",
-									  "'.$date_now.'"');
+									  NOW()');
 	}
 	return false;
 }

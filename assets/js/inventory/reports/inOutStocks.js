@@ -1,6 +1,6 @@
 var reportInvntInOutTable = {
 	pageDetails: function(branch){
-   			$(".content-header h1").text("Machine Inventory");
+   			$(".content-header h1").text("Refurbished Stocks");
   			$(".content-header h1").append("<small>Reports</small>");
   			self.reportInvntInOutTable.drop_down_branch(branch);
   		return this;

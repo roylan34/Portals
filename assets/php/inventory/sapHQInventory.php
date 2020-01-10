@@ -16,26 +16,24 @@ $limit = "";
 $totalData =0;
 $totalFiltered =0;
 
-$db = array('db_name' => 'sap_db', 'db_host' => 'localhost', 'db_user' => 'root', 'db_pass' => ''); //Use sap_db.
-$conn = Database::getInstance($db); //For Searching.
-
-if(Utils::getValue('serialnumber'))		{ $search  ="AND serialnumber ='".$conn->escapeString(Utils::getValue('serialnumber'))."'"; }
-if(Utils::getValue('brand'))			{ $search .="AND id_brand = '".$conn->escapeString(Utils::getValue('brand'))."'"; }
-if(Utils::getValue('model'))			{ $search .="AND model LIKE '%".$conn->escapeString(Utils::getValue('model'))."%'"; }
-if(Utils::getValue('location'))			{ $search .="AND location ='".$conn->escapeString(Utils::getValue('location'))."'"; }
-if(Utils::getValue('date'))				{ $search .="AND date_entered ='".$conn->escapeString(Utils::getValue('date'))."'"; }
+$conn = Database::getInstance(); //For Searching.
+if(Utils::getValue('serialnumber'))		{ $search ="AND ma.serialnumber ='".$conn->escapeString(Utils::getValue('serialnumber'))."'"; }
+if(Utils::getValue('brand'))			{ $search .="AND ma.id_brand = '".$conn->escapeString(Utils::getValue('brand'))."'"; }
+if(Utils::getValue('model'))			{ $search .="AND ma.model LIKE '%".$conn->escapeString(Utils::getValue('model'))."%'"; }
+if(Utils::getValue('location'))			{ $search .="AND ma.location ='".$conn->escapeString(Utils::getValue('location'))."'"; }
+if(Utils::getValue('date'))				{ $search .="AND ma.date_entered ='".$conn->escapeString(Utils::getValue('date'))."'"; }
 
 			$requestData= $_REQUEST;
 			// storing  request (ie, get/post) global array to a variable  
-			$conn->selectQuery('serialnumber,id_brand,model',' tbl_invnt_machines_auto_import');
+			$conn->selectQuery('serialnumber,id_brand,model','sap_db.tbl_invnt_machines_auto_import');
 			$totalData = $conn->getNumRows(); //getting total number records without any search.
 			$conn->row_count = 0;
 			$conn->fields = null;
 
 			if( !empty($search) ) { // if there is a search parameter, $requestData['search']['value'] contains search parameter.
 
-			$conn->selectQuery('*','tbl_invnt_machines_auto_import 
-					WHERE id > 0 '.$search.'');
+			$conn->selectQuery('ma.*','sap_db.tbl_invnt_machines_auto_import ma
+					WHERE ma.id > 0 '.$search.'');
 
 				$conn->fields = null;
 				$totalFiltered  = $conn->getNumRows(); // when there is a search parameter then we have to modify total number filtered rows as per search result. 
@@ -46,8 +44,18 @@ if(Utils::getValue('date'))				{ $search .="AND date_entered ='".$conn->escapeSt
 			
 			if(intval($requestData['length']) >= 1 ) { $limit = ' LIMIT '.$requestData['start'].' ,'.$requestData['length'].''; }
 
-				$conn->selectQuery('*','tbl_invnt_machines_auto_import
-					WHERE id > 0 '.$search.' '.$limit.'');
+				$conn->selectQuery('ma.*, IF((ir.serial_number = ma.serialnumber), "RESERVED", "" ) AS label, 
+						c.company_name, 
+						ir.date_reserved, 
+						CONCAT(ac.firstname," ", ac.lastname) AS acct_mngr, ir.created_at','sap_db.tbl_invnt_machines_auto_import ma
+					LEFT JOIN tbl_invnt_reservation ir ON ma.serialnumber = ir.serial_number
+					LEFT JOIN tbl_company c ON ir.id_company = c.id
+					LEFT JOIN sap_db.tbl_client_accounts ca ON ir.id_acc_mngr = ca.id
+					LEFT JOIN tbl_accounts ac ON ca.account_id = ac.id
+					WHERE ma.id > 0 AND (ir.status = "" || ir.status IS NULL) '.$search.' '.$limit.'');
+
+				// $conn->selectQuery('ma.*, IF((SELECT serialnumber FROM tbl_invnt_reservation WHERE serial_number = ma.serialnumber AND (status = "" || status IS NULL) ) !="", "RESERVED", "" ) AS label, ','sap_db.tbl_invnt_machines_auto_import ma
+				// 	WHERE ma.id > 0 '.$search.' '.$limit.'');
 				$row = $conn->getFields(); //Get all rows
 
 			if($conn->getNumRows() > 0 ){

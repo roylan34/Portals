@@ -1,0 +1,39 @@
+<div id="reportInventoryReceipts">
+    <div class="box box-success">
+        <div class="box-header with-border">
+            <h3 class="box-title">Machine Receipts</h3>
+            <span>
+                <label class="pull-right ">Date: 
+                    <span class="m-input-container">
+                        <input type="text" class="m-input" id="slctreports-receipts" style="padding:2px 4px" autocomplete="off">
+                        <span class="m-input-suffix">x</span>
+                    </span>
+                </label>
+            </span>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+            <div id="report-receipts">
+            </div>
+        </div>
+        <!--end of box body -->
+        <div class="box-footer"></div><!-- box-footer -->
+    </div>
+</div>
+<script type="text/javascript">
+    $("#slctreports-receipts").datepicker({
+        changeYear: true,
+        changeMonth: true,
+        dateFormat: 'yy-mm-dd',
+        onSelect: function (val) {
+            var selectedDate = val;
+                reportInvntReceipts.table_receipts(selectedDate);
+        }
+    });
+
+    $("#reportInventoryReceipts .m-input-suffix").on('click',function(){
+        if($("#slctreports-receipts").val()){
+            $("#slctreports-receipts").val('');
+            reportInvntReceipts.table_receipts();
+        }
+    });
+</script>

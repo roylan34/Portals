@@ -139,7 +139,7 @@ var dtCurrentPM = { //For development
                                 }
                             }, 
                              { data:  null, render: function( data, type, full, meta ){
-                                return "<span class='text-center'>" + isEmpty(data.remarks) + "</span>"; 
+                                return "<span class='text-center'>" + data.remarks + "</span>"; 
                                 }
                             }, 
                              { data:  null, render: function( data, type, full, meta ){
@@ -162,7 +162,7 @@ var dtCurrentPM = { //For development
                                 }
                             },                              
                             { data:  null, render: function( data, type, full, meta ){
-                                var action_edit = JSON.parse(Cookies.get('app_module_action'));
+                                var action_edit = jwt.get('app_module_action');
                                     if(action_edit && action_edit.action_pm == "wr" && data.enabled_update == 'true'){
                                         return "<button class='btn btn-xs btn-success btn-flat btnUpdatePM' data-id='"+data.id+"' data-toggle='modal' data-target='#modalFormCurrentPM'>Update</button>";
                                     }
@@ -170,8 +170,8 @@ var dtCurrentPM = { //For development
                                 }
                             }, 
                              { data:  null, render: function( data, type, full, meta ){
-                                var action_edit = JSON.parse(Cookies.get('app_module_action'));
-                                var pm_type     = Cookies.get('pm_type');
+                                var action_edit = jwt.get('app_module_action');
+                                var pm_type     = jwt.get('pm_type');
                                 var action_elem = '';
                                     if(action_edit && action_edit.action_pm == "wr" && data.enabled_update == 'true' && pm_type.toLowerCase() == 'controller'){
                                         action_elem += '<div class="dropdown text-center">';
@@ -206,8 +206,8 @@ var dtCurrentPM = { //For development
                             $("#btnAddPm").show();                                
                         }
                          //Remove add button if pm_type is Technician.
-                        var pm_type = Cookies.get('pm_type');
-                        var action_edit = JSON.parse(Cookies.get('app_module_action'));
+                        var pm_type = jwt.get('pm_type');
+                        var action_edit = jwt.get('app_module_action');
                         if(pm_type == '' || pm_type.toLowerCase() == 'technician' || pm_type.toLowerCase() == 'monitor'){
                             this.api().buttons('.btn-header-add-pm').remove();
                         }else{
@@ -322,6 +322,7 @@ var dtCurrentPM = { //For development
                 $("#modalRemoveMachine .modal-title").attr('data-remove-opt','3');
                 autoDrpDown.getMachineStatus("#slctMachineStatus");
         });
+
         return this;
     },
     getDataPM: function(pm_id){
@@ -341,7 +342,9 @@ var dtCurrentPM = { //For development
                             $("#hdnCurOldToner").val(res.toner_use);
                             $("#pm-serialnum").val(res.serialnumber);
                             $("#pm-brand").val(res.brand);
-                            $("#pm-model").val(res.model);                            
+                            $("#pm-model").val(res.model).trigger('chosen:updated');                            
+                            $("#pm-category").val(res.category);                            
+                            $("#pm-type").val(res.type);                            
                             $("#pm-remarks").val(res.remarks);
                             $("#pm-page").val(res.page_count);
                             $("#pm-toner").val(( res.toner_use == null ? null : res.toner_use.split(","))).trigger('chosen:updated');
@@ -459,17 +462,19 @@ var dtCurrentPM = { //For development
               var time_out    = ($("#pm-date-out").datetimepicker('getDate') ? dateFormat($("#pm-date-out").datetimepicker('getDate'), 'yyyy-mm-dd HH:MM') : "");
               var comp_id     = $("#hdnCurCompId").val();
               var serialnum   = $("#pm-serialnum").val();
-              var user_id     = Cookies.get('user_id');
+              var user_id     = jwt.get('user_id');
 
               //MIF Sync updates
               var brand     = $("#pm-brand").val();
-              var model     = $("#pm-model").val();
+              var model     = $("#pm-model").chosen().val();
+              var category  = $("#pm-category").val();
+              var type      = $("#pm-type").val();
               var loc       = $("#pm-location").val();
               var depart    = $("#pm-department").val();
               var no_of_user  = $("#pm-no-user").val();
               var mif_id      = $("#hdnCurMifId").val();
 
-              var data        = {action:'update', brand:brand, model: model, location:loc, department:depart, no_of_user:no_of_user, mif_id:mif_id, pm_id:pm_id, manufacture:manufacture, 
+              var data        = {action:'update', brand:brand, model: model, category:category, type:type, location:loc, department:depart, no_of_user:no_of_user, mif_id:mif_id, pm_id:pm_id, manufacture:manufacture, 
                                 remarks:remarks, page:page, toner:toner, time_in: time_in, time_out: time_out, pmnumber:pm_number, comp_id:comp_id, serialnum:serialnum, toner_old: toner_old,
                                 user_id:user_id};
                $.ajax({
@@ -554,7 +559,7 @@ var dtCurrentPM = { //For development
                 var reason   = $("#txtReason").val();
                 var status   = $("#slctMachineStatus option:selected").val();
                 var status_action = $("#slctMachineStatus option:selected").data('action');
-                var user_id       = Cookies.get('user_id');
+                var user_id       = jwt.get('user_id');
 
                     $.ajax({
                         type: 'POST',
@@ -591,6 +596,53 @@ var dtCurrentPM = { //For development
                 alert('Warning! Empty PM ID.');
             }
         return this;
+    },
+    showModelByBrand: function(){
+             //Dynamically show the list of model by brand selected.
+              $("#pm-brand").change(function(){
+                    var select_brand = $(this).val() || null;
+                    if(select_brand != null){
+                        $.ajax({
+                            type: 'GET',
+                            dataType: 'json',
+                            url: assets+'php/misc/inventory_misc.php',
+                            data: { action: 'model_by_brand', id_brand: select_brand },
+                            beforeSend: function(){ 
+                                $("#pm-model").val(0).trigger('chosen:updated'); //Disabled and reset the value.
+                                $("#pm-model option").hide().trigger('chosen:updated'); 
+                                $("#pm-category,#pm-type").val(''); // Clear category and type.
+                            },
+                            success: function(data){
+                                if(data.aaData[0].id_model != null ){
+                                    var arr_brand = convertArrStrToInt(data.aaData[0].id_model);
+                                    var i = 0;
+                                        for (i = 0; i < arr_brand.length; i++) {
+                                            $("#pm-model").prop('disabled',false).trigger('chosen:updated');
+                                            $("#pm-model option[value='"+arr_brand[i]+"']").show().trigger('chosen:updated');
+                                        }
+                                }
+                            },
+                            error: function(xhr,status){ alert(xhr + status); }
+                        });                                 
+                    }else{
+                        $("#pm-model").prop('disabled',true).val(0).trigger('chosen:updated');
+                    }
+               });
+            return this;
+    },
+    autoFillCatType: function(){
+             //Automatically fill the dropdown Category and Type base in model selected.
+                $("#pm-model").change(function(){
+                    var data_val = convertArrStrToInt($(this).find('option:selected').data('cat-type'));
+                        if(data_val != null){
+                            $("#pm-category").val(data_val[0]); //data_val[0] = Category
+                            $("#pm-type").val(data_val[1]);     //data_val[1] = Type
+                        }
+                        else {
+                            $("#pm-category,#pm-type").val(''); // Clear category and type.
+                        }
+                });
+           return this;
     },
     actions: function(){
                 $("#modalCurrentPMList").on('click','button, a',function (e) {

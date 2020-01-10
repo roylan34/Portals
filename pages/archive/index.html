@@ -31,10 +31,8 @@
                   <th class="text-left">Delsan</th>
                   <th class="text-left">Company</th>
                   <th class="text-left">Client Category</th>
-                  <th class="text-left">Address</th>
                   <th class="text-left">Main </br>Location</th>
                   <th class="text-left">Branches</th>
-                  <th class="text-left">Contact No.</th>
                   <th class="text-left">Account Manager</th>  
                   <th class="text-left">Status</th> 
                   <th class="text-left" >Date Last Visit</th> 
@@ -48,10 +46,8 @@
                         <div class="col-xs-12">
                             <div class="col-xs-12 dt-searchfield" ><input type="text" class="form-control" id="search-archive-companyname" placeholder="Company" value=""></div>
                             <div class="col-xs-12 dt-searchfield" ><input type="text" class="form-control" id="search-archive-category" placeholder="Category" value=""></div>
-                            <div class="col-xs-12 dt-searchfield" ><input type="text" class="form-control" id="search-archive-address" placeholder="Address" value=""></div>
                             <div class="col-xs-12 dt-searchfield" ><select class="form-control" id="search-archive-location" data-placeholder="Location"></select></div>
                             <div class="col-xs-12 dt-searchfield" ><select class="form-control" id="search-archive-branch" data-placeholder="Branches"></select></div>
-                            <div class="col-xs-12 dt-searchfield"><input type="text" class="form-control" id="search-archive-contactno" placeholder="Contact No" value=""></div>
                             <div class="col-xs-12 dt-searchfield" ><select id="search-archive-accmngr" data-placeholder="Account Manager"></select></div>
                             <div class="col-xs-12 col-md-6" style="width: 70px; padding-top: 3px; box-sizing: border-box;" id="btn-companysearch"><button type="button" class="btn btn-primary btn-flat btn-sm">Search</button></div>
                             <div class="col-xs-12 col-md-6" style="width: 70px; padding-top: 3px; box-sizing: border-box;" id="btn-companyreset"><button type="button" class="btn btn-warning btn-flat btn-sm">Reset</button></div>
@@ -66,14 +62,14 @@
                   <th></th>
                   <th></th>
                   <th></th>
-                  <th colspan="3"></th>                  
+                  <th></th>                  
+                  <th></th>                  
+                  <th></th>                  
                   <th></th>
                   <th></th>  
                   <th></th> 
                   <th></th> 
-                  <th></th>   
-                  <th></th>                
-                  <th></th>                
+                  <th></th>                               
                </tr>
             </tfoot>
             <tfoot>
@@ -95,8 +91,8 @@
 </div>
 
 <script type="text/javascript">
-    var loc = convertArrStrToInt(Cookies.get('location')) || [1];
-    var reverseDrpdown = (Cookies.get('location') == '1' ? false : true);
+    var loc = convertArrStrToInt(jwt.get('location')) || [1];
+    var reverseDrpdown = (jwt.get('location') == '1' ? false : true);
     autoDrpDown.getBranchNameOne("#search-archive-branch","100%",loc,reverseDrpdown); // 1 = ALL exclude from the list. Branches
     autoDrpDown.getBranchNameOne("#search-archive-location","100%",loc,reverseDrpdown); // 1 = ALL exclude from the list. Location
     autoDrpDown.getClientName("#search-archive-accmngr","100%");

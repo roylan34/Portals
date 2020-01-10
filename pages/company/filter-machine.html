@@ -9,7 +9,7 @@
 
           <div class="modal-body">
               <div class="row" >
-                  <div class="filter-content col-md-10 col-md-offset-1 col-sm-12 col-xs-12" >
+                  <div class="filter-content col-md-10 col-md-offset-2 col-sm-12 col-xs-12" >
                       <form id="frmFilterMachine" class="form-inline">
                           <div class="form-group" style="height: 33px;">
                              <div style="height:0;">
@@ -22,43 +22,17 @@
                           </div>
 
                           <div class="form-group">
-                            <input type="text" class="form-control" id="fltr-model" placeholder="Model">
+                             <select  id="fltr-model" data-placeholder="Model">></select>
                           </div>
 
                           <div class="form-group">
-                             <select id="fltr-slctcategory" class="form-control">
-                               <option value="">---Category---</option>
-                               <option value="SFP">SFP</option>
-                               <option value="MFP">MFP</option>
-                             </select>
-                          </div>
-
-                          <div class="form-group">
-                             <select id="fltr-slcttype" class="form-control">
-                               <option value="">---Type---</option>
-                               <option value="MONOCHROME">MONOCHROME</option>
-                               <option value="COLOR">COLOR</option>
-                             </select>
-                          </div>
-
-                          <div class="form-group">
-                            <select id="fltr-slctcompany" data-placeholder="Company"></select>
+                              <select id="fltr-slctcompany" data-placeholder="Company"></select>
                           </div>
                            
                           <div class="form-group">
                             <select id="fltr-slctlocation" data-placeholder="Location"></select>
                           </div> 
 
-                           <div class="form-group">
-                            <select id="fltr-slctBillingType" class="form-control">
-                              <option value="">---Billing Type---</option>
-                              <option value="METER READING">METER READING</option>
-                              <option value="PER CARTRIDGE">PER CARTRIDGE</option>
-                              <option value="FSMA">FSMA</option>
-                              <option value="FIXED MONTHLY">FIXED MONTHLY</option>
-                              <option value="OUTRIGHT">OUTRIGHT</option>
-                            </select>
-                          </div> 
 
                            <div class="form-group">
                                <button type="button" class="btn btn-primary btn-flat btn-sm" id="btnFilterSearch">Search</button>

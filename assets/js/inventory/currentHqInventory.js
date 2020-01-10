@@ -92,9 +92,11 @@ var dtCurrentInvtHq = {
 	                                		return date_entered;
 	                                	}
 	                            	},
-	                            	{ "data": null, "width": "160px", render: function(){
-	                            		return '';
-	                            	} }
+	                            	{ "data": null, "width": "160px", render: function(data){
+	                            			var details = JSON.stringify({sn: data.serialnumber, comp: data.company_name, date: data.date_reserved, acct: data.acct_mngr, date_created: data.created_at});
+	                            			return "<a href='#' class='btnViewReservation' title='View Reservation Details' data-details='"+details+"'>"+data.label+"</a>";
+		                            	} 
+		                            }
 	                            ],
 	                            "preDrawCallback": function(settings){
 		                           $(".btn-excel-inventory, .btn-print-inventory, .btn-search-inventory").removeClass("dt-button").addClass("btn btn-primary btn-flat btn-sm").css({"margin-bottom":"0.5em","margin-right":"0.5em"});
@@ -104,12 +106,37 @@ var dtCurrentInvtHq = {
 	                    });
 	        return this;               
     },
+    modalViewReservation: function(){
+    	$("#displayFormReservation").load(pages+'inventory/current/view-reservation.html',function(){
+    		$(this).find("#modalViewReservation").on('hidden.bs.modal',function(){
+    			$(this).find(".tbl-view-reservation tbody").empty();
+    		})
+    	});
+    	return this;
+    },
+    handleViewReservation: function(details){
+    	$("#modalViewReservation").modal('show');
+
+    	var	elem_td = '<tr><td>'+details.sn+'</td>'+
+    				   '<td>'+details.acct+'</td>'+
+    				   '<td>'+details.comp+'</td>'+
+    				   '<td>'+details.date+'</td>'+
+    				   '<td>'+details.date_created+'</td></tr>';
+
+    	$(".tbl-view-reservation tbody").append(elem_td);
+    },
     actions: function(){
-    	$(".dthead-search-invnt-hq").on('click','button, a',function(e) {
+
+    	$("#dtCurrentInvtHq").on('click','button, a',function(e) {
     		e.preventDefault();
     		    var inst = $(this);
     		    var button_label = inst.text().toLowerCase();
 
+    		      //Highlight row selected.
+                if(!inst.closest('tr').hasClass('selected') ) {  
+                    self.dtCurrentInvtHq.dtInstance.$('tr.selected').removeClass('selected');
+                    inst.closest('tr').addClass('selected');
+                }
                 //Search button
                 if(button_label == "search"){
                     self.dtCurrentInvtHq.dtInstance.ajax.reload(null, true);
@@ -118,6 +145,11 @@ var dtCurrentInvtHq = {
                 if(button_label =="reset"){
 	                $(".dt-head-search input[type='text'], .dt-head-search select").val('');  //Clear all values;
 	                self.dtCurrentInvtHq.dtInstance.ajax.reload(null, true); //Reload DT when closing filter search.
+                }
+                //View Reservation
+                if(button_label == "reserved"){
+                	var json_details = inst.data('details');
+                	self.dtCurrentInvtHq.handleViewReservation(json_details);
                 } 
     	});
     	return this;    	 

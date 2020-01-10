@@ -1,294 +1,352 @@
 <!--Modal SAP Details-->
-  <div class="modal fade" id="modalSapDetails" role="dialog">
+<div class="modal fade" id="modalSapDetails" role="dialog">
     <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">SAP Master Details</h4>
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">SAP Master Details</h4>
+            </div>
+            <div class="modal-body">
+                <div class="sap-message alert alert-warning alert-sm"><a href="#" class="close" data-dismiss="alert"
+                        aria-label="close">&times;</a> <strong>Warning!</strong> SAP Code not exist already.</div>
+                <div class="form-group clearFix">
+                    <label class="col-sm-4 col-md-4 control-label">Code:</label>
+                    <div class="col-sm-5 col-md-7">
+                        <p id="sap_code" class="sap-val"></p>
+                    </div>
+                </div>
+
+                <div class="form-group clearFix">
+                    <label class="col-sm-4 col-md-4 control-label">Company name:</label>
+                    <div class="col-sm-5 col-md-8">
+                        <p id="sap_company" class="sap-val"></p>
+                    </div>
+                </div>
+
+                <div class="form-group clearFix">
+                    <label class="col-sm-4 col-md-4 control-label">Category:</label>
+                    <div class="col-sm-5 col-md-7">
+                        <p id="sap_category" class="sap-val"></p>
+                    </div>
+                </div>
+
+                <div class="form-group clearFix">
+                    <label class="col-sm-4 col-md-4 control-label">Address - HQ:</label>
+                    <div class="col-sm-5 col-md-8">
+                        <p id="sap_address" class="sap-val"></p>
+                    </div>
+                </div>
+
+                <div class="form-group clearFix">
+                    <label class="col-sm-4 col-md-4 control-label">Location - HQ:</label>
+                    <div class="col-sm-5 col-md-7">
+                        <p id="sap_location" class="sap-val"></p>
+                    </div>
+                </div>
+
+                <div class="form-group clearFix">
+                    <label class="col-sm-4 col-md-4 control-label">Contact #:</label>
+                    <div class="col-sm-5 col-md-7">
+                        <p id="sap_contact" class="sap-val"></p>
+                    </div>
+                </div>
+
+                <div class="row clearFix">
+                    <label class="col-sm-4 col-md-4 control-label">Account Manager:</label>
+                    <div class="col-sm-5 col-md-7">
+                        <p id="sap_acct_mngr" class="sap-val"></p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-flat btn-sm btn-danger" data-dismiss="modal">Close</button>
+            </div>
         </div>
-        <div class="modal-body">
-            <div class="sap-message alert alert-warning alert-sm"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> <strong>Warning!</strong> SAP Code not exist already.</div>
-            <div class="form-group clearFix">
-              <label class="col-sm-4 col-md-4 control-label" >Code:</label>
-              <div class="col-sm-5 col-md-7">
-                  <p id="sap_code" class="sap-val"></p>                            
-              </div>
-            </div> 
-
-            <div class="form-group clearFix">
-              <label class="col-sm-4 col-md-4 control-label">Company name:</label>
-              <div class="col-sm-5 col-md-8">
-                  <p id="sap_company" class="sap-val"></p>                            
-              </div>
-            </div>
-
-             <div class="form-group clearFix">
-              <label class="col-sm-4 col-md-4 control-label">Category:</label>
-              <div class="col-sm-5 col-md-7">
-                  <p id="sap_category" class="sap-val"></p>                            
-              </div>
-            </div>
-
-            <div class="form-group clearFix">
-              <label class="col-sm-4 col-md-4 control-label">Address - HQ:</label>
-              <div class="col-sm-5 col-md-8">
-                  <p id="sap_address" class="sap-val"></p>                            
-              </div>
-            </div>
-
-            <div class="form-group clearFix">
-              <label class="col-sm-4 col-md-4 control-label">Location - HQ:</label>
-              <div class="col-sm-5 col-md-7">
-                  <p id="sap_location" class="sap-val"></p>                            
-              </div>
-            </div>
-
-            <div class="form-group clearFix">
-              <label class="col-sm-4 col-md-4 control-label">Contact #:</label>
-              <div class="col-sm-5 col-md-7">
-                  <p id="sap_contact" class="sap-val"></p>                            
-              </div>
-            </div>
-
-            <div class="row clearFix">
-              <label class="col-sm-4 col-md-4 control-label">Account Manager:</label>
-              <div class="col-sm-5 col-md-7">
-                  <p id="sap_acct_mngr" class="sap-val"></p>                            
-              </div>
-            </div>
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-flat btn-sm btn-danger" data-dismiss="modal">Close</button>
-        </div>
-      </div>
     </div>
-  </div> 
+</div>
 
-  <!--In / Out machines -->
-  <div class="modal fade" id="modalInOut" role="dialog">
+<!--In / Out machines -->
+<div class="modal fade" id="modalInOut" role="dialog">
     <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">In / Out Machines</h4>
-        </div>
-        <div class="modal-body">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">In / Out Machines</h4>
+            </div>
+            <div class="modal-body">
 
-          <table id="dtInOut" class="display compact" cellspacing="0">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>S/N</th>
-                  <th>Brand</th>
-                  <th>Model</th>  
-                  <th>Company</th>
-                  <th>Date</th>             
-                </tr>
-              </thead>
-              <thead id="dthead-search-inout" style="display:none;">
-                    <tr >
-                       <th colspan="6">
-                          <div class="row">
-                             <div class="col-xs-12">
-                                 <div class="col-xs-12 col-md-2 dt-head-search" ><input type="text" class="form-control" id="search-inout-serial" placeholder="S/N" ></div>                               
-                                 <div class="col-xs-12 col-md-2 dt-head-search" ><input type="text" class="form-control" id="search-inout-brand" placeholder="Brand" ></div>                      
-                                 <div class="col-xs-12 col-md-2 dt-head-search" ><input type="text" class="form-control" id="search-inout-model" placeholder="Model" ></div>  
-                                 <div class="col-xs-12 col-md-2 dt-head-search" ><input type="text" class="form-control" id="search-inout-company" placeholder="Company" ></div>  
-                                 <div class="col-xs-12 col-md-2 dt-head-search" >
-                                  <select id="search-inout-type" class="form-control">
-                                      <option value="">---</option>
-                                      <option value="in">In</option>
-                                      <option value="out">Out</option>
-                                  </select>
-                                </div>  
-                                 <div class="col-xs-12 col-md-6 dt-head-search" style="width: 70px; padding-top: 3px; box-sizing: border-box;" id="btn-inout-search"><button type="button" class="btn btn-primary btn-flat btn-sm">Search</button></div>
-                                 <div class="col-xs-12 col-md-6" style="width: 70px; padding-top: 3px; box-sizing: border-box;" id="btn-inout-reset"><button type="button" class="btn btn-warning btn-flat btn-sm">Reset</button></div>
-                             </div>
-                          </div>
-                       </th>
-                    </tr>
-              </thead>
-            </table>
+                <table id="dtInOut" class="display compact" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>S/N</th>
+                            <th>Brand</th>
+                            <th>Model</th>
+                            <th>Company</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <thead id="dthead-search-inout" style="display:none;">
+                        <tr>
+                            <th colspan="6">
+                                <div class="col-md-2"><input type="text" class="form-control" id="search-inout-serial"
+                                        placeholder="S/N"></div>
+                                <div class="col-md-2"><input type="text" class="form-control" id="search-inout-brand"
+                                        placeholder="Brand"></div>
+                                <div class="col-md-2"><input type="text" class="form-control" id="search-inout-model"
+                                        placeholder="Model"></div>
+                                <div class="col-md-4"><input type="text" class="form-control" id="search-inout-company"
+                                        placeholder="Company"></div>
+                                <div class="col-md-2">
+                                    <div class="col-xs-12 col-md-6 dt-head-search"
+                                        style="padding-top: 3px; box-sizing: border-box;" id="btn-inout-search">
+                                        <button type="button" class="btn btn-primary btn-flat btn-sm">Search</button>
+                                    </div>
+                                    <div class="col-xs-12 col-md-6" style="padding-top: 3px; box-sizing: border-box;"
+                                        id="btn-inout-reset">
+                                        <button type="button" class="btn btn-warning btn-flat btn-sm">Reset</button>
+                                    </div>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
 
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-flat btn-danger" data-dismiss="modal">Close</button>
+            </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-flat btn-danger" data-dismiss="modal">Close</button>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
 
 <div id="companylist">
-<div class="box box-success">
+    <div class="box box-success">
         <div class="box-header with-border">
-          <h3 class="box-title">Company List</h3>
+            <h3 class="box-title">Company List</h3>
         </div><!-- /.box-header -->
-          <div class="mif-info-box col-md-12" style="opacity: 0">
+        <div class="mif-info-box col-md-12" style="opacity: 0">
             <div class="col-md-5 counter-container-one">
                 <div class="small-box bg-light-blue col-sm-12">
                     <div class="inner">
-                      <div class="col-sm-6">
-                          <h4 id="total-in"><a href="#" data-toggle="modal" data-target="#modalInOut" data-type="in" onClick="dtCompany.viewInOutMachine(this)">----</a></h4>
-                          <p>TOTAL IN</p>
-                          <span class="date-container">Date From: <input type="text" id="date-from" placeholder="yyyy-mm-dd" class="dateInOut" onChange="dtCompany.countInOutMachine()"></span>
-                      </div>                 
-                      <div class="col-sm-6">
-                          <h4 id="total-out"><a href="#" data-toggle="modal" data-target="#modalInOut" data-type="out" onClick="dtCompany.viewInOutMachine(this)">----</a></h4>
-                          <p>TOTAL OUT</p> 
-                          <span class="date-container">Date To: <input type="text" id="date-to" placeholder="yyyy-mm-dd" class="dateInOut" onChange="dtCompany.countInOutMachine()"></span>                 
-                      </div>
+                        <div class="col-sm-6">
+                            <h4 id="total-in"><a href="#" data-toggle="modal" data-target="#modalInOut" data-type="in"
+                                    onClick="dtCompany.viewInOutMachine(this).actionViewInOut()">----</a></h4>
+                            <p>TOTAL IN</p>
+                            <span class="date-container">Date From: <input type="text" id="date-from"
+                                    placeholder="yyyy-mm-dd" class="dateInOut"
+                                    onChange="dtCompany.countInOutMachine()"></span>
+                        </div>
+                        <div class="col-sm-6">
+                            <h4 id="total-out"><a href="#" data-toggle="modal" data-target="#modalInOut" data-type="out"
+                                    onClick="dtCompany.viewInOutMachine(this).actionViewInOut()">----</a></h4>
+                            <p>TOTAL OUT</p>
+                            <span class="date-container">Date To: <input type="text" id="date-to"
+                                    placeholder="yyyy-mm-dd" class="dateInOut"
+                                    onChange="dtCompany.countInOutMachine()"></span>
+                        </div>
                     </div>
                     <div class="icon"><i class="fa fa-exchange" style="line-height:50px;font-size: 50px;"></i></div>
                 </div>
-              </div>
-              <div class="col-md-7 col-xs-12 pull-right counter-container-two">
+            </div>
+            <div class="col-md-7 col-xs-12 pull-right counter-container-two">
                 <div class="small-box bg-green col-sm-6 total-customer">
-                    <div class="inner">
-                      <ul class="list-inline">
-                        <li><h4 class="total-client-active"></h4></li><!--For Development -->
-                        <li><h4 class="total-client-blocked"></h4></li>
-                      </ul>
-                      <p>TOTAL CLIENT</p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4 class="total-client-active"></h4>
+                            <p>ACTIVE CUSTOMER</p>
+                        </div>
+                        <div class="col-md-5">
+                            <h4 class="total-client-blocked"></h4>
+                            <p>BLOCKED</p>
+                        </div>
                     </div>
+                    <!-- <div class="inner">
+                        <ul class="list-inline">
+                            <li>
+                                <h4 class="total-client-active"></h4>
+                            </li>
+                            <li>
+                                <h4 class="total-client-blocked"></h4>
+                            </li>
+                        </ul>
+                        <p>CLIENT</p>
+                    </div> -->
                     <div class="icon"><i class="fa fa-building-o" style="line-height:50px;font-size: 50px;"></i></div>
                 </div>
 
                 <div class="small-box bg-yellow col-sm-5 total-mif-cointainer" style="margin-left:20px">
-                    <div class="inner">
-                        <h3 class="total-mif"></h3>
-                        <p>TOTAL MIF</p>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <h4 class="total-mif"></h4>
+                            <p>MIF</p>
+                        </div>
+                        <div class="col-md-7">
+                            <h4 class="total-outright"></h4>
+                            <p>OUTRIGHT</p>
+                        </div>
                     </div>
                     <div class="icon"><i class="fa fa-print" style="line-height:50px;font-size: 50px;"></i></div>
-    <!--                 <a href="#" class="small-box-footer">More info<i class="fa fa-arrow-circle-right"></i>
+                    <!--                 <a href="#" class="small-box-footer">More info<i class="fa fa-arrow-circle-right"></i>
                     </a> -->
                 </div>
-              </div>
-          </div>
+            </div>
+        </div>
         <div class="box-body">
-           <table class="display compact" cellspacing="0" id="dtCompany">
-               <thead> 
-                  <tr > <!-- Column thead -->
-                     <th class="text-left">#</th>
-                     <th class="text-left">Sap Code</th>
-                     <th class="text-left">Delsan</th>
-                     <th class="text-left">Company</th>
-                     <th class="text-left">Client Category</th>
-                     <th class="text-left">No. of Machines</th>
-                     <th class="text-left">Address</th>
-                     <th class="text-left">Main </br>Location</th>
-                     <th class="text-left">Branches</th>
-                     <th class="text-left">Contact No.</th>
-                     <th class="text-left">Account Manager</th>  
-                     <th class="text-left" >Date Last Visit</th> 
-                     <th class="text-left"></th>      
-                    <!--<th class="text-left"></th>  
-                     <th class="text-left"></th>
-                     <th class="text-left"></th>    -->            
-                  </tr>
-               </thead>
+            <table class="display compact" cellspacing="0" id="dtCompany">
+                <thead>
+                    <tr>
+                        <!-- Column thead -->
+                        <th class="text-left">#</th>
+                        <th class="text-left">Sap Code</th>
+                        <th class="text-left">Delsan</th>
+                        <th class="text-left">Company</th>
+                        <th class="text-left">Mark</th>
+                        <th class="text-left">Client Category</th>
+                        <th class="text-left">No. of Machines</th>
+                        <th class="text-left">Address</th>
+                        <th class="text-left">Main </br>Location</th>
+                        <th class="text-left">Branches</th>
+                        <th class="text-left">Account Manager</th>
+                        <th class="text-left">Date Last Visit</th>
+                        <th class="text-left"></th>
+                    </tr>
+                </thead>
                 <thead id="dt-head-search" style="display:none;">
-                  <tr >
-                     <th class="text-center" colspan="13">
-                        <div class="row">
-                           <div class="col-xs-12">
-                               <div class="col-xs-12 dt-searchfield" ><select id="search-company-delsan" class="form-control"><option value="">---</option><option value="dosc">DOSC</option><option value="dbic">DBIC</option></select></div>
-                               <div class="col-xs-12 dt-searchfield" ><input type="text" class="form-control" id="search-company-companyname" placeholder="Company" value=""></div>
-                               <div class="col-xs-12 dt-searchfield" ><input type="text" class="form-control" id="search-company-category" placeholder="Category" value=""></div>
-                               <div class="col-xs-12 dt-searchfield" ><input type="text" class="form-control" id="search-company-address" placeholder="Address" value=""></div>
-                               <div class="col-xs-12 dt-searchfield" ><select class="form-control" id="search-company-location" data-placeholder="Location"></select></div>
-                               <div class="col-xs-12 dt-searchfield" ><select class="form-control" id="search-company-branch" data-placeholder="Branches"></select></div>
-                               <div class="col-xs-12 dt-searchfield"><input type="text" class="form-control" id="search-company-contactno" placeholder="Contact No" value=""></div>
-                               <div class="col-xs-12 dt-searchfield" ><select id="search-company-accmngr" data-placeholder="Account Manager"></select></div>
-                               <div class="col-xs-12 dt-searchfield" ><select id="search-company-toner" data-placeholder="Toner"></select></div>
-                               <div class="col-xs-12 col-md-6" style="width: 70px; padding-top: 3px; box-sizing: border-box;" id="btn-companysearch"><button type="button" class="btn btn-primary btn-flat btn-sm">Search</button></div>
-                               <div class="col-xs-12 col-md-6" style="width: 70px; padding-top: 3px; box-sizing: border-box;" id="btn-companyreset"><button type="button" class="btn btn-warning btn-flat btn-sm">Reset</button></div>
-                           </div>
-                        </div>
-                     </th>
+                    <tr>
+                        <th class="text-center" colspan="13">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="col-xs-12 dt-searchfield"><select id="search-company-delsan"
+                                            class="form-control">
+                                            <option value="">---</option>
+                                            <option value="dosc">DOSC</option>
+                                            <option value="dbic">DBIC</option>
+                                        </select></div>
+                                    <div class="col-xs-12 dt-searchfield"><input type="text" class="form-control"
+                                            id="search-company-companyname" placeholder="Company" value=""></div>
+                                    <div class="col-xs-12 dt-searchfield"><input type="text" class="form-control"
+                                            id="search-company-category" placeholder="Category" value=""></div>
+                                    <div class="col-xs-12 dt-searchfield"><select class="form-control"
+                                            id="search-company-location" data-placeholder="Location"></select></div>
+                                    <div class="col-xs-12 dt-searchfield"><select class="form-control"
+                                            id="search-company-branch" data-placeholder="Branches"></select></div>
+                                    <div class="col-xs-12 dt-searchfield"><select id="search-company-accmngr"
+                                            data-placeholder="Account Manager"></select></div>
+                                    <!-- <div class="col-xs-12 dt-searchfield" ><select id="search-company-toner" data-placeholder="Toner"></select></div> -->
+                                    <div class="col-xs-12 col-md-6"
+                                        style="width: 70px; padding-top: 3px; box-sizing: border-box;"
+                                        id="btn-companysearch"><button type="button"
+                                            class="btn btn-primary btn-flat btn-sm">Search</button></div>
+                                    <div class="col-xs-12 col-md-6"
+                                        style="width: 70px; padding-top: 3px; box-sizing: border-box;"
+                                        id="btn-companyreset"><button type="button"
+                                            class="btn btn-warning btn-flat btn-sm">Reset</button></div>
+                                </div>
+                            </div>
+                        </th>
 
-                  </tr>
-               </thead>                
-                <tfoot> 
-                  <tr > <!-- Column tfoot: Note tfoot th must the same number of  thead th, else datatable will not work -->
-                     <th></th>
-                     <th></th>
-                     <th></th>
-                     <th></th>                  
-                     <th colspan="3"></th>
-                     <th></th>  
-                     <th></th> 
-                     <th></th> 
-                     <th></th>   
-                     <th></th>
-                     <th></th>                            
-                  </tr>
-               </tfoot>
-               <tfoot>
-                  <tr>
-                    <!-- <th></th> -->
-                  </tr>
-               </tfoot>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <!-- Column tfoot: Note tfoot th must the same number of  thead th, else datatable will not work -->
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th colspan="2"></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+                <tfoot>
+                    <tr>
+                        <!-- <th></th> -->
+                    </tr>
+                </tfoot>
             </table>
-          </div><!--end of box body -->
-         <div class="box-footer"></div><!-- box-footer -->
+        </div>
+        <!--end of box body -->
+        <div class="box-footer"></div><!-- box-footer -->
     </div>
 </div>
- 
+
 <style type="text/css">
-  /* Always set the map height explicitly to define the size of the div
+    /* Always set the map height explicitly to define the size of the div
      * element that contains the map. */
-  /*#modalMap .modal-body div#map-container {
+    /*#modalMap .modal-body div#map-container {
       height: 100%;
     }*/
-  .counter-container-one a {
-    color: #ffffff;
-    text-decoration: underline;
-  }
-  label.control-label{
-    text-align: right;
-  }
-  #date-from, #date-to{
-    box-sizing: border-box;
-    background: transparent;
-    border: 1px solid #fffffc;
-    padding: 0px 5px;
-    width: 50%;
-    color: #ffffff;
-    border-top: none;
-    border-right: none;
-    border-left: none;
-  }
-  input[type=text]:focus{
-    outline: none;
-  }
-  input[type=text]::placeholder{
-    color: #0e647996;
-  }
-  .date-container{
-    display: inline-block;
-    margin-bottom: 5px;
-  }
+
+    .total-mif,
+    .total-outright,
+    .total-client-active,
+    .total-client-blocked {
+        font-size: 27px;
+        font-weight: bold;
+    }
+
+    .counter-container-one a {
+        color: #ffffff;
+        text-decoration: underline;
+    }
+
+    label.control-label {
+        text-align: right;
+    }
+
+    #date-from,
+    #date-to {
+        box-sizing: border-box;
+        background: transparent;
+        border: 1px solid #fffffc;
+        padding: 0px 5px;
+        width: 50%;
+        color: #ffffff;
+        border-top: none;
+        border-right: none;
+        border-left: none;
+    }
+
+    input[type=text]:focus {
+        outline: none;
+    }
+
+    input[type=text]::placeholder {
+        color: #0e647996;
+    }
+
+    .date-container {
+        display: inline-block;
+        margin-bottom: 5px;
+    }
 </style>
 <script type="text/javascript">
-    $(document).ready(function(){
+    $(document).ready(function () {
 
-        if(Cookies.get('user_role') === 'Admin'){ //Visible only to Admin role.
-           datePickerFromTo("#date-from","#date-to"); //Initiliaze datapicker plugin.
-           $(".dateInOut").val(getTodayDateStandard()).trigger('change'); //Set default value.
+        if (jwt.get('user_role') === 'Admin') { //Visible only to Admin role.
+            datePickerFromTo("#date-from", "#date-to"); //Initiliaze datapicker plugin.
+            $(".dateInOut").val(getTodayDateStandard()).trigger('change'); //Set default value.
         }
-        else{
-          $(".counter-container-one").hide();
+        else {
+            $(".counter-container-one").hide();
         }
 
         //Disable/Enable Search Input.
-        var location = convertArrStrToInt(Cookies.get('location')) || [1];
-        var reverseDrpdown = (Cookies.get('location') == '1' ? false : true);
-        autoDrpDown.getBranchNameOne("#search-company-branch","100%",location,reverseDrpdown); // 1 = ALL exclude from the list. Branches
-        autoDrpDown.getBranchNameOne("#search-company-location","100%",location,reverseDrpdown); // 1 = ALL exclude from the list. Location
-        autoDrpDown.getClientName("#search-company-accmngr","100%");
-        autoDrpDown.getTonerModel("#search-company-toner");   
-        $("#search-company-branch, #search-company-accmngr, #search-company-location, #search-company-toner").val(0).trigger('chosen:updated'); //reset Branch & Acc Mngr
+        var location = convertArrStrToInt(jwt.get('location')) || [1];
+        var reverseDrpdown = (jwt.get('location') == '1' ? false : true);
+        autoDrpDown.getBranchNameOne("#search-company-branch", "100%", location, reverseDrpdown); // 1 = ALL exclude from the list. Branches
+        autoDrpDown.getBranchNameOne("#search-company-location", "100%", location, reverseDrpdown); // 1 = ALL exclude from the list. Location
+        autoDrpDown.getClientName("#search-company-accmngr", "100%");
+        // autoDrpDown.getTonerModel("#search-company-toner");   
+        $("#search-company-branch, #search-company-accmngr, #search-company-location").val(0).trigger('chosen:updated'); //reset Branch & Acc Mngr
 
         // $("#search-company-companyname").on('keyup',function(){
         //     dtCompany.dtInstance.columns(1).search(this.value).draw();
@@ -315,5 +373,5 @@
         //    var location = ($(this).find('option:selected').text() === '---' ? '' : $(this).find('option:selected').text());
         //     dtCompany.dtInstance.columns(7).search(location).draw();
         // });//Search account manager
-  });
+    });
 </script>

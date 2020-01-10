@@ -29,12 +29,12 @@ var dtArchiveMachine = {
                                 {
                                     extend: "excel",
                                     className: 'dt-archMachine-excel hidden-xs',
-                                    exportOptions: {columns: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]},
+                                    exportOptions: {columns: [1,2,3,4,5,6,7,8,9,10,11,12,13]},
                                     filename: 'MIF Archive ' + getTodayDate()
                                 },
                                 {
                                     extend: 'print',
-                                    exportOptions: { columns: [0,1,2,3,4,5,6,7,8,9,11,12,13,14,15]},
+                                    exportOptions: { columns: [0,1,2,3,4,5,6,7,8,9,11,12,13]},
                                     className: 'dt-archMachine-print hidden-xs',
                                     customize: function ( win ) {
                                             var elem = $(win.document.body);
@@ -77,23 +77,19 @@ var dtArchiveMachine = {
                                 }
                             },
                             { data:  null, title: "Model", render: function( data, type, full, meta ){
-                                return "<span class='text-left'>" + isEmpty(data.model) + "</span>"; 
+                                return "<span class='text-left'>" + isEmpty(data.model_name) + "</span>"; 
                                 }
                             },
                             { data:  null, title: "Category", render: function( data, type, full, meta ){
-                                return "<span class='text-left'>" + isEmpty(data.category) + "</span>";
+                                return "<span class='text-left'>" + isEmpty(data.category_name) + "</span>";
                                 }
                             },
                             { data:  null, title: "Type", render: function( data, type, full, meta ){
-                                return "<span class='text-left'>" + isEmpty(data.type) + "</span>";
+                                return "<span class='text-left'>" + isEmpty(data.type_name) + "</span>";
                                 }
                             },
                             { data:  null, title: "Page Count", render: function( data, type, full, meta ){
                                 return "<span class='text-left'>" + isEmpty(data.page_count) + "</span>";
-                                }
-                            },
-                            { data:  null, title: "Location Area", render: function( data, type, full, meta ){
-                                return "<span class='text-left'>" + isEmpty(data.location_area) + "</span>";
                                 }
                             },
                             { data:  null, title: "Department", render: function( data, type, full, meta ){
@@ -112,10 +108,6 @@ var dtArchiveMachine = {
                                 return "<span class='text-left'>" + isEmpty(data.date_installed) + "</span>";
                                 }
                             },
-                            { data:  null, title: "Unit Owned", render: function( data, type, full, meta ){
-                                return "<span class='text-left'>" + isEmpty(data.unit_owned_by) + "</span>";
-                                }
-                            },
                             { data:  null, title: "Billing Type", render: function( data, type, full, meta ){
                                 return "<span class='text-left'>" + isEmpty(data.billing_type) + "</span>";
                                 }
@@ -130,6 +122,10 @@ var dtArchiveMachine = {
                                     }
                                     return '';
                                 }
+                            },
+                            { data:  null, title: "", render: function( data, type, full, meta ){
+                                    return '<a href="#" style="color: #c34838" data-toggle="popover" title="" data-placement="left" data-content="'+data.reason+'" data-trigger="hover" data-original-title="Reason"><i class="fa fa-comment"></i></a>';
+                                }
                             }
 
                  ],
@@ -138,9 +134,12 @@ var dtArchiveMachine = {
                 ],
                 "deferRender": true,
                 "fnDrawCallback": function(oSettings){
-                    var action = JSON.parse(Cookies.get('app_module_action'));
-                    var is_client = Cookies.get('is_client_user');
-                        if(action == null || is_client == 1 ){
+                    $('[data-toggle="popover"]').popover().on('click',function(e){
+                        e.preventDefault();
+                    });//pop-over 
+
+                    var action = jwt.get('app_module_action');
+                        if(action == null){
                            $(".btn-archive-marchine").remove();
                         }
                         else{
@@ -154,7 +153,6 @@ var dtArchiveMachine = {
                        $(".dt-archMachine-print").text('').html("<i class='glyphicon glyphicon-print'></i>").attr('title','Print');
                        $(".dt-archMachine-excel").text('').html("<i class='fa fa-file-excel-o'></i>").attr('title','Export to Excel');
                 }
-
             }); //end of dtPrinter
         
                 //Column Filtering
@@ -194,27 +192,27 @@ var dtArchiveMachine = {
                                              },
                                           6: { html: 'select', type: 'select', width: '90px',  //Type
                                                 values: [
-                                                            { value: 'MONOCHROME',  label: 'MONOCHROME' }, 
-                                                            { value: 'COLOR',  label: 'COLOR'}
+                                                            { value: 'M',  label: 'MONOCHROME' }, 
+                                                            { value: 'C',  label: 'COLOR'}
                                                         ]
                                              },
                                           7: { html: 'input', type: 'text', width: '50px' }, //Page Count
-                                          8: { html: 'input', type: 'text', width: '100px' }, //Location
-                                          9: { html: 'input', type: 'text', width: '100px' }, //Department
-                                          10: { html: 'input', type: 'text', width: '50px' }, //No of user
-                                          11: { html: 'input', type: 'text', width: '50px' }, //Remarks
-                                          12: { html: 'input', type: 'text', width: '70px' }, //Date installed
-                                          13: { html: 'input', type: 'text', width: '70px' }, //Unit Owned
-                                          14:{ html: 'select', type: 'select', width: '90px', //Billing type
+                                          // 8: { html: 'input', type: 'text', width: '100px' }, //Location
+                                          8: { html: 'input', type: 'text', width: '100px' }, //Department
+                                          9: { html: 'input', type: 'text', width: '50px' }, //No of user
+                                          10: { html: 'input', type: 'text', width: '50px' }, //Remarks
+                                          11: { html: 'input', type: 'text', width: '70px' }, //Date installed
+                                          12:{ html: 'select', type: 'select', width: '90px', //Billing type
                                                 values: [
                                                             { value: 'METER READING', label: 'METER READING' }, 
                                                             { value: 'PER CARTRIDGE',  label: 'PER CARTRIDGE'},
                                                             { value: 'FSMA', label: 'FSMA' },
                                                             { value: 'FIXED MONTHLY', label: 'FIXED MONTHLY' },
-                                                            { value: 'OUTRIGHT', label: 'OUTRIGHT' }
+                                                            { value: 'OUTRIGHT', label: 'OUTRIGHT' },
+                                                            { value: 'TLC', label: 'TLC' }
                                                         ]
                                              },
-                                           15: { html: 'input', type: 'text', width: '70px' }, //Branch
+                                           13: { html: 'input', type: 'text', width: '70px' }, //Branch
                                         }); 
                                         
             var $headerColumnFiltering = columnFiltering.dataTable.table().header(); //Column filter plugin drawback inorder to addClass.
@@ -229,7 +227,7 @@ var dtArchiveMachine = {
                      $.ajax({
                         type: 'GET',
                         url : assets+'php/machine/machine.php',
-                        data: {action:'view_id', idmachine: idmachine},
+                        data: {action:'view_archive_id', idmachine: idmachine},
                         dataType: 'json',
                         beforeSend: function(){ $btn.button('loading'); },
                         success: function(data){
@@ -238,8 +236,8 @@ var dtArchiveMachine = {
                                 $("#txtArchiveSerialNum").val(val.serialnumber);
                                 $("#slctArchiveBrand").val(val.brand);
                                 $("#txtArchiveModel").val(val.model);
-                                $("#slctArchiveCategory").val(isUpperCase(val.category));
-                                $("#slctArchiveType").val(isUpperCase(val.type));
+                                $("#slctArchiveCategory").val(val.category);
+                                $("#slctArchiveType").val(val.type);
                                 $("#txtArchivePageCount").val(val.page_count);
                                 $("#txArchiveLocation").val(val.location_area);
                                 $("#txtArchiveDepartment").val(val.department);
@@ -264,10 +262,10 @@ var dtArchiveMachine = {
             var id          = $("#hdnId").val();
             var company_id  = $("#slctArchiveCompany").chosen().val();
             var serialnum   = $("#txtArchiveSerialNum").val();
-            var brand       = $("#slctArchiveBrand option:selected").val();
-            var model       = $("#txtArchiveModel").val();
-            var cat         = $("#slctArchiveCategory option:selected").val();
-            var type        = $("#slctArchiveType option:selected").val();
+            // var brand       = $("#slctArchiveBrand option:selected").val();
+            // var model       = $("#txtArchiveModel").val();
+            // var cat         = $("#slctArchiveCategory option:selected").val();
+            // var type        = $("#slctArchiveType option:selected").val();
             var page_count  = $("#txtArchivePageCount").val();
             var loc         = $("#txArchiveLocation").val();
             var depart      = $("#txtArchiveDepartment").val();
@@ -279,9 +277,8 @@ var dtArchiveMachine = {
             var unit_own    = $("#txtArchiveUnitOwn").val();
 
             //For retrieve action.
-            var user_id  = Cookies.get('user_id');
-            var data = {action:'retrieve', user_id:user_id, id:id, company_id:company_id, serialnum:serialnum, brand:brand, model:model, 
-                        category:cat, type:type, pagecount: page_count, location:loc, department:depart, nouser:nouser, remarks:remarks, 
+            var user_id  = jwt.get('user_id');
+            var data = {action:'retrieve', user_id:user_id, id:id, company_id:company_id, serialnum:serialnum, pagecount: page_count, location:loc, department:depart, nouser:nouser, remarks:remarks, 
                         dateinstall: dateinstall, billing:billing, branch: branch, unit_own:unit_own};   
 
              $.ajax({

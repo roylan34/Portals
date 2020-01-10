@@ -30,6 +30,7 @@ $sap_code       = Utils::getValue('sap_code');
 $delsan_comp    = Utils::getValue('delsan_comp');
 $lat            = Utils::getValue('lat');
 $lng            = Utils::getValue('lng');
+$mark           = Utils::getValue('mark');
 
 
 	//Company branch Adding/Deleting
@@ -60,7 +61,8 @@ $lng            = Utils::getValue('lng');
                        sap_code        = "'.$sap_code.'",
                        delsan_company  = "'.$delsan_comp.'",
                        latitude        = "'.$lat.'",
-                       longitude       = "'.$lng.'"'
+                       longitude       = "'.$lng.'",
+                       mark            = "'.$mark.'"'
 									     ,'id = "'.$id.'"');
 
   companyLogs($id,$user_id,'UPDATE',$conn);//Logs Insert action.

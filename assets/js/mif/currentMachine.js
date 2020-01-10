@@ -16,8 +16,8 @@ var dtMachine = {
         return this; 
 	},
     dataTable: function(param_Id, branch, dept){
-        // var set_branch = (Cookies.get('location') == '1' ? null : (branch == null || branch == '' ? null : branch.toString() )); // 1 = mean ALL Branch
-         var set_branch = (Cookies.get('location') == '1' ? null :  Cookies.get('location')); // Fixed display machine by user logged location.
+        // var set_branch = (jwt.get('location') == '1' ? null : (branch == null || branch == '' ? null : branch.toString() )); // 1 = mean ALL Branch
+         var set_branch = (jwt.get('location') == '1' ? null :  jwt.get('location')); // Fixed display machine by user logged location.
         this.dtMInstance = $("#dtMachine").DataTable({
                 "dom"     : 'Blrtip',
                 "autoWidth" : false,
@@ -33,7 +33,7 @@ var dtMachine = {
                 "ordering"  : false,
                     "ajax" : {
                     "url"  : assets+"php/machine/getMachineListByCompany.php",
-                    "data" : {company_id: param_Id, branch:set_branch, department: dept, user_id: Cookies.get('user_id')},
+                    "data" : {company_id: param_Id, branch:set_branch, department: dept, user_id: jwt.get('user_id')},
                     "type" : "GET",
                     beforeSend: function(){ $(".btnViewPrinter").prop('disabled', true); },
                     complete : function(data){ 
@@ -50,12 +50,12 @@ var dtMachine = {
                                 {
                                     extend: "excel",
                                     className: 'dt-company-excel hidden-xs',
-                                    exportOptions: {columns: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18 ]},
+                                    exportOptions: {columns: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16 ]},
                                     filename: 'MIF ' + getTodayDate()
                                 },
                                 {
                                     extend: 'print',
-                                    exportOptions: { columns: [0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18 ]},
+                                    exportOptions: { columns: [0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]},
                                     className: 'dt-machine-print hidden-xs',
                                     // autoPrint: false, // For debugging
                                     customize: function ( win ) {
@@ -129,7 +129,7 @@ var dtMachine = {
                                 }
                             },
                             { data:  null, title: "No. of User", render: function( data, type, full, meta ){
-                                return "<span class='text-left'>" + isEmpty(data.no_of_user) + "</span>";
+                                return "<span class='text-left'>" + data.no_of_user + "</span>";
                                 }
                             },
                             { data:  null, title: "Remarks", render: function( data, type, full, meta ){
@@ -140,20 +140,12 @@ var dtMachine = {
                                 return "<span class='text-left'>" + isEmpty(data.date_installed) + "</span>";
                                 }
                             },
-                            { data:  null, title: "Unit Owned", render: function( data, type, full, meta ){
-                                return "<span class='text-left'>" + isEmpty(data.unit_owned_by) + "</span>";
-                                }
-                            },
-                            { data:  null, title: "Account Manager", render: function( data, type, full, meta ){
-                                return "<span class='text-left'>" + isEmpty(data.account_manager) + "</span>";
-                                }
-                            },
-                             { data:  null, title: "Date last visit", render: function( data, type, full, meta ){
-                                return "<span class='text-left'>" + isEmpty(data.date_last_visit) + "</span>";
-                                }
-                            },
                             { data:  null, title: "Billing Type", render: function( data, type, full, meta ){
                                 return "<span class='text-left'>" + isEmpty(data.billing_type) + "</span>";
+                                }
+                            },
+                            { data:  null, title: "Date last visit", render: function( data, type, full, meta ){
+                                return "<span class='text-left'>" + isEmpty(data.date_last_visit) + "</span>";
                                 }
                             },
                             { data:  null, title: "Location", render: function( data, type, full, meta ){
@@ -161,32 +153,30 @@ var dtMachine = {
                                 }
                             },
                             { data:  null, render: function( data, type, full, meta ){
-                                return "<button class='btn btn-xs btn-success btn-flat btnViewUpdateMachine' data-target='#modalFormMachine' data-toggle='modal' data-machine='"+data.id+"'>Update</button>";
+                                var action_elem = '';
+                                        action_elem += '<div class="dropdown text-center">';
+                                        action_elem += '<button class="btn btn-success dropdown-toggle btn-sm" type="button" data-toggle="dropdown">Actions'
+                                                         +' <span class="caret"></span></button>'
+                                                          +'<ul class="dropdown-menu dropdown-menu-right dropdown-menu-machine">'
+                                                            + '<li><a href="#" class="btnViewUpdateMachine" data-target="#modalFormMachine" data-toggle="modal" data-machine='+data.id+'><i class="fa fa-pencil-square" aria-hidden="true"></i>EDIT</a></li>'
+                                                            + '<li><a href="#" class="btnRemoveMachine" data-machine='+data.id+' title="Remove"><i class="fa fa-trash" aria-hidden="true"></i>REMOVE</a></li>'
+                                                            + '<li><a href="#" class="btnPmHistory" data-machine='+data.id+' title="PM History">PM HISTORY</a></li>'
+                                                            + '<li><a href="#" class="serviceHistory">SERVICE HISTORY</a></li>'
+                                                    +'</ul></div>';
+                                                       
+                                    return action_elem;
                                 }
                             },
-                            { data:  null, render: function( data, type, full, meta ){
-                                    return "<a href='#' class='btn btn-xs btn-warning btn-flat btnRemoveMachine' data-machine='"+data.id+"' title='Remove'><i class='fa fa-trash'></i></a>";
-                                }
-                            }
 
                  ],
-                // "fnCreatedRow": function( row, data ) { //Add attribute id-company in first td element.
-                //         $('td:eq(1)',row).addClass("never") //Hide column company name.                                 
-                // },
-                // "headerCallback": function(thead,data){
-                //         $(thead).find('th').eq(1).addClass("never"); //Class never is used to fully hide column in all screen size.
-                // },
                 "columnDefs": [
-                        { targets: 1, className: "never" },
-                        { targets: 15, className: "none" },
-                        { targets: 16, className: "none" }
-                        // { targets: 17, className: "none" }
+                        { targets: 1, className: "never" }
+                        // { targets: 15, className: "none" }
                 ],
                 "deferRender": true,
                 "fnDrawCallback": function(oSettings){
-                    var action = JSON.parse(Cookies.get('app_module_action'));
-                    var is_client = Cookies.get('is_client_user');
-                        if(action == null || is_client == 1 ){
+                    var action = jwt.get('app_module_action');
+                        if(action == null){
                             $(".btnViewUpdateMachine, .dt-button-machineadd, .btnRemoveMachine").remove();
                         }
                         else{
@@ -241,8 +231,8 @@ var dtMachine = {
                                              },
                                           7: { html: 'select', type: 'select', width: '90px',  //Type
                                                 values: [
-                                                            { value: 'MONOCHROME',  label: 'MONOCHROME' }, 
-                                                            { value: 'COLOR',  label: 'COLOR'}
+                                                            { value: 'M',  label: 'MONOCHROME' }, 
+                                                            { value: 'C',  label: 'COLOR'}
                                                         ]
                                              },
                                           8: { html: 'input', type: 'text', width: '50px' }, //Page Count
@@ -251,16 +241,17 @@ var dtMachine = {
                                           11: { html: 'input', type: 'text', width: '50px' }, //No of user
                                           12: { html: 'input', type: 'text', width: '50px' }, //Remarks
                                           13: { html: 'input', type: 'text', width: '70px' }, //Date installed
-                                          14: { html: 'input', type: 'text', width: '70px' }, //Unit Owned
-                                          15:{ html: 'select', type: 'select', width: '90px', //Billing type
+                                          14:{ html: 'select', type: 'select', width: '90px', //Billing type
                                                 values: [
                                                             { value: 'METER READING', label: 'METER READING' }, 
                                                             { value: 'PER CARTRIDGE',  label: 'PER CARTRIDGE'},
                                                             { value: 'FSMA', label: 'FSMA' },
                                                             { value: 'FIXED MONTHLY', label: 'FIXED MONTHLY' },
-                                                            { value: 'OUTRIGHT', label: 'OUTRIGHT' }
+                                                            { value: 'OUTRIGHT', label: 'OUTRIGHT' },
+                                                            { value: 'TLC', label: 'TLC' }
                                                         ]
                                              },
+                                           15:  { html: 'input', type: 'text', width: '70px' }, 
                                            16: { html: 'input', type: 'text', width: '70px' }, //Branch
                                         }); 
                                         
@@ -271,12 +262,16 @@ var dtMachine = {
             return this;                              
     },
     modalShowMachine: function(branch){
+            //Machine Form
             $("#displayFormMachine").load(pages+'machine/modal/form.html',function(){
                      $("#modalFormMachine .modal-title").attr('data-update-opt','1');
                       autoDrpDown.getAllCompany("#slctCompany","60%");   //Auto populated dropdown
                       autoDrpDown.getBranchNameOne("#txtBranch","100%",branch,true);
                       autoDrpDown.getBrandName("#slctBrands");  
+                      autoDrpDownInvnt.getModelByBrand("#slctModel",true)
                       
+                      self.dtMachine.showModelByBrand()
+                                       .autoFillCatType();
              });
     },      
     getData: function(idmachine){
@@ -294,9 +289,9 @@ var dtMachine = {
                                 $("#hdnId").val(val.id);
                                 $("#hdnOldSerial, #txtSerialNum").val(val.serialnumber);
                                 $("#slctBrands").val(val.brand);
-                                $("#txtModel").val(val.model);
-                                $("#slctCategory").val(isUpperCase(val.category));
-                                $("#slctType").val(isUpperCase(val.type));
+                                $("#slctModel").val(Number(val.model)).trigger('chosen:updated');
+                                $("#slctCategory").val(val.category);
+                                $("#slctType").val(val.type);
                                 $("#txtPageCount").val(val.page_count);
                                 $("#txtLocation").val(val.location_area);
                                 $("#txtDepartment").val(val.department);
@@ -325,7 +320,7 @@ var dtMachine = {
             var company_id  = $("#slctCompany").chosen().val();
             var serialnum   = $("#txtSerialNum").val();
             var brand       = $("#slctBrands option:selected").val();
-            var model       = $("#txtModel").val();
+            var model       = $("#slctModel").chosen().val();
             var cat         = $("#slctCategory option:selected").val();
             var type        = $("#slctType option:selected").val();
             var page_count  = $("#txtPageCount").val();
@@ -337,7 +332,7 @@ var dtMachine = {
             var billing     = $("#slctBilling option:selected").val();    
             var branch      = $("#txtBranch").chosen().val();
             var unit_own    = $("#txtUnitOwn").val();
-            var user_id     = Cookies.get('user_id');
+            var user_id     = jwt.get('user_id');
             var data = {action:'update', idmachine:id, company_id:company_id, serialnum:serialnum, brand:brand, model:model, 
                         category:cat, type:type, pagecount: page_count, location:loc, department:depart, nouser:nouser, remarks:remarks, 
                         dateinstall: dateinstall, billing:billing, branch: branch, unit_own:unit_own, user_id: user_id};   
@@ -380,7 +375,7 @@ var dtMachine = {
             var company_id  = $("#slctCompany").chosen().val();
             var serialnum   = $("#txtSerialNum").val();
             var brand       = $("#slctBrands option:selected").val();
-            var model       = $("#txtModel").val();
+            var model       = $("#slctModel").chosen().val();
             var cat         = $("#slctCategory option:selected").val();
             var type        = $("#slctType option:selected").val();
             var page_count  = $("#txtPageCount").val();
@@ -392,7 +387,7 @@ var dtMachine = {
             var billing     = $("#slctBilling option:selected").val();    
             var branch      = $("#txtBranch").chosen().val();
             var unit_own    = $("#txtUnitOwn").val();
-            var user_id     = Cookies.get('user_id');
+            var user_id     = jwt.get('user_id');
             var data = {action:'add', company_id:company_id, serialnum:serialnum, brand:brand, model:model, 
                         category:cat, type:type, pagecount: page_count, location:loc, department:depart, nouser:nouser, remarks:remarks, 
                         dateinstall: dateinstall, billing:billing, branch: branch, unit_own:unit_own, user_id: user_id};  
@@ -413,6 +408,48 @@ var dtMachine = {
 
             });
     },
+    showModelByBrand: function(){
+             //Dynamically show the list of model by brand selected.
+             var $model = $("#slctModel");
+             var $cattype = $("#slctCategory,#slctType");
+             var cache_brand = 0;
+              $("#slctBrands").change(function(){
+                    var select_brand = $(this).val() || null;
+
+                    if(select_brand != null){
+
+                        //Reset model list
+                        if(cache_brand != select_brand){
+                            console.log(cache_brand);
+                            $model.val(0).trigger('chosen:updated'); //Disabled and reset the value.
+                            $model.find("option").not("[data-brand='"+select_brand+"']").hide().trigger('chosen:updated');
+                            $cattype.val(''); // Clear category and type.
+                        }
+                        //Show corresponding model
+                        $model.prop('disabled',false).trigger('chosen:updated');
+                        $model.find("option[data-brand='"+select_brand+"']").show().trigger('chosen:updated');
+                        cache_brand = select_brand; //cache selected brand
+                                                   
+                    }else{
+                        $model.prop('disabled',true).val(0).trigger('chosen:updated');
+                    }
+               });
+            return this;
+    },
+    autoFillCatType: function(){
+             //Automatically fill the dropdown Category and Type base in model selected.
+                $("#slctModel").change(function(){
+                    var data_val = convertArrStrToInt($(this).find('option:selected').data('cat-type'));
+                        if(data_val != null){
+                            $("#slctCategory").val(data_val[0]); //data_val[0] = Category
+                            $("#slctType").val(data_val[1]);     //data_val[1] = Type
+                        }
+                        else {
+                            $("#slctCategory,#slctType").val(''); // Clear category and type.
+                        }
+                });
+           return this;
+    },
     showRemove: function(idmachine){
         var id = idmachine;
         $("#displayRemoveMachine").load(pages+'archive/remove-machine.html',function(status){
@@ -428,7 +465,7 @@ var dtMachine = {
             var reason   = $("#txtReason").val();
             var status   = $("#slctMachineStatus option:selected").val();
             var status_action = $("#slctMachineStatus option:selected").data('action');
-            var user_id  = Cookies.get('user_id');
+            var user_id  = jwt.get('user_id');
             var data = { action:'remove', id:id, reason:reason, status:status, status_action:status_action, user_id: user_id} 
             
             $.ajax({
@@ -465,17 +502,21 @@ var dtMachine = {
                         inst.closest('tr').addClass('selected');
                     }
 
-                    if($(this).hasClass('btnViewUpdateMachine')){
+                    if($(inst[0]).hasClass('btnViewUpdateMachine')){
                         var idmachine = inst.data('machine');
                         self.dtMachine.getData(idmachine);
-                        $("#btnSubmit").text('Update')
+                        // $("#btnSubmit").text('Save')
                     }
                    
                      //Pop-up message for Remove
-                    if ($(inst[0]).hasClass('btnRemoveMachine')) {
+                    else if ($(inst[0]).hasClass('btnRemoveMachine')) {
                         var idcompany = $(this).data('machine');
                         self.dtMachine.showRemove(idcompany);
                     }
+                   else if ($(inst[0]).hasClass('btnPmHistory')) {
+                        var mif_id = $(inst).data('machine');
+                            dtPmHistory.render(mif_id);
+                   }
               });
         return this;
     }

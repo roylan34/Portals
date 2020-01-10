@@ -11,7 +11,7 @@
         <h4 class="modal-title">VIEW REQUEST FORM</h4>
       </div>
 
-      <div class="modal-body">
+      <div class="modal-body clearfix2">
 
         <div class="nav-tabs-custom">
           <ul class="nav nav-tabs" id="tabs-form">
@@ -100,7 +100,7 @@
                     <label class="radio-inline">
                       <input type="radio" id="radioBtn-3" name="radioBtn-group-c2" class="radioBtn-group-c2" for="txtDemoRental"
                         value="3" disabled="disabled">Demo / Rental:
-                      <em id="no_of_days" style="text-decoration: underline;"></em> <span># of days</span>
+                      <em id="no_of_days" style="text-decoration: underline;"></em> <div>days</div>
                     </label>
                   </div>
 
@@ -337,7 +337,7 @@
                     <tr>
                       <td>
                         <div class="col-md-4">
-                          <p><label>Machine/s issued by:</label> <span id="3rd_approve_name"></span></p>
+                          <p><label>Serial Number Allocated by:</label> <span id="3rd_approve_name"></span></p>
                           <p><label>Date:</label> <span id="3rd_approve_date"></span></p>
                         </div>
                         <div class="col-md-8 container-edit-sn">
@@ -432,6 +432,37 @@
                   </tfoot>
                 </table>
               </div>
+
+              <div>
+                <table id="tbl_approver_releaseby" class="table tbl_approver_header_bg">
+                  <thead>
+                    <tr>
+                      <th>Engineering</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <div class="col-md-6">
+                          <p><label>Machine Released by:</label> <span id="releaseby_approve_name"></span></p>
+                          <p><label>Date:</label> <span id="releaseby_approve_date"></span></p>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                  <tfoot class="tfoot_releaseby_approver">
+                    <tr>
+                      <td>
+                        <div class="text-right">
+                          <button type="button" onClick="dtCurrentMrf.update_status(this)" data-id-status="2" name="releaseby_approver"
+                            class="btn btn-success btn-xs btn-flat" id="btn_approve_releaseby">DONE</button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+
               <div>
                 <table id="tbl_approver_5" class="table tbl_approver_header_bg">
                   <thead>
@@ -617,7 +648,7 @@
   //Comments in View Request Form
   $('.btn-current-comment-mrf').click(function () {
     var id_mrf = $("#hdnIdCurrentViewMrf").val();
-    var id_user = Cookies.get('user_id');
+    var id_user = jwt.get('user_id');
     $("#hdnIdMRF").val(id_mrf);
     comment.display(id_mrf, id_user);
   });
@@ -681,7 +712,7 @@
 
   //Engineering and accounting can edit entry.
   $(".btn-edit-approve").click(function (e) {
-    var user_type = Cookies.get("user_type");
+    var user_type = jwt.get("user_type");
     var id = $("#hdnIdCurrentViewMrf").val() || null;
 
     if (user_type == 5 && id != null) { // 5 = engineering

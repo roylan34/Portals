@@ -62,7 +62,7 @@ var dtArchiveMrf = {
 	                                 		d.serialnum = $("#search-mrf-sn").val() || '';
 
 	                                 	    d.action_view = "archive";
-	                                 	    d.id_user = Cookies.get('user_id');	  
+	                                 	    d.id_user = jwt.get('user_id');	  
 	                                 	    d.id_branch = $("#archive-mrf-branchlist option:selected").val();              
 	                                     }
 	                            },	
@@ -152,7 +152,7 @@ var dtArchiveMrf = {
 	                    });	
 		
 							// Export Excel.
-							 $("div.dt-buttons").prepend('<div class="dropdown" style="display:inline; margin-right:0.5em; vertical-align:bottom"><button style="vertical-align:top;" class="btn btn-primary btn-flat btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Export Excel ' +
+							 $("div.dt-buttons").prepend('<div class="dropdown" style="display:inline; margin-right:0.5em"><button style="vertical-align:top;" class="btn btn-primary btn-flat btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Export Excel ' +
 							    '<span class="caret"></span></button>'+
 								   '<ul class="dropdown-menu dropdown-menu-left custom-export-excel">'+
 								      '<li><a href="#" class="export-machine-delivered">Machine Delivered (APPROVED)</a></li>'+
@@ -180,7 +180,8 @@ var dtArchiveMrf = {
     },
     selectBranch: function(user_mrf_flag,branch){ //Display only branch where to assigned.
     	  	var drpdownBranch = null;
-			if(user_mrf_flag == "approver" || user_mrf_flag == "preparer" || user_mrf_flag =="requestor,preparer"){ //Display only if user is approver or preparer.
+			var isReverse = false;
+			if(user_mrf_flag == "approver"){ //Display only if user is approver
 				 var branch_approver = function(iduser){
 				 	var result;
 				 		$.ajax({
@@ -196,13 +197,18 @@ var dtArchiveMrf = {
 					 	return (result ? convertArrStrToInt(result.split(",")) : null);
 				 }
 				 
-				drpdownBranch = branch_approver(Cookies.get("user_id"));	
+				drpdownBranch = branch_approver(jwt.get("user_id"));
+				isReverse = true;	
 	    	}
 	    	else{
-	    		drpdownBranch = convertArrStrToInt(Cookies.get("branch_mrf").split(","));
+	    		drpdownBranch = convertArrStrToInt(jwt.get("branch_mrf").split(","));
+	    			if(drpdownBranch == 1)
+						isReverse = false;
+					else
+						isReverse = true;
 	    	}
 			
-				autoDrpDownMrf.getBranch("#archive-mrf-branchlist",false,drpdownBranch,null,true,true);
+				autoDrpDownMrf.getBranch("#archive-mrf-branchlist",false,drpdownBranch,null,isReverse,true);
 					 
 				$("select#archive-mrf-branchlist").change(function(){
 				   	dtArchiveMrf.dtInstance.ajax.reload();
@@ -212,8 +218,8 @@ var dtArchiveMrf = {
     getDataViewRequestForm: function(id){
     	    if (id != '' && id != undefined){
     	 		 var step_one, step_two;
-    	 		 var id_user_logged = Cookies.get("user_id");
-    	 		 var app_action = JSON.parse(Cookies.get('app_module_action'));
+    	 		 var id_user_logged = jwt.get("user_id");
+    	 		 var app_action = jwt.get('app_module_action');
 			 	$.ajax({
 	                type: 'POST',
 	                url: assets+'php/mrf/mrf.php',
@@ -289,10 +295,10 @@ var dtArchiveMrf = {
 
 	                	//Step 2 Form 
 	                	var view_s2_radio = view_data.s2_radio_id;
-	                	var view_radio_others = view_data.s2_radio_others.toLowerCase() || "";
+	                	var view_radio_others = view_data.s2_radio_others || "";
 
-	                	if( view_s2_radio == 3  || (view_s2_radio == 4 && view_radio_others == "service unit") ){ //Show only Recall button if Demo or Others with service unit.
-	                		if(Cookies.get('user_id') == view_data.id_user_requestor)
+	                	if( view_s2_radio == 3  || (view_s2_radio == 4 && view_radio_others.toLowerCase() == "service unit") ){ //Show only Recall button if Demo or Others with service unit.
+	                		if(jwt.get('user_id') == view_data.id_user_requestor)
 	                			$(".recall_demo").show();
 	                		else
 	                			$(".recall_demo").hide();
@@ -349,8 +355,8 @@ var dtArchiveMrf = {
 
 	                	//Approver form
 	                	//Show button disapprove/approver if current user logged-in is assigned as approver.
-	                	var id_user_logged = Cookies.get("user_id");
-	                	var user_type = Cookies.get('user_type');
+	                	var id_user_logged = jwt.get("user_id");
+	                	var user_type = jwt.get('user_type');
 	                	 $.each(view_data.is_approver[0],function(i,val){
 	  						
 	                	 	  if(val == id_user_logged){
@@ -375,16 +381,18 @@ var dtArchiveMrf = {
 	                	 	var tfoot_selector = [];
 	                	 	$.each(view_data.user_approved, function(i, val){
 	                	 		
-	                	 		if(val["1st_approver"] != "") // push value that has a name.
-	                	 			tfoot_selector.push("#tab-form-approve table > tfoot button[name=1st_approver]");
-	                	 		if(val["2nd_approver"] != "")
-	                	 			tfoot_selector.push("#tab-form-approve table > tfoot button[name=2nd_approver], #tab-form-approve table > tfoot button[name=2nd_approver_2]");
-	                	 		if(val["3rd_approver"] != "")
-	                	 			tfoot_selector.push("#tab-form-approve table > tfoot button[name=3rd_approver]");
-								if(val["4th_approver"] != "")
-	                	 			tfoot_selector.push("#tab-form-approve table > tfoot button[name=4th_approver]");
-								if(val["5th_approver"] != "")
-	                	 			tfoot_selector.push("#tab-form-approve table > tfoot button[name=5th_approver]");
+	       //          	 		if(val["1st_approver"] != "") // push value that has a name.
+	       //          	 			tfoot_selector.push("#tab-form-approve table > tfoot button[name=1st_approver]");
+	       //          	 		if(val["2nd_approver"] != "")
+	       //          	 			tfoot_selector.push("#tab-form-approve table > tfoot button[name=2nd_approver], #tab-form-approve table > tfoot button[name=2nd_approver_2]");
+	       //          	 		if(val["3rd_approver"] != "")
+	       //          	 			tfoot_selector.push("#tab-form-approve table > tfoot button[name=3rd_approver]");
+								// if(val["4th_approver"] != "")
+	       //          	 			tfoot_selector.push("#tab-form-approve table > tfoot button[name=4th_approver]");
+	       //          	 		if (val["releaseby_approver"] != "")
+								// 	tfoot_selector.push("#tab-form-approve table > tfoot button[name=releaseby_approver]");
+								// if(val["5th_approver"] != "")
+	       //          	 			tfoot_selector.push("#tab-form-approve table > tfoot button[name=5th_approver]");
 
 
 	                	 		$("#1st_approve_name").text(val["1st_approver"]);
@@ -397,7 +405,9 @@ var dtArchiveMrf = {
 	                	 		$("#4th_approve_date").text(val["4th_date"]);
 	                	 		$("#4th_dr_number").val(val["4th_dr_number"]);
 	                	 		$("#4th_edr_number").val(val["4th_edr_number"]);	 
-	                	 		$("#4th_inv_number").val(val["4th_inv_number"]);		                	 		
+	                	 		$("#4th_inv_number").val(val["4th_inv_number"]);
+	                	 		$("#releaseby_approve_name").text(val["releaseby_approver"]);
+								$("#releaseby_approve_date").text(val["releaseby_date"]);		                	 		
 	                	 		$("#5th_approve_name").text(val["5th_approver"]);
 	                	 		$("#5th_approve_date").text(val["5th_date"]);
 	                	 		$("#5th_delivery_date").val(val["5th_delivery_date"])
@@ -410,7 +420,7 @@ var dtArchiveMrf = {
 	                	 }
 
 	                	//Show/Hide upload attachment if not executive.
-	                	if(Cookies.get('user_type') > 1)
+	                	if(jwt.get('user_type') > 1)
 	                		$(".attachment-upload-container").remove();
 
 	                	//Display editing SerialNumber
@@ -583,7 +593,7 @@ var dtArchiveMrf = {
                 //Comments Button
                 // else if(button_label == "comments"){
                 // 	var id_mrf = $(this).data('mrf');
-                // 	var id_user = Cookies.get('user_id');
+                // 	var id_user = jwt.get('user_id');
                 // 		comment.display(id_mrf, id_user);
                 // } 
                 //Export Excel

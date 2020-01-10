@@ -23,8 +23,8 @@ $date_to 	= ( Utils::getValue('dateTo')   ? Utils::getValue('dateTo')   : Utils:
 $conn = Database::getInstance(); //For Searching.
 if(Utils::getValue('serialnumber'))		{ $search ="AND m.serialnumber ='".$conn->escapeString(Utils::getValue('serialnumber'))."'"; }
 if(Utils::getValue('brand'))			{ $search .="AND br.brand_name = '".$conn->escapeString(Utils::getValue('brand'))."'"; }
-if(Utils::getValue('model'))			{ $search .="AND m.model LIKE '%".$conn->escapeString(Utils::getValue('model'))."%'"; }
-if(Utils::getValue('category'))			{ $search .="AND com.company_name = '".$conn->escapeString(Utils::getValue('category'))."'"; }
+if(Utils::getValue('model'))			{ $search .="AND mo.model_name LIKE '%".$conn->escapeString(Utils::getValue('model'))."%'"; }
+if(Utils::getValue('company'))			{ $search .="AND com.company_name = '".$conn->escapeString(Utils::getValue('company'))."'"; }
 
 			$requestData= $_REQUEST;
 			// storing  request (ie, get/post) global array to a variable.  
@@ -39,9 +39,10 @@ if(Utils::getValue('category'))			{ $search .="AND com.company_name = '".$conn->
 
 			if( !empty($search) ) { // if there is a search parameter, $requestData['search']['value'] contains search parameter.
 
-			$conn->selectQuery('m.id, m.serialnumber, br.brand_name, m.model, com.company_name ','tblmif m
+			$conn->selectQuery('m.id','tblmif m
 					LEFT JOIN tbl_brands br ON br.id = m.brand
 					LEFT JOIN tbl_company com ON com.id = m.company_id
+					LEFT JOIN tbl_model mo ON mo.id = m.model
 					WHERE m.id > 0 AND 
 					(CASE 
 						WHEN "'.$type.'"  = "in"  THEN m.date_in BETWEEN "'.$date_from.'" AND "'.$date_to.'" 
@@ -56,12 +57,13 @@ if(Utils::getValue('category'))			{ $search .="AND com.company_name = '".$conn->
 			}
 			
 			if(intval($requestData['length']) >= 1 ) { $limit = ' LIMIT '.$requestData['start'].' ,'.$requestData['length'].''; }
-				$conn->selectQuery('m.id, m.serialnumber, br.brand_name, m.model, com.company_name,( CASE 
+				$conn->selectQuery('m.id, m.serialnumber, br.brand_name, mo.model_name, com.company_name,( CASE 
 						WHEN "'.$type.'"  = "in" THEN date_in
 						WHEN "'.$type.'"  = "out" THEN date_out
 					END ) as date','tblmif m
 					LEFT JOIN tbl_brands br ON br.id = m.brand
 					LEFT JOIN tbl_company com ON com.id = m.company_id
+					LEFT JOIN tbl_model mo ON mo.id = m.model
 					WHERE m.id > 0 AND 
 					(CASE 
 						WHEN "'.$type.'"  = "in"  THEN m.date_in BETWEEN "'.$date_from.'" AND "'.$date_to.'" 

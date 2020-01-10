@@ -108,7 +108,7 @@ $( document ).ready( function () {
     $( "#frmChangePassword" ).validate( {
         onkeyup: false, 
         submitHandler: function (form) {
-          var id = Cookies.get('user_id');
+          var id = jwt.get('user_id');
           if(id > 0){
               dtAccounts.changePassword(id);            
           }
@@ -124,7 +124,7 @@ $( document ).ready( function () {
                   type: 'POST',
                   cache: false,
                   data: { 
-                      idaccount: function(){ return Cookies.get('user_id'); },            
+                      idaccount: function(){ return jwt.get('user_id'); },            
                       action: 'check_password'
                     }
                 }

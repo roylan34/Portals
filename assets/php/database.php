@@ -17,7 +17,7 @@ Class Database{
 
 	protected $dbHost = "localhost";
 	protected $dbUser = "root";
-	protected $dbPass = "";
+	protected $dbPass = "delsan@1991";
 	protected $dbName = "dbmif";
 
 	 function __construct($dbParams = array()){ // @dbParams is use to override the default settings in database.
@@ -80,7 +80,7 @@ Class Database{
 		}
 	}
 
-	public function updateMultipleQuery($table_name, $update_values){
+	function updateMultipleQuery($table_name, $update_values){
 			// Start of the query
 			$qry = "UPDATE $table_name SET ";
 
@@ -128,7 +128,7 @@ Class Database{
 		}
 	}
 
-	public function insertMultipleByUniqueQuery($table_name, $fields, $uniq_arr_val, $values){
+	function insertMultipleByUniqueQuery($table_name, $fields, $uniq_arr_val, $values){
 	    if(is_array($uniq_arr_val)){
 	        foreach($uniq_arr_val as $row) {
 	            $query_values[] = "('".$row."', $values)";
@@ -146,7 +146,7 @@ Class Database{
 
 	}
 
-	public function insertMultipleQuery($table_name, $fields, $prepend_arr_val, $array_val){
+	function insertMultipleQuery($table_name, $fields, $prepend_arr_val, $array_val){
 	    foreach($array_val as $row){
 	      if(is_array($prepend_arr_val) && count($prepend_arr_val) > 0)
 	            array_unshift($row,implode("','",$prepend_arr_val));

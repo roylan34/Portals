@@ -29,11 +29,12 @@ switch (Utils::getValue('action_view')) {
 	case 'current':
 			if(Utils::getValue('status'))
 			{ 
-				$status = Utils::getValue('status'); // If has status search, query according to given paramater.
+				$status = Utils::getValue('status'); // For searching
 				$qry_status = ' WHEN (mt.1st_approver IS NULL && "1st_approver" = "'.$status.'") THEN CONCAT("APPROVER-1","|","status-gray")
 							WHEN (mt.2nd_approver IS NULL && "2nd_approver" = "'.$status.'") THEN CONCAT("APPROVER-2","|","status-green")
 							WHEN (mt.3rd_approver IS NULL && "3rd_approver" = "'.$status.'") THEN CONCAT("ENGINEERING","|","status-yellow")
 							WHEN (mt.4th_approver IS NULL && "4th_approver" = "'.$status.'") THEN CONCAT("ACCOUNTING","|","status-red")
+							WHEN (mt.releaseby_approver IS NULL && "releaseby_approver" = "'.$status.'") THEN CONCAT("ENGINEERING","|","status-orange")
 							WHEN (mt.5th_approver IS NULL && "5th_approver" = "'.$status.'") THEN CONCAT("LOGISTICS","|","status-blue")';
 				switch ($status) {
 					case '1st_approver':
@@ -48,8 +49,11 @@ switch (Utils::getValue('action_view')) {
 					case '4th_approver':
 						$search .="AND (mt.1st_approver IS NOT NULL && mt.2nd_approver IS NOT NULL && mt.3rd_approver IS NOT NULL && mt.4th_approver IS NULL)"; 
 						break;
+					case 'releaseby_approver':
+						$search .="AND (mt.1st_approver IS NOT NULL && mt.2nd_approver IS NOT NULL && mt.3rd_approver IS NOT NULL && mt.4th_approver IS NOT NULL && mt.releaseby_approver IS NULL)"; 
+						break;
 					case '5th_approver':
-						$search .="AND (mt.1st_approver IS NOT NULL && mt.2nd_approver IS NOT NULL && mt.3rd_approver IS NOT NULL && mt.4th_approver IS NOT NULL && mt.5th_approver IS NULL)"; 
+						$search .="AND (mt.1st_approver IS NOT NULL && mt.2nd_approver IS NOT NULL && mt.3rd_approver IS NOT NULL && mt.4th_approver IS NOT NULL && mt.releaseby_approver IS NOT NULL && mt.5th_approver IS NULL)"; 
 						break;
 					default:
 						throw new Exception($status." not exist.", 1);			
@@ -62,6 +66,7 @@ switch (Utils::getValue('action_view')) {
 							WHEN mt.2nd_approver IS NULL THEN CONCAT("APPROVER-2","|","status-green")
 							WHEN mt.3rd_approver IS NULL THEN CONCAT("ENGINEERING","|","status-yellow")
 							WHEN mt.4th_approver IS NULL THEN CONCAT("ACCOUNTING","|","status-red")
+							WHEN mt.releaseby_approver IS NULL THEN CONCAT("ENGINEERING","|","status-orange")
 							WHEN mt.5th_approver IS NULL THEN CONCAT("LOGISTICS","|","status-blue")';
 			}
 
@@ -70,28 +75,18 @@ switch (Utils::getValue('action_view')) {
 				$branch_cur = ""; 
 				$id_user = Utils::getValue('id_user');
 				$id_branch = (Utils::getValue('id_branch') ? Utils::getValue('id_branch') : "NULL" );
-						$conn->selectQuery('acct.acc_mrf_flags','tbl_account_type acct INNER JOIN tbl_accounts ac ON acct.id = ac.account_type WHERE ac.id ='.$id_user.'');
+						$conn->selectQuery('mrf_type','tbl_accounts WHERE id ='.$id_user.'');
 						$user_type = $conn->getFields(); // get user type.
-						$user_type = ($conn->getNumRows() > 0  && !Utils::isEmpty($user_type['aaData'][0]['acc_mrf_flags']) ? $user_type['aaData'][0]['acc_mrf_flags'] : '');
+						$user_type = ($conn->getNumRows() > 0  && !Utils::isEmpty($user_type['aaData'][0]['mrf_type']) ? $user_type['aaData'][0]['mrf_type'] : '');
 						$conn->fields = null;
 
 						if($user_type == "requestor"){ //If requestor get only the user id.
 							$branch_cur  = " AND m.id_user_requestor =".$id_user." AND m.id_branch IN(".$id_branch.")";							
 						}
 						//HINTS: If Branch ALL selected display all branch has assigned else the selected branch.
-						if($user_type == "approver" || $user_type == "preparer"){ //if approver or preparer, check if user assigned as approver in specific branch.
+						if($user_type == "approver" || $user_type == "monitor"){ //if approver or monitor, check if user assigned as approver in specific branch.
 							$branch_cur  = " AND m.id_branch IN(".$id_branch.")";
 						}
-						// if($user_type == "requestor,preparer" ){ //if approver or preparer, check if user assigned as approver in specific branch.
-						// 	if($id_branch){
-						// 		$filter  = "AND (m.id_user_requestor = ".$id_user." OR m.id_branch IN(".$id_branch."))";
-						// 		$search .= "AND (m.id_user_requestor = ".$id_user." OR m.id_branch IN(".$id_branch."))";
-						// 	}
-						// 	else{
-						// 		$filter  = "AND m.id_user_requestor =".$id_user."";
-						// 		$search .= "AND m.id_user_requestor =".$id_user."";
-						// 	}
-						// }
 
 			}
 
@@ -109,7 +104,7 @@ switch (Utils::getValue('action_view')) {
 								INNER JOIN tbl_company c ON m.id_company = c.id
 								LEFT JOIN tbl_accounts ac ON m.id_user_requestor = ac.id
 								LEFT JOIN tbl_mrf_request_tracker mt ON m.id = mt.id_mrf
-					  			WHERE m.id > 0 AND mt.flag_completion ="not complete" AND (mt.1st_id_status IN(1,2) AND mt.2nd_id_status IN(1,2)) AND mt.is_cancel="no" '.$branch_cur.' '.$search.' ');
+					  			WHERE m.id > 0 AND mt.flag_completion ="not complete" AND (mt.1st_id_status IN(1,2) AND mt.2nd_id_status IN(1,2)) AND mt.is_cancel="no" '.$branch_cur.' '.$search.' GROUP BY m.id');
 
 						$conn->fields = null;
 						$totalFiltered  = $conn->getNumRows(); // when there is a search parameter then we have to modify total number filtered rows as per search result. 
@@ -133,7 +128,7 @@ switch (Utils::getValue('action_view')) {
 										LEFT JOIN tbl_accounts ac ON m.id_user_requestor = ac.id
 										LEFT JOIN tbl_mrf_request_tracker mt ON m.id = mt.id_mrf
 										LEFT JOIN tbl_branch br ON m.id_branch = br.id
-					  					WHERE m.id > 0 AND mt.flag_completion ="not complete" AND (mt.1st_id_status IN(1,2) AND mt.2nd_id_status IN(1,2)) AND mt.is_cancel="no" '.$branch_cur.' '.$search.' ORDER BY m.id DESC '.$limit.'');
+					  					WHERE m.id > 0 AND mt.flag_completion ="not complete" AND (mt.1st_id_status IN(1,2) AND mt.2nd_id_status IN(1,2)) AND mt.is_cancel="no" '.$branch_cur.' '.$search.'GROUP BY m.id ORDER BY m.id DESC '.$limit.'');
 					$row = $conn->getFields(); //Get all rows
 
 					if($conn->getNumRows() > 0 ){
@@ -179,28 +174,18 @@ switch (Utils::getValue('action_view')) {
 					else
 						return false;
 				}
-						$conn->selectQuery('acct.acc_mrf_flags','tbl_account_type acct INNER JOIN tbl_accounts ac ON acct.id = ac.account_type WHERE ac.id ='.$id_user.'');
+						$conn->selectQuery('mrf_type','tbl_accounts WHERE id ='.$id_user.'');
 						$user_type = $conn->getFields(); // get user type.
-						$user_type = ($conn->getNumRows() > 0  && !Utils::isEmpty($user_type['aaData'][0]['acc_mrf_flags']) ? $user_type['aaData'][0]['acc_mrf_flags'] : '');
+						$user_type = ($conn->getNumRows() > 0  && !Utils::isEmpty($user_type['aaData'][0]['mrf_type']) ? $user_type['aaData'][0]['mrf_type'] : '');
 						$conn->fields = null;
 
 						if($user_type == "requestor"){ //If requestor get only the user id.
 							$branch_arc = " AND m.id_user_requestor =".$id_user." AND m.id_branch IN(".$id_branch.")";							
 						}
 						//HINTS: If Branch ALL selected display all branch has assigned else the selected branch.
-						if($user_type == "approver" || $user_type == "preparer"){ //if approver or preparer, check if user assigned as approver in specific branch.
+						if($user_type == "approver" || $user_type == "monitor"){ //if approver or monitor, check if user assigned as approver in specific branch.
 							$branch_arc = " AND m.id_branch IN(".$id_branch.")";
 						}
-						// if($user_type == "requestor,preparer" ){ //if approver or preparer, check if user assigned as approver in specific branch.
-						// 	if($id_branch){
-						// 		$filter  = "AND (m.id_user_requestor = ".$id_user." OR m.id_branch IN(".$id_branch."))";
-						// 		$search .= "AND (m.id_user_requestor = ".$id_user." OR m.id_branch IN(".$id_branch."))";
-						// 	}
-						// 	else{
-						// 		$filter  = "AND m.id_user_requestor =".$id_user."";
-						// 		$search .= "AND m.id_user_requestor =".$id_user."";
-						// 	}
-						// }
 
 			}
 

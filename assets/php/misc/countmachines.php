@@ -18,8 +18,12 @@ $date_from 	= ( Utils::getValue('dateFrom') ? Utils::getValue('dateFrom') : Util
 $date_to 	= ( Utils::getValue('dateTo')   ? Utils::getValue('dateTo')   : Utils::getSysDate() );
 
 $db = Database::getInstance();
-$db->selectQuery('count(id) as total_mif','tblmif '.$branchMachine.'');
+$db->selectQuery('count(id) as total_mif','tblmif '.$branchMachine.' AND billing_type NOT IN ("OUTRIGHT","TLC")');
 $resMachine = $db->getFields();//Total MIF count.
+$db->fields = null;
+
+$db->selectQuery('count(id) as total_outright','tblmif '.$branchMachine.' AND billing_type IN ("OUTRIGHT","TLC")');
+$resOutright = $db->getFields();//Total outright.
 $db->fields = null;
 
 $db->selectQuery('SUM(STATUS =1 ) active,  SUM(STATUS =0 ) blocked','tbl_company'.$branchCompany.'');
@@ -39,5 +43,6 @@ $active  = number_format($resClient['aaData'][0]['active']);
 $blocked = number_format($resClient['aaData'][0]['blocked']);
 $total_in   = number_format($total_in['aaData'][0]['total_in']);
 $total_out  = number_format($total_out['aaData'][0]['total_out']);
+$total_outright  = number_format($resOutright['aaData'][0]['total_outright']);
 
-print Utils::jsonEncode(array($total, $active, $blocked, $total_in, $total_out ));
+print Utils::jsonEncode(array($total, $active, $blocked, $total_in, $total_out, $total_outright ));

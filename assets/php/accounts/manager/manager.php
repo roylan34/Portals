@@ -13,7 +13,7 @@ require_once '../../utils.php';
 if(Utils::getIsset('action')){
 	$action     = Utils::getValue('action');
 	$id         = Utils::getValue('idclient');
-	$account_id = (Utils::getValue('account_id') ? Utils::getValue('account_id') : 0);
+	$account_id = Utils::getValue('account_id');
 	$old_account_id = Utils::getValue('old_account_id');
 	$user 		= Utils::getValue('username');
 	$pass 		= Utils::getValue('pass');
@@ -81,8 +81,8 @@ if(Utils::getIsset('action')){
 							}
 
 								if($acc_flag == 0){
-									$db->insertQuery('tbl_client_accounts','account_id, idemp, created_at',
-										  ''.$account_id.',
+									$db->insertQuery('sap_db.tbl_client_accounts','account_id, idemp, created_at',
+										  '"'.$account_id.'",
 										  "'.$id_emp.'",
 										  "'.$date_created.'"');
 									$res = $db->getFields();
@@ -104,8 +104,8 @@ if(Utils::getIsset('action')){
 
 
 					}else{
-							$db->insertQuery('tbl_client_accounts','account_id, idemp, created_at',
-								  ''.$account_id.',
+							$db->insertQuery('sap_db.tbl_client_accounts','account_id, idemp, created_at',
+								  '"'.$account_id.'",
 								  "'.$id_emp.'",
 								  "'.$date_created.'"');
 							$res = $db->getFields();
@@ -168,7 +168,7 @@ if(Utils::getIsset('action')){
 
 							$db->updateQuery('tbl_company','id_client_mngr = "'.$id.'"','id IN ('.$companies.')'); //Assign new id_client.
 			        		$db->fields = null;
-			        		$db->updateQuery('tbl_client_accounts','account_id = '.$account_id.', idemp= "'.$id_emp.'" ','id = "'.$id.'"');
+			        		$db->updateQuery('sap_db.tbl_client_accounts','account_id = "'.$account_id.'", idemp= "'.$id_emp.'" ','id = "'.$id.'"');
 
 				        	 $res['aaData']['has_value_accmngr'] = 0;
 
@@ -188,7 +188,7 @@ if(Utils::getIsset('action')){
 						}
 
 							$db->fields = null;
-			        		$db->updateQuery('tbl_client_accounts','account_id = '.$account_id.', idemp= "'.$id_emp.'"'
+			        		$db->updateQuery('sap_db.tbl_client_accounts','account_id = "'.$account_id.'", idemp= "'.$id_emp.'"'
 							     ,'id = "'.$id.'"');
 
 							$res['aaData']['has_value_accmngr'] = 0;
@@ -200,7 +200,7 @@ if(Utils::getIsset('action')){
 			break;
 		case 'view-all': 
 				$db->fields = null;
-				// $db->selectQuery('sc.id, CONCAT(ac.firstname," ",ac.middlename," ",ac.lastname) AS fullname, sc.company, ac.status, sc.created_at','tbl_client_accounts sc 
+				// $db->selectQuery('sc.id, CONCAT(ac.firstname," ",ac.middlename," ",ac.lastname) AS fullname, sc.company, ac.status, sc.created_at','sap_db.tbl_client_accounts sc 
 				// 					LEFT JOIN tbl_accounts ac ON sc.account_id = ac.id
 				// 				 	ORDER BY sc.id');
 				// $resultClient = $db->getFields();
@@ -218,7 +218,7 @@ if(Utils::getIsset('action')){
 
 				$db->selectQuery('sc.id, CONCAT(ac.firstname," ",ac.middlename," ",ac.lastname) AS fullname, (SELECT GROUP_CONCAT(company_name SEPARATOR "<br>") AS company FROM tbl_company
 								WHERE STATUS = 1 && id_client_mngr = sc.id) AS company, ac.status, sc.created_at','
-								tbl_client_accounts sc 
+								sap_db.tbl_client_accounts sc 
 								LEFT JOIN tbl_accounts ac ON sc.account_id = ac.id
 				 				ORDER BY sc.id');
 				$resultClient = $db->getFields();
@@ -235,7 +235,7 @@ if(Utils::getIsset('action')){
 			break;
 		case 'view-id': 
 				$db->selectQuery('sc.id, sc.idemp, sc.account_id, CONVERT(GROUP_CONCAT(com.id SEPARATOR ",") USING "utf8") AS company, sc.created_at',
-								'tbl_client_accounts sc 
+								'sap_db.tbl_client_accounts sc 
 								LEFT JOIN tbl_company com ON sc.id = com.id_client_mngr
 								WHERE com.id_client_mngr = "'.$id.'"');
 				print Utils::jsonEncode($db->getFields());
@@ -273,9 +273,9 @@ function getListofCompany($strCompany,$db){
 //Check if Account Manager ID is exist.
 function checkNameExist($old_account_id, $new_account_id, $action_validate, $db){
 	$db->fields = null;
-	$db->selectQuery('ca.account_id','tbl_client_accounts ca 
+	$db->selectQuery('ca.account_id','sap_db.tbl_client_accounts ca 
 						INNER JOIN tbl_accounts ac ON ca.account_id = ac.id 
-						WHERE ca.account_id ='.$new_account_id.' AND ac.status = 1');
+						WHERE ca.account_id ="'.$new_account_id.'" AND ac.status = 1');
 	$resName = $db->getFields();
 	if(count($resName['aaData']) > 0){
 		if ($action_validate == "add"){

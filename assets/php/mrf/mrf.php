@@ -73,7 +73,7 @@ if(Utils::getIsset('action')){
 
 			    //Step 2
 				// if($s2_row_data){
-				if(is_array($s2_row_data) && count($s2_row_data) > 0 && $s2_row_data){
+				if($s2_row_data && count($s2_row_data) > 0){
 					$db->insertMultipleQuery("tbl_mrf_s2","id_mrf, s2_id_brand, s2_id_model, s2_serialnum, s2_contact_p, s2_dept_branch", array($last_id_mrf),$s2_row_data);
 				}
 
@@ -281,6 +281,9 @@ if(Utils::getIsset('action')){
 						 				case '4th_approver_2':
 						 					$sql = "4th_approver = {$id_user_logged}, 4th_date ='{$date_entered}', 4th_dr_number ='{$dr_number}', 4th_id_status='{$us_id_status}', 4th_edr_number='{$edr_number}', 4th_inv_number='{$inv_number}'";
 						 					break;
+						 				case 'releaseby_approver':
+						 					$sql = "releaseby_approver = {$id_user_logged}, releaseby_date ='{$date_entered}',releaseby_id_status='{$us_id_status}'";
+						 					break;
 						 				case '5th_approver':
 						 					$sql = "5th_approver = {$id_user_logged}, 5th_date ='{$date_entered}', 5th_id_status='{$us_id_status}', 5th_delivery_date = '{$delivery_date}', 5th_received_by='{$received_by}', 5th_delivered_by='{$delivered_by}', flag_completion ='complete'";
 						 					break;
@@ -305,8 +308,9 @@ if(Utils::getIsset('action')){
 										 $mailBody .="Form No: <b> ".$form_no." </b><br/>";
 										 $mailBody .="1st Approver: <b> ".$requestStatus['1st_status']." </b><br/>";
 										 $mailBody .="2nd Approver: <b> ".$requestStatus['2nd_status']." </b><br/>";	
-										 $mailBody .="Engineering: <b> ".$requestStatus['3rd_status']." </b><br/>";	
+										 $mailBody .="Engineering (S/N Allocation): <b> ".$requestStatus['3rd_status']." </b><br/>";	
 										 $mailBody .="Accounting: <b> ".$requestStatus['4th_status']." </b><br/>";
+										 $mailBody .="Engineering (Machine Release): <b> ".$requestStatus['releaseby_id_status']." </b><br/>";	
 										 $mailBody .="Logistics: <b> ".$requestStatus['5th_status']." </b><br/>";				
 										// $mailBody .="Date Requested: <b> ".$mrf_info['aaData'][0]['date_requested']." </b><br/>";																	
 										// $mailBody .="Company Name: <b> ".$mrf_info['aaData'][0]['company_name']." </b><br/>";	
@@ -435,7 +439,7 @@ if(Utils::getIsset('action')){
 		case 'view-toner-details':
 
 					//Get details if current user logged-in is assigned as approver.
-					$db->selectQuery("1st_approver, 2nd_approver, 2nd_approver_2, 3rd_approver, 4th_approver, 4th_approver_2, 5th_approver, 5th_approver_2","tbl_mrf_branch_approver  
+					$db->selectQuery("1st_approver, 2nd_approver, 2nd_approver_2, 3rd_approver, 4th_approver, 4th_approver_2, releaseby_approver, 5th_approver, 5th_approver_2","tbl_mrf_branch_approver  
 						WHERE id_branch = (SELECT id_branch FROM tbl_mrf WHERE id = ".$id_mrf.")");
 					$is_approver = $db->getFields();
 					$db->fields = null;
@@ -454,7 +458,9 @@ if(Utils::getIsset('action')){
 									m.4th_dr_number,
 									m.4th_edr_number,
 									m.4th_inv_number,
-									IFNULL(CONCAT(ac5.firstname, ' ', ac5.lastname),'') AS 5th_approver,
+									IFNULL(CONCAT(ac5.firstname, ' ', ac5.lastname),'') AS releaseby_approver,
+									IFNULL(m.releaseby_date,' ') AS releaseby_date ,
+									IFNULL(CONCAT(ac6.firstname, ' ', ac6.lastname),'') AS 5th_approver,
 									IFNULL(m.5th_date,'') AS 5th_date,
 									IFNULL(m.5th_delivery_date,'') AS 5th_delivery_date,
 									IFNULL(m.5th_received_by,'') AS 5th_received_by,
@@ -464,7 +470,8 @@ if(Utils::getIsset('action')){
 										LEFT JOIN tbl_accounts ac2 ON m.2nd_approver = ac2.id
 										LEFT JOIN tbl_accounts ac3 ON m.3rd_approver = ac3.id
 										LEFT JOIN tbl_accounts ac4 ON m.4th_approver = ac4.id
-										LEFT JOIN tbl_accounts ac5 ON m.5th_approver = ac5.id
+										LEFT JOIN tbl_accounts ac5 ON m.releaseby_approver = ac5.id
+										LEFT JOIN tbl_accounts ac6 ON m.5th_approver = ac6.id
 									WHERE m.id_mrf = ".$id_mrf."");
 					$user_approved = $db->getFields();
 					$db->fields = null;
@@ -516,7 +523,7 @@ if(Utils::getIsset('action')){
 					}
 
 					//Step 1
-					$db->selectQuery("ms.id, ms.s1_serialnum, IFNULL(ms.s1_quantity,'') AS s1_quantity, IFNULL(mbr.acronym_name_def,'') AS bn_rf , br.brand_name, mo.model_name, ms.s1_accessories ","tbl_mrf_s1 ms
+					$db->selectQuery("ms.id, ms.s1_serialnum, IFNULL(ms.s1_quantity,'') AS s1_quantity, IFNULL(mbr.acronym_name_def,'') AS bn_rf , ms.s1_bn_rf, br.brand_name, mo.model_name, ms.s1_accessories ","tbl_mrf_s1 ms
 						LEFT JOIN tbl_brands br ON ms.s1_id_brand = br.id
 						LEFT JOIN tbl_model mo ON ms.s1_id_model = mo.id
 						LEFT JOIN tbl_invnt_condition mbr ON ms.s1_bn_rf = mbr.id
@@ -595,6 +602,9 @@ if(Utils::getIsset('action')){
 									4th_dr_number= null,
 									4th_edr_number= null,
 									4th_inv_number= null,
+									releaseby_approver = null,
+									releaseby_date = null,
+									releaseby_id_status = 1,
 									5th_approver = null,
 									5th_date 	 = null,
 									5th_id_status= 1,
@@ -637,14 +647,16 @@ function getRequestStatus($id_mrf,$db){
 							st2.status_name AS 2nd_status,
 							st3.status_name AS 3rd_status,
 							st4.status_name AS 4th_status,
-							st5.status_name AS 5th_status","tbl_mrf  m
+							st5.status_name AS releaseby_id_status,
+							st6.status_name AS 5th_status","tbl_mrf  m
 							LEFT JOIN tbl_accounts ac ON m.id_user_requestor = ac.id
 							LEFT JOIN tbl_mrf_request_tracker mt ON mt.id_mrf  = m.id
 							LEFT JOIN tbl_mrf_status st1 ON st1.id = mt.1st_id_status
 							LEFT JOIN tbl_mrf_status st2 ON st2.id = mt.2nd_id_status
 							LEFT JOIN tbl_mrf_status st3 ON st3.id = mt.3rd_id_status
 							LEFT JOIN tbl_mrf_status st4 ON st4.id = mt.4th_id_status
-							LEFT JOIN tbl_mrf_status st5 ON st5.id = mt.5th_id_status
+							LEFT JOIN tbl_mrf_status st5 ON st5.id = mt.releaseby_id_status
+							LEFT JOIN tbl_mrf_status st6 ON st6.id = mt.5th_id_status
 							WHERE m.id = '".$id_mrf."' LIMIT 1");
 		$res = $db->getFields(); 
 		// $res = array_filter($res['aaData'][0]);	
@@ -665,6 +677,7 @@ function getApproversEmail($id_branch,$db){
 							IFNULL(ac3.email,'') AS 3rd_email,
 							IFNULL(ac4.email,'') AS 4th_email,
 							IFNULL(ac4_2.email,'') AS 4th_email_2,
+							IFNULL(re.email,'') AS releasedby_email,
 							IFNULL(ac5.email,'') AS 5th_email,
 							IFNULL(ac5_2.email,'') AS 5th_email_2","tbl_mrf_branch_approver  m
 							LEFT JOIN tbl_accounts ac1 ON m.1st_approver = ac1.id
@@ -672,6 +685,7 @@ function getApproversEmail($id_branch,$db){
 							LEFT JOIN tbl_accounts ac3 ON m.3rd_approver = ac3.id
 							LEFT JOIN tbl_accounts ac4 ON m.4th_approver = ac4.id
 							LEFT JOIN tbl_accounts ac4_2 ON m.4th_approver_2 = ac4_2.id
+							LEFT JOIN tbl_accounts re ON m.releaseby_approver = re.id
 							LEFT JOIN tbl_accounts ac5 ON m.5th_approver = ac5.id
 							LEFT JOIN tbl_accounts ac5_2 ON m.5th_approver_2 = ac5_2.id
 							WHERE m.id_branch = '".$id_branch."'");
@@ -745,13 +759,14 @@ function checkRequestTrack($id_mrf,$field_name,$db){ //Add checking if request i
 								WHEN is_cancel = 'yes' THEN 'Can’t update the request because it’s already cancelled by Requestor. Please refresh the table.'
 								WHEN (1st_id_status = '3' OR 2nd_id_status = '3') THEN 'Can’t update the request because it’s already Disapproved. Please refresh the table.'
 								WHEN ('".$fieldname."' = '4th_approver' AND 4th_approver IS NOT NULL) THEN 'Already approved. Please refresh the table.'
+								WHEN ('".$fieldname."' = 'releaseby_approver' AND releaseby_approver IS NOT NULL) THEN 'Already approved. Please refresh the table.'
 								WHEN ('".$fieldname."' = '5th_approver' AND 5th_approver IS NOT NULL) THEN 'Already approved. Please refresh the table.'
 								ELSE ''
 							END) AS status_message","tbl_mrf_request_tracker WHERE id_mrf = ".$id_mrf."");
 			$checkStatus = $db->getFields();
 
 		if(Utils::isEmpty($checkStatus['aaData'][0]['status_message'])){ //Check status if Disapproved or cancelled
-			$input = array("1st_approver", "2nd_approver", "3rd_approver", "4th_approver","5th_approver"); //tbl_mrf_request_tracker fields.
+			$input = array("1st_approver", "2nd_approver", "3rd_approver", "4th_approver", "releaseby_approver", "5th_approver"); //tbl_mrf_request_tracker fields.
 			//$fieldname = ($field_name == '2nd_approver_2' ? '2nd_approver': $field_name); //As is the field 2nd_approver if field name is 2nd_approver_2
 
 			$searched_key = array_search($fieldname, $input);

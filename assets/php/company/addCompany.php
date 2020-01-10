@@ -26,22 +26,24 @@ $sap_code			 = Utils::getValue('sap_code');
 $delsan_comp         = Utils::getValue('delsan_comp');
 $lat                 = Utils::getValue('lat');
 $lng                 = Utils::getValue('lng');
+$mark                = Utils::getValue('mark');
 
 
 
 	$conn = Database::getInstance();
-	$conn->insertQuery('tbl_company','company_name,client_category,address,contact_no,id_client_mngr, main_location, date_last_visit, sap_code, delsan_company, latitude, longitude',
+	$conn->insertQuery('tbl_company','company_name,client_category,address,contact_no,id_client_mngr, main_location, date_last_visit, sap_code, delsan_company, latitude, longitude, mark',
 									  '"'.Utils::uppercase($company).'",
 									  "'.Utils::uppercase($category).'",
 									  "'.Utils::uppercase($address).'",
 									  "'.(int)$contactno.'",
 									  "'.(int)$accmngr.'",
-									  "'.(int)$location.'",
+									  "'.$location.'",
 									  "'.$last_visit.'",
 									  "'.$sap_code.'",
 									  "'.$delsan_comp.'",
 									  "'.$lat.'",
-									  "'.$lng.'"');
+									  "'.$lng.'",
+									  "'.$mark.'"');
 	
 	$last_id   = $conn->getLastId();
 	companyLogs($last_id,$user_id,'CREATE',$conn);//Logs Insert action.

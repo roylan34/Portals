@@ -19,10 +19,10 @@ $brand 		= Utils::getValue('brand');
 $model 		= Utils::getValue('model');
 $category 	= Utils::getValue('category');
 $type 		= Utils::getValue('type');
-$pagecount 	= (Utils::getValue('pagecount') ? Utils::getValue('pagecount') : 'NULL');
+$pagecount 	= Utils::getValue('pagecount');
 $location 	= Utils::getValue('location');
 $department = Utils::getValue('department');
-$nouser 	= (Utils::getValue('nouser') ? Utils::getValue('nouser'): 'NULL');
+$nouser 	= Utils::getValue('nouser');
 $remarks 	= Utils::getValue('remarks');  
 $dateinstalled= Utils::getValue('dateinstall'); 
 $billing	= Utils::getValue('billing'); 
@@ -30,6 +30,15 @@ $branch   	= Utils::getValue('branch');
 $unit_own   = Utils::getValue('unit_own'); 
 $user_id    = Utils::getValue('user_id');
 $date_now 	= Utils::getSysDate().' '.Utils::getSysTime();  
+
+$santize_sn = Utils::upperCase(trim($serialnum));
+$santize_unit  = Utils::upperCase($unit_own);
+$santize_loc   = Utils::upperCase($location);
+$santize_dept  = Utils::upperCase($department);
+$santize_cat   = Utils::upperCase($category);
+$santize_type  = Utils::upperCase($type);
+$santize_remarks  = Utils::upperCase($remarks);
+$santize_bill  = Utils::upperCase($billing);
 
 	$db = Database::getInstance();
 
@@ -42,24 +51,24 @@ $date_now 	= Utils::getSysDate().' '.Utils::getSysTime();
 		case 'add':
 				$db->insertQuery('tblmif','company_id,serialnumber,brand,model,category,type,page_count,location_area,department,no_of_user,remarks,date_installed,billing_type,branches,unit_owned_by,date_created,date_in',
 												  '"'.$company_id.'",
-												  "'.Utils::upperCase(trim($serialnum)).'",
+												  "'.$santize_sn.'",
 												  "'.$brand.'",
-												  "'.Utils::upperCase($model).'",
-												  "'.Utils::upperCase($category).'",
-												  "'.Utils::upperCase($type).'",
-												  '.$pagecount.',
-												  "'.Utils::upperCase($location).'",
-												  "'.Utils::upperCase($department).'",
-												  '.$nouser.',
-												  "'.Utils::upperCase($remarks).'",
+												  "'.$model.'",
+												  "'.$category.'",
+												  "'.$type.'",
+												  "'.$pagecount.'",
+												  "'.$santize_loc.'",
+												  "'.$santize_dept.'",
+												  "'.$nouser.'",
+												  "'.$santize_remarks.'",
 												  "'.$dateinstalled.'",
-												  "'.Utils::upperCase($billing).'",
+												  "'.$santize_bill.'",
 												  "'.$branch.'",
-												  "'.Utils::upperCase($unit_own).'",
+												  "'.$santize_unit.'",
 												  "'.$date_now.'",
 												  "'.$date_now.'"');
 				 $last_id   = $db->getLastId();
-				 machineLogs($company_id,$last_id,$serialnum,$user_id,'CREATE',$db);//Insert machine logs.
+				 machineLogs($company_id,$last_id,$santize_sn,$user_id,'CREATE',$db);//Insert machine logs.
 				
 				print Utils::jsonEncode($db->getFields());
 
@@ -67,29 +76,24 @@ $date_now 	= Utils::getSysDate().' '.Utils::getSysTime();
 		case 'update':
 				if(getCompanyStatus($company_id,$db) == 1 ){//Check if company is blocked.
 
-						$santize_sn    = Utils::upperCase(trim($serialnum));
-						$santize_unit  = Utils::upperCase($unit_own);
-						$santize_model = Utils::upperCase($model);
-						$santize_loc   = Utils::upperCase($location);
-						$santize_dept  = Utils::upperCase($department);
 						$db->updateQuery('tblmif','company_id		= "'.$company_id.'",
 												     brand 		 	= "'.$brand.'",
-												     category 		= "'.Utils::upperCase($category).'",
-												     type 		 	= "'.Utils::upperCase($type).'",	
-												     page_count 	= '.$pagecount.',				     
-												     model 		 	= "'.$santize_model.'",
+												     category 		= "'.$category.'",
+												     type 		 	= "'.$type.'",	
+												     page_count 	= "'.$pagecount.'",				     
+												     model 		 	= "'.$model.'",
 												     serialnumber 	= "'.$santize_sn.'",
 												     location_area 	= "'.$santize_loc.'",
 												     department 	= "'.$santize_dept.'",
-												     no_of_user 	= '.$nouser.',
-												     remarks 		= "'.Utils::upperCase($remarks).'",
+												     no_of_user 	= "'.$nouser.'",
+												     remarks 		= "'.$santize_remarks.'",
 												     date_installed = "'.$dateinstalled.'",
-												     billing_type 	= "'.Utils::upperCase($billing).'",
+												     billing_type 	= "'.$santize_bill.'",
 												     branches  		= "'.$branch.'",
 												     unit_owned_by  = "'.$santize_unit.'"'
 												     ,'id = "'.$id.'"');
 					    $res['aaData'][0]['status'] = 1; // Active
-					    machineLogs($company_id,$id,$serialnum,$user_id,'UPDATE',$db);//Insert machine logs.
+					    machineLogs($company_id,$id,$santize_sn,$user_id,'UPDATE',$db);//Insert machine logs.
 
 					    $db->fields = null; //Clear the previous result from queries.
 					    
@@ -108,10 +112,10 @@ $date_now 	= Utils::getSysDate().' '.Utils::getSysTime();
 					    
 					    if($pm_comp_id != '' && $pm_number !=''){ //Sync to PM module once details updated.
 							$db->updateQuery('tbl_pm_machines','brand = "'.$brand.'",
-							    model 			= "'.$santize_model.'",
+							    model 			= "'.$model.'",
 							    location_area 	= "'.$santize_loc.'",
 							    department 		= "'.$santize_dept.'",
-							    no_of_user 		= '.$nouser.',
+							    no_of_user 		= "'.$nouser.'",
 							    date_installed  = "'.$dateinstalled.'",
 							    unit_owned      = "'.$santize_unit.'"'
 				    			,'mif_id= '.$id.' AND pm_number IN ('.$pm_number.') ');
@@ -152,10 +156,40 @@ $date_now 	= Utils::getSysDate().' '.Utils::getSysTime();
 											'branches' => $val['branches']
 					                     );
 				}
-
 			 	print Utils::jsonEncode($data);
-			
-			break;	
+			break;
+		case 'view_archive_id':
+				$db->selectQuery('m.*, mo.model_name','tblmif m
+									LEFT JOIN tbl_model mo ON m.model = mo.id
+									WHERE m.id = "'.$id.'" LIMIT 0,1');
+				$res = $db->getFields();
+				$data = array();
+
+				foreach ($res['aaData'] as $key => $val) {
+					$data['aaData'][] = array(
+											'id' => $val['id'],
+											// 'company_name' => getOnlyCompanyName($val['company_id'],$conn),
+											'company_id' => $val['company_id'],
+											'client_category' => $val['client_category'],
+											// 'address' => $val['address'],
+											'brand' => $val['brand'],
+											'category' => $val['category'],
+											'type' => $val['type'],
+											'model' => $val['model_name'],
+											'serialnumber' => $val['serialnumber'],
+											'page_count' => $val['page_count'],
+											'location_area' => $val['location_area'],
+											'department' => $val['department'],
+											'no_of_user' => $val['no_of_user'],
+											'remarks' => $val['remarks'],
+											'date_installed' => $val['date_installed'],
+											'unit_owned_by' => $val['unit_owned_by'],
+											'billing_type' => $val['billing_type'],
+											'branches' => $val['branches']
+					                     );
+				}
+			 	print Utils::jsonEncode($data);
+			break;		
 		case 'check_exist':
 				$db->selectQuery('serialnumber','tblmif WHERE serialnumber ="'.$new_serial.'" LIMIT 0,1');
 				if($db->getNumRows() > 0){

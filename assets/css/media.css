@@ -47,6 +47,9 @@
    .login-copyright div > span{
    	display: block;
    }
+  #modalSalesMonth .modal-dialog, #modalSalesYear .modal-dialog {
+    width: 100%;
+  } 
 }
 
 @media (min-width: 425px) and (max-width: 768px){

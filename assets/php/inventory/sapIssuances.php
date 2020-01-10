@@ -16,9 +16,7 @@ $limit = "";
 $totalData =0;
 $totalFiltered =0;
 
-$db = array('db_name' => 'sap_db', 'db_host' => 'localhost', 'db_user' => 'root', 'db_pass' => ''); //Use sap_db.
-$conn = Database::getInstance($db); //For Searching.
-
+$conn = Database::getInstance(); //For Searching.
 if(Utils::getValue('company_name'))		{ $search ="AND company_name LIKE '%".$conn->escapeString(Utils::getValue('company_name'))."%'"; }
 if(Utils::getValue('ref'))				{ $search .="AND ref_no = '".$conn->escapeString(Utils::getValue('ref'))."'"; }
 if(Utils::getValue('date'))				{ $search .="AND doc_date = '".$conn->escapeString(Utils::getValue('date'))."'"; }
@@ -29,14 +27,14 @@ if(Utils::getValue('trans'))			{ $search .="AND trans_type = '".$conn->escapeStr
 
 			$requestData= $_REQUEST;
 			// storing  request (ie, get/post) global array to a variable  
-			$conn->selectQuery('*',' tbl_invnt_issuances_auto_import');
+			$conn->selectQuery('*','sap_db.tbl_invnt_issuances_auto_import');
 			$totalData = $conn->getNumRows(); //getting total number records without any search.
 			$conn->row_count = 0;
 			$conn->fields = null;
 
 			if( !empty($search) ) { // if there is a search parameter, $requestData['search']['value'] contains search parameter.
 
-			$conn->selectQuery('*','tbl_invnt_issuances_auto_import WHERE id > 0 '.$search.'');
+			$conn->selectQuery('*','sap_db.tbl_invnt_issuances_auto_import WHERE id > 0 '.$search.'');
 
 				$conn->fields = null;
 				$totalFiltered  = $conn->getNumRows(); // when there is a search parameter then we have to modify total number filtered rows as per search result. 
@@ -47,7 +45,7 @@ if(Utils::getValue('trans'))			{ $search .="AND trans_type = '".$conn->escapeStr
 			
 			if(intval($requestData['length']) >= 1 ) { $limit = ' LIMIT '.$requestData['start'].' ,'.$requestData['length'].''; }
 
-				$conn->selectQuery('*','tbl_invnt_issuances_auto_import	WHERE id > 0 '.$search.' ORDER BY doc_date DESC '.$limit.'');
+				$conn->selectQuery('*','sap_db.tbl_invnt_issuances_auto_import	WHERE id > 0 '.$search.' ORDER BY doc_date DESC '.$limit.'');
 				$row = $conn->getFields(); //Get all rows
 
 			if($conn->getNumRows() > 0 ){

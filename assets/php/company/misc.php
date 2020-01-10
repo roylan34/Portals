@@ -6,7 +6,7 @@ function getCompany($selected_accmngr,$conn){ //This func is used to retain the 
   $res = array();
 	if(!Utils::isEmpty($selected_accmngr)){
 		$conn->fields = null;
-		$conn->selectQuery('company','tbl_client_accounts WHERE id='.$selected_accmngr.'');
+		$conn->selectQuery('company','sap_db.tbl_client_accounts WHERE id='.$selected_accmngr.'');
 		$resultComp = $conn->getFields();
 		if($conn->getNumRows() > 0)
 			$data = $resultComp['aaData'][0]['company'];

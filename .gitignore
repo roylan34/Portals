@@ -1,6 +1,5 @@
-assets/attachment
-assets/php/auto_import
+/assets/attachment
+/build
+/node_modules
 
-build
-node_modules
 

@@ -10,15 +10,16 @@ require_once '../../database.php';
 require_once '../../utils.php';
 
 $search ="";
-$db = array('db_name' => 'sap_db', 'db_host' => 'localhost', 'db_user' => 'root', 'db_pass' => ''); //Use sap_db.
-$conn = Database::getInstance($db);
+$db = Database::getInstance();
 
-	$conn->selectQuery("  brand, item_code AS model, COUNT(*) total_model ","tbl_invnt_issuances_auto_import
+	$search = "";
+	if(Utils::getValue('date')){  $search = "WHERE doc_date LIKE '%".Utils::getValue('date')."%'";  }
+	$db->selectQuery("  brand, item_code AS model, COUNT(*) total_model ","sap_db.tbl_invnt_issuances_auto_import $search
 						GROUP BY item_code ORDER BY model");
-	$row = $conn->getFields(); //Get all rows
+	$row = $db->getFields(); //Get all rows
 	$data = array();
 
-	   if($conn->getNumRows() > 0){
+	   if($db->getNumRows() > 0){
 			foreach ($row['aaData'] as $key => $value) {
 				$data[$value['brand']][$key]['model'] = $value['model'];
 				$data[$value['brand']][$key]['total_model'] = $value['total_model'];

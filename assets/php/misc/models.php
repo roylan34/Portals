@@ -13,9 +13,9 @@ require_once '../utils.php';
 $db = Database::getInstance();
 
 $search = "";
-if(Utils::getValue('model')) { $search = 'WHERE model LIKE "%'.Utils::getValue('model').'%"'; }
+if(Utils::getValue('model')) { $search = 'WHERE model_name LIKE "%'.Utils::getValue('model').'%"'; }
 
-$db->selectQuery('DISTINCT model','tblmif '.$search.' LIMIT 0,10');
+$db->selectQuery('model_name AS model','tbl_model '.$search.' LIMIT 0,10');
 $res = $db->getFields();
 $data = array();
 

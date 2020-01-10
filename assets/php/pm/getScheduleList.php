@@ -117,7 +117,7 @@ switch (Utils::getValue('action')) {
 			}
 			
 			if(intval($requestData['length']) >= 1 ) { $limit = ' LIMIT '.$requestData['start'].' ,'.$requestData['length'].''; }
-				$conn->selectQuery('ps.id, ps.company_id, ps.pm_number, ps.schedule_date, GROUP_CONCAT(CONCAT(ac.firstname," ", ac.lastname) SEPARATOR "<br>") AS technician, CONCAT(ps.date_entered, " ", ps.time_entered) AS date_entered, ps.contact_name, ps.email_address, ps.department, com.company_name, ps.status',' tbl_pm_schedule ps 	
+				$conn->selectQuery('ps.id, ps.company_id, ps.pm_number, ps.schedule_date, GROUP_CONCAT(CONCAT(ac.firstname," ", ac.lastname) SEPARATOR "<br>") AS technician, CONCAT(ps.date_entered, " ", ps.time_entered) AS date_entered, ps.contact_name, ps.email_address, ps.department, com.company_name, ps.status, ps.reason_cancel',' tbl_pm_schedule ps 	
 					LEFT JOIN tbl_company com ON ps.company_id = com.id
 					LEFT JOIN tbl_pm_technician pt ON ps.pm_number = pt.pm_number
 					LEFT JOIN tbl_accounts ac ON pt.technician = ac.id

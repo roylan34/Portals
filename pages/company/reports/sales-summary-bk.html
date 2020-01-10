@@ -1,0 +1,93 @@
+<div id="container-SapSalesSummary">
+<div class="box box-success">
+        <div class="box-header with-border">
+          <h3 class="box-title">SAP - Sales Summary per Account Manager </h3>
+         
+        </div><!-- /.box-header -->
+        <div class="box-body">
+
+          <div id="report-monthly-sales" class="table-responsive col-md-6">
+          	<table id="reportMonthlySales" class="table table-bordered thead-inverse">
+          		<thead>
+          			<tr>
+          				<th rowspan="2">Name</th>
+          				<th colspan="3" style="text-align: center;">MONTHLY SALES  
+                    <span> <label class="pull-right"><select id="select-year-sales"></select></label></span>
+                    <span id="dropdwn-monthly-sales">
+                      <label class="pull-right"> 
+                        <select id="select-month-sales">
+                            <option value="" disabled>--Month--</option>
+                            <option value="jan">Jan</option>
+                            <option value="feb">Feb</option>
+                            <option value="mar">Mar</option>
+                            <option value="apr">Apr</option>
+                            <option value="may">May</option>
+                            <option value="jun">Jun</option>
+                            <option value="jul">Jul</option>
+                            <option value="aug">Aug</option>
+                            <option value="sep">Sep</option>
+                            <option value="oct">Oct</option>
+                            <option value="nov">Nov</option>
+                            <option value="dec">Dec</option>
+                        </select>
+                      </label>
+                    </span>                   
+                  </th>
+          			</tr>
+          			<tr>
+          				<th class="text-center">Gross</th>
+          				<th class="text-center">Vat</th>
+          				<th class="text-center">Net</th>
+          			</tr>		
+          		</thead>
+          		<tbody>	</tbody>
+          	</table>
+          </div>
+
+          <div id="report-yearly-sales" class="table-responsive col-md-6">
+            <table id="reportYearlySales" class="table table-bordered thead-inverse">
+              <thead>
+                <tr>
+                  <th rowspan="2">Name</th>
+                  <th colspan="3" style="text-align: center;">YEARLY SALES  
+                    <span id="dropdwn-yearly-sales"><label class="pull-right"><select id="select-yearly-sales"></select></label></span>                 
+                  </th>
+                </tr>
+                <tr>
+                  <th>Gross</th>
+                  <th>Vat</th>
+                  <th>Net</th>
+                </tr>   
+              </thead>
+              <tbody> </tbody>
+            </table>
+          </div>
+
+          </div><!--end of box body --> 
+         <div class="box-footer"></div><!-- box-footer -->
+    </div>
+</div>
+<style type="text/css"> 
+  table#reportMonthlySales tbody tr td:not(:first-child), table#reportYearlySales tbody tr td:not(:first-child){
+    text-align: right;
+  }
+  table#reportMonthlySales thead tr:nth-child(2) th, table#reportYearlySales thead tr:nth-child(2) th{
+    text-align: center;
+  }
+
+	table#reportMonthlySales thead tr > th, table#reportYearlySales thead tr > th{
+		vertical-align: middle;
+	}
+  table#reportMonthlySales thead tr th select, table#reportYearlySales thead tr th select{
+    color:#333;
+  }
+  .table-bordered>thead>tr>th, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>tbody>tr>td, .table-bordered>tfoot>tr>td {
+    border: 1px solid #ddd;
+  }
+  .table-bordered {
+    border: 1px solid #ddd;
+  }
+	/*table#reportMonthlySales thead tr th:nth-child(2){
+		text-align: center;
+	}*/
+</style>

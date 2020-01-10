@@ -42,6 +42,12 @@ div.scrollToTop{
 	background-size: 40px;
 	cursor:pointer;
 }
+.mark{
+  font-size: 11px;
+  padding: 2px 5px;
+  border-radius: 0;
+}
+
 /** Override the .content style **/
 .r-content{
   margin: 0;
@@ -92,6 +98,10 @@ div.scrollToTop{
 .mif-modalPromptMSG .modal-footer  { text-align:center; padding: 10px; }
 .bg-red-active, .mif-modal-danger .modal-header { background-color: #db5646 !important; }
 .bg-yellow-active, .mif-modal-warning .modal-header {background-color: #dca040 !important;}
+
+.dropdown-menu-machine{
+  min-width: 100px;
+}
 
 /** LOGIN PAGE **/
 .submitted .ng-invalid{
@@ -182,6 +192,22 @@ table#chartlocation .badge{
 	background-color:#f39c12;
 }
 
+.badge-pulse
+{
+  animation: shadow-pulse 2s infinite;
+}
+
+@keyframes shadow-pulse
+{
+  0% {
+    /*box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.1);*/
+    box-shadow: 0 0 0 0px rgba(245, 2, 2, 0.20);
+  }
+  100% {
+    box-shadow: 0 0 0 25px rgba(245, 2, 2, 0);
+  }
+}
+
 .btn-default-logs {
     background-color: #757472;
     color: #fff;
@@ -218,6 +244,39 @@ table#chartlocation .badge{
   .table-custom-bordered{
   	border: 1px solid #ddd !important;
   }
+  .m-input-container{
+      border:1px solid rgba(169, 169, 169, 0.8);
+      border-radius: 2px;
+      padding:2px;
+      position: relative;
+  }
+  .m-input{
+      -webkit-appearance: none;
+      background: transparent;
+      border: none;
+      outline: none;
+  }
+  .m-input-suffix{
+      padding: 0 10px;
+      visibility: hidden;
+      transition: opacity .50s ease-in-out;
+      -moz-transition: opacity .50s ease-in-out;
+      -webkit-transition: opacity .50s ease-in-out;
+      opacity: 0;
+      cursor: pointer;
+      position: absolute;
+      right: 0;
+  }
+  .m-input-container:hover .m-input-suffix{
+      visibility: visible;
+      opacity: 1;
+  }
+  #modalSalesMonth .modal-dialog {
+    width: 60%;
+  } 
+  #modalSalesYear .modal-dialog{
+    width: 90%;
+  }
 /** Container **/
 /*.view-content{
 	box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2), 0 4px 20px 0 rgba(0,0,0,0.19)
@@ -244,6 +303,29 @@ input[type=checkbox] {
 	transition: all ease 0.3s;
 }
 
+.tool-tip{
+  position: relative;
+  display: inline-block;
+}
+.tool-tip .tool-tip-content{
+  visibility: hidden;
+  content:"";
+  background-color:#3c3c3c;
+  min-width:100px;
+  height:100px;
+  position:absolute;
+  opacity: 0;
+  transition: opacity .50s ease-in-out;
+  -moz-transition: opacity .50s ease-in-out;
+  -webkit-transition: opacity .50s ease-in-out;
+
+}
+.tool-tip:hover .tool-tip-content{
+  visibility: visible;
+  margin-top:5px;
+  z-index: 99999;
+  opacity: 1;
+}
 
 
 /**** MRF *****/
@@ -290,6 +372,11 @@ input.mrf-material:focus, select.mrf-material:focus {
 	line-height: 2em;
 }*/
 
+.clearfix2::after {
+  content: "";
+  clear: both;
+  display: table;
+}
 
 #modalFormCurrentMrf form input[type=text]:not(.not-full-width) {
     width: 100% !important;
@@ -365,6 +452,9 @@ input.mrf-material:focus, select.mrf-material:focus {
 }
 .status-blue{
   background-color: #3dadee;
+}
+.status-orange{
+  background-color: #ff9800;
 }
 
 /** View Request Form **/

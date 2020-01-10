@@ -187,6 +187,7 @@ var dtAccounts = {
                                     $("#slctStatus").val(val.status);  
                                     $("#slctAccountRole").val(val.accountrole);
                                     $("#slctPmType").val(val.pm_type);
+                                    $("#slctMrfType").val(val.mrf_type);
                                     $("#txtDateCreated").text(val.created_at);
                                     $("#chkAppMif").prop('checked', (app_mif == null ? false : true));
                                     $("#chkAppPm").prop('checked', (app_pm == null ? false : true));
@@ -229,6 +230,7 @@ var dtAccounts = {
             var email     = $("#txtEmail").val();
             var accrole   = $("#slctAccountRole option:selected").val();
             var pm_type   = $("#slctPmType option:selected").val();
+            var mrf_type  = $("#slctMrfType option:selected").val();
             var status    = $("#slctStatus option:selected").val();
             var app_mif   = $("input[name='chkAppMif']:checked").val() || '';
             var app_pm    = $("input[name='chkAppPm']:checked").val() || ''; 
@@ -246,7 +248,7 @@ var dtAccounts = {
             var action_mrf = $("input[name='radioMrfActions']:checked").val();
             var data = {action: 'update', idaccount:id, username:username, pass:pass, fname:fname, mname:mname, lname:lname, email:email, 
                         app_mif: app_mif, app_pm:app_pm, action_pm:action_pm, location:loc, app_invt:app_invt, branch:branch, branch_pm:branch_pm, app_mrf:app_mrf, branch_mrf:branch_mrf, accrole:accrole, status:status, acc_type_mrf:acc_type_mrf,
-                        action_mif:action_mif, action_invnt: action_invnt, action_mrf:action_mrf, pm_type:pm_type};
+                        action_mif:action_mif, action_invnt: action_invnt, action_mrf:action_mrf, pm_type:pm_type, mrf_type:mrf_type};
 
              $.ajax({
                 type: 'POST',
@@ -258,12 +260,13 @@ var dtAccounts = {
                     if(data.aaData.check_location == 1){
                         promptMSG('custom','Can\'t update due the <strong>ALL</strong> location can\'t combined.',"<i class='fa fa-warning'></i>",null,false,true);
                     }else{
-                       self.dtAccounts.dtInstance.ajax.reload(function(){
-                            promptMSG('success-update','Company Account',null,'',false,true);
-                            var logged_id = Cookies.get('user_id');
+                        promptMSG('success-update','Company Account',null,'',false,true);
+                        self.dtAccounts.dtInstance.ajax.reload(function(){
+                            var logged_id = jwt.get('user_id');
                                 if(id == logged_id){ //Clear the stored cookies location.
-                                    Cookies.clear('location');
-                                    Cookies.set('location',loc,0.5);
+                                    // Cookies.clear('location');
+                                    // Cookies.set('location',loc,0.5);
+                                    alert('Please log-out your account to reflect the updates.');
                                 }
                        }, false); // Reload the data in DataTable.
                    }
@@ -293,12 +296,13 @@ var dtAccounts = {
             var action_invnt = $("input[name='radioInvntActions']:checked").val();
             var action_mrf = $("input[name='radioMrfActions']:checked").val();
             var pm_type    = $("#slctPmType option:selected").val();
-            var action_pm   = $("input[name='radioPmActions']:checked").val();
+            var mrf_type   = $("#slctMrfType option:selected").val();
+            var action_pm  = $("input[name='radioPmActions']:checked").val();
             var branch_pm = $("#slctAccountBranchPm option:selected").val();
             var app_pm    = $("input[name='chkAppPm']:checked").val() || ''; 
             var data = {action:'add', username:username, pass:pass, fname:fname, mname:mname, lname:lname, email:email, 
                         app_mif: app_mif, location:loc, app_invt:app_invt, branch:branch, app_mrf:app_mrf, branch_mrf:branch_mrf, accrole:accrole, status:status, acc_type_mrf:acc_type_mrf,
-                        action_mif:action_mif, action_invnt: action_invnt, action_mrf:action_mrf, pm_type:pm_type, action_pm:action_pm, branch_pm:branch_pm, app_pm:app_pm }; 
+                        action_mif:action_mif, action_invnt: action_invnt, action_mrf:action_mrf, pm_type:pm_type, mrf_type:mrf_type, action_pm:action_pm, branch_pm:branch_pm, app_pm:app_pm }; 
             var isResetForm = false;
           $.ajax({
                 type: 'POST',

@@ -26,6 +26,7 @@ if(Utils::getIsset('action')){
 	$department  	= Utils::getValue('department');
 	$branch  		= Utils::getValue('branch');
 	$user_id  		= Utils::getValue('user_id');
+	$reason  		= Utils::getValue('reason');
 	$date_entered = Utils::getSysDate();
 	$time_entered = Utils::getSysTime();
 
@@ -110,7 +111,7 @@ if(Utils::getIsset('action')){
 					if($id_sched){
 						$is_cancel = checkIsCancel($pmnumber, $db);
 						if($is_cancel['aaData']['result'] == 'true'){
-							$db->updateQuery('tbl_pm_schedule','status = "cancel"','id = "'.$id_sched.'"');
+							$db->updateQuery('tbl_pm_schedule','status = "cancel", reason_cancel="'.$reason.'" ','id = "'.$id_sched.'"');
 						}
 
 				 		print Utils::jsonEncode($is_cancel);	
@@ -156,12 +157,12 @@ function checkIsCancel($pm_num,$db){
 		// $res = $db->getFields();
 
 		$db->selectQuery2("SELECT IF( 
-						(SELECT COUNT(*) FROM tbl_pm_machines WHERE pm_number = '".$pm_num."' ) 
+						(SELECT COUNT(*) FROM tbl_pm_machines WHERE pm_number = '".$pm_num."' AND is_delete='no') 
 						= 
 						(SELECT COUNT(*) FROM tbl_pm_machines WHERE pm_number = '".$pm_num."' AND 
 						((time_in = '0000-00-00 00:00:00' AND time_out = '0000-00-00 00:00:00') 
 						|| 
-						(time_in IS NULL AND time_out IS NULL))
+						(time_in IS NULL AND time_out IS NULL) AND is_delete='no')
 						), 'yes', 'no') AS can_cancel");
 		$fetchRes = $db->getFields();
 		if($fetchRes['aaData'][0]['can_cancel'] == 'yes'){ 

@@ -1,7 +1,9 @@
+<iframe id="printf" name="printf" allowfullscreen style="display:none"></iframe>
 <div id="reportInventoryAllStock">
 <div class="box box-success">
         <div class="box-header with-border">
           <h3 class="box-title">Inventory Stocks</h3>
+          <button id="printAllStocks" class="btn btn-xs btn-primary pull-right" title="Print page">Print</button>
         </div><!-- /.box-header -->
         <div class="box-body">
           <div id="report_all_stock">
@@ -10,6 +12,61 @@
          <div class="box-footer"></div><!-- box-footer -->
     </div>
 </div>
+<script type="text/javascript">
+
+
+  function print() {
+
+    var newWin = window.frames['printf'];
+    var printDoc  = document.getElementById("reportInventoryAllStock");
+
+        newWin.document.write('<link rel="stylesheet" href="plugins/bootstrap/dist/css/bootstrap.min.css">');
+        newWin.document.write('<link rel="stylesheet" href="assets/css/print-all-stocks.css">');
+        newWin.document.write('<style> #printAllStocks{ display:none} </'+'style>');
+
+        //Clone report Inventory Stocks.
+        newWin.document.write('<body onload=window.print()>'+printDoc.outerHTML+'</body>');
+
+        // Append JS file below in document.
+        var jsPrint = document.createElement('script');
+            jsPrint.setAttribute("src","assets/js/inventory/print/printAllStocks.js");
+        newWin.document.body.appendChild(jsPrint)
+
+        newWin.document.close();
+        
+  }
+
+
+  function print2() {
+
+    var printDoc  = document.getElementById("reportInventoryAllStock");
+
+    //Open a new blank window for printing.
+    var myWindow = window.open("","");
+        myWindow.document.write("<!DOCTYPE html>")
+        myWindow.document.write('<link rel="stylesheet" href="plugins/bootstrap/dist/css/bootstrap.min.css">');
+        myWindow.document.write('<link rel="stylesheet" href="assets/css/print-all-stocks.css">');
+        myWindow.document.write('<style> #printAllStocks{ display:none} </'+'style>');
+        
+        //Clone report Inventory Stocks.
+        myWindow.document.write('<body onload=window.print()>'+printDoc.outerHTML+'</body>');
+
+        // Append JS file below in document.
+        var jsPrint = document.createElement('script');
+            jsPrint.setAttribute("src","assets/js/inventory/print/printAllStocks.js");
+        myWindow.document.body.appendChild(jsPrint)
+
+        //Printpreview the page.
+        // setTimeout(function(){
+        //     myWindow.print();
+        // },300)
+        
+  }
+
+  $("#printAllStocks").click(function(){
+    print();
+  });
+</script>
 
 <style type="text/css">
 /** Fixed pos column Model **/

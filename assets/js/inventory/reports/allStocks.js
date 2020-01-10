@@ -61,12 +61,14 @@ var reportInvntAlltocks = {
 	// 					}
 	// 		}, 
 	tableFixedHeader: function (cb){
-		  var thead_fixed_container = document.querySelector("#table_head_all_stocks table");
-		  //If element not found,  invoke the callback and turn off the event listener resize.
-		  if(!thead_fixed_container){
-		  	cb.call(this, thead_fixed_container);
-		  	return;
-		  }
+		var thead_fixed_container = document.querySelector("#table_head_all_stocks table");
+		//If element not found,  invoke the callback and turn off the event listener resize.
+		if(thead_fixed_container != null){
+		  	if(cb !== undefined){
+			  	cb.call(this, thead_fixed_container);
+			  	return;
+			}
+
 		  var thead_fixed_branch 	= thead_fixed_container.querySelectorAll("tr:first-child th[rowspan]");
 		  var thead_fixed_bnrf   	= thead_fixed_container.querySelectorAll("tr:nth-child(2) th");
 		  var tbody_container    	= document.querySelector("#table_body_all_stocks table");
@@ -105,6 +107,7 @@ var reportInvntAlltocks = {
 		        });
 		      }); 
 		  });
+		}
 
 	},
 	table_all_stock: function(branch){

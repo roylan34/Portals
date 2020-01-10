@@ -26,7 +26,7 @@ var dtClientCompany = {
                             // d.company   = $("#search-company-companyname").val();
                             // d.address   = $("#search-company-address").val();
                             // d.branch    = $("#search-company-branch").val();
-                            d.user_id = Cookies.get('user_id');
+                            d.user_id = jwt.get('user_id');
                             d.action_view = "account_manager";
                             d.status = 1;
                     }
