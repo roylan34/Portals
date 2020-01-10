@@ -1,5 +1,3 @@
 {
-  "bundle-invt.min.js": "bundle-invt-719fa3e213.min.js",
-  "bundle-mif.min.js": "bundle-mif-bd03861245.min.js",
-  "bundle-pm.min.js": "bundle-pm-98b46ce6ca.min.js"
+  "build/js/bundle-pm.min.js": "build/js/bundle-pm-52eaec84de.min.js"
 }
