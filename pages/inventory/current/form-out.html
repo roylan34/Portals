@@ -1,187 +1,196 @@
 <!-- Modal -->
-<div class="modal fade" id="modalFormOutMachine" data-backdrop="static" data-keyboard="true" tabindex="-1" role="dialog" aria-labelledby="modalFormOutMachine">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header modal-header-warning">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="modal-header">Out Machine</h4>
-      </div>
-      <form id="frmOutMachine" class="form-horizontal">
-          <div class="modal-body">
+<div class="modal fade" id="modalFormOutMachine" data-backdrop="static" data-keyboard="true" tabindex="-1" role="dialog"
+    aria-labelledby="modalFormOutMachine">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header modal-header-warning">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modal-header">Out Machine</h4>
+            </div>
+            <form id="frmOutMachine" class="form-horizontal">
+                <div class="modal-body">
 
-            <div class="out-machine-content">
-                    <input type="hidden" name="hdnInvntOutId" id='hdnInvntOutId'/>
+                    <div class="out-machine-content">
+                        <input type="hidden" name="hdnInvntOutId" id='hdnInvntOutId' />
                         <div class="form-group">
-                          <label class="col-sm-4 control-label" for="slctCurInvntStatus">Status:</label>
-                          <div class="col-sm-6">
-                            <select class="form-control" id="slctCurInvntStatus" name="slctCurInvntStatus"></select>
-                          </div>
+                            <label class="col-sm-4 control-label" for="slctCurInvntStatus">Status:</label>
+                            <div class="col-sm-6">
+                                <select class="form-control" id="slctCurInvntStatus" name="slctCurInvntStatus"></select>
+                            </div>
                         </div>
 
                         <div class="form-group branch-out" style="display: none;">
-                          <label class="col-sm-4 control-label" for="slctCurInvntOutBranch">Branch:</label>
-                          <div class="col-sm-6">
-                            <select class="form-control" id="slctCurInvntOutBranch" name="slctCurInvntOutBranch"></select>
-                          </div>
+                            <label class="col-sm-4 control-label" for="slctCurInvntOutBranch">Branch:</label>
+                            <div class="col-sm-6">
+                                <select class="form-control" id="slctCurInvntOutBranch"
+                                    name="slctCurInvntOutBranch"></select>
+                            </div>
                         </div>
 
                         <div class="form-group company-out">
-                          <label class="col-sm-4 control-label" for="slctCurInvntCompany">Company:</label>
-                          <div class="col-sm-6">
-                              <select class="form-control chosen-select" id="slctCurInvntCompany" name="slctCurInvntCompany" data-placeholder="Company"></select>
-                          </div>
+                            <label class="col-sm-4 control-label" for="slctCurInvntCompany">Company:</label>
+                            <div class="col-sm-6">
+                                <select class="form-control chosen-select" id="slctCurInvntCompany"
+                                    name="slctCurInvntCompany" data-placeholder="Company"></select>
+                            </div>
                         </div>
 
                         <div class="form-group location-out">
-                          <label class="col-sm-4 control-label" for="slctCurInvntLocation">Location:</label>
-                          <div class="col-sm-6">
-                              <select class="form-control chosen-select-location" id="slctCurInvntLocation" name="slctCurInvntLocation" data-placeholder="Location" disabled></select>
-                          </div>
+                            <label class="col-sm-4 control-label" for="slctCurInvntLocation">Location:</label>
+                            <div class="col-sm-6">
+                                <select class="form-control chosen-select-location" id="slctCurInvntLocation"
+                                    name="slctCurInvntLocation" data-placeholder="Location" disabled></select>
+                            </div>
                         </div>
 
                         <div class="form-group">
-                          <label class="col-sm-4 control-label" for="txtCurInvntDateOut">Date Out:</label>
-                          <div class="col-sm-6">
-                              <div class="input-group" style="margin-bottom: 0px">
-                                <div class="input-group-addon">
-                                  <i class="fa fa-calendar"></i>
+                            <label class="col-sm-4 control-label" for="txtCurInvntDateOut">Date Out:</label>
+                            <div class="col-sm-6">
+                                <div class="input-group" style="margin-bottom: 0px">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input type="text" class="form-control" data-inputmask="'alias': 'yyyy-mm-dd'"
+                                        data-mask2 id="txtCurInvntDateOut" name="txtCurInvntDateOut">
                                 </div>
-                                <input type="text" class="form-control" data-inputmask="'alias': 'yyyy-mm-dd'" data-mask2 id="txtCurInvntDateOut" name="txtCurInvntDateOut">
-                              </div>
-                          </div>
+                            </div>
                         </div>
 
-                         <div class="form-group">
+                        <div class="form-group">
                             <label class="col-sm-4 control-label" for="txtCurInvntRemarks">Remarks:</label>
                             <div class="col-sm-6">
-                              <textarea id="txtCurInvntRemarks" style="width:100%; resize: vertical;" name="txtCurInvntRemarks"></textarea>
-                          </div>
+                                <textarea id="txtCurInvntRemarks" style="width:100%; resize: vertical;"
+                                    name="txtCurInvntRemarks"></textarea>
+                            </div>
                         </div>
-            </div><!--end of content-->
+                    </div>
+                    <!--end of content-->
 
-          </div><!--end of modal-body-->
-      <div class="modal-footer">
-        <div class="">
-          <div class="col-sm-6 col-sm-offset-6">
-            <button type="submit" class="btn btn-flat btn-info" name="btnOutMachine" id="btnOutMachine">OK</button>
-            <button type="button" class="btn btn-flat btn-danger" data-dismiss="modal">Cancel</button>
-          </div>
+                </div>
+                <!--end of modal-body-->
+                <div class="modal-footer">
+                    <div class="">
+                        <div class="col-sm-6 col-sm-offset-6">
+                            <button type="submit" class="btn btn-flat btn-info" name="btnOutMachine"
+                                id="btnOutMachine">OK</button>
+                            <button type="button" class="btn btn-flat btn-danger" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+                <!--end of modal footer-->
+            </form>
+
         </div>
-      </div> <!--end of modal footer-->
-      </form>
-
-  </div>
-</div>
-<script type="text/javascript">
-$( document ).ready( function () {
-   var notRequired = [9,10]; // 9 = Transfer, 10 = Blocked status.
-  $("#slctCurInvntStatus").change(function(){ //Show/Hide branch select.
-      if( notRequired.indexOf(parseInt($(this).val())) > -1 ){ 
-          $(".branch-out").show();
-          $(".company-out, .location-out").hide();
-      }else{
-          $(".branch-out").hide();
-          $(".company-out, .location-out").show();
-      }      
-  });
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var notRequired = [9, 10, 13]; // 9 = Transfer, 10 = Blocked status, 13 = Dispose.
+            $("#slctCurInvntStatus").change(function () { //Show/Hide branch select.
+                if (notRequired.indexOf(parseInt($(this).val())) > -1) {
+                    $(".branch-out").show();
+                    $(".company-out, .location-out").hide();
+                } else {
+                    $(".branch-out").hide();
+                    $(".company-out, .location-out").show();
+                }
+            });
 
 
-	$('#modalFormOutMachine').on('hidden.bs.modal', function () {
-	  $(this).find("input, select").parents('.col-sm-6').removeClass('has-error has-success');
-    $(this).find("#frmOutMachine input:hidden").val('');
-    $(this).find("#slctCurInvntCompany, #slctCurInvntLocation").val(0).trigger('chosen:updated'); //Reset drpdown
-    $(this).find("#slctCurInvntLocation").prop('disabled',true).trigger('chosen:updated'); //disable again the dropdown location.
-	  $(this).find("textarea, select, .chosen-container, .input-group").next('em').remove();  
-    $(this).find("#frmOutMachine").trigger('reset');
-    $("#slctCurInvntStatus").trigger("change");
-	});
-   // Client-side edit form validation.
-      $( "#frmOutMachine" ).validate( {
-        submitHandler: function (form) {
-             var id = $("#hdnInvntOutId").val() || null;
-              if(id != null){
-                 dtCurrentInventory.outMachine();
-              }
-              else{
-                alert("ID is empty.");
-              }
-        },
-        rules: {
-          slctCurInvntStatus: {
-            required: true
-          },
-          slctCurInvntOutBranch: {
-            required: function(){  
-                var status = $("#slctCurInvntStatus").val();
-                return ( notRequired.indexOf(parseInt(status)) > -1 ? true : false)
-              } // 9 = Transfer status.
-          },              
-          slctCurInvntCompany: {
-             required: function(){  
-                var status = $("#slctCurInvntStatus").val();
-                return ( notRequired.indexOf(parseInt(status)) == -1 ? true : false)
-              } 
-          },            
-          slctCurInvntLocation: {
-            required: function(){  
-                var status = $("#slctCurInvntStatus").val();
-                return ( notRequired.indexOf(parseInt(status)) == -1 ? true : false)
-              } 
-          },  
-          txtCurInvntDateOut: {
-            required: true,
-            isdate: true,
-          },          
-          txtCurInvntRemarks: {
-            required: true
-          }
-        },
-        messages: {
-          slctCurInvntStatus: {
-            required: "This field is required."
-          },          
-          slctCurInvntCompany: {
-            required: "This field is required."
-          },          
-          slctCurInvntLocation: {
-            required: "This field is required."
-          },          
-          txtCurInvntDateOut: {
-            required: "This field is required.",
-            isdate: "Incomplete date format."
-          },          
-          txtCurInvntRemarks: {
-            required: "This field is required."
-          }
-        },
-        errorElement: "em",
-        errorPlacement: function ( error, element ) {
-          // Add the `help-block` class to the error element
-          error.addClass( "help-block" ).css('margin-top','0px');
-          error.css({'font-size':'12px','margin-bottom':'0px'});
+            $('#modalFormOutMachine').on('hidden.bs.modal', function () {
+                $(this).find("input, select").parents('.col-sm-6').removeClass('has-error has-success');
+                $(this).find("#frmOutMachine input:hidden").val('');
+                $(this).find("#slctCurInvntCompany, #slctCurInvntLocation").val(0).trigger('chosen:updated'); //Reset drpdown
+                $(this).find("#slctCurInvntLocation").prop('disabled', true).trigger('chosen:updated'); //disable again the dropdown location.
+                $(this).find("textarea, select, .chosen-container, .input-group").next('em').remove();
+                $(this).find("#frmOutMachine").trigger('reset');
+                $("#slctCurInvntStatus").trigger("change");
+            });
+            // Client-side edit form validation.
+            $("#frmOutMachine").validate({
+                submitHandler: function (form) {
+                    var id = $("#hdnInvntOutId").val() || null;
+                    if (id != null) {
+                        dtCurrentInventory.outMachine();
+                    }
+                    else {
+                        alert("ID is empty.");
+                    }
+                },
+                rules: {
+                    slctCurInvntStatus: {
+                        required: true
+                    },
+                    slctCurInvntOutBranch: {
+                        required: function () {
+                            var status = $("#slctCurInvntStatus").val();
+                            return (notRequired.indexOf(parseInt(status)) > -1 ? true : false)
+                        } // 9 = Transfer status.
+                    },
+                    slctCurInvntCompany: {
+                        required: function () {
+                            var status = $("#slctCurInvntStatus").val();
+                            return (notRequired.indexOf(parseInt(status)) == -1 ? true : false)
+                        }
+                    },
+                    slctCurInvntLocation: {
+                        required: function () {
+                            var status = $("#slctCurInvntStatus").val();
+                            return (notRequired.indexOf(parseInt(status)) == -1 ? true : false)
+                        }
+                    },
+                    txtCurInvntDateOut: {
+                        required: true,
+                        isdate: true,
+                    },
+                    txtCurInvntRemarks: {
+                        required: true
+                    }
+                },
+                messages: {
+                    slctCurInvntStatus: {
+                        required: "This field is required."
+                    },
+                    slctCurInvntCompany: {
+                        required: "This field is required."
+                    },
+                    slctCurInvntLocation: {
+                        required: "This field is required."
+                    },
+                    txtCurInvntDateOut: {
+                        required: "This field is required.",
+                        isdate: "Incomplete date format."
+                    },
+                    txtCurInvntRemarks: {
+                        required: "This field is required."
+                    }
+                },
+                errorElement: "em",
+                errorPlacement: function (error, element) {
+                    // Add the `help-block` class to the error element
+                    error.addClass("help-block").css('margin-top', '0px');
+                    error.css({ 'font-size': '12px', 'margin-bottom': '0px' });
 
-          if (element.is("#txtCurInvntDateOut") == true) {
-            error.insertAfter(".input-group");
-          } 
-          else if (element.is("#slctCurInvntCompany") == true){
-             error.insertAfter(".chosen-container");
-          }
-          else if (element.is("#slctCurInvntLocation") == true){
-             error.insertAfter(".chosen-container-location");
-          }
-          else {
-            error.insertAfter( element );
-          }
-          return false;
-        },
-        highlight: function ( element, errorClass, validClass ) {
-          $( element ).parents( ".col-sm-6" ).addClass( "has-error" ).removeClass( "has-success" );
-        },
-        unhighlight: function (element, errorClass, validClass) {
-          $( element ).parents( ".col-sm-6" ).addClass( "has-success" ).removeClass( "has-error" );
-        }
-      } );
-  } );                
-</script>
-
-
+                    if (element.is("#txtCurInvntDateOut") == true) {
+                        error.insertAfter(".input-group");
+                    }
+                    else if (element.is("#slctCurInvntCompany") == true) {
+                        error.insertAfter(".chosen-container");
+                    }
+                    else if (element.is("#slctCurInvntLocation") == true) {
+                        error.insertAfter(".chosen-container-location");
+                    }
+                    else {
+                        error.insertAfter(element);
+                    }
+                    return false;
+                },
+                highlight: function (element, errorClass, validClass) {
+                    $(element).parents(".col-sm-6").addClass("has-error").removeClass("has-success");
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $(element).parents(".col-sm-6").addClass("has-success").removeClass("has-error");
+                }
+            });
+        });                
+    </script>
