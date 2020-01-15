@@ -28,6 +28,7 @@ if(Utils::getIsset('action')){
 	$mrf_type   = Utils::getValue('mrf_type');
 	$app_mif    = Utils::getValue('app_mif');  
 	$app_pm     = Utils::getValue('app_pm');  
+	$app_report = Utils::getValue('app_report');  
 	$location   = Utils::getValue('location');  
 	$app_invt   = Utils::getValue('app_invt');  
 	$branch     = Utils::getValue('branch');  
@@ -42,6 +43,7 @@ if(Utils::getIsset('action')){
 	$action_pm    = Utils::getValue('action_pm');  
 	$action_invnt = Utils::getValue('action_invnt');  
 	$action_mrf   = Utils::getValue('action_mrf');    
+	$action_report   = Utils::getValue('action_report', null);    
 	 
 	$date_created = Utils::getSysDate().' '.Utils::getSysTime();   
 	$db = Database::getInstance();
@@ -84,20 +86,22 @@ if(Utils::getIsset('action')){
 									   NOW()');
                   		}
                       //Add to this table to restrict app module can access.
-                      $db->insertQuery('tbl_app_module','account_id, app_mif, app_pm, app_inventory, app_mrf',
+                      $db->insertQuery('tbl_app_module','account_id, app_mif, app_pm, app_inventory, app_mrf, app_reports',
 									  '"'.$last_id.'",
 									  "'.$app_mif.'",
 									  "'.$app_pm.'",
 									  "'.$app_invt.'",
-									  "'.$app_mrf.'"');
+                                      "'.$app_mrf.'",
+                                      "'.$app_report.'"');
 
                        //Add to this table to restrict adding or updating.
-                      $db->insertQuery('tbl_app_action','id_account, app_mif, app_pm, app_invnt, app_mrf',
-									  '"'.$last_id.'",
-									  "'.$action_mif.'",
-									  "'.$action_pm.'",
-									  "'.$action_invnt.'",
-									  "'.$action_mrf.'"');
+                      $db->insertQuery('tbl_app_action','id_account, app_mif, app_pm, app_invnt, app_mrf, app_reports',
+                                      "'".$last_id."',
+									  '".$action_mif."',
+									  '".$action_pm."',
+									  '".$action_invnt."',
+                                      '".$action_mrf."',
+                                      '".$action_report."'");
 
                       $res = $db->getFields();
 				      $res['aaData']['check_location'] = 0;
@@ -108,7 +112,7 @@ if(Utils::getIsset('action')){
 				print Utils::jsonEncode($res);
 
 			break;
-		case 'update':
+        case 'update':
 				if(hasLocationAll($location) == false){
 					if(Utils::isEmpty($pass)){
 						$db->updateQuery('tbl_accounts','username    = "'.$username.'", 
@@ -155,15 +159,16 @@ if(Utils::getIsset('action')){
                        $db->updateQuery('tbl_app_module','app_mif    	= "'.$app_mif.'", 
 													      app_pm        = "'.$app_pm.'",
 													      app_inventory = "'.$app_invt.'",
-													      app_mrf 		= "'.$app_mrf.'"'
+                                                          app_mrf 		= "'.$app_mrf.'",
+                                                          app_reports   = "'.$app_report.'"'
 													     ,'account_id = "'.$id.'"');
 
                        //Update to this table to restrict adding or updating.
-                       $db->updateQuery('tbl_app_action','app_mif    = "'.$action_mif.'", 
-													      app_pm     = "'.$action_pm.'",
-													      app_invnt  = "'.$action_invnt.'",
-													      app_mrf    = "'.$action_mrf.'"'
-													     ,'id_account = "'.$id.'"');
+                       $db->updateQuery('tbl_app_action',"app_mif    = '".$action_mif."', 
+													      app_pm     = '".$action_pm."',
+													      app_invnt  = '".$action_invnt."',
+                                                          app_mrf    = '".$action_mrf."',
+                                                          app_reports= '".$action_report."'" ,"id= '".$id."'");
 
 
 
@@ -200,7 +205,8 @@ if(Utils::getIsset('action')){
 			
 			break;
 		case 'view-id':
-				$db->selectQuery('a.*, app.app_mif, app.app_inventory, app.app_mrf, app.app_pm, tac.app_mif AS action_mif, tac.app_invnt AS action_invnt, tac.app_mrf AS action_mrf, tac.app_pm AS action_pm','tbl_accounts a 
+                $db->selectQuery('a.*, app.app_mif, app.app_inventory, app.app_mrf, app.app_pm, app.app_reports, tac.app_mif AS action_mif, tac.app_invnt AS action_invnt, tac.app_mrf AS action_mrf, tac.app_pm AS action_pm, tac.app_reports AS action_reports',
+                                    'tbl_accounts a 
 									LEFT JOIN tbl_app_module app ON a.id = app.account_id 
 									LEFT JOIN tbl_app_action tac ON a.id = tac.id_account
 									WHERE a.id = "'.$id.'"');
@@ -220,10 +226,12 @@ if(Utils::getIsset('action')){
 												'app_pm' => $val['app_pm'],
 												'app_inventory' => $val['app_inventory'],
 												'app_mrf' => $val['app_mrf'],
+												'app_reports' => $val['app_reports'],
 												'action_mif' => $val['action_mif'],
 												'action_pm' => $val['action_pm'],
 												'action_invnt' => $val['action_invnt'],
 												'action_mrf' => $val['action_mrf'],
+												'action_reports' => $val['action_reports'],
 												'location' => strtoupper($val['location']),
 												'branch' => $val['branches'],
 												'branch_pm' => $val['branch_pm'],
