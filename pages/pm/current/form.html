@@ -152,7 +152,7 @@
 </div>
 
 <script type="text/javascript">
-    $("#sched-schedule").datepicker({ dateFormat: 'yy-mm-dd' }); //Date schedule picker
+    $("#sched-schedule").datepicker({ dateFormat: 'yy-mm-dd', minDate: dateFormat(new Date().toUTCString(), 'yyyy-mm-dd') }); //Date schedule picker
 
     $(document).ready(function () {
         //Cancel Validation

@@ -509,10 +509,10 @@ var dtCurrentPM = { //For development
             var hdnSchedDate = $("#hdnPmSchedDate").val();
             var strSchedDate = new Date(hdnSchedDate);
             var schedDate = strSchedDate.toISOString().split("T")[0];
-            var currentDate = new Date().toISOString().split("T")[0];
+
             //Check if schedule date can be change if sched date is not less than current date
-            if (schedDate < currentDate) {
-                promptMSG("custom", "Can't update Machine due to Schedule Date is less than Today", "Warning!");
+            if ((dateFormat(time_in, 'yyyy-mm-dd') || dateFormat(time_out, 'yyyy-mm-dd')) < schedDate) {
+                promptMSG("custom", "Can't update Machine due to Time IN/OUT is less than Schedule Date", "Warning!");
                 return;
             }
             $.ajax({
