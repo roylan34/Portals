@@ -507,11 +507,9 @@ var dtCurrentPM = { //For development
                 user_id: user_id
             };
             var hdnSchedDate = $("#hdnPmSchedDate").val();
-            var strSchedDate = new Date(hdnSchedDate);
-            var schedDate = strSchedDate.toISOString().split("T")[0];
 
             //Check if schedule date can be change if sched date is not less than current date
-            if ((dateFormat(time_in, 'yyyy-mm-dd') || dateFormat(time_out, 'yyyy-mm-dd')) < schedDate) {
+            if ((dateFormat(time_in, 'yyyy-mm-dd') || dateFormat(time_out, 'yyyy-mm-dd')) < dateFormat(hdnSchedDate, 'yyyy-mm-dd')) {
                 promptMSG("custom", "Can't update Machine due to Time IN/OUT is less than Schedule Date", "Warning!");
                 return;
             }
