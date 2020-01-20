@@ -69,7 +69,7 @@ var reportSalesPerAccount = {
         var selectedComp = $("#select-company-sales option:selected").val();
         var compTitleHeader = (selectedComp != 'all' ? " - " + selectedComp.toUpperCase() : "");
 
-        $("#modalSalesMonth .modal-title").text(acc + " - " + selectedMonth.toUpperCase() + " " + docYear + compTitleHeader);
+        $("#modalSalesMonth .modal-title").text(acc + " - " + selectedMonth.toUpperCase() + " " + docYear + compTitleHeader + ' SALES');
         this.dtInstance = $("#dtViewSalesMonth").DataTable({
             "dom": 'fBlrtip',
             "autoWidth": false,
@@ -132,7 +132,7 @@ var reportSalesPerAccount = {
         var selectedComp = $("#select-company-sales option:selected").val();
         var compTitleHeader = (selectedComp != 'all' ? " - " + selectedComp.toUpperCase() : "");
 
-        $("#modalCancelSalesMonth .modal-title").text(acc + " - " + selectedMonth.toUpperCase() + " " + docYear + compTitleHeader);
+        $("#modalCancelSalesMonth .modal-title").text(acc + " - " + selectedMonth.toUpperCase() + " " + docYear + compTitleHeader + ' CANCELLED');
         this.dtInstance = $("#dtViewCancelSalesMonth").DataTable({
             "dom": 'fBlrtip',
             "autoWidth": false,
