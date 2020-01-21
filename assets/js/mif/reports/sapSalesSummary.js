@@ -28,8 +28,14 @@ var reportSalesPerAccount = {
             success: function (data, status, xhr) {
                 if (data.length > 0) {
                     var i = 1;
+                    var isEmptyData = Object.values(data[0]).some(function (val) {
+                        return val == "";
+                    });
+                    if (isEmptyData) {
+                        view = "<tr><td colspan='8'><h5 class='text-center'>No data available in the table</h5></td></tr>";
+                        return;
+                    }
                     $.each(data, function (employ_key, employ) {
-
                         view += '<tr>';
                         view += '<td>' + (i++) + '</td>';
                         view += '<td>' + employ.acc_manager + '</td>';

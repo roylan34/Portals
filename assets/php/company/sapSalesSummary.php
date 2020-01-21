@@ -151,12 +151,12 @@ switch ($action ) {
 								2 AS id,
 								"PAGE TOTAL" AS acc_manager,
 								"" AS doc_year,
-								FORMAT(SUM(x.mtd_sales),2) AS total_mtd_sales,
-								FORMAT(SUM(x.mtd_cancelled),2) AS total_mtd_cancelled,
-								FORMAT(SUM(x.mtd_total),2) AS total_mtd_total,
-								FORMAT(SUM(x.ytd_sales),2) AS total_ytd_sales,
-								FORMAT(SUM(x.ytd_cancelled),2) AS total_ytd_cancelled,
-								FORMAT(SUM(x.ytd_total),2) AS total_ytd_total
+								COALESCE(FORMAT(SUM(x.mtd_sales),2), "") AS total_mtd_sales,
+								COALESCE(FORMAT(SUM(x.mtd_cancelled),2), "") AS total_mtd_cancelled,
+								COALESCE(FORMAT(SUM(x.mtd_total),2), "") AS total_mtd_total,
+								COALESCE(FORMAT(SUM(x.ytd_sales),2), "") AS total_ytd_sales,
+								COALESCE(FORMAT(SUM(x.ytd_cancelled),2), "") AS total_ytd_cancelled,
+								COALESCE(FORMAT(SUM(x.ytd_total),2), "") AS total_ytd_total
 								FROM (
 								SELECT acc.acc_manager,
 								tsh.doc_year,
