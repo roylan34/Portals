@@ -329,24 +329,21 @@
     }
 </style>
 <script type="text/javascript">
-    $(document).ready(function () {
+    if (jwt.get('user_role') === 'Admin') { //Visible only to Admin role.
+        datePickerFromTo("#date-from", "#date-to"); //Initiliaze datapicker plugin.
+        $(".dateInOut").val(getTodayDateStandard()).trigger('change'); //Set default value.
+    }
+    else {
+        $(".counter-container-one").hide();
+    }
 
-        if (jwt.get('user_role') === 'Admin') { //Visible only to Admin role.
-            datePickerFromTo("#date-from", "#date-to"); //Initiliaze datapicker plugin.
-            $(".dateInOut").val(getTodayDateStandard()).trigger('change'); //Set default value.
-        }
-        else {
-            $(".counter-container-one").hide();
-        }
-
-        //Disable/Enable Search Input.
-        var location = convertArrStrToInt(jwt.get('location')) || [1];
-        var reverseDrpdown = (jwt.get('location') == '1' ? false : true);
-        autoDrpDown.getBranchNameOne("#search-company-branch", "100%", location, reverseDrpdown); // 1 = ALL exclude from the list. Branches
-        autoDrpDown.getBranchNameOne("#search-company-location", "100%", location, reverseDrpdown); // 1 = ALL exclude from the list. Location
-        autoDrpDown.getClientName("#search-company-accmngr", "100%");
-        // autoDrpDown.getTonerModel("#search-company-toner");   
-        $("#search-company-branch, #search-company-accmngr, #search-company-location").val(0).trigger('chosen:updated'); //reset Branch & Acc Mngr
+    //Disable/Enable Search Input.
+    var loc = convertArrStrToInt(jwt.get('location')) || [1];
+    var reverseDrpdown = (jwt.get('location') == '1' ? false : true);
+    autoDrpDown.getBranchNameOne("#search-company-branch", "100%", loc, reverseDrpdown); // 1 = ALL exclude from the list. Branches
+    autoDrpDown.getBranchNameOne("#search-company-location", "100%", loc, reverseDrpdown); // 1 = ALL exclude from the list. Location
+    autoDrpDown.getClientName("#search-company-accmngr", "100%");
+    $("#search-company-branch, #search-company-accmngr, #search-company-location").val(0).trigger('chosen:updated'); //reset Branch & Acc Mngr
 
         // $("#search-company-companyname").on('keyup',function(){
         //     dtCompany.dtInstance.columns(1).search(this.value).draw();
@@ -373,5 +370,4 @@
         //    var location = ($(this).find('option:selected').text() === '---' ? '' : $(this).find('option:selected').text());
         //     dtCompany.dtInstance.columns(7).search(location).draw();
         // });//Search account manager
-    });
 </script>
