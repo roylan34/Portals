@@ -35,7 +35,7 @@ switch (Utils::getValue('action')) {
 	        $conn->selectQuery('*','tbl_pm_machines WHERE id > 0 AND is_delete= "no" AND pm_number="'.$pm_number.'"');
 
 	        $conn->fields = null;
-
+            $get_date = "";
 	        if($conn->getNumRows() > 0 ){
 	        		$enabled_add = 'false';
 	        		$enabled_update = 'true';
@@ -46,7 +46,12 @@ switch (Utils::getValue('action')) {
 					if(Utils::getValue('location'))	{ $search ="AND pm.location_area LIKE '%".$conn->escapeString(Utils::getValue('location'))."%'"; }
 					if(Utils::getValue('department'))	{ $search ="AND pm.department LIKE '%".$conn->escapeString(Utils::getValue('department'))."%'"; }
 
-	        	//Table @tbl_pm_machines					
+                //Table @tbl_pm_machines	
+                
+                    $conn->selectQuery('schedule_date','tbl_pm_schedule WHERE pm_number="'.$pm_number.'" LIMIT 1');
+                    $get_date = $conn->getFields(); //getting total number records without any search.
+                    $conn->fields = null;
+
 					$conn->selectQuery('*','tbl_pm_machines WHERE id > 0 AND is_delete="no" AND pm_number="'.$pm_number.'" GROUP BY mif_id');
 					$totalData = $conn->getNumRows(); //getting total number records without any search.
 					$conn->row_count = 0;
@@ -84,7 +89,8 @@ switch (Utils::getValue('action')) {
 							GROUP BY pm.mif_id ORDER BY pm.id DESC '.$limit.' ');
 						$row = $conn->getFields(); //Get all rows				
 
-	        } else {
+            } 
+            else {
 	        	//Table @tblmif	
 	        		$enabled_add = 'true';
 	        		$enabled_update = 'false';
@@ -154,19 +160,19 @@ switch (Utils::getValue('action')) {
 							$nestedData[$index] = $value;
 							$nestedData[$index]['enabled_update'] = $enabled_update;
 						}
-						$data = $nestedData; 
-							
+                        $data = $nestedData; 
+                        
 					$json_data = array(
 							"draw"            => intval( $requestData['draw'] ),   // for every request/draw by clientside , they send a number as a parameter, when they recieve a response/data they first check the draw number, so we are sending same number in draw. 
 							"recordsTotal"    => intval( $totalData ),  // total number of records
 							"recordsFiltered" => intval( $totalFiltered ), // total number of records after searching, if there is no searching then totalFiltered = totalData
 							"records"         => $data,   // data array,
-							"enabledMultiSelectAdd" => $enabled_add
+							"enabledMultiSelectAdd" => $enabled_add,
+							"sched_date" => ($get_date ?  $get_date['aaData'][0]['schedule_date']: '')
 						);
 				} 
 				else{ 
-					$json_data = array("draw" =>  0,"recordsTotal" => 0, "recordsFiltered" => 0, "records" => array(), "enabledMultiSelectAdd" => $enabled_add);
-					$json_data['aaData'] = array(); 
+					$json_data = array("draw" =>  0,"recordsTotal" => 0, "recordsFiltered" => 0, "records" => array(), "enabledMultiSelectAdd" => $enabled_add, "sched_date" => "");
 				}
 	       	 	print Utils::jsonEncode($json_data);  // send data as json format.
 	        

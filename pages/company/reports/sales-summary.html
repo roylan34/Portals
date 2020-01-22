@@ -1,196 +1,263 @@
 <div id="container-SapSalesSummary">
-<div class="box box-success">
+    <div class="box box-success">
         <div class="box-header with-border">
-          <h3 class="box-title">SAP - Sales Summary per Account Manager </h3>
-          <a href="#" title="Export to Excel" class="pull-right btn-flat btn btn-sm btn-primary btn-export-summary"><i class='fa fa-file-excel-o'></i></a>
+            <h3 class="box-title">SAP - Sales Summary per Account Manager </h3>
+            <a href="#" title="Export to Excel" class="pull-right btn-flat btn btn-sm btn-primary btn-export-summary"><i
+                    class='fa fa-file-excel-o'></i></a>
         </div><!-- /.box-header -->
         <div class="box-body">
 
-          <div id="report-sales-summary" class="table-responsive col-md-12">
-          	<table id="reportSales" class="table table-bordered thead-inverse">
-          		<thead>
-          			<tr>
-                  <th rowspan="2"></th>
-          				<th rowspan="2">Name</th>
-          				<th colspan="3" class="text-center">
-                    <div class="col-md-4">
-                      <div>FISCAL YEAR</div>
-                      <span> <label><select id="select-year-sales"></select></label></span>
-                    </div>
-                    <div class="col-md-4">
-                      <div>MONTH</div>
-                      <span id="dropdwn-monthly-sales">
-                        <label> 
-                          <select id="select-month-sales">
-                              <option value="" disabled>--Month--</option>
-                              <option value="jan">Jan</option>
-                              <option value="feb">Feb</option>
-                              <option value="mar">Mar</option>
-                              <option value="apr">Apr</option>
-                              <option value="may">May</option>
-                              <option value="jun">Jun</option>
-                              <option value="jul">Jul</option>
-                              <option value="aug">Aug</option>
-                              <option value="sep">Sep</option>
-                              <option value="oct">Oct</option>
-                              <option value="nov">Nov</option>
-                              <option value="dec">Dec</option>
-                          </select>
-                        </label>
-                      </span>
-                    </div>
-                    <div class="col-md-4">
-                      <div>Company</div>
-                       <span id="dropdwn-company-sales">
-                        <label> 
-                          <select id="select-company-sales">
-                              <option value="all">ALL</option>
-                              <option value="dosc">DOSC</option>
-                              <option value="dbic">DBIC</option>
-                          </select>
-                        </label>
-                      </span>
-                    </div>                   
-                  </th>
-                  <th colspan="4" class="text-center">YTD</th>
-          			</tr>
-          			<tr>
-          				<th class="text-center">Gross</th>
-          				<th class="text-center">Vat</th>
-          				<th class="text-center">Net</th>
-                  <th class="text-center">Gross</th>
-                  <th class="text-center">Vat</th>
-                  <th class="text-center">Net</th>
-          			</tr>		
-          		</thead>
-          		<tbody>	</tbody>
-          	</table>
-          </div>
+            <div id="report-sales-summary" class="table-responsive col-md-12">
+                <table id="reportSales" class="table table-bordered thead-inverse">
+                    <thead>
+                        <tr>
+                            <th rowspan="2"></th>
+                            <th rowspan="2">Name</th>
+                            <th colspan="3" class="text-center">
+                                <div class="col-md-4">
+                                    <div>FISCAL YEAR</div>
+                                    <span> <label><select id="select-year-sales"></select></label></span>
+                                </div>
+                                <div class="col-md-4">
+                                    <div>MONTH</div>
+                                    <span id="dropdwn-monthly-sales">
+                                        <label>
+                                            <select id="select-month-sales">
+                                                <option value="" disabled>--Month--</option>
+                                                <option value="jan">Jan</option>
+                                                <option value="feb">Feb</option>
+                                                <option value="mar">Mar</option>
+                                                <option value="apr">Apr</option>
+                                                <option value="may">May</option>
+                                                <option value="jun">Jun</option>
+                                                <option value="jul">Jul</option>
+                                                <option value="aug">Aug</option>
+                                                <option value="sep">Sep</option>
+                                                <option value="oct">Oct</option>
+                                                <option value="nov">Nov</option>
+                                                <option value="dec">Dec</option>
+                                            </select>
+                                        </label>
+                                    </span>
+                                </div>
+                                <div class="col-md-4">
+                                    <div>Company</div>
+                                    <span id="dropdwn-company-sales">
+                                        <label>
+                                            <select id="select-company-sales">
+                                                <option value="all">ALL</option>
+                                                <option value="dosc">DOSC</option>
+                                                <option value="dbic">DBIC</option>
+                                            </select>
+                                        </label>
+                                    </span>
+                                </div>
+                            </th>
+                            <th colspan="4" class="text-center">YTD</th>
+                        </tr>
+                        <tr>
+                            <th class="text-center">Sales</th>
+                            <th class="text-center">Cancelled</th>
+                            <th class="text-center">Total</th>
+                            <th class="text-center">Sales</th>
+                            <th class="text-center">Cancelled</th>
+                            <th class="text-center">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody> </tbody>
+                </table>
+            </div>
 
-          </div><!--end of box body --> 
-         <div class="box-footer"></div><!-- box-footer -->
+        </div>
+        <!--end of box body -->
+        <div class="box-footer"></div><!-- box-footer -->
     </div>
 </div>
 <!-- modal month-->
-<div class="modal fade" id="modalSalesMonth" data-backdrop="static" data-keyboard="true" tabindex="-1" role="dialog" aria-labelledby="modalSalesMonth">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="modal-header"></h4>
-      </div>
-          <div class="modal-body">
+<div class="modal fade" id="modalSalesMonth" data-backdrop="static" data-keyboard="true" tabindex="-1" role="dialog"
+    aria-labelledby="modalSalesMonth">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modal-header"></h4>
+            </div>
+            <div class="modal-body">
 
-              <table id="dtViewSalesMonth" class="display compact">
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th>Company</th>
-                    <th>Customer</th>
-                    <th>Doc Date</th>
-                    <th>Doc Num</th>
-                    <th>Doc Total</th>
-                    <th>Vat Sum</th>
-                    <th>Net Sales</th>
-                  </tr>
-                </thead>
-              </table>
-          </div><!--end of modal-body-->
-      <div class="modal-footer">
-        <div class="">
-          <div class="col-sm-6 col-sm-offset-6">
-            <button type="button" class="btn btn-flat btn-danger" data-dismiss="modal">Close</button>
-          </div>
+                <table id="dtViewSalesMonth" class="display compact">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Company</th>
+                            <th>Customer</th>
+                            <th>Acct Type</th>
+                            <th>AM Per Invoice</th>
+                            <th>Location</th>
+                            <th>Sales Type</th>
+                            <th>Doc Date</th>
+                            <th>Doc Num</th>
+                            <th>Doc Total</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <!--end of modal-body-->
+            <div class="modal-footer">
+                <div class="">
+                    <div class="col-sm-6 col-sm-offset-6">
+                        <button type="button" class="btn btn-flat btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+            <!--end of modal footer-->
         </div>
-      </div> <!--end of modal footer-->
-  </div>
+    </div>
 </div>
-</div>
+<!-- modal month-->
+<div class="modal fade" id="modalCancelSalesMonth" data-backdrop="static" data-keyboard="true" tabindex="-1"
+    role="dialog" aria-labelledby="modalSalesMonth">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modal-header"></h4>
+            </div>
+            <div class="modal-body">
 
+                <table id="dtViewCancelSalesMonth" class="display compact">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Company</th>
+                            <th>Customer</th>
+                            <th>Acct Type</th>
+                            <th>AM Per Invoice</th>
+                            <th>Location</th>
+                            <th>Sales Type</th>
+                            <th>Doc Date</th>
+                            <th>Doc Num</th>
+                            <th>Doc Total</th>
+                            <th>Cancelled Inv</th>
+                            <th>Cancelled Inv Date</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <!--end of modal-body-->
+            <div class="modal-footer">
+                <div class="">
+                    <div class="col-sm-6 col-sm-offset-6">
+                        <button type="button" class="btn btn-flat btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+            <!--end of modal footer-->
+        </div>
+    </div>
+</div>
 <!-- modal year-->
-<div class="modal fade" id="modalSalesYear" data-backdrop="static" data-keyboard="true" tabindex="-1" role="dialog" aria-labelledby="modalSalesYear">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="modal-header"></h4>
-      </div>
-          <div class="modal-body">
+<div class="modal fade" id="modalSalesYear" data-backdrop="static" data-keyboard="true" tabindex="-1" role="dialog"
+    aria-labelledby="modalSalesYear">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modal-header"></h4>
+            </div>
+            <div class="modal-body">
 
-              <table id="dtViewSalesYear" class="cell-border compact">
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th>Customer</th>
-                    <th>Nov</th>
-                    <th>Dec</th>
-                    <th>Jan</th>
-                    <th>Feb</th>
-                    <th>Mar</th>
-                    <th>Apr</th>
-                    <th>May</th>
-                    <th>Jun</th>
-                    <th>Jul</th>
-                    <th>Aug</th>
-                    <th>Sep</th>
-                    <th>Oct</th>
-                  </tr>
-                </thead>
-              </table>
-          </div><!--end of modal-body-->
-      <div class="modal-footer">
-        <div class="">
-          <div class="col-sm-6 col-sm-offset-6">
-            <button type="button" class="btn btn-flat btn-danger" data-dismiss="modal">Close</button>
-          </div>
+                <table id="dtViewSalesYear" class="cell-border compact">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Company</th>
+                            <th>Customer</th>
+                            <th>Nov</th>
+                            <th>Dec</th>
+                            <th>Jan</th>
+                            <th>Feb</th>
+                            <th>Mar</th>
+                            <th>Apr</th>
+                            <th>May</th>
+                            <th>Jun</th>
+                            <th>Jul</th>
+                            <th>Aug</th>
+                            <th>Sep</th>
+                            <th>Oct</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <!--end of modal-body-->
+            <div class="modal-footer">
+                <div class="">
+                    <div class="col-sm-6 col-sm-offset-6">
+                        <button type="button" class="btn btn-flat btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+            <!--end of modal footer-->
         </div>
-      </div> <!--end of modal footer-->
-  </div>
-</div>
+    </div>
 </div>
 
-<style type="text/css"> 
-  table#reportSales tbody tr td:not(:nth-child(2)){
-    text-align: right;
-  }
-	table#reportSales thead tr > th{
-		vertical-align: middle;
-	}
-  table#reportSales thead tr th select{
-    color:#333;
-  }
-  .table-bordered>thead>tr>th, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>tbody>tr>td, .table-bordered>tfoot>tr>td {
-    border: 1px solid #ddd;
-  }
-  .table-bordered {
-    border: 1px solid #ddd;
-  }
-  table#reportSales tbody tr.selected{
-    background: #a9b7d1;
-  }
-  table#reportSales tbody tr:last-child{
-    font-weight: 700;
-  }
-  table#reportSales tbody tr:last-child > td{
-    text-align: right;
-  }
+<style type="text/css">
+    table#reportSales tbody tr td:not(:nth-child(2)) {
+        text-align: right;
+    }
+
+    table#reportSales thead tr>th {
+        vertical-align: middle;
+    }
+
+    table#reportSales thead tr th select {
+        color: #333;
+    }
+
+    .table-bordered>thead>tr>th,
+    .table-bordered>tbody>tr>th,
+    .table-bordered>tfoot>tr>th,
+    .table-bordered>thead>tr>td,
+    .table-bordered>tbody>tr>td,
+    .table-bordered>tfoot>tr>td {
+        border: 1px solid #ddd;
+    }
+
+    .table-bordered {
+        border: 1px solid #ddd;
+    }
+
+    table#reportSales tbody tr.selected {
+        background: #a9b7d1;
+    }
+
+    table#reportSales tbody tr:last-child {
+        font-weight: 700;
+    }
+
+    table#reportSales tbody tr:last-child>td {
+        text-align: right;
+    }
 </style>
 
-<script >
-  $("#modalSalesMonth, #modalSalesYear").on('hidden.bs.modal',function(){
-    console.log('hide');
-  });
-
-    $('#modalSalesMonth').on('shown.bs.modal', function() {
-           //Get the datatable which has previously been initialized
-            var dataTable= $('#dtViewSalesMonth').DataTable();
-            //recalculate the dimensions
-            dataTable.columns.adjust().responsive.recalc();
+<script>
+    $("#modalSalesMonth, #modalSalesYear").on('hidden.bs.modal', function () {
+        console.log('hide');
     });
-    $('#modalSalesYear').on('shown.bs.modal', function() {
-            var dataTable= $('#dtViewSalesYear').DataTable();
-            dataTable.columns.adjust().responsive.recalc();
+
+    $('#modalSalesMonth').on('shown.bs.modal', function () {
+        //Get the datatable which has previously been initialized
+        var dataTable = $('#dtViewSalesMonth').DataTable();
+        //recalculate the dimensions
+        dataTable.columns.adjust().responsive.recalc();
+    });
+    $('#modalSalesYear').on('shown.bs.modal', function () {
+        var dataTable = $('#dtViewSalesYear').DataTable();
+        dataTable.columns.adjust().responsive.recalc();
 
     });
-  
+
 </script>
