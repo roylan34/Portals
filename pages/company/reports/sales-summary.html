@@ -234,20 +234,16 @@
         background: #a9b7d1;
     }
 
-    table#reportSales tbody tr:last-child {
+    table#reportSales tbody.last-tr-bold tr:last-child {
         font-weight: 700;
     }
 
-    table#reportSales tbody tr:last-child>td {
+    table#reportSales tbody.last-tr-bold tr:last-child>td {
         text-align: right;
     }
 </style>
 
 <script>
-    $("#modalSalesMonth, #modalSalesYear").on('hidden.bs.modal', function () {
-        console.log('hide');
-    });
-
     $('#modalSalesMonth').on('shown.bs.modal', function () {
         //Get the datatable which has previously been initialized
         var dataTable = $('#dtViewSalesMonth').DataTable();

@@ -31,125 +31,154 @@ if(Utils::getValue('month'))   { $month = $db->escapeString(Utils::getValue('mon
 			$allowed_user_type = array(2,3,4); //Sales, Relation, Techinical
 			if(in_array(Utils::getValue('user_type'), $allowed_user_type)){
 
-				//Get account manager name.
+                //Get logged in account manager name.
 				$user_id = Utils::getValue('user_id');
-				$db->selectQuery('firstname,lastname','tbl_accounts WHERE id = '.$user_id.' LIMIT 1');
+				$db->selectQuery('UPPER(CONCAT(lastname," ",firstname)) AS logged_mngr','tbl_accounts WHERE id = '.$user_id.' LIMIT 1');
 				$resUser  = $db->getFields();
-				$acc_mngr = strtoupper($resUser['aaData'][0]['lastname']." ".$resUser['aaData'][0]['firstname']);
+                $acc_mngr = $resUser['aaData'][0]['logged_mngr'];
 
-				$db->fields = null; //empty the previous result.
-
+                
 				//Check if account manager is exist in sales summary table.
 				$db->selectQuery('*','sap_db.tbl_sales_summary_auto_import WHERE acc_manager = "'.$acc_mngr.'" '.$searchComp.' LIMIT 1');
 				$isExist  = $db->getFields();
 
 				if(count($isExist['aaData']) > 0){
-					$db->fields = null; //empty the previous result.
+                    $db->fields = null; //empty the previous result.
+                    
+                        $view_tag_acc = array($acc_mngr);
+                        //View other sales summary report
+                        //Get tag account manager.
+                        $db->selectQuery('app_reports','tbl_app_action WHERE id_account= '.$user_id.' LIMIT 1');
+                        $resTag  = $db->getFields();
 
+                        if(count($resTag['aaData']) > 0){
+                            $tag_mngr = json_decode($resTag['aaData'][0]['app_reports']);
+                            $parse_tag_mngr = ($tag_mngr && property_exists($tag_mngr, 'tag_acct_mgr') ? $tag_mngr->tag_acct_mgr : null);
+                            $db->fields = null; //empty the previous result.
+
+                            if($parse_tag_mngr != null){
+                                $strTag = implode($parse_tag_mngr, ',');
+
+                                $db->selectQuery('UPPER(CONCAT(ac.lastname," ", ac.firstname)) AS acct_mngr','tbl_client_accounts ca
+                                LEFT JOIN tbl_accounts ac ON ca.account_id = ac.id
+                                WHERE ca.id IN ('.$strTag.') ');
+                                $resTagName  = $db->getFields();
+                
+                                $view_tag_acc = array_merge( $view_tag_acc, array_column($resTagName['aaData'], 'acct_mngr'));
+                            }
+
+                        }
+                        $db->fields = null; //empty the previous result.
 						$db->selectQuery('1 AS id,
-											YEAR(tsh.doc_date) AS doc_year,
-											tsh.acc_manager,
-											FORMAT(SUM(tsh.gross), 2) AS mtd_gross,
-											FORMAT(SUM(tsh.vat), 2) AS mtd_vat,
-											FORMAT(SUM(tsh.net), 2) AS mtd_net,
-											tsh2.ytd_gross,
-											tsh2.ytd_vat,
-											tsh2.ytd_net','sap_db.tbl_sales_summary_auto_import tsh  
+									    YEAR(tsh.doc_date) AS doc_year,
+									    tsh.acc_manager,
+									    FORMAT(SUM(tsh.sales), 2) AS mtd_sales,
+									    FORMAT(SUM(tsh.cancelled), 2) AS mtd_cancelled,
+									    FORMAT(SUM(tsh.total), 2) AS mtd_total,
+									    tsh2.ytd_sales,
+									    tsh2.ytd_cancelled,
+									    tsh2.ytd_total','sap_db.tbl_sales_summary_auto_import tsh  
 										LEFT JOIN 
-											(SELECT 
-												acc_manager,
-												FORMAT(SUM(gross), 2) AS ytd_gross,
-												FORMAT(SUM(vat), 2) AS ytd_vat,
-												FORMAT(SUM(net), 2) AS ytd_net 
-											FROM
-												sap_db.tbl_sales_summary_auto_import
-											WHERE fiscal_year = '.$year.' AND acc_manager="'.$acc_mngr.'" '.$searchComp.'
-											) tsh2 
-											ON tsh.acc_manager = tsh2.acc_manager 
-											 WHERE tsh.fiscal_year ='.$year.'
-											 AND tsh.month ="'.ucfirst($month).'" AND tsh.acc_manager="'.$acc_mngr.'" '.$joinSearchComp.'');
-						$data = $db->getFields();
+										  (SELECT 
+										    acc_manager,
+										    FORMAT(SUM(sales), 2) AS ytd_sales,
+										    FORMAT(SUM(cancelled), 2) AS ytd_cancelled,
+										    FORMAT(SUM(total), 2) AS ytd_total 
+										  FROM
+										    sap_db.tbl_sales_summary_auto_import
+										WHERE fiscal_year = '.$year.' AND acc_manager IN ("'.implode($view_tag_acc, '","').'") '.$searchComp.'
+										GROUP BY acc_manager ) tsh2 
+										ON tsh.acc_manager = tsh2.acc_manager 
+										WHERE tsh.fiscal_year ='.$year.'
+										AND tsh.month ="'.ucfirst($month).'" AND tsh.acc_manager IN ("'.implode($view_tag_acc, '","').'") '.$joinSearchComp.' GROUP BY tsh.acc_manager');
+						$resSummary = $db->getFields();
 				}
 				else{
-					$data['aaData'] = array();
+					$resSummary['aaData'] = array();
 				}
 			}
 			else{
-					//Executive report
-					$db->selectQuery('1 AS id,
-								acc.acc_manager,
-								COALESCE(mtd_gross, "") AS mtd_gross,
-								COALESCE(mtd_vat, "") AS mtd_vat,
-								COALESCE(mtd_net, "") AS mtd_net,
-								COALESCE(ytd_gross, "") AS ytd_gross,
-								COALESCE(ytd_vat, "") AS ytd_vat,
-								COALESCE(ytd_net, "") AS ytd_net','sap_db.tbl_sales_summary_auto_import acc 
-								 LEFT JOIN (
-									SELECT 
-									acc_manager,
-									FORMAT(SUM(gross),2) AS mtd_gross,
-									FORMAT(SUM(vat),2) AS mtd_vat,
-									FORMAT(SUM(net),2) AS mtd_net 
-								FROM
-									sap_db.tbl_sales_summary_auto_import tsh
-								WHERE fiscal_year = '.$year.' AND month="'.ucfirst($month).'" '.$searchComp.'
-								GROUP BY acc_manager 
-								) tsh ON acc.acc_manager = tsh.acc_manager
-								LEFT JOIN (
-								SELECT 
-									acc_manager,
-									FORMAT(SUM(gross),2) AS ytd_gross,
-									FORMAT(SUM(vat),2) AS ytd_vat,
-									FORMAT(SUM(net),2) AS ytd_net
-								FROM
-									sap_db.tbl_sales_summary_auto_import 
-									WHERE fiscal_year='.$year.' '.$searchComp.'
-									GROUP BY acc_manager 
-								) tsh2 ON acc.acc_manager = tsh2.acc_manager
-								GROUP BY acc.acc_manager
-								UNION ALL
-								SELECT
-								2 AS id,
-								"PAGE TOTAL" AS acc_manager,
-								FORMAT(SUM(x.mtd_gross),2) AS total_mtd_gross,
-								FORMAT(SUM(x.mtd_vat),2) AS total_mtd_vat,
-								FORMAT(SUM(x.mtd_net),2) AS total_mtd_net,
-								FORMAT(SUM(x.ytd_gross),2) AS total_ytd_gross,
-								FORMAT(SUM(x.ytd_vat),2) AS total_ytd_vat,
-								FORMAT(SUM(x.ytd_net),2) AS total_ytd_net
-								FROM (
-								SELECT acc.acc_manager,
-								mtd_vat,
-								mtd_gross,
-								mtd_net,
-								ytd_gross,
-								ytd_vat,
-								ytd_net AS ytd_net FROM sap_db.tbl_sales_summary_auto_import acc 
-								LEFT JOIN 
-									(SELECT 
-										acc_manager,
-										SUM(gross) AS mtd_gross,
-										SUM(vat) AS mtd_vat,
-										SUM(net) AS mtd_net 
-									FROM
-										sap_db.tbl_sales_summary_auto_import tsh 
-									WHERE fiscal_year = '.$year.' AND month="'.ucfirst($month).'" '.$searchComp.'
-									GROUP BY acc_manager) tsh 
-									ON acc.acc_manager = tsh.acc_manager 
-								LEFT JOIN 
-									(SELECT 
-										acc_manager,
-										SUM(gross) AS ytd_gross,
-										SUM(vat) AS ytd_vat,
-										SUM(net) AS ytd_net 
-									FROM
-										sap_db.tbl_sales_summary_auto_import 
-									WHERE fiscal_year='.$year.' '.$searchComp.'
-									GROUP BY acc_manager) tsh2 
-									ON acc.acc_manager = tsh2.acc_manager
-								 GROUP BY acc.acc_manager 
-								ORDER BY acc.acc_manager) X ORDER BY id, acc_manager');
-}
+                //Executive report
+                $db->selectQuery('1 AS id,
+                        acc.acc_manager,
+                        tsh.doc_year,
+                        COALESCE(mtd_sales, "") AS mtd_sales,
+                        COALESCE(IF(mtd_cancelled <= -1 , mtd_cancelled, null), "") AS mtd_cancelled,
+                        COALESCE(mtd_total, "") AS mtd_total,
+                        COALESCE(ytd_sales, "") AS ytd_sales,
+                        COALESCE(IF(ytd_cancelled != 0, ytd_cancelled, null), "") AS ytd_cancelled,
+                        COALESCE(ytd_total, "") AS ytd_total','sap_db.tbl_sales_summary_auto_import acc 
+                            LEFT JOIN (
+                            SELECT 
+                            acc_manager,
+                            YEAR(doc_date) AS doc_year,
+                            FORMAT(SUM(sales),2) AS mtd_sales,
+                            FORMAT(SUM(cancelled),2) AS mtd_cancelled,
+                            FORMAT(SUM(total),2) AS mtd_total 
+                        FROM
+                            sap_db.tbl_sales_summary_auto_import tsh
+                        WHERE fiscal_year = '.$year.' AND month="'.ucfirst($month).'" '.$searchComp.'
+                        GROUP BY acc_manager 
+                        ) tsh ON acc.acc_manager = tsh.acc_manager
+                        LEFT JOIN (
+                        SELECT 
+                            acc_manager,
+                            FORMAT(SUM(sales),2) AS ytd_sales,
+                            FORMAT(SUM(cancelled),2) AS ytd_cancelled,
+                            FORMAT(SUM(total),2) AS ytd_total
+                        FROM
+                            sap_db.tbl_sales_summary_auto_import 
+                            WHERE fiscal_year='.$year.' '.$searchComp.'
+                            GROUP BY acc_manager 
+                        ) tsh2 ON acc.acc_manager = tsh2.acc_manager
+                        GROUP BY acc.acc_manager
+                        UNION ALL
+                        SELECT
+                        2 AS id,
+                        "PAGE TOTAL" AS acc_manager,
+                        "" AS doc_year,
+                        COALESCE(FORMAT(SUM(x.mtd_sales),2), "") AS total_mtd_sales,
+                        COALESCE(FORMAT(SUM(x.mtd_cancelled),2), "") AS total_mtd_cancelled,
+                        COALESCE(FORMAT(SUM(x.mtd_total),2), "") AS total_mtd_total,
+                        COALESCE(FORMAT(SUM(x.ytd_sales),2), "") AS total_ytd_sales,
+                        COALESCE(FORMAT(SUM(x.ytd_cancelled),2), "") AS total_ytd_cancelled,
+                        COALESCE(FORMAT(SUM(x.ytd_total),2), "") AS total_ytd_total
+                        FROM (
+                        SELECT acc.acc_manager,
+                        tsh.doc_year,
+                        mtd_cancelled,
+                        mtd_sales,
+                        mtd_total,
+                        ytd_sales,
+                        ytd_cancelled,
+                        ytd_total AS ytd_total FROM sap_db.tbl_sales_summary_auto_import acc 
+                        LEFT JOIN 
+                            (SELECT 
+                            acc_manager,
+                            YEAR(doc_date) AS doc_year,
+                            SUM(sales) AS mtd_sales,
+                            SUM(cancelled) AS mtd_cancelled,
+                            SUM(total) AS mtd_total 
+                            FROM
+                            sap_db.tbl_sales_summary_auto_import tsh 
+                            WHERE fiscal_year = '.$year.' AND month="'.ucfirst($month).'" '.$searchComp.'
+                            GROUP BY acc_manager) tsh 
+                            ON acc.acc_manager = tsh.acc_manager 
+                        LEFT JOIN 
+                            (SELECT 
+                            acc_manager,
+                            SUM(sales) AS ytd_sales,
+                            SUM(cancelled) AS ytd_cancelled,
+                            SUM(total) AS ytd_total 
+                            FROM
+                            sap_db.tbl_sales_summary_auto_import 
+                            WHERE fiscal_year='.$year.' '.$searchComp.'
+                            GROUP BY acc_manager) tsh2 
+                            ON acc.acc_manager = tsh2.acc_manager
+                            GROUP BY acc.acc_manager 
+                        ORDER BY acc.acc_manager) X ORDER BY id, acc_manager 
+                    ');
+            }
 
 
 //Data fetched from mysqli.
@@ -162,12 +191,12 @@ $objPHPExcel = new PHPExcel();
 // Add Headers
 $objPHPExcel->setActiveSheetIndex(0)
 						->setCellValue('A3', 'Name')
-						->setCellValue('B3', 'Gross')
-						->setCellValue('C3', 'Vat')
-						->setCellValue('D3', 'Net')
-						->setCellValue('E3', 'Gross')
-						->setCellValue('F3', 'Vat')
-						->setCellValue('G3', 'Net');
+						->setCellValue('B3', 'Sales')
+						->setCellValue('C3', 'Cancelled')
+						->setCellValue('D3', 'Total')
+						->setCellValue('E3', 'Sales')
+						->setCellValue('F3', 'Cancelled')
+						->setCellValue('G3', 'Total');
 
 $sheet = $objPHPExcel->getActiveSheet();
 
@@ -200,12 +229,12 @@ for ($i=0; $i < count($data['aaData']) ; $i++) {
 	$ii =  $i+4;
 	$objPHPExcel->setActiveSheetIndex(0)
 							->setCellValue('A'.$ii, $data['aaData'][$i]['acc_manager'])
-							->setCellValue('B'.$ii, $data['aaData'][$i]['mtd_gross'])
-							->setCellValue('C'.$ii, $data['aaData'][$i]['mtd_vat'])
-							->setCellValue('D'.$ii, $data['aaData'][$i]['mtd_net'])
-							->setCellValue('E'.$ii, $data['aaData'][$i]['ytd_gross'])
-							->setCellValue('F'.$ii, $data['aaData'][$i]['ytd_vat'])
-							->setCellValue('G'.$ii, $data['aaData'][$i]['ytd_net']);
+							->setCellValue('B'.$ii, $data['aaData'][$i]['mtd_sales'])
+							->setCellValue('C'.$ii, $data['aaData'][$i]['mtd_cancelled'])
+							->setCellValue('D'.$ii, $data['aaData'][$i]['mtd_total'])
+							->setCellValue('E'.$ii, $data['aaData'][$i]['ytd_sales'])
+							->setCellValue('F'.$ii, $data['aaData'][$i]['ytd_cancelled'])
+							->setCellValue('G'.$ii, $data['aaData'][$i]['ytd_total']);
 }
 
 // Rename worksheet
