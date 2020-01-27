@@ -68,21 +68,44 @@ switch ($action ) {
 			$allowed_user_type = array(2,3,4); //Sales, Relation, Techinical
 			if(in_array(Utils::getValue('user_type'), $allowed_user_type)){
 
-				//Get account manager name.
+				//Get logged in account manager name.
 				$user_id = Utils::getValue('user_id');
-				$conn->selectQuery('firstname,lastname','tbl_accounts WHERE id = '.$user_id.' LIMIT 1');
+				$conn->selectQuery('UPPER(CONCAT(lastname," ",firstname)) AS logged_mngr','tbl_accounts WHERE id = '.$user_id.' LIMIT 1');
 				$resUser  = $conn->getFields();
-				$acc_mngr = strtoupper($resUser['aaData'][0]['lastname']." ".$resUser['aaData'][0]['firstname']);
+                $acc_mngr = $resUser['aaData'][0]['logged_mngr'];
 
-				$conn->fields = null; //empty the previous result.
-
+                
 				//Check if account manager is exist in sales summary table.
 				$conn->selectQuery('*','sap_db.tbl_sales_summary_auto_import WHERE acc_manager = "'.$acc_mngr.'" '.$searchComp.' LIMIT 1');
 				$isExist  = $conn->getFields();
 
 				if(count($isExist['aaData']) > 0){
-					$conn->fields = null; //empty the previous result.
+                    $conn->fields = null; //empty the previous result.
+                    
+                        $view_tag_acc = array($acc_mngr);
+                        //View other sales summary report
+                        //Get tag account manager.
+                        $conn->selectQuery('app_reports','tbl_app_action WHERE id_account= '.$user_id.' LIMIT 1');
+                        $resTag  = $conn->getFields();
 
+                        if(count($resTag['aaData']) > 0){
+                            $tag_mngr = json_decode($resTag['aaData'][0]['app_reports']);
+                            $parse_tag_mngr = ($tag_mngr && property_exists($tag_mngr, 'tag_acct_mgr') ? $tag_mngr->tag_acct_mgr : null);
+                            $conn->fields = null; //empty the previous result.
+
+                            if($parse_tag_mngr != null){
+                                $strTag = implode($parse_tag_mngr, ',');
+
+                                $conn->selectQuery('UPPER(CONCAT(ac.lastname," ", ac.firstname)) AS acct_mngr','tbl_client_accounts ca
+                                LEFT JOIN tbl_accounts ac ON ca.account_id = ac.id
+                                WHERE ca.id IN ('.$strTag.') ');
+                                $resTagName  = $conn->getFields();
+                
+                                $view_tag_acc = array_merge( $view_tag_acc, array_column($resTagName['aaData'], 'acct_mngr'));
+                            }
+
+                        }
+                        $conn->fields = null; //empty the previous result.
 						$conn->selectQuery('1 AS id,
 									    YEAR(tsh.doc_date) AS doc_year,
 									    tsh.acc_manager,
@@ -100,11 +123,11 @@ switch ($action ) {
 										    FORMAT(SUM(total), 2) AS ytd_total 
 										  FROM
 										    sap_db.tbl_sales_summary_auto_import
-										  WHERE fiscal_year = '.$year.' AND acc_manager="'.$acc_mngr.'" '.$searchComp.'
-										  ) tsh2 
+										  WHERE fiscal_year = '.$year.' AND acc_manager IN ("'.implode($view_tag_acc, '","').'") '.$searchComp.'
+										  GROUP BY acc_manager ) tsh2 
 										  ON tsh.acc_manager = tsh2.acc_manager 
 										   WHERE tsh.fiscal_year ='.$year.'
-										   AND tsh.month ="'.ucfirst($month).'" AND tsh.acc_manager="'.$acc_mngr.'" '.$joinSearchComp.' ');
+										   AND tsh.month ="'.ucfirst($month).'" AND tsh.acc_manager IN ("'.implode($view_tag_acc, '","').'") '.$joinSearchComp.' GROUP BY tsh.acc_manager');
 						$resSummary = $conn->getFields();
 				}
 				else{
@@ -216,7 +239,7 @@ switch ($action ) {
                                 IF(cancelled <= -1, FORMAT(cancelled ,2), "") AS cancelled, 
                                 IF(ref_inv > 0, ref_inv, "") AS ref_inv, 
                                 IF(ref_doc_date != "0000-00-00", ref_doc_date, "") AS ref_doc_date ','sap_db.tbl_sales_summary_auto_import 
-								WHERE cancelled <= 0  AND acc_manager="'.$acc_manager.'" AND fiscal_year = '.$year.' AND month="'.ucfirst($month).'" '.$searchComp.'');
+								WHERE cancelled < 0  AND acc_manager="'.$acc_manager.'" AND fiscal_year = '.$year.' AND month="'.ucfirst($month).'" '.$searchComp.'');
 							 
 							 if($conn->getNumRows() > 0){
 							 	$resMonthCancel = $conn->getFields();

@@ -19,22 +19,24 @@ var reportSalesPerAccount = {
         var selectedMonth = $("#select-month-sales option:selected").val();
         var selectedYear = $("#select-year-sales option:selected").val();
         var selectedComp = $("#select-company-sales option:selected").val();
+        var user_type = jwt.get('user_type');
         $.ajax({
             type: "GET",
             url: assets + "php/company/sapSalesSummary.php",
             cache: false,
-            data: { action: "sales-summary", month: selectedMonth, year: selectedYear, company: selectedComp, user_id: jwt.get('user_id'), user_type: jwt.get('user_type') },
+            data: { action: "sales-summary", month: selectedMonth, year: selectedYear, company: selectedComp, user_id: jwt.get('user_id'), user_type: user_type },
             dataType: 'json',
             success: function (data, status, xhr) {
                 if (data.length > 0) {
                     var i = 1;
-                    var isEmptyData = Object.values(data[0]).some(function (val) {
-                        return val == "";
-                    });
-                    if (isEmptyData) {
-                        view = "<tr><td colspan='8'><h5 class='text-center'>No data available in the table</h5></td></tr>";
-                        return;
-                    }
+                    // var isEmptyData = Object.values(data[0]).some(function (val) {
+                    //     return val == "";
+                    // });
+                    // if (isEmptyData) {
+                    //     console.log(1111);
+                    //     view = "<tr><td colspan='8'><h5 class='text-center'>No data available in the table</h5></td></tr>";
+                    //     return;
+                    // }
                     $.each(data, function (employ_key, employ) {
                         view += '<tr>';
                         view += '<td>' + (i++) + '</td>';
@@ -63,7 +65,8 @@ var reportSalesPerAccount = {
                 }
             },
             complete: function (data) {
-                $("#reportSales > tbody").html(view);
+                var tr_bold = (user_type == 1 ? "last-tr-bold" : "");
+                $("#reportSales > tbody").html(view).addClass(tr_bold);
 
             }
         });
@@ -168,7 +171,7 @@ var reportSalesPerAccount = {
                     text: "<i class='fa fa-file-excel-o'></i>",
                     titleAttr: 'Export to Excel',
                     className: 'dt-summary-excel',
-                    filename: 'Sales Details ' + selectedMonth.toUpperCase() + "-" + docYear + compTitleHeader
+                    filename: 'Cancelled ' + selectedMonth.toUpperCase() + "-" + docYear + compTitleHeader
                 }
             ],
             "columns": [

@@ -17,10 +17,10 @@ if(Utils::getIsset('username') || Utils::getIsset('password')){
 	$db = Database::getInstance();
 
 	if($username && $password){
-		$db->selectQuery('a.id AS user_id,CONCAT(a.firstname," ",a.lastname) AS fullname, a.location, a.branches AS branch, app.app_mif, app.app_inventory, app.app_mrf, app.app_pm,
+		$db->selectQuery('a.id AS user_id,CONCAT(a.firstname," ",a.lastname) AS fullname, a.location, a.branches AS branch, app.app_mif, app.app_inventory, app.app_mrf, app.app_pm, app.app_reports,
 								(SELECT CONVERT(GROUP_CONCAT(id SEPARATOR ",") USING "utf8") FROM tbl_company WHERE id_client_mngr = ca.id) AS companies, 
 								a.accountrole AS user_role, a.status, a.branches_mrf AS branch_mrf, a.account_type AS user_type, a.mrf_type AS user_mrf_flag, a.email, a.branch_pm,
-								tap.app_mif As action_mif, tap.app_invnt As action_invnt, tap.app_mrf As action_mrf, tap.app_pm As action_pm, acct.acc_mif_flags AS user_mif_flag, a.pm_type',
+								tap.app_mif As action_mif, tap.app_invnt As action_invnt, tap.app_mrf As action_mrf, tap.app_pm As action_pm, tap.app_reports As action_reports, acct.acc_mif_flags AS user_mif_flag, a.pm_type',
 			                   'tbl_accounts a 
 			                    LEFT JOIN tbl_app_module app ON a.id = app.account_id 
 			                    LEFT JOIN tbl_account_type acct ON a.account_type = acct.id
@@ -43,8 +43,8 @@ if(Utils::getIsset('username') || Utils::getIsset('password')){
 						'user_id' 	=>	$res['user_id'],
 						'fullname' 	=>	$res['fullname'],
 						'location' 	=>	$res['location'],
-						'app_module' 	=> array('app_mif' => $res['app_mif'], 'app_invnt' => $res['app_inventory'], 'app_mrf' => $res['app_mrf'], 'app_pm' => $res['app_pm'] ),
-						'app_module_action' 	=> array('action_mif' => $res['action_mif'], 'action_invnt' => $res['action_invnt'], 'action_mrf' => $res['action_mrf'], 'action_pm' => $res['action_pm'] ),
+						'app_module' 	=> array('app_mif' => $res['app_mif'], 'app_invnt' => $res['app_inventory'], 'app_mrf' => $res['app_mrf'], 'app_pm' => $res['app_pm'], 'app_reports' => $res['app_reports'] ),
+						'app_module_action' 	=> array('action_mif' => $res['action_mif'], 'action_invnt' => $res['action_invnt'], 'action_mrf' => $res['action_mrf'], 'action_pm' => $res['action_pm'], 'action_reports' => $res['action_reports'] ),
 						'companies' 	=>	$res['companies'],
 						'user_role' 	=>	$res['user_role'],
 						'user_id' 		=>	$res['user_id'],

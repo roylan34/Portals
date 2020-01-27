@@ -156,6 +156,14 @@ var dtAccounts = {
                     // $select.chosen();
                     // $("#slctAccountBranchMrf").val(0).prop('disabled',false).trigger('chosen:updated');  // with plugin
                 }
+
+                //Reports
+                if (disableRead.includes(thisVal)) { //disable radio button if dept is not sales & RO
+                    $("#container-tagAcctMngr").show();
+                }
+                else {
+                    $("#container-tagAcctMngr").hide();
+                }
             });
 
             $("#slctPmType").change(function (e) { //Show/Hide option ALL and --Branch--
@@ -220,9 +228,15 @@ var dtAccounts = {
                                 $("#chkReport").prop('checked', true);
                                 $("#report-pages").prop('disabled', false);
                                 var page_report = (val.action_reports ? JSON.parse(val.action_reports) : null);
-                                if (Object.keys(page_report).length) {
-                                    for (var key in page_report) {
-                                        $("input[name=" + key + "][value=" + page_report[key] + "]").prop('checked', true);
+
+                                if (page_report) {
+                                    if (page_report.action && Object.keys(page_report.action).length > 0) { //Checkbox Report
+                                        for (var key in page_report.action) {
+                                            $("input[name=" + key + "][value=" + page_report.action[key] + "]").prop('checked', true);
+                                        }
+                                    }
+                                    if (page_report.tag_acct_mgr && page_report.tag_acct_mgr.length > 0) { //Multiple Account Manager
+                                        $("#tagAcctMngr").chosen().val(page_report.tag_acct_mgr).trigger('chosen:updated');
                                     }
                                 }
                             }
@@ -230,6 +244,7 @@ var dtAccounts = {
                                 $("#chkReport").prop('checked', false);
                                 $("#report-pages").prop('disabled', true);
                             }
+
                         });
                     },
                     error: function (data, xhr, status) { alert("Something went wrong."); }
@@ -239,6 +254,7 @@ var dtAccounts = {
                 // autoDrpDown.getBranchName(null,"#slctAccountLocation");
                 $("#slctAccountLocation").val(0).trigger('chosen:updated');
                 $("#txtDateCreated").text(getTodayDate());
+                $("#tagAcctMngr").prop('disabled', true).trigger('chosen:updated');
             }
         });
     },
@@ -269,11 +285,12 @@ var dtAccounts = {
         var action_invnt = $("input[name='radioInvntActions']:checked").val();
         var action_mrf = $("input[name='radioMrfActions']:checked").val();
         var app_report = $("input[name='chkReport']:checked").val() || '';
-        var action_report = {};
+        var action_report = { action: {}, tag_acct_mgr: [] };
         $("#report-pages label input[type=checkbox]:checked").map(function (i) {
             var elem = $(this).attr('name');
-            return action_report[elem] = this.value;
+            return action_report.action[elem] = this.value;
         });
+        action_report.tag_acct_mgr = $("#tagAcctMngr").chosen().val();
 
         var data = {
             action: 'update', idaccount: id, username: username, pass: pass, fname: fname, mname: mname, lname: lname, email: email,
@@ -364,6 +381,10 @@ var dtAccounts = {
             complete: function () {
                 if (isResetForm) { resetForm("#frmAccount"); }
                 $btn.button('reset');
+
+                //Reports
+                $("#container-tagAcctMngr").hide();
+                $("#tagAcctMngr").chosen().val(0).trigger('chosen:updated');
             }
 
         });

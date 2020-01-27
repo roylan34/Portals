@@ -351,12 +351,19 @@
                                                     <label><input type="checkbox" name="chkReportSummary" value="r"
                                                             id="chkReportSummary"></label>
                                                 </div>
+
                                             </div>
+                                        </div>
+                                        <div class="col-md-offset-1 col-md-9 col-sm-12" style="margin-top: 10px;"
+                                            id="container-tagAcctMngr">
+                                            <select class="form-control" id="tagAcctMngr"
+                                                data-placeholder="Account Manager" multiple></select>
+                                            <small style="color: #808080">Tag user that they want to see other Sales
+                                                Summary</small>
                                         </div>
                                     </fieldset>
 
                                 </div>
-
 
                             </div>
                         </div>
@@ -385,7 +392,7 @@
         }
     </style>
     <script type="text/javascript">
-
+        autoDrpDown.getClientName("#tagAcctMngr", "100%");
         $(document).ready(function () {
             $('[data-toggle="popover"]').popover(); //Account role popover.
 
@@ -430,10 +437,12 @@
                 else if ($(this).is('#chkReport')) {
                     if ($(this).is(':checked')) {
                         $("#report-pages").prop('disabled', false);
+                        $("#tagAcctMngr").prop('disabled', false).trigger('chosen:updated');
                         $("#report-pages label input[type=checkbox]").prop('checked', true);
                     } else {
-                        $("#report-pages").prop('disabled', true);
+                        $("#report-pages, #tagAcctMngr").prop('disabled', true);
                         $("#report-pages label input[type=checkbox]").prop('checked', false);
+                        $("#tagAcctMngr").val(0).trigger('chosen:updated');
                     }
                 }
                 else {
