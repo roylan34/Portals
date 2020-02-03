@@ -334,14 +334,14 @@ var dtCurrentSched = {
             action: 'edit', id_pm: id, company: company, sched_date: sched_date, technician: technician, contact_name: contact_name, contact_no: contact_no, email: contact_email,
             department: contact_dept, old_technician: old_technician, pmnumber: pmnumber
         };
-        var hiddenSchedDateEntered = $("#hdnCurSchedDateEntered").val();
-        var strDateEntered = new Date(hiddenSchedDateEntered);
-        var isoDateEntered = strDateEntered.toISOString().split("T")[0];
-        //Check if schedule date can be change if sched date is not less than Datetime Entered
-        if (sched_date < isoDateEntered) {
-            promptMSG("custom", "Not allowed to change Schedule Date that less than DateTime Entered. Please file Schedule Date ahead of time.", "Warning!");
-            return;
-        }
+        // var hiddenSchedDateEntered = $("#hdnCurSchedDateEntered").val();
+        // var strDateEntered = new Date(hiddenSchedDateEntered);
+        // var isoDateEntered = strDateEntered.toISOString().split("T")[0];
+        // //Check if schedule date can be change if sched date is not less than Datetime Entered
+        // if (sched_date < isoDateEntered) {
+        //     promptMSG("custom", "Not allowed to change Schedule Date that less than DateTime Entered. Please file Schedule Date ahead of time.", "Warning!");
+        //     return;
+        // }
         $.ajax({
             type: 'POST',
             url: assets + 'php/pm/schedule.php',

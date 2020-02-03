@@ -96,7 +96,7 @@ switch ($action ) {
                             if($parse_tag_mngr != null){
                                 $strTag = implode($parse_tag_mngr, ',');
 
-                                $conn->selectQuery('UPPER(CONCAT(ac.lastname," ", ac.firstname)) AS acct_mngr','tbl_client_accounts ca
+                                $conn->selectQuery('UPPER(CONCAT(ac.lastname," ", ac.firstname)) AS acct_mngr','sap_db.tbl_client_accounts ca
                                 LEFT JOIN tbl_accounts ac ON ca.account_id = ac.id
                                 WHERE ca.id IN ('.$strTag.') ');
                                 $resTagName  = $conn->getFields();

@@ -168,7 +168,8 @@ if(Utils::getIsset('action')){
 													      app_pm     = '".$action_pm."',
 													      app_invnt  = '".$action_invnt."',
                                                           app_mrf    = '".$action_mrf."',
-                                                          app_reports= '".$action_report."'" ,"id= '".$id."'");
+                                                          app_reports= '".$action_report."'" ,
+                                                          'id_account= '.$id.' ');
 
 
 

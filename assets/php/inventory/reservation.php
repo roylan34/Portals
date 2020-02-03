@@ -31,7 +31,8 @@ if(Utils::getIsset('action')){
 		case 'add':
 	          	$arr_serialnum 	 = explode(',',Utils::uppercase($serialnum));
 		        $is_duplicate_sn = Utils::chckDuplicateArrayVal($arr_serialnum);
-		        $reserved_sn 	 = Utils::chckDuplicateArrayVal(checkSnReserved($arr_serialnum, $db, 'add'));
+                $reserved_sn 	 = Utils::chckDuplicateArrayVal(checkSnReserved($arr_serialnum, $db, 'add'));
+                $db->fields = null;
 		        if(count($is_duplicate_sn) > 0){ //Count if has value mean has duplicate SN.
 		          	$data['aaData'][] = "Duplicate S/N: <em>" . implode(',',$is_duplicate_sn)."</em>";
 		        }
@@ -94,7 +95,7 @@ function checkSnReserved($sn, $db, $action){
 
 	switch ($action) {
 		case 'add':
-				$db->selectQuery("serial_number","tbl_invnt_reservation WHERE (status = '' || status is null) AND serial_number IN ('".implode("','",$sn)."')");
+				$db->selectQuery("serial_number","tbl_invnt_reservation WHERE (status = 'RESERVED' || status = 'CLOSE') AND serial_number IN ('".implode("','",$sn)."')");
 				$res_sn = $db->getFields();
 				if($db->getNumRows() > 0){
 					 return array_map(function($val){
@@ -110,7 +111,7 @@ function checkSnReserved($sn, $db, $action){
 				$sn_old = Utils::getValue('sn_old');
 
 				if($sn_old != $sn){
-					$db->selectQuery("serial_number","tbl_invnt_reservation WHERE (status = '' || status is null) AND serial_number ='".$sn."' LIMIT 1");
+					$db->selectQuery("serial_number","tbl_invnt_reservation WHERE (status = 'RESERVED' || status = 'CLOSE') AND serial_number ='".$sn."' LIMIT 1");
 					$res_sn = $db->getFields();
 					if($db->getNumRows() > 0){
 						return $res_sn['aaData'][0];
