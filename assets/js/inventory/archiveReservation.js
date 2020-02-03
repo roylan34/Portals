@@ -81,7 +81,7 @@ var dtArchiveReservation = {
                 { "data": "serial_number" },
                 {
                     "data": function (data) {
-                        return data.id_brand || '';
+                        return data.brand || '';
                     }
                 },
                 {

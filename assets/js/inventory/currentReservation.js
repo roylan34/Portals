@@ -361,9 +361,11 @@ var dtCurrentInvtReservation = {
         if (aging > 30) {
             var confr = confirm('This reservation is exceeded in 30 days aging. \n Please click the OK to update the Date needed if reservation is still valid?');
             if (confr) {
+                console.log(1);
                 self.dtCurrentInvtReservation.modalShow(id);
             }
             else {
+                console.log(2);
                 defaultAction();
             }
         }
@@ -395,24 +397,22 @@ var dtCurrentInvtReservation = {
             else if ($(inst[0]).hasClass('btnEdit')) { //Edit
                 var id = $(inst[0]).data('id') || '';
                 var aging = $(inst[0]).data('aging') || '';
-                self.dtCurrentInvtReservation.checkAging(aging, id, function () {
-                    self.dtCurrentInvtReservation.modalShow(id)
-                });
+                // self.dtCurrentInvtReservation.checkAging(aging, id, function () {
+                self.dtCurrentInvtReservation.modalShow(id)
+                // });
             }
             else if ($(inst[0]).hasClass('btnRemove')) { //Remove
                 var id = $(inst[0]).data('id') || '';
-                var status = $(inst[0]).data('status') || '';
                 var aging = $(inst[0]).data('aging') || '';
                 self.dtCurrentInvtReservation.checkAging(aging, id, function () {
-                    self.dtCurrentInvtReservation.updateStatus(id, status);
+                    self.dtCurrentInvtReservation.updateStatus(id, 'remove');
                 });
             }
             else if ($(inst[0]).hasClass('btnClose')) { //Close
                 var id = $(inst[0]).data('id') || '';
-                var status = $(inst[0]).data('status') || '';
                 var aging = $(inst[0]).data('aging') || '';
                 self.dtCurrentInvtReservation.checkAging(aging, id, function () {
-                    self.dtCurrentInvtReservation.updateStatus(id, status);
+                    self.dtCurrentInvtReservation.updateStatus(id, 'close');
                 });
             }
         });
