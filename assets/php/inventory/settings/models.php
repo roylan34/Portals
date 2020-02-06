@@ -27,7 +27,7 @@ if(Utils::getIsset('action')){
 	$action_validate = Utils::getValue('action_validate');
 
 	switch ($action) {
-		case 'add_':
+		case 'add':
 				$db->insertQuery('tbl_model','id_brand,model_name,id_category,id_type',
 												'"'.$brand.'",
 												"'.Utils::uppercase($model_name).'",
