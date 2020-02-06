@@ -54,7 +54,7 @@ if(Utils::getValue('doc_from') && Utils::getValue('doc_to'))	{
 			
 			if(intval($requestData['length']) >= 1 ) { $limit = ' LIMIT '.$requestData['start'].' ,'.$requestData['length'].''; }
 
-				$conn->selectQuery('id, sap_code,company_name,acc_manager,fiscal_year,month,doc_num,doc_date,baseref,customer_po,item_code,description,quantity,pricevat,FORMAT(vat,2) AS vat,FORMAT(gross,2) AS gross, FORMAT(net, 2) AS net','sap_db.tbl_sales_history_auto_import 
+				$conn->selectQuery('id, sap_code,company_name,acc_manager,fiscal_year,month,doc_num,doc_date,baseref,"" AS customer_po,item_code,description,quantity,pricevat,FORMAT(vat,2) AS vat,FORMAT(gross,2) AS gross, FORMAT(net, 2) AS net','sap_db.tbl_sales_history_auto_import 
 										WHERE id > 0 AND sap_code="'.$sap_code.'" '.$search.' '.$limit.'');
 				$row = $conn->getFields(); //Get all rows
 
