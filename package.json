@@ -1,5 +1,5 @@
 {
-    "name": "Machine Portal System",
+    "name": "machine-portal-system",
     "version": "180320",
     "main": "dist/js/app.min.js",
     "private": true,
